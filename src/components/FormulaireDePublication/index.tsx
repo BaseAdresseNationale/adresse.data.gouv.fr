@@ -11,8 +11,7 @@ import { getCommune } from '@/lib/api-geo'
 import { Commune } from '@/types/api-geo.types'
 import { validateHabilitationPinCode, createHabilitation, createRevision, getHabilitation, sendHabilitationPinCode, getCurrentRevision, publishRevision } from '@/lib/api-depot'
 import Alert from '@codegouvfr/react-dsfr/Alert'
-import Image from 'next/image'
-import { getCommuneFlagProxy } from '@/lib/api-blasons-communes'
+import CommuneLogo, { COMMUNE_LOGO_PAGE_PRESET } from '@/components/CommuneLogo/CommuneLogo'
 import { HabilitationMethod } from './steps/HablitationMethod'
 import { Habilitation, HabilitationStatus, Revision } from '@/types/api-depot.types'
 import { PinCodeValidation } from './steps/PinCodeValidation'
@@ -48,7 +47,7 @@ const getStepIndex = (revision?: Revision, habilitation?: Habilitation) => {
 }
 
 interface FormulaireDePublicationProps {
-  initialCommune?: Commune & { flagUrl: string }
+  initialCommune?: Commune & { flagUrl?: string }
   initialRevision?: Revision
   initialHabilitation?: Habilitation
 }
@@ -57,7 +56,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<Error>()
   const [emailSelected, setEmailSelected] = useState<string | undefined>()
-  const [commune, setCommune] = useState<Commune & { flagUrl: string } | undefined>(initialCommune)
+  const [commune, setCommune] = useState<Commune & { flagUrl?: string } | undefined>(initialCommune)
   const [habilitation, setHabilitation] = useState<Habilitation | undefined>(initialHabilitation)
   const [revision, setRevision] = useState<Revision | undefined>(initialRevision)
   const [communeCurrentRevision, setCommuneCurrentRevision] = useState<Revision>()
@@ -73,7 +72,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
   }, [revision, habilitation, stepIndex])
 
   const getReport = async (file?: File): Promise<ValidateType> => {
-    const report: ParseFileType | ValidateType = await validate(file as any, { profile: '1.3' })
+    const report: ParseFileType | ValidateType = await validate(file as any)
     if (!report.parseOk) {
       throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
     }
@@ -99,7 +98,6 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
 
       const [codeCommune] = communes
       const commune = await getCommune(codeCommune)
-      const communeFlagUrl = await getCommuneFlagProxy(codeCommune)
 
       const habilitation = await createHabilitation(codeCommune)
       setHabilitation(habilitation)
@@ -113,7 +111,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
       }
       catch {}
 
-      setCommune({ ...commune, flagUrl: communeFlagUrl })
+      setCommune({ ...commune })
     }
     catch (e) {
       setError(e as Error)
@@ -241,7 +239,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
       <StyledWrapper>
         {(stepIndex > 0 && commune) && (
           <Link href={`/commune/${commune.code}`} className="commune-link">
-            <Image width={80} height={80} alt="logo commune par défault" src={commune.flagUrl} />
+            <CommuneLogo src={commune.flagUrl} codeCommune={commune.code} alt="Logo de la commune" {...COMMUNE_LOGO_PAGE_PRESET} />
             <b>{commune.nom} - {commune.code}</b>
           </Link>
         )}

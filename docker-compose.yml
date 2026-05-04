@@ -16,7 +16,6 @@ services:
       - ./.env.default:/app/.env.default
       - ./.git:/app/.git
       - ./.next:/app/.next
-      - ./.storybook:/app/.storybook
     ports:
       - "3000:3000"
     environment:
@@ -78,7 +77,13 @@ services:
       - BREVO_API_KEY=${BREVO_API_KEY}
       # Altcha
       - NEXT_PUBLIC_ALTCHA_API_URL=${NEXT_PUBLIC_ALTCHA_API_URL}
-
+      # Grist
+      - NEXT_PUBLIC_GRIST_API_URL=${NEXT_PUBLIC_GRIST_API_URL}
+      - NEXT_PUBLIC_GRIST_DOC_ID=${NEXT_PUBLIC_GRIST_DOC_ID}
+      - NEXT_PUBLIC_GRIST_TABLE_ID=${NEXT_PUBLIC_GRIST_TABLE_ID}
+      - NEXT_PUBLIC_GRIST_BAN_ORGANIZATION_ID=${NEXT_PUBLIC_GRIST_BAN_ORGANIZATION_ID}
+      - NEXT_PUBLIC_GRIST_WORKSPACE_ID=${NEXT_PUBLIC_GRIST_WORKSPACE_ID}
+      - NEXT_PUBLIC_GRIST_API_TOKEN=${NEXT_PUBLIC_GRIST_API_TOKEN}
       # ProConnect
       - HOST=${HOST}
       - CALLBACK_URL=${CALLBACK_URL}

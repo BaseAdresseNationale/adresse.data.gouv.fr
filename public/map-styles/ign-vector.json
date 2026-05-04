@@ -8,7 +8,7 @@
       "type": "vector",
       "tiles": ["https://data.geopf.fr/tms/1.0.0/PLAN.IGN/{z}/{x}/{y}.pbf"],
       "scheme": "xyz",
-      "attribution": "<a target='_blank' href='https://geoservices.ign.fr/planign'>© IGN</a>",
+      "attribution": "<a target='_blank' href='https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_PLAN-IGN'>© IGN</a>",
       "maxzoom":18
     },
     "cadastre": {
@@ -453,374 +453,6 @@
       }
     },
     {
-      "id": "oro - courbe et cuvette maitresse",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_MAITRESSE", "CUVETTE_MAITRESSE"],
-      "paint": {
-        "line-color": "#D9C8A9",
-        "line-width": {
-          "stops": [
-            [13, 1.7],
-            [15, 2]
-          ]
-        }
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette normale",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_NORMALE", "CUVETTE_NORMALE"],
-      "paint": {
-        "line-color": "#D9C8A9",
-        "line-width": {
-          "stops": [
-            [13, 1],
-            [15, 1.2]
-          ]
-        }
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette intercalaire",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "butt",
-        "line-join": "round"
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "CNV_INTERCALAIRE",
-        "CUVETTE_INTERCAL",
-        "CNV_SS_INTERCALAIRE"
-      ],
-      "paint": {
-        "line-color": "#D9C8A9",
-        "line-width": 0.7,
-        "line-dasharray": [20, 7]
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette glacier maitresse",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "CNV_GLACIER_MAITRESSE",
-        "CUV_GLACIER_MAITRESSE"
-      ],
-      "paint": {
-        "line-color": "#A4BFD9",
-        "line-width": {
-          "stops": [
-            [13, 1.7],
-            [15, 2]
-          ]
-        }
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette glacier normale",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_GLACIER_NORMALE", "CUV_GLACIER_NORMALE"],
-      "paint": {
-        "line-color": "#A4BFD9",
-        "line-width": {
-          "stops": [
-            [13, 1],
-            [15, 1.2]
-          ]
-        }
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette glacier intercalaire",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "butt",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_GLACIER_INTERCAL", "CUV_GLACIER_INTERCAL"],
-      "paint": {
-        "line-color": "#A4BFD9",
-        "line-width": {
-          "stops": [
-            [13, 0.7],
-            [15, 0.9]
-          ]
-        },
-        "line-dasharray": [20, 7]
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette rocher maitresse",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_ROCHER_MAITRESSE", "CUV_ROCHER_MAITRESSE"],
-      "paint": {
-        "line-color": "#AAAAAA",
-        "line-width": 1.7
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette rocher normale",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_ROCHER_NORMALE", "CUV_ROCHER_NORMALE"],
-      "paint": {
-        "line-color": "#AAAAAA",
-        "line-width": 1
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette rocher intercalaire",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "butt",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_ROCHER_INTERCAL", "CUV_ROCHER_INTERCAL"],
-      "paint": {
-        "line-color": "#AAAAAA",
-        "line-width": {
-          "stops": [
-            [13, 0.7],
-            [15, 0.9]
-          ]
-        },
-        "line-dasharray": [20, 7]
-      }
-    },
-    {
-      "id": "oro - courbe et cuvette bathymetrique",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["in", "symbo", "CNV_BATHYMETRIQUE", "CUV_BATHYMETRIQUE"],
-      "paint": {
-        "line-color": "#0000FF",
-        "line-width": 1
-      }
-    },
-    {
-      "id": "oro lin - talus",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_lin",
-      "minzoom": 14,
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["==", "symbo", "TALUS"],
-      "paint": {
-        "line-color": "#D9C8A9",
-        "line-width": 1
-      }
-    },
-    {
-      "id": "oro lin - talus - trait perpendiculaire",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "oro_lin",
-      "minzoom": 14,
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "butt",
-        "line-join": "round"
-      },
-      "filter": ["==", "symbo", "TALUS"],
-      "paint": {
-        "line-color": "#D9C8A9",
-        "line-width": {
-          "stops": [
-            [14, 7],
-            [16, 9]
-          ]
-        },
-        "line-dasharray": [0.1, 1],
-        "line-translate": [0, 4]
-      }
-    },
-    {
-      "id": "toponyme - cote de courbe normale",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "minzoom": 13,
-      "maxzoom": 21,
-      "layout": {
-        "symbol-placement": "line",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [13, 10],
-            [15, 13]
-          ]
-        },
-        "text-anchor": "center",
-        "text-rotation-alignment": "map",
-        "text-pitch-alignment": "viewport",
-        "text-keep-upright": false,
-        "text-max-angle": 20,
-        "text-max-width": 100,
-        "text-font": ["Open Sans Regular"],
-        "visibility": "visible"
-      },
-      "filter": [
-        "all",
-        ["!=", "texte", "0"],
-        ["==", "hors_zone", "true"],
-        ["in", "symbo", "CNV_MAITRESSE", "CUVETTE_MAITRESSE"]
-      ],
-      "paint": {
-        "text-color": "#604A2F",
-        "text-halo-width": 0.5,
-        "text-halo-color": "#FFFFFF"
-      }
-    },
-    {
-      "id": "toponyme - cote de courbe rocher",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "minzoom": 13,
-      "maxzoom": 21,
-      "layout": {
-        "symbol-placement": "line",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [13, 10],
-            [15, 13]
-          ]
-        },
-        "text-anchor": "center",
-        "text-rotation-alignment": "map",
-        "text-pitch-alignment": "viewport",
-        "text-keep-upright": false,
-        "text-max-angle": 20,
-        "text-max-width": 100,
-        "text-font": ["Open Sans Regular"],
-        "visibility": "visible"
-      },
-      "filter": [
-        "all",
-        ["!=", "texte", "0"],
-        ["==", "hors_zone", "true"],
-        ["in", "symbo", "CNV_ROCHER_MAITRESSE", "CUV_ROCHER_MAITRESSE"]
-      ],
-      "paint": {
-        "text-color": "#333333",
-        "text-halo-width": 0.5,
-        "text-halo-color": "#FFFFFF"
-      }
-    },
-    {
-      "id": "toponyme - cote de courbe glacier",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "oro_courbe",
-      "minzoom": 13,
-      "maxzoom": 21,
-      "layout": {
-        "symbol-placement": "line",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [13, 10],
-            [15, 13]
-          ]
-        },
-        "text-anchor": "center",
-        "text-rotation-alignment": "map",
-        "text-pitch-alignment": "viewport",
-        "text-keep-upright": false,
-        "text-max-angle": 20,
-        "text-max-width": 100,
-        "text-font": ["Open Sans Regular"],
-        "visibility": "visible"
-      },
-      "filter": [
-        "all",
-        ["!=", "texte", "0"],
-        ["==", "hors_zone", "true"],
-        ["in", "symbo", "CNV_GLACIER_MAITRESSE", "CUV_GLACIER_MAITRESSE"]
-      ],
-      "paint": {
-        "text-color": "#629FD9",
-        "text-halo-width": 0.5,
-        "text-halo-color": "#FFFFFF"
-      }
-    },
-    {
       "id": "hydro surfacique",
       "type": "fill",
       "source": "plan_ign",
@@ -1102,7 +734,6 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1128,7 +759,6 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 14,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1153,7 +783,6 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 14,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1179,7 +808,6 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 14,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1205,7 +833,6 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1231,7 +858,6 @@
       "source": "plan_ign",
       "source-layer": "routier_chemin_sou",
       "minzoom": 12,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1255,7 +881,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1281,7 +906,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 12,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1315,7 +939,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1339,7 +962,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1363,7 +985,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1397,7 +1018,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 11,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1422,7 +1042,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1457,7 +1076,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1484,7 +1102,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 7,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1519,7 +1136,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1546,7 +1162,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 7,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1573,7 +1188,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1599,7 +1213,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1624,7 +1237,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 12,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1658,7 +1270,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1682,7 +1293,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1706,7 +1316,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1740,7 +1349,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 11,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1772,7 +1380,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1807,7 +1414,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1841,7 +1447,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1877,7 +1482,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1910,7 +1514,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1938,7 +1541,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -1964,7 +1566,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -1998,7 +1599,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sou",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -2722,7 +2322,6 @@
       "source": "plan_ign",
       "source-layer": "bati_zai",
       "minzoom": 15,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -2898,7 +2497,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "filter": ["==", "symbo", "PISTE_CYCLABLE"],
+      "filter": ["in", "symbo", "PISTE_CYCLABLE", "VOIE_VERTE"],
       "paint": {
         "line-color": {
           "stops": [
@@ -3069,7 +2668,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3077,12 +2675,7 @@
       },
       "filter": ["==", "symbo", "NON_REVETUE_CARRO"],
       "paint": {
-        "line-color": {
-          "stops": [
-            [12, "#646464"],
-            [17, "#8C8C8C"]
-          ]
-        },
+        "line-color": "#646464",
         "line-width": {
           "stops": [
             [14, 3.2],
@@ -3170,12 +2763,7 @@
       },
       "filter": ["==", "symbo", "NON_CLASSEE_RESTREINT"],
       "paint": {
-        "line-color": {
-          "stops": [
-            [17, "#969696"],
-            [18, "#EDF1FF"]
-          ]
-        },
+        "line-color": "#969696",
         "line-width": {
           "stops": [
             [14, 3.2],
@@ -3198,12 +2786,7 @@
       },
       "filter": ["in", "symbo", "NON_CLASSEE_4", "NON_CLASSEE"],
       "paint": {
-        "line-color": {
-          "stops": [
-            [17, "#969696"],
-            [18, "#EDF1FF"]
-          ]
-        },
+        "line-color": "#969696",
         "line-width": {
           "stops": [
             [14, 3.2],
@@ -3239,8 +2822,7 @@
           "stops": [
             [12, "#8C8C8C"],
             [13, "#B4B4B4"],
-            [17, "#B4B4B4"],
-            [18, "#EDF1FF"]
+            [17, "#B4B4B4"]
           ]
         },
         "line-width": {
@@ -3260,7 +2842,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 11,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3305,8 +2886,7 @@
           "stops": [
             [9, "#828282"],
             [10, "#B4B4B4"],
-            [17, "#B4B4B4"],
-            [18, "#EDF1FF"]
+            [17, "#B4B4B4"]
           ]
         },
         "line-width": {
@@ -3327,7 +2907,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3369,12 +2948,7 @@
         "PRINCIPALE_1"
       ],
       "paint": {
-        "line-color": {
-          "stops": [
-            [17, "#E2A52A"],
-            [18, "#EDF1FF"]
-          ]
-        },
+        "line-color": "#E2A52A",
         "line-width": {
           "stops": [
             [6, 1.8],
@@ -3393,7 +2967,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3452,7 +3025,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 8,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3479,7 +3051,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 12,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3518,7 +3089,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3542,7 +3112,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3566,7 +3135,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3640,7 +3208,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3718,7 +3285,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3794,7 +3360,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3827,7 +3392,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -3887,7 +3451,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -4048,7 +3611,6 @@
       "source": "plan_ign",
       "source-layer": "ferre",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -4072,7 +3634,6 @@
       "source": "plan_ign",
       "source-layer": "ferre",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -4139,7 +3700,6 @@
       "source": "plan_ign",
       "source-layer": "routier_liaison",
       "minzoom": 8,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "round",
@@ -4196,7 +3756,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_liaison",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -4259,7 +3818,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_liaison",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -4310,7 +3868,6 @@
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "routier_surf",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -4326,7 +3883,6 @@
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "routier_surf",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -4342,7 +3898,6 @@
       "type": "fill",
       "source": "plan_ign",
       "source-layer": "routier_surf",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible"
       },
@@ -4636,7 +4191,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -4802,7 +4356,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 11,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -4869,7 +4422,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -4935,7 +4487,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -4994,7 +4545,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5045,7 +4595,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 12,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5084,7 +4633,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5108,7 +4656,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5132,7 +4679,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5172,7 +4718,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 11,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5204,7 +4749,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5245,7 +4789,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5278,7 +4821,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5319,7 +4861,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5351,7 +4892,6 @@
       "type": "line",
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5384,7 +4924,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5410,7 +4949,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 10,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -5444,7 +4982,6 @@
       "source": "plan_ign",
       "source-layer": "routier_route_sup",
       "minzoom": 13,
-      "maxzoom": 22,
       "layout": {
         "visibility": "visible",
         "line-cap": "butt",
@@ -6083,27 +5620,6 @@
       }
     },
     {
-      "id": "ligne electrique",
-      "type": "line",
-      "source": "plan_ign",
-      "source-layer": "bati_lin",
-      "layout": {
-        "visibility": "visible",
-        "line-cap": "round",
-        "line-join": "round"
-      },
-      "filter": ["==", "symbo", "LIGNE_ELECTRIQUE"],
-      "paint": {
-        "line-color": "#808080",
-        "line-width": {
-          "stops": [
-            [13, 1],
-            [17, 2]
-          ]
-        }
-      }
-    },
-    {
       "id": "autre construction linéaire",
       "type": "line",
       "source": "plan_ign",
@@ -6245,77 +5761,6 @@
       }
     },
     {
-      "id": "hydro ponctuel",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "hydro_ponc",
-      "minzoom": 13,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "FONTAINE",
-        "POINT_D_EAU",
-        "SOURCE",
-        "SOURCE_CAPTEE",
-        "PERTE",
-        "RESURGENCE",
-        "CASCADE",
-        "AUTRE_HYDRO_PONC"
-      ],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 7]
-          ]
-        },
-        "circle-color": "#FFFFFF",
-        "circle-opacity": 1,
-        "circle-stroke-width": {
-          "stops": [
-            [14, 2],
-            [17, 5]
-          ]
-        },
-        "circle-stroke-color": "#1466B2"
-      }
-    },
-    {
-      "id": "point coté",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "oro_ponc",
-      "minzoom": 11,
-      "maxzoom": 21,
-      "filter": [
-        "in",
-        "symbo",
-        "POINT_COTE",
-        "POINT_COTE_TOPO",
-        "POINT_COTE_RESEAU",
-        "POINT_RBF"
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "icon-image": "Localite",
-        "icon-size": 0.1,
-        "text-field": "{texte}",
-        "text-size": 10,
-        "text-allow-overlap": false,
-        "text-anchor": "bottom-left",
-        "text-offset": [0.2, 0.4],
-        "text-padding": 2,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#505050"
-      }
-    },
-    {
       "id": "bati ponctuel : Hopital",
       "type": "symbol",
       "source": "plan_ign",
@@ -6328,65 +5773,6 @@
       "filter": ["==", "symbo", "HOPITAL_PONC"],
       "paint": {
         "icon-color": "#646464"
-      }
-    },
-    {
-      "id": "bati ponctuel hydrographique",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "minzoom": 14,
-      "layout": {
-        "visibility": "visible",
-        "icon-image": "Pompage",
-        "icon-size": {
-          "stops": [
-            [13, 0.2],
-            [17, 0.6]
-          ]
-        },
-        "icon-allow-overlap": true
-      },
-      "filter": [
-        "in",
-        "symbo",
-        "CITERNE",
-        "LAVOIR",
-        "STATION_EPURATION",
-        "STATION_DE_POMPAGE",
-        "USINE_PRODUCTION_EAU",
-        "USINE_ELEVATRICE"
-      ],
-      "paint": {
-        "icon-color": "#1C62A6"
-      }
-    },
-    {
-      "id": "bati ponctuel hydrographique - Puits-Abreuvoir",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "minzoom": 13,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": ["in", "symbo", "PUITS", "ABREUVOIR"],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 7]
-          ]
-        },
-        "circle-color": "#FFFFFF",
-        "circle-opacity": 1,
-        "circle-stroke-width": {
-          "stops": [
-            [14, 2],
-            [17, 5]
-          ]
-        },
-        "circle-stroke-color": "#1466B2"
       }
     },
     {
@@ -6491,53 +5877,6 @@
       "filter": ["==", "symbo", "BARRAGE_PONC"],
       "paint": {
         "icon-color": "#1C62A6"
-      }
-    },
-    {
-      "id": "bati ponctuel hydrographique - Chateau d'eau",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": ["==", "symbo", "CHATEAU_EAU_PONC"],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 8]
-          ]
-        },
-        "circle-color": "#1466B2"
-      }
-    },
-    {
-      "id": "bati ponctuel hydrographique - Réservoir d'eau",
-      "type": "circle",
-      "source": "plan_ign",
-      "source-layer": "bati_ponc",
-      "maxzoom": 21,
-      "layout": {
-        "visibility": "visible"
-      },
-      "filter": ["==", "symbo", "RESERVOIR_EAU_PONC"],
-      "paint": {
-        "circle-radius": {
-          "stops": [
-            [14, 3],
-            [17, 8]
-          ]
-        },
-        "circle-color": "#AAD5E9",
-        "circle-opacity": 1,
-        "circle-stroke-width": {
-          "stops": [
-            [14, 1],
-            [17, 2.5]
-          ]
-        },
-        "circle-stroke-color": "#1466B2"
       }
     },
     {
@@ -6813,87 +6152,11 @@
       }
     },
     {
-      "id": "toponyme - courbe rocher maitresse",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "filter": ["==", "txt_typo", "ORO_COURBE_ROCHER"],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 10,
-        "text-allow-overlap": false,
-        "text-padding": 30,
-        "text-rotate": {
-          "type": "identity",
-          "property": "rotation"
-        },
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#333333",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1
-      }
-    },
-    {
-      "id": "toponyme - courbe glacier maitresse",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "filter": ["==", "txt_typo", "ORO_COURBE_GLACIER"],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 10,
-        "text-allow-overlap": false,
-        "text-padding": 30,
-        "text-rotate": {
-          "type": "identity",
-          "property": "rotation"
-        },
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#629FD9",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1
-      }
-    },
-    {
-      "id": "toponyme - courbe maitresse",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "filter": ["==", "txt_typo", "ORO_COURBE"],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 10,
-        "text-allow-overlap": false,
-        "text-padding": 30,
-        "text-rotate": {
-          "type": "identity",
-          "property": "rotation"
-        },
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#604A2F",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1
-      }
-    },
-    {
       "id": "toponyme - liaison maritime",
       "type": "symbol",
       "source": "plan_ign",
       "source-layer": "toponyme_routier_liaison_lin",
       "minzoom": 8,
-      "maxzoom": 22,
       "filter": ["==", "txt_typo", "LIAISON_MARITIME"],
       "layout": {
         "symbol-placement": "line",
@@ -6966,28 +6229,6 @@
         "text-color": "#000000",
         "text-halo-width": 1,
         "text-halo-color": "rgba(255, 255, 255, 1)"
-      }
-    },
-    {
-      "id": "toponyme station epuration, de pompage, usine de production eau",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_bati_ponc",
-      "minzoom": 14,
-      "filter": ["==", "txt_typo", "station"],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{designation}",
-        "text-anchor": "left",
-        "text-offset": [0.8, 0],
-        "text-size": 11,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#447FB3"
       }
     },
     {
@@ -7412,7 +6653,6 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_numero_lin",
       "minzoom": 11,
-      "maxzoom": 22,
       "filter": ["==", "txt_typo", "Départementale"],
       "layout": {
         "visibility": "visible",
@@ -7437,7 +6677,6 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_numero_lin",
       "minzoom": 7,
-      "maxzoom": 22,
       "filter": ["==", "txt_typo", "Nationale"],
       "layout": {
         "visibility": "visible",
@@ -7467,7 +6706,6 @@
       "source": "plan_ign",
       "source-layer": "toponyme_routier_numero_lin",
       "minzoom": 7,
-      "maxzoom": 22,
       "filter": ["==", "txt_typo", "Autoroute"],
       "layout": {
         "visibility": "visible",
@@ -7492,64 +6730,6 @@
       }
     },
 
-    {
-      "id": "toponyme - oro lineaire 4",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_lin",
-      "filter": ["in", "txt_typo", "ORO_SOMMET_3", "ORO_GORGE_2"],
-      "layout": {
-        "symbol-placement": "line",
-        "text-field": "{texte}",
-        "text-size": 11,
-        "text-anchor": "center",
-        "text-keep-upright": true,
-        "text-max-angle": 45,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"],
-        "visibility": "visible"
-      },
-      "paint": {
-        "text-color": "#863831",
-        "text-halo-width": 1.5,
-        "text-halo-color": "rgba(255, 255, 255, 0.5)"
-      }
-    },
-    {
-      "id": "toponyme - oro ponc 4",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "filter": [
-        "in",
-        "txt_typo",
-        "ORO_SOMMET_3",
-        "ORO_GORGE_2",
-        "GROTTE",
-        "GORGE",
-        "TYPO_G_9",
-        "TYPO_G_10"
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [13, 11],
-            [16, 16]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#863831",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 1.5
-      }
-    },
     {
       "id": "toponyme - hydro ponc 4",
       "type": "symbol",
@@ -7768,48 +6948,6 @@
         "text-color": "#863831",
         "text-halo-width": 1.5,
         "text-halo-color": "rgba(255, 255, 255, 0.5)"
-      }
-    },
-    {
-      "id": "toponyme - oro ponc 3",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "filter": [
-        "in",
-        "txt_typo",
-        "ORO_ILE_3",
-        "ORO_RELIEF_3",
-        "ORO_RELIEF_3_T",
-        "ORO_RELIEF_4",
-        "ORO_RELIEF_4_T",
-        "ORO_CAP_2",
-        "ORO_CAP_3",
-        "ORO_SOMMET_2",
-        "ORO_COL_2",
-        "ORO_GORGE_1",
-        "ORO_GORGE-1",
-        "TYPO_G_7",
-        "TYPO_G_8"
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [13, 12],
-            [16, 17]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#863831",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.5
       }
     },
     {
@@ -8160,69 +7298,6 @@
       }
     },
     {
-      "id": "toponyme - oro ponc 2",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "minzoom": 9,
-      "filter": [
-        "in",
-        "txt_typo",
-        "ORO_ILE_2",
-        "ORO_RELIEF_2",
-        "ORO_RELIEF_2_T",
-        "ORO_CAP_1",
-        "ORO_COL_1",
-        "sommet ou col",
-        "ORO_SOMMET_1",
-        "TYPO_G_4",
-        "TYPO_G_6"
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [9, 13],
-            [10, 15],
-            [13, 15],
-            [16, 19]
-          ]
-        },
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#863831",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme - oro ponc 2B",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "minzoom": 8,
-      "filter": ["in", "txt_typo", "île", "cap ou pointe"],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 15,
-        "text-allow-overlap": false,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#863831",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
       "id": "toponyme - hydro lineaire 2",
       "type": "symbol",
       "source": "plan_ign",
@@ -8324,72 +7399,6 @@
         "text-allow-overlap": false,
         "text-anchor": "bottom-left",
         "text-offset": [0.3, 0.1],
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA7 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_7"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 13],
-            [17, 16]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA6 non commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["!=", "symbo", "COMMUNE_FUSIONNEE"],
-        ["!=", "symbo", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_6"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 15],
-            [17, 18]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
         "text-padding": 1,
         "text-font": ["Open Sans Regular"]
       },
@@ -8547,38 +7556,6 @@
       },
       "paint": {
         "text-color": "#287B00",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
-      "id": "toponyme - oro ponc 1",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_oro_ponc",
-      "minzoom": 8,
-      "filter": [
-        "in",
-        "txt_typo",
-        "grande île",
-        "ORO_ILE_1",
-        "ORO_RELIEF_1",
-        "ORO_RELIEF_1_T",
-        "TYPO_G_3",
-        "TYPO_G_2",
-        "TYPO_G_1"
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 21,
-        "text-allow-overlap": true,
-        "text-padding": 1,
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#863831",
         "text-halo-color": "rgba(255, 255, 255, 0.5)",
         "text-halo-width": 2
       }
@@ -8832,39 +7809,6 @@
       }
     },
     {
-      "id": "toponyme localite n0 typoA6 commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_6"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": {
-          "stops": [
-            [15, 15],
-            [17, 18]
-          ]
-        },
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-transform": "uppercase",
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 2
-      }
-    },
-    {
       "id": "toponyme localite n0 typoA1 non commune",
       "type": "symbol",
       "source": "plan_ign",
@@ -8890,62 +7834,6 @@
         "text-color": "#000000",
         "text-halo-color": "rgba(255, 255, 255, 0.5)",
         "text-halo-width": 4
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA4 commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_4"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 17,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-transform": "uppercase",
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 3
-      }
-    },
-    {
-      "id": "toponyme localite n0 typoA3 commune",
-      "type": "symbol",
-      "source": "plan_ign",
-      "source-layer": "toponyme_localite_ponc",
-      "maxzoom": 21,
-      "filter": [
-        "all",
-        ["in", "symbo", "COMMUNE_FUSIONNEE", "COMMUNE_CHEF_LIEU"],
-        ["==", "txt_typo", "TYPO_A_3"]
-      ],
-      "layout": {
-        "visibility": "visible",
-        "symbol-placement": "point",
-        "text-field": "{texte}",
-        "text-size": 19,
-        "text-allow-overlap": true,
-        "text-anchor": "center",
-        "text-padding": 1,
-        "text-transform": "uppercase",
-        "text-font": ["Open Sans Regular"]
-      },
-      "paint": {
-        "text-color": "#000000",
-        "text-halo-color": "rgba(255, 255, 255, 0.5)",
-        "text-halo-width": 3
       }
     },
     {

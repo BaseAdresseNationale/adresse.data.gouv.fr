@@ -13,9 +13,9 @@ Il existe 2 types de geocodage (direct et inverse):
 
 Un outil vous permettant de géocoder vos fichiers CSV est accessible sur notre site sur [la page Géocodeur CSV](https://adresse.data.gouv.fr/outils/csv).
 
-Vous pouvez avoir plus d'informations sur l'utilisation en consultant [la documentation du Service Géoplateforme de Géocodage](https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage)
+Vous pouvez avoir plus d'informations sur l'utilisation en consultant [la documentation du Service Géoplateforme de Géocodage](https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme/geocodage)
 
-En cas de difficultés ou d'anomalies, vous pouvez contacter [le support technique de la géoplateforme](https://geoservices.ign.fr/contact)
+En cas de difficultés ou d'anomalies, vous pouvez contacter [le support technique de la géoplateforme](https://cartes.gouv.fr/aide/fr/nous-ecrire)
 
 ## Limite d'usage
 
@@ -30,7 +30,7 @@ Lorsqu'une IP sollicite l' API au-delà de la limite d'usage fixée :
 
 
 Si dans le cadre de votre usage vous êtes régulièrement confrontés à cette limitation : 
-*  En tant qu'acteur public vous pouvez demander à étudier les conditions d'une levée de cette limite pour vos missions de service public en remplissant le  formulaire sur [la page contact géoservices de l'IGN](https://geoservices.ign.fr/contact).
+*  En tant qu'acteur public vous pouvez demander à étudier les conditions d'une levée de cette limite pour vos missions de service public en remplissant le  formulaire sur [la page contact géoservices de l'IGN](https://cartes.gouv.fr/aide/fr/nous-ecrire).
 *  Vous avez également l'option d'installer en autonomie une instance de l’API sur vos propres serveurs. Nous vous indiquons la marche à suivre sur cette page : [Installer une instance docker avec les données de la BAN](https://geoplateforme.pages.gpf-tech.ign.fr/geocodage/geocodeur/user/installation/). Cette démarche ne rentre pas dans le périmètre des services accompagnés par l'IGN.  
  
  

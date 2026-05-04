@@ -1,13 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import QRCode from 'qrcode'
 import ReactPDF from '@react-pdf/renderer'
-import { join } from 'node:path'
-import * as fs from 'node:fs'
 
 import { getMairie } from '@/lib/api-etablissement-public'
+import { getCommuneWithoutCache, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
+import {
+  CERTIFICAT_DEFAULT_LOGO_RELATIVE,
+  resolveCertificatCommuneLogoForGeneration,
+} from '@/lib/resolve-certificat-commune-logo'
+import {
+  normalizedIssuerDetailsForPdf,
+  sanitizeCertificateAttestationText,
+} from '@/lib/certificate-issuer-config'
 import { env } from 'next-runtime-env'
-import { getCommuneLogo } from '@/lib/api-wikidata'
 import { isUUIDv4 } from '@/utils/validate'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
@@ -29,8 +35,6 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
   }
 
   const response = await rawResponse.json()
-  // temporary check migrating ban api response structure
-  // to-do : remove this check after migration
   const data = response.response || response
   const certificatUrl = `${NEXT_PUBLIC_ADRESSE_URL}/certificat/${data.id}`
   const qrCodeDataURL = await QRCode.toDataURL(certificatUrl)
@@ -39,15 +43,25 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
 
   const mairieData = mairie || { telephone: undefined, email: undefined }
 
-  // const logoUrl = await getCommuneLogo(data.full_address.cog) || ' '
-
-  // let logoUrl = `${NEXT_PUBLIC_ADRESSE_URL}/logos/certificat/${data.full_address.cog}.png`
-
-  let logoUrl = join(process.cwd(), 'public', 'logos', 'certificat', `${data.full_address.cog}.png`)
-
-  if (!fs.existsSync(logoUrl)) {
-    logoUrl = join(process.cwd(), 'public', 'logos', 'certificat', 'default.png')
+  const districtConfig = await getDistrictConfigByCodeCommune(data.full_address.cog)
+  let population: number | undefined
+  try {
+    const banCommune = await getCommuneWithoutCache(data.full_address.cog)
+    population = typeof banCommune?.population === 'number' && Number.isFinite(banCommune.population)
+      ? banCommune.population
+      : undefined
   }
+  catch {
+    population = undefined
+  }
+  const showCommuneLogo = districtConfig?.certificateShowLogo === true
+  const logoUrl = showCommuneLogo
+    ? await resolveCertificatCommuneLogoForGeneration(data.full_address.cog)
+    : CERTIFICAT_DEFAULT_LOGO_RELATIVE
+  const issuerDetails = normalizedIssuerDetailsForPdf(districtConfig ?? {})
+  const attestationText = districtConfig?.certificateAttestationText
+    ? sanitizeCertificateAttestationText(districtConfig.certificateAttestationText)
+    : undefined
 
   const pdfStream = await ReactPDF.renderToStream(
     <CertificatNumerotation
@@ -55,7 +69,12 @@ export async function GET(request: NextRequest, { params }: { params: { idCertif
       qrCodeDataURL={qrCodeDataURL}
       mairie={mairieData}
       logoUrl={logoUrl}
-
+      issuerCustomization={{
+        showCommuneLogo,
+        issuerDetails,
+        attestationText: attestationText || undefined,
+        population,
+      }}
     />
   )
 

@@ -1,18 +1,17 @@
 import dynamicImport from 'next/dynamic'
 import { env } from 'next-runtime-env'
 
-import Image from 'next/image'
 import Link from 'next/link'
 
+import CommuneLogo, { COMMUNE_LOGO_PAGE_PRESET } from '@/components/CommuneLogo/CommuneLogo'
 import CardWrapper from '@/components/CardWrapper'
 import Section from '@/components/Section'
 import {
-  getCommuneWithoutCache as getBANCommune, getIdDistrictByCodeCommune,
+  getCommuneWithoutCache as getBANCommune, getIdDistrictByCodeCommune, getDistrictConfigByCodeCommune,
 } from '@/lib/api-ban'
 import { getRevisionDetails, getRevisions } from '@/lib/api-depot'
 import { getMairiePageURL } from '@/lib/api-etablissement-public'
 import { getCommune as getAPIGeoCommune, getEPCI } from '@/lib/api-geo'
-import { getCommuneFlag } from '@/lib/api-blasons-communes'
 
 import { StyledCommunePage } from './page.styles'
 import { getCommuneAchievements } from '@/lib/commune'
@@ -35,10 +34,12 @@ const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Co
 const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: false })
 const CommuneAdministrationBlock = dynamicImport(() => import('../../../components/Commune/CommuneAdministrationBlock'), { ssr: false })
 const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: false })
+import { CertificateTypeEnum } from '@/types/api-ban.types'
 import { getSignalements } from '@/lib/api-signalement'
 import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
+import { ClientTypeEnum } from '@/types/partenaire.types'
 
 // import SaveUrlClient from '@/components/SaveUrlClient'
 const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
@@ -67,11 +68,12 @@ export default async function CommunePage({ params }: CommunePageProps) {
   }
 
   const communeHasBAL = commune.typeComposition !== 'assemblage'
-  const certificationPercentage = Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
+  const certificationPercentage = commune.nbNumeros > 0
+    ? Math.ceil(commune.nbNumerosCertifies / commune.nbNumeros * 100)
+    : 0
 
   const [
     mairiePageResponse,
-    communeFlagResponse,
     EPCIResponse,
     lastRevisionsDetailsResponse,
     communesPrecedentesResponse,
@@ -80,7 +82,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
     IdDistrictByCodeCommuneResponse,
   ] = await Promise.allSettled([
     getMairiePageURL(codeCommune),
-    getCommuneFlag(codeCommune),
     APIGeoCommune?.codeEpci && getEPCI(APIGeoCommune.codeEpci),
     communeHasBAL
       ? getRevisions(codeCommune)
@@ -91,7 +92,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       : [],
     getCommunesPrecedentes(codeCommune),
     getSignalements({ codeCommunes: [commune.codeCommune], status: [SignalementStatusEnum.PROCESSED, SignalementStatusEnum.IGNORED] }, 1, 1),
-    getPartenairesDeLaCharte({ search: commune.nomCommune }, 1, 1),
+    getPartenairesDeLaCharte({ codeCommune: commune.codeCommune }, 1, 1),
     getIdDistrictByCodeCommune(codeCommune),
   ])
 
@@ -99,11 +100,6 @@ export default async function CommunePage({ params }: CommunePageProps) {
     console.error(`Failed to get mairie page URL for commune ${codeCommune}`, mairiePageResponse.reason?.message)
   }
   const mairiePageUrl = mairiePageResponse.status === 'fulfilled' ? mairiePageResponse.value : null
-
-  if (communeFlagResponse.status === 'rejected') {
-    console.error(`Failed to get commune flag for commune  ${codeCommune}`, communeFlagResponse.reason?.message)
-  }
-  const communeFlagUrl = communeFlagResponse.status === 'fulfilled' ? communeFlagResponse.value : null
 
   if (EPCIResponse.status === 'rejected') {
     console.error(`Failed to get EPCI for commune ${codeCommune}`, EPCIResponse.reason?.message)
@@ -137,6 +133,8 @@ export default async function CommunePage({ params }: CommunePageProps) {
 
   const banId = commune.banId || districtId || null
 
+  commune.config = (await getDistrictConfigByCodeCommune(codeCommune)) ?? { certificate: CertificateTypeEnum.DISABLED }
+
   const communeAchievements = communeHasBAL
     ? getCommuneAchievements({
       commune,
@@ -155,11 +153,13 @@ export default async function CommunePage({ params }: CommunePageProps) {
   const partenaireDeLaCharte = paginatedPartenairesDeLaCharte?.data[0]
   const publicationConsoleTabs = []
 
-  if (partenaireDeLaCharte?.apiDepotClientId && partenaireDeLaCharte.apiDepotClientId.length > 0) {
-    publicationConsoleTabs.push({ tabId: 'api-depot', label: 'API-dépôt' })
-  }
-  if (partenaireDeLaCharte?.dataGouvOrganizationId && partenaireDeLaCharte.dataGouvOrganizationId.length > 0) {
-    publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
+  if (partenaireDeLaCharte?.clients?.length ?? 0 > 0) {
+    if (partenaireDeLaCharte?.clients?.some(({ type }) => type === ClientTypeEnum.API_DEPOT)) {
+      publicationConsoleTabs.push({ tabId: 'api-depot', label: 'API-dépôt' })
+    }
+    if (partenaireDeLaCharte?.clients?.some(({ type }) => type === ClientTypeEnum.MOISSONNEUR_BAL)) {
+      publicationConsoleTabs.push({ tabId: 'moissonnage', label: 'Moissonnage' })
+    }
   }
 
   return (
@@ -169,7 +169,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
       <StyledCommunePage $certificationPercentage={certificationPercentage}>
         <Section className="commune-main-section">
           <h1>
-            <Image width={80} height={80} alt="logo commune par défault" src={communeFlagUrl || '/commune/default-logo.svg'} />
+            <CommuneLogo codeCommune={codeCommune} alt="Logo de la commune" {...COMMUNE_LOGO_PAGE_PRESET} />
             <br />
             {commune.nomCommune} - {commune.codeCommune}
           </h1>
@@ -186,7 +186,7 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Région
               </label>
               <div>
-                {commune.region.nom}
+                {commune.region?.nom ?? '-'}
               </div>
             </div>
             <div className="commune-general-info">
@@ -194,7 +194,13 @@ export default async function CommunePage({ params }: CommunePageProps) {
                 Département
               </label>
               <div>
-                <Link href={`/deploiement-bal?departement=${commune.departement.code}`}>{commune.departement.nom}</Link>
+                {commune.departement
+                  ? (
+                      <Link href={`/deploiement-bal?departement=${commune.departement.code}`}>
+                        {commune.departement.nom}
+                      </Link>
+                    )
+                  : '-'}
               </div>
             </div>
             <div className="commune-general-info">

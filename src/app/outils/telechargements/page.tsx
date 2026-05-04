@@ -127,7 +127,7 @@ export default async function PageDownloadBan() {
         id="carto"
       >
         <p>
-          <Link className="fr-link" href="https://geoservices.ign.fr/documentation/services/utilisation-sig" target="_blank">Retrouver les tutoriels d’utilisation des flux avec un outil SIG</Link>
+          <Link className="fr-link" href="https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme/tutoriels-api" target="_blank">Retrouver les tutoriels d’utilisation des flux avec un outil SIG</Link>
         </p>
         <CardContainer $cols={3}>
           <div>
@@ -175,7 +175,7 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: 'https://geoservices.ign.fr/services-web-experts-adresse',
+                    href: 'https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme',
                     target: '_blank',
                   }}
                   size="small"
@@ -203,7 +203,7 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: 'https://geoservices.ign.fr/services-web-experts-adresse',
+                    href: 'https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme',
                     target: '_blank',
                   }}
                   size="small"

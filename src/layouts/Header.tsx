@@ -56,7 +56,6 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/decouvrir-la-BAN' },
       },
       { text: 'Contenu de la BAN', linkProps: { href: '/contenu-de-la-ban' } },
-      { text: 'Documentation', linkProps: { href: '/ressources-et-documentations' } },
       { text: 'État du déploiement', linkProps: { href: '/deploiement-bal' } },
       { text: 'Statistiques', linkProps: { href: '/stats' } },
     ],
@@ -83,6 +82,19 @@ export const navEntries: MainNavigationProps.Item[] = [
           href: 'https://mes-adresses.data.gouv.fr/',
           target: '_blank',
         },
+      },
+    ],
+  },
+  {
+    text: 'La documentation',
+    menuLinks: [
+      {
+        text: 'Documentation technique BAN',
+        linkProps: { href: '/ressources-et-documentations' },
+      },
+      {
+        text: 'Documentation adressage',
+        linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' },
       },
     ],
   },
@@ -205,9 +217,11 @@ export default function Header(
         text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
       },
       {
-        iconId: 'fr-icon-book-2-fill' as const,
-        linkProps: { href: `${DOC_ADRESSE_URL}`, target: '_blank' as const },
-        text: <Tooltip kind="hover" title="Ressources & Documentations">La Documentation</Tooltip>,
+        iconId: 'ri-quill-pen-fill' as const,
+        linkProps: {
+          href: '/blog',
+        },
+        text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
       },
     ]
 
@@ -215,7 +229,7 @@ export default function Header(
       return baseItems
     }
     else {
-      // Si non connecté OU en chargement : Carte + Documentation + Se connecter (max 3)
+      // Si non connecté OU en chargement : Carte + Blog + Se connecter (max 3)
       return [
         ...baseItems,
         {
