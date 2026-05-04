@@ -534,15 +534,13 @@ function CartoView() {
           <NavigationControl position="bottom-right" showCompass />
           <AttributionControl position="bottom-left" customAttribution="IGN" compact={true} />
 
-          {mapSearchResults && (
-            <BanMap
-              address={mapSearchResults as unknown as Address}
-              onSelect={selectBanItem}
-              isCadastreLayersShown={displayLandRegister}
-              hightLightAdressesByItem={hightLightAdressesByItem}
-              banItemSelected={banItemSelected as TypeMicroToponymExtended}
-            />
-          )}
+          <BanMap
+            address={mapSearchResults as unknown as Address}
+            onSelect={selectBanItem}
+            isCadastreLayersShown={displayLandRegister}
+            hightLightAdressesByItem={hightLightAdressesByItem}
+            banItemSelected={banItemSelected as TypeMicroToponymExtended}
+          />
 
           <Aside
             ref={asideRef}
