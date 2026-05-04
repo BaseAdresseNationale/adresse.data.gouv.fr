@@ -101,7 +101,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
             selectedTabId={selectedTab}
             tabs={[
               { tabId: 'source', label: 'Déploiement BAL' },
-              { tabId: 'suivi-ban', label: 'Déploiement idban' },
+              { tabId: 'suivi-ban', label: 'Déploiement id BAN' },
             ]}
             onTabChange={handleTabChange}
           >
