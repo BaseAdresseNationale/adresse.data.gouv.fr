@@ -8,17 +8,11 @@ import { numFormater } from '@/utils/number'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useState } from 'react'
 import styled from 'styled-components'
+import ListCommunes from './ListCommunes'
+import { getSuiviBanStatsUrl } from '@/lib/suivi-ban-api'
 
 const StyledWrapper = styled.div`
-.stats {
-    height: fit-content;
-    display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
-    gap: 1em;
-    margin-top: 1em;
-}
-
-.download-wrapper {
+  .download-wrapper {
     display: flex;
     align-items: center;
     margin-top: 1em;
@@ -28,14 +22,26 @@ const StyledWrapper = styled.div`
     button {
         margin-right: 1em;
     }
-}
+  }
 
-@media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
-  .download-wrapper {
-    flex-direction: column;
-    gap: 1em;
-  } 
-}
+
+  .stats {
+      height: fit-content;
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+      gap: 1em;
+      margin-top: 1em;
+      margin-bottom: 3em;
+      text-align: center;
+  }
+
+
+  @media screen and (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    .download-wrapper {
+      flex-direction: column;
+      gap: 1em;
+    } 
+  }
 `
 
 const options = {
@@ -70,21 +76,14 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
     dataAdressesGereesBAL,
     adressesCertifieesPercent,
     dataAdressesCertifiees,
-    communesAvecBanIdPercent,
-    dataCommunesAvecBanId,
-    adressesAvecBanIdPercent,
-    dataAdressesAvecBanId,
     total,
   } = formatedStats
 
   const handleDownloadCSV = async () => {
     try {
       setIsDownloadingData(true)
-      const url = new URL(`${window.location.origin}/api/deploiement-stats`)
-      url.searchParams.append('codesCommune', filteredCodesCommmune.toString())
-
       const csvHeaders = ['code', 'nom', 'nbNumeros', 'certificationPercentage', 'hasBAL', 'nomClient']
-      const response = await customFetch(url)
+      const response = await customFetch(getSuiviBanStatsUrl(filteredCodesCommmune))
       const csvString = [csvHeaders.join(';'), ...response.features.map(({ properties }: any) => csvHeaders.map(property => properties[property]).join(';'))].join('\n')
 
       const link = document.createElement('a')
@@ -103,10 +102,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
   const handleDownloadGeoJSON = async () => {
     try {
       setIsDownloadingData(true)
-      const url = new URL(`${window.location.origin}/api/deploiement-stats`)
-      url.searchParams.append('codesCommune', filteredCodesCommmune.toString())
-
-      const response = await customFetch(url)
+      const response = await customFetch(getSuiviBanStatsUrl(filteredCodesCommmune))
 
       const link = document.createElement('a')
       link.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(response, null, 2))
@@ -156,26 +152,13 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
             options={options}
           />
         )}
-        <DoughnutCounter
-          title="Communes avec identifiant BAN"
-          valueUp={numFormater(stats.ban.nbCommunesAvecBanId)}
-          valueDown={`${communesAvecBanIdPercent}% des ${numFormater(total.nbCommunes)} communes`}
-          data={dataCommunesAvecBanId}
-          options={options}
-        />
-        <DoughnutCounter
-          title="Adresses avec identifiant BAN"
-          valueUp={numFormater(stats.ban.nbAdressesAvecBanId)}
-          valueDown={`${adressesAvecBanIdPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
-          data={dataAdressesAvecBanId}
-          options={options}
-        />
       </div>
       <div className="download-wrapper">
         <label>Télécharger les données : </label>
         <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadCSV} iconId="fr-icon-download-fill">format CSV</Button>
         <Button disabled={!filter || isDownloadingData} type="button" onClick={handleDownloadGeoJSON} iconId="fr-icon-download-fill">format GéoJSON</Button>
       </div>
+      <ListCommunes filteredCodesCommmune={filteredCodesCommmune} />
     </StyledWrapper>
   )
 }

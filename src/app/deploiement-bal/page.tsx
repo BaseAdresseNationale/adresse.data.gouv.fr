@@ -30,7 +30,7 @@ export default async function DeploiementBALPage({ searchParams }: { searchParam
   }
 
   return (
-    <Section pageTitle="État du déploiement des Bases Adresses Locales">
+    <Section pageTitle="État du déploiement">
       <DeploiementBALDashboard departements={departementsWithCenter} initialStats={stats} initialFilter={initialFilter} />
     </Section>
   )
