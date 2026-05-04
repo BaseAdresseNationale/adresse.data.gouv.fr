@@ -115,14 +115,14 @@ export default function UsagesClient({ appsData }: { appsData: Record<string, an
           />
         </Filters>
         <CardWrapper isSmallCard>
-          {filteredApps.map((appDescription, index) => appDescription && appDescription.imageUtilisateur && (
+          {filteredApps.map((appDescription, index) => appDescription && appDescription.logoDownloadUrl && (
             <AppCard
               key={index}
               statutIntegration={appDescription.statutIntegration}
               typeIntegration={appDescription.typeIntegration}
               nomApplication={appDescription.nomApplication}
               descriptionUtilisation={appDescription.descriptionUtilisation}
-              imageUtilisateur={appDescription.imageUtilisateur}
+              logoDownloadUrl={appDescription.logoDownloadUrl}
               urlApplication={appDescription.urlApplication}
               urlArticle={appDescription.urlArticle}
               dernierTelechargement={appDescription.dernierTelechargement}

@@ -13,7 +13,7 @@ const RESVG_WASM_FILE = existsSync(RESVG_WASM_STANDALONE) ? RESVG_WASM_STANDALON
 
 let wasmInitializationPromise: Promise<void> | null = null
 
-function ensureWasmInitialized(): Promise<void> {
+export function ensureWasmInitialized(): Promise<void> {
   if (!wasmInitializationPromise) {
     wasmInitializationPromise = readFile(RESVG_WASM_FILE).then(wasmBinary => initWasm(wasmBinary))
   }
