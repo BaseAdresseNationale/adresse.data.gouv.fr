@@ -2,6 +2,9 @@ import Section from '@/components/Section'
 import { getRootPath } from '@/utils/path'
 import { readdir, readFile } from 'fs/promises'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Info-lettre')
 
 const getNewsletterName = (newsletter: string) => {
   return newsletter

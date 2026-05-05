@@ -11,6 +11,7 @@ import BlogGrid from '@/components/BlogGrid'
 import { getPosts, getTags } from '@/lib/blog'
 
 import { TagsWrapper, TagWrapper } from './page.styled'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
 interface PostMeta {
   pagination?: {
@@ -22,6 +23,7 @@ interface PostMeta {
 }
 
 function BlogView() {
+  useClientSidePageTitle('Blog')
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()

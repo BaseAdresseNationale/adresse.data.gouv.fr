@@ -40,6 +40,7 @@ import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 import { ClientTypeEnum } from '@/types/partenaire.types'
+import { Metadata } from 'next'
 
 // import SaveUrlClient from '@/components/SaveUrlClient'
 const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlClient'), { ssr: false })
@@ -47,6 +48,16 @@ const SaveUrlClient = dynamicImport(() => import('../../../components/SaveUrlCli
 export const revalidate = 0
 interface CommunePageProps {
   params: { codeCommune: string }
+}
+
+export async function generateMetadata({
+  params,
+}: CommunePageProps): Promise<Metadata> {
+  const { codeCommune } = await params
+
+  return {
+    title: `Commune - ${codeCommune}`,
+  }
 }
 
 export default async function CommunePage({ params }: CommunePageProps) {

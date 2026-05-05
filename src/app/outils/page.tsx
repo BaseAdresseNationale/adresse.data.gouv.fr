@@ -11,6 +11,9 @@ import type { DataType } from '@/lib/markdown'
 import { CardContainer } from '@/app/outils/page.styled'
 import { TextWrapper } from '../blog/page.styled'
 import Badge from '@codegouvfr/react-dsfr/Badge'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Outils')
 
 export default async function Outils() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('sommaire-outils') || {}

@@ -6,6 +6,9 @@ import { getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import DownloadCard from '@/components/DownloadCard'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Organismes')
 
 const PARTENAIRE_SEARCH_FILTER = {
   type: PartenaireDeLaCharteTypeEnum.ORGANISME,

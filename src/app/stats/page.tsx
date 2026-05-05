@@ -20,6 +20,7 @@ import {
   defDataMonthlyLookup,
   defDataBanVisit,
 } from './utils/stats-config-data'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
 const URL_GET_STATS_DOWNLOAD_DAY = '/stats/daily-download'
 const URL_GET_STATS_DOWNLOAD_MONTH = '/stats/monthly-usage'
@@ -27,6 +28,8 @@ const URL_GET_STATS_LOOKUP_MONTH = '/stats/daily-lookup'
 const URL_GET_STATS_VISIT = '/stats/visit'
 
 function StatsPage() {
+  useClientSidePageTitle('Statistiques')
+
   const { data: dataDailyDownload, error: errorDataDailyDownload } = useSWR(URL_GET_STATS_DOWNLOAD_DAY, fetcher)
   const { data: dataMonthlyUsage, error: errorDataMonthlyUsage } = useSWR(URL_GET_STATS_DOWNLOAD_MONTH, fetcher)
   const { data: dataMonthlyLookup, error: errorDataMonthlyLookup } = useSWR(URL_GET_STATS_LOOKUP_MONTH, fetcher)

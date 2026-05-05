@@ -8,6 +8,9 @@ import SectionHero from '@/components/SectionHero'
 import HtmlViewer from '@/components/HtmlViewer'
 
 import { TextWrapper } from './page.styled'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('API')
 
 export default async function ApiAdresse() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('/apis/service-geocodage--intro') || {}
