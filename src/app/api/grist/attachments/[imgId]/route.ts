@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { env } from 'next-runtime-env'
 import { ensureWasmInitialized } from '@/lib/resolve-certificat-commune-logo'
 import { Resvg } from '@resvg/resvg-wasm'
-
-const BASE_URL = process.env.NEXT_PUBLIC_GRIST_API_URL || ''
-const DOC_ID = process.env.NEXT_PUBLIC_GRIST_DOC_ID || ''
-const API_TOKEN = process.env.GRIST_API_TOKEN || ''
 
 export async function GET(
   _req: NextRequest,
@@ -14,9 +11,9 @@ export async function GET(
   if (!imgId || !/^\d+$/.test(imgId)) {
     return new NextResponse('Invalid imgId', { status: 400 })
   }
-  const gristUrl = `${BASE_URL}/docs/${DOC_ID}/attachments/${imgId}/download`
+  const gristUrl = `${env('NEXT_PUBLIC_GRIST_API_URL')}/docs/${env('NEXT_PUBLIC_GRIST_DOC_ID')}/attachments/${imgId}/download`
   const response = await fetch(gristUrl, {
-    headers: { Authorization: `Bearer ${API_TOKEN}` },
+    headers: { Authorization: `Bearer ${env('GRIST_API_TOKEN')}` },
   })
   if (!response.ok) {
     return new NextResponse('Image unavailable', { status: response.status })
