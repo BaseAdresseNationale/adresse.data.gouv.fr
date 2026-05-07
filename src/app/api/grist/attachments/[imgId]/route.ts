@@ -5,7 +5,7 @@ import { Resvg } from '@resvg/resvg-wasm'
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { imgId: string } }
+  { params }: { params: Promise<{ imgId: string }> }
 ) {
   const { imgId } = await params
   if (!imgId || !/^\d+$/.test(imgId)) {
