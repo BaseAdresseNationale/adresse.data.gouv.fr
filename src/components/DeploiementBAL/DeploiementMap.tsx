@@ -307,11 +307,17 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
   const closePopup = useCallback(() => {
     setPopup(null)
     if (selectedRef.current) {
-      map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: selectedRef.current }, { hover: false })
+      try {
+        map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: selectedRef.current }, { hover: false })
+      }
+      catch { /* map may have been destroyed */ }
       selectedRef.current = null
     }
     if (hoveredRef.current) {
-      map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
+      try {
+        map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
+      }
+      catch { /* map may have been destroyed */ }
       hoveredRef.current = null
     }
   }, [map])
