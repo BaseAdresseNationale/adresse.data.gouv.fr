@@ -20,7 +20,7 @@ const addCommuneModal = createModal({
   isOpenedByDefault: false,
 })
 
-const CODE_COMMUNE_REGEX = /^\d{5}$/
+const CODE_COMMUNE_REGEX = /^\d[0-9AB]\d{3}$/
 
 function parseCodeCommunesList(value: string): string[] {
   if (!value.trim()) return []

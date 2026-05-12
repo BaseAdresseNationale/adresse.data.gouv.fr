@@ -378,7 +378,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
 
   useEffect(() => {
     const code = district?.codeCommune
-    if (!code || !/^\d{5}$/.test(code)) return
+    if (!code || !/^\d[0-9AB]\d{3}$/.test(code)) return
     let cancelled = false
     void fetch(`/api/certificate-issuer-default-contact/${code}`, { credentials: 'same-origin' })
       .then(async (res) => {
