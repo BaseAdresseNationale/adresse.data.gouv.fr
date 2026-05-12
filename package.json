@@ -10,7 +10,7 @@
     "predev": "react-dsfr update-icons",
     "dev": "next dev --turbopack",
     "prebuild": "react-dsfr update-icons",
-    "build": "next build --turbopack && node copy-assets.mjs",
+    "build": "GIT_SHA=$(git rev-parse HEAD) next build --turbopack && node copy-assets.mjs",
     "analyze": "ANALYZE=true next build --turbopack",
     "start": "node .next/standalone/server.js",
     "lint": "eslint .",
