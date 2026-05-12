@@ -26,7 +26,7 @@ export async function GET(
     }
 
     const { codeCommune } = await context.params
-    if (!codeCommune || typeof codeCommune !== 'string' || !/^\d{5}$/.test(codeCommune)) {
+    if (!codeCommune || typeof codeCommune !== 'string' || !/^\d[0-9AB]\d{3}$/.test(codeCommune)) {
       return NextResponse.json({ error: 'Invalid codeCommune' }, { status: 400 })
     }
 
