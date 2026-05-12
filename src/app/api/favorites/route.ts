@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const codeCommuneRegex = /^\d{5}$/
+    const codeCommuneRegex = /^\d[0-9AB]\d{3}$/
     if (typeof codeCommune !== 'string' || !codeCommuneRegex.test(codeCommune)) {
       return NextResponse.json(
         { error: 'Invalid codeCommune format (must be 5 digits)' },
