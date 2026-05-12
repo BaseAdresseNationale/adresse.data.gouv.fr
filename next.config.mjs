@@ -223,6 +223,7 @@ const redirects = async () => [
 ]
 
 const nextConfig = withBundleAnalyzer({
+  deploymentId: process.env.GIT_SHA,
   env: {
     ...defaultEnvVar,
     ...envVar,
