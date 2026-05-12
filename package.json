@@ -22,7 +22,7 @@
     "@codegouvfr/react-dsfr": "^1.31.1",
     "@etalab/decoupage-administratif": "^6.0.0",
     "@gouvfr/dsfr": "^1.14.4",
-    "@next/bundle-analyzer": "16.2.6",
+    "@next/bundle-analyzer": "16.1.7",
     "@react-pdf/renderer": "^4.3.2",
     "@resvg/resvg-wasm": "^2.6.2",
     "@socialgouv/matomo-next": "1.13.1",
@@ -44,7 +44,7 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "maplibre-gl": "^4.7.1",
-    "next": "^16.2.6",
+    "next": "16.1.7",
     "next-runtime-env": "^3.3.0",
     "node-fetch": "^3.3.2",
     "openid-client": "^6.4.2",
@@ -80,7 +80,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "eslint": "^9",
-    "eslint-config-next": "16.2.6",
+    "eslint-config-next": "16.1.7",
     "sass": "^1.77.8",
     "typescript": "^5.5.0"
   }
