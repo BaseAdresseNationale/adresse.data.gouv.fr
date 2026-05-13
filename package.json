@@ -8,10 +8,10 @@
   },
   "scripts": {
     "predev": "react-dsfr update-icons",
-    "dev": "next dev --turbopack",
+    "dev": "next dev --webpack",
     "prebuild": "react-dsfr update-icons",
-    "build": "GIT_SHA=$(git rev-parse HEAD) next build --turbopack && node copy-assets.mjs",
-    "analyze": "ANALYZE=true next build --turbopack",
+    "build": "GIT_SHA=$(git rev-parse HEAD) next build --webpack && node copy-assets.mjs",
+    "analyze": "ANALYZE=true next build --webpack",
     "start": "node .next/standalone/server.js",
     "lint": "eslint .",
     "type-check": "tsc --noEmit"

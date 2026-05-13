@@ -240,6 +240,14 @@ const nextConfig = withBundleAnalyzer({
   compiler: {
     styledComponents: true,
   },
+  webpack: config => {
+    config.module.rules.push({
+      test: /\.(woff|woff2|eot|ttf|otf)$/i,
+      type: 'asset/resource',
+    })
+
+    return config
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: '3mb',
