@@ -185,7 +185,7 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element
-      if (!target.closest('.custom-modal') && !target.closest('button')) {
+      if (!target.closest('[style*="position: fixed"]') && !target.closest('button')) {
         setShowModal(false)
       }
     }
@@ -239,7 +239,6 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
 
       {showModal && (
         <div
-          className="fr-modal fr-modal--opened custom-modal"
           style={{
             position: 'fixed',
             left: '20px',
@@ -247,45 +246,39 @@ export const AlertBadge: React.FC<AlertBadgeProps> = ({ revision, commune, allRe
             transform: 'translateY(-50%)',
             maxWidth: '600px',
             width: 'auto',
-            zIndex: 1000,
-            background: 'transparent',
+            zIndex: 9999,
+            boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
+            borderRadius: '4px',
+            background: 'var(--background-default-grey)',
           }}
         >
-          <div className="fr-container fr-container--fluid fr-container-md">
-            <div className="fr-grid-row fr-grid-row--center">
-              <div className="fr-col-12">
-                <div className="fr-modal__body">
-                  <div className="fr-modal__header">
-                    <button
-                      className="fr-btn--close fr-btn"
-                      title="Fermer"
-                      onClick={() => setShowModal(false)}
-                    >
-                      Fermer
-                    </button>
-                  </div>
-                  <div className="fr-modal__content">
-                    <div
-                      className={`fr-alert fr-alert--${getAlertType(status)}`}
-                      style={{
-                        maxHeight: '500px',
-                        overflowY: 'auto',
-                        overflowX: 'hidden',
-                      }}
-                    >
-                      <div
-                        className="fr-alert__title"
-                        style={{
-                          fontSize: '1rem',
-                          fontWeight: 'bold',
-                          whiteSpace: 'pre-line',
-                        }}
-                      >
-                        {displayMessage || rawMessage}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '0.5rem 0.5rem 0' }}>
+            <button
+              className="fr-btn--close fr-btn"
+              title="Fermer"
+              onClick={() => setShowModal(false)}
+            >
+              Fermer
+            </button>
+          </div>
+          <div style={{ padding: '0 1rem 1rem' }}>
+            <div
+              className={`fr-alert fr-alert--${getAlertType(status)}`}
+              style={{
+                maxHeight: '500px',
+                overflowY: 'auto',
+                overflowX: 'hidden',
+              }}
+            >
+              <div
+                className="fr-alert__title"
+                style={{
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                  whiteSpace: 'pre-line',
+                }}
+              >
+                {displayMessage || rawMessage}
               </div>
             </div>
           </div>
