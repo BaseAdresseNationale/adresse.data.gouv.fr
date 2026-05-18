@@ -26,7 +26,9 @@ interface LayoutClientProps {
 
 export default function LayoutClient({ children, lang }: LayoutClientProps) {
   const dataNotices = {
-    data: [],
+    data: [{
+      text: ' Incident détecté sur la génération des exports, les exports quotidiens sont temporairement suspendus. Merci de votre compréhension'
+    }],
     duration: 4000,
   }
 
