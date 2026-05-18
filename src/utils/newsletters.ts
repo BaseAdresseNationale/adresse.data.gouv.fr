@@ -1,5 +1,4 @@
 import { env } from 'next-runtime-env'
-import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs'
 import { customFetch } from '@/lib/fetch'
 import { getRootPath } from './path'
 import path from 'path'
@@ -7,6 +6,8 @@ import path from 'path'
 const END_DATE_SAFETY_MARGIN_MS = 5 * 60 * 1000
 
 export async function downloadLastNewsletters() {
+  const { access, mkdir, rm, writeFile } = await import(/* webpackIgnore: true */ 'fs/promises')
+
   // Keep a small safety margin to avoid providers rejecting a date seen as "in the future".
   const to = Date.now() - END_DATE_SAFETY_MARGIN_MS
   const from = new Date(to - 1000 * 60 * 60 * 24 * 30 * 12) // Last 12 months
@@ -16,9 +17,10 @@ export async function downloadLastNewsletters() {
   const rootPath = getRootPath()
   const directoryPath = path.join(rootPath, 'data', 'newsletters')
 
-  if (existsSync(directoryPath)) {
+  const hasDirectory = await access(directoryPath).then(() => true).catch(() => false)
+  if (hasDirectory) {
     console.log('Cleaning newsletters directory...')
-    rmSync(directoryPath, { recursive: true })
+    await rm(directoryPath, { recursive: true, force: true })
   }
 
   console.log('Downloading newsletters...')
@@ -59,12 +61,16 @@ export async function downloadLastNewsletters() {
       })
       )
       .forEach((campaign: any, index: number) => {
-        if (!existsSync(directoryPath)) {
-          mkdirSync(directoryPath, { recursive: true })
-        }
+        // Directory may have been deleted just above; ensure it exists before writing.
         const fileName = `${index}__${campaign.name}.html`
-        writeFileSync(path.join(directoryPath, fileName), campaign.htmlContent)
+        const filePath = path.join(directoryPath, fileName)
+        newsletters[index] = { ...campaign, filePath }
       })
+
+    await mkdir(directoryPath, { recursive: true })
+    await Promise.all(
+      newsletters.map(({ filePath, htmlContent }) => writeFile(filePath, htmlContent))
+    )
 
     console.log('Newsletters downloaded')
   }

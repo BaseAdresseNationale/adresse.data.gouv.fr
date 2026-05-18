@@ -1,4 +1,3 @@
-import { writeFileSync, readFile, existsSync, mkdirSync } from 'fs'
 import { keyBy } from 'lodash'
 import { getCachedData } from './cache'
 import { getRootPath } from './path'
@@ -13,12 +12,16 @@ function getFilePath() {
 }
 
 export async function downloadContoursCommunes() {
+  const { access, mkdir, writeFile } = await import(/* webpackIgnore: true */ 'fs/promises')
+
   const { directory_path, file_path } = getFilePath()
-  if (!existsSync(directory_path)) {
+  const hasDirectory = await access(directory_path).then(() => true).catch(() => false)
+  if (!hasDirectory) {
     console.log('Creating data directory…')
-    mkdirSync(directory_path, { recursive: true })
+    await mkdir(directory_path, { recursive: true })
   }
-  if (existsSync(file_path)) {
+  const hasFile = await access(file_path).then(() => true).catch(() => false)
+  if (hasFile) {
     console.log('Contours communes already downloaded')
     return
   }
@@ -28,22 +31,17 @@ export async function downloadContoursCommunes() {
   const response = await fetch('http://etalab-datasets.geo.data.gouv.fr/contours-administratifs/2025/geojson/communes-100m-2025-01-08.geojson', { cache: 'force-cache' })
   const responseJson = await response.json()
   const communesIndex = JSON.stringify(keyBy([...responseJson.features], (f: any) => f.properties.code))
-  writeFileSync(file_path, communesIndex)
+  await writeFile(file_path, communesIndex)
 
   console.log('Contours communes ready')
 }
 
 async function readCommunesIndex() {
+  const { readFile } = await import(/* webpackIgnore: true */ 'fs/promises')
+
   const { file_path } = getFilePath()
 
-  const fileData: Buffer = await new Promise((resove, reject) => {
-    readFile(file_path, (err, data) => {
-      if (err) {
-        reject(err)
-      }
-      resove(data)
-    })
-  })
+  const fileData = await readFile(file_path)
 
   return JSON.parse(fileData.toString())
 }
