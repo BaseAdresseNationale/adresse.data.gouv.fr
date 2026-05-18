@@ -6,6 +6,7 @@ import { env } from 'next-runtime-env'
 import { NextResponse } from 'next/server'
 import QRCode from 'qrcode'
 import ReactPDF from '@react-pdf/renderer'
+import { codeCommuneRegex } from '@/utils/string'
 
 import {
   CERTIFICAT_DEFAULT_LOGO_RELATIVE,
@@ -57,7 +58,7 @@ export async function POST(request: Request) {
       nomCommune: nomCommuneBody,
       communePopulation: communePopulationBody,
     } = body
-    if (!codeCommune || typeof codeCommune !== 'string' || !/^(?:(?:0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}|97[1-6]\d{2})$/.test(codeCommune)) {
+    if (!codeCommune || typeof codeCommune !== 'string' || !codeCommuneRegex.test(codeCommune)) {
       return NextResponse.json({ error: 'Invalid codeCommune' }, { status: 400 })
     }
 
