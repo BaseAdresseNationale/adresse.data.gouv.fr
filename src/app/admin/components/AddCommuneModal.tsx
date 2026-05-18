@@ -5,6 +5,7 @@ import { Input } from '@codegouvfr/react-dsfr/Input'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import { getCommunes } from '@/lib/api-geo'
 import { Commune } from '@/types/api-geo.types'
+import { codeCommuneRegex } from '@/utils/string'
 
 const TAB_RECHERCHE = 'recherche'
 const TAB_LISTE = 'liste'
@@ -20,7 +21,6 @@ const addCommuneModal = createModal({
   isOpenedByDefault: false,
 })
 
-const CODE_COMMUNE_REGEX = /^(?:(?:0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}|97[1-6]\d{2})$/
 
 function parseCodeCommunesList(value: string): string[] {
   if (!value.trim()) return []
@@ -28,7 +28,7 @@ function parseCodeCommunesList(value: string): string[] {
     value
       .split(',')
       .map(s => s.trim())
-      .filter(code => CODE_COMMUNE_REGEX.test(code)),
+      .filter(code => codeCommuneRegex.test(code)),
   )]
 }
 
@@ -84,7 +84,7 @@ function AddCommuneModal({ onAdd, onRefresh, maxReached }: AddCommuneModalProps)
   const handleBulkAdd = async () => {
     const codes = parseCodeCommunesList(listInput)
     const invalidCount = listInput.trim()
-      ? listInput.split(',').map(s => s.trim()).filter(s => s && !CODE_COMMUNE_REGEX.test(s)).length
+      ? listInput.split(',').map(s => s.trim()).filter(s => s && !codeCommuneRegex.test(s)).length
       : 0
 
     if (codes.length === 0) {
