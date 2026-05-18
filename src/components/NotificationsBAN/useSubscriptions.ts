@@ -48,7 +48,7 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       .split(',')
       .map(code => code.trim())
       .filter((code) => {
-        if (!/^\d[0-9AB]\d{3}$/.test(code)) {
+        if (!/^(?:(?:0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}|97[1-6]\d{2})$/.test(code)) {
           console.warn(`Code commune invalide ignoré: ${code}`)
           return false
         }
