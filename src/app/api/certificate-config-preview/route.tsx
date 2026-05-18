@@ -57,7 +57,7 @@ export async function POST(request: Request) {
       nomCommune: nomCommuneBody,
       communePopulation: communePopulationBody,
     } = body
-    if (!codeCommune || typeof codeCommune !== 'string' || !/^\d[0-9AB]\d{3}$/.test(codeCommune)) {
+    if (!codeCommune || typeof codeCommune !== 'string' || !/^(?:(?:0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}|97[1-6]\d{2})$/.test(codeCommune)) {
       return NextResponse.json({ error: 'Invalid codeCommune' }, { status: 400 })
     }
 
