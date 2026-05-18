@@ -9,13 +9,13 @@ export const getCommuneFlagProxy = async (codeCommune: string): Promise<string> 
     try {
       const response = await fetch(`${base}/commune/logo/${codeCommune}`, { cache: 'force-cache' })
       const url = await response.json()
-      const { logo: urlLogo, blason: urlBlason } = url
+      const { logo: urlLogo, blason: urlBlason, primary: primary} = url
       // On récupère le logo de la commune
-      if (response.ok && urlLogo) {
+      if (response.ok && (primary=="logo" || !primary) && urlLogo) {
         return urlLogo
       }
       // Sinon le blason de la commune
-      if (response.ok && urlBlason) {
+      if (response.ok && primary=="blason" && urlBlason) {
         return urlBlason
       }
     }
