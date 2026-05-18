@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from 'next-runtime-env'
 import { cookies } from 'next/headers'
+import { codeCommuneRegex } from '@/utils/string'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
@@ -104,7 +105,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const codeCommuneRegex = /^(?:(?:0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}|97[1-6]\d{2})$/
     if (typeof codeCommune !== 'string' || !codeCommuneRegex.test(codeCommune)) {
       return NextResponse.json(
         { error: 'Invalid codeCommune format (must be 5 digits)' },
