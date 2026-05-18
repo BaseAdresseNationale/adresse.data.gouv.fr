@@ -37,6 +37,7 @@ export const getCommuneFlag = async (codeCommune: string): Promise<string | unde
     headers: {
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
     },
+    cache: 'force-cache',
   })
   const responseBody = await response.text()
   const flagUrl = responseBody.match(/http.*\.svg/)?.[0]
@@ -66,6 +67,7 @@ export const getCommuneLogo = async (codeCommune: string): Promise<string | unde
     headers: {
       'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
     },
+    cache: 'force-cache',
   })
   const responseBody = await response.text()
   const flagUrl = responseBody.match(/http.*\.png/)?.[0]

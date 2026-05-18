@@ -8,12 +8,18 @@ export default function SaveUrlClient() {
   const [hydrated, setHydrated] = useState<boolean>(false)
 
   useEffect(() => {
-    setHydrated(true)
+    const changeHydrated = (value: boolean) => {
+      setHydrated(value)
+    }
+    const changeValues = (url: string) => {
+      setPreviousSavedUrl(url)
+      setStoredValue(url)
+    }
+    changeHydrated(true)
     if (typeof window === 'undefined') return
 
     const currentUrl = window.location.href
-    setPreviousSavedUrl(currentUrl)
-    setStoredValue(currentUrl)
+    changeValues(currentUrl)
     localStorage.setItem('previousUrl', currentUrl)
   }, [])
 

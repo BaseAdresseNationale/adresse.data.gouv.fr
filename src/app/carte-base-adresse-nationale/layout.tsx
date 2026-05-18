@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState, useContext, useEffect } from 'react'
+import { useCallback, useState, useContext, useEffect, type ReactNode } from 'react'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 import SearchBAN from '@/components/SearchBAN'
@@ -10,7 +10,6 @@ import { useMainLayout } from '@/layouts/MainLayout'
 import { BanMapProvider, useBanMapConfig } from './components/ban-map/BanMap.context'
 import { theme } from './components/ban-map/theme'
 import Legend from './components/Legend'
-import { PublicEnvScript } from 'next-runtime-env'
 
 import {
   CartoWrapper,
@@ -34,7 +33,7 @@ const RingButton = ({ tooltip, ...props }: { tooltip?: string, [key: string]: an
       )
 }
 
-function Carto({ children }: { children: JSX.Element }) {
+function Carto({ children }: { children: ReactNode }) {
   const { setTypeLayout } = useMainLayout()
 
   const [isLegendVisible, setIsLegendVisible] = useState(false)
@@ -98,7 +97,7 @@ function Carto({ children }: { children: JSX.Element }) {
   )
 }
 
-export default function RootLayout({ children }: { children: JSX.Element }) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const balWidgetContext = useContext(BALWidgetContext)
   const { hideWidget, showWidget } = balWidgetContext || {}
 
@@ -111,7 +110,6 @@ export default function RootLayout({ children }: { children: JSX.Element }) {
 
   return (
     <BanMapProvider>
-      <PublicEnvScript />
       <Carto>
         { children }
       </Carto>

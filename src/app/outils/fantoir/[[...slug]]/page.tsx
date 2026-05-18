@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useCallback } from 'react'
+import { useState, useMemo, useEffect, useCallback, use } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { env } from 'next-runtime-env'
@@ -44,7 +44,13 @@ const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 const viewTypeConfigKeys: ViewType[] = ['departement', 'commune', 'voie']
 
-function FantoirAppPage({ params: { slug = [] } }: { params: { slug: string[] } }) {
+function FantoirAppPage(props: { params: Promise<{ slug: string[] }> }) {
+  const params = use(props.params)
+
+  const {
+    slug = [],
+  } = params
+
   const [defaultDepartements, setDefaultDepartements] = useState<Departement[]>([])
   const [departements, setDepartements] = useState<Departement[]>([])
   const [nomDepartement, setNomDepartement] = useState<string>('')
@@ -80,7 +86,7 @@ function FantoirAppPage({ params: { slug = [] } }: { params: { slug: string[] } 
       const departementInfos = await getDepartementByCode(departement)
       setNomDepartement(departementInfos.nom)
 
-      const communes: Commune[] = await getFantoir(departement) || []
+      const communes: Commune[] = (await getFantoir(departement)) || []
       const defaultCommunes = sortBy(communes, ['id'])
       setDefaultCommunes(defaultCommunes)
       setCommunes(defaultCommunes)
@@ -101,7 +107,7 @@ function FantoirAppPage({ params: { slug = [] } }: { params: { slug: string[] } 
         ) as Commune
       setNomCommune(nomCommune)
 
-      const voies = await getVoiesFantoir(codeCommune) || []
+      const voies = (await getVoiesFantoir(codeCommune)) || []
       const defaultVoies = sortBy(voies, ['id'])
       setDefaultVoies(defaultVoies)
       setVoies(defaultVoies)

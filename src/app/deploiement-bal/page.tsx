@@ -3,11 +3,12 @@ import departements from '@/data/departement-center.json'
 import { getStats } from '@/lib/api-ban'
 import DeploiementBALDashboard from '../../components/DeploiementBAL/DeploiementBALDashboard'
 import Section from '@/components/Section'
-import { mapToSearchResult } from '@/lib/deploiement-stats'
+import { mapToSearchResult } from '@/lib/deploiement-search'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import { Departement } from '@/types/api-geo.types'
 
-export default async function DeploiementBALPage({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function DeploiementBALPage(props: { searchParams: Promise<Record<string, string>> }) {
+  const searchParams = await props.searchParams
   const stats = await getStats()
   const departementsWithCenter = Object.values(departements).map(({ properties, geometry }) => {
     return {

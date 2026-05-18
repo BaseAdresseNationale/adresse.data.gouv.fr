@@ -6,7 +6,7 @@ import remarkHeadingId from 'remark-heading-id'
 import html from 'remark-html'
 import matter from 'gray-matter'
 import { env } from 'next-runtime-env'
-const NODE_ENV = env('NODE_ENV')
+const NODE_ENV = process.env.NODE_ENV
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 // fix unknown property on matter.GrayMatterFile
 // https://github.com/jonschlinkert/gray-matter/issues/160
@@ -29,7 +29,7 @@ export type MarkdownType = {
 
 const extractMarkdown = async (
   fileContents: string,
-  callback: (filename: string, host?: string | undefined) => Promise<{}>,
+  callback: (filename: string, host?: string | undefined) => Promise<object>,
   filename: string,
   host?: string
 ): Promise<MarkdownType> => {

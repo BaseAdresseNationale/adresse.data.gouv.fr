@@ -25,7 +25,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const userSiren = readUserSirenFromCookies(cookies())
+    const userSiren = readUserSirenFromCookies(await cookies())
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }

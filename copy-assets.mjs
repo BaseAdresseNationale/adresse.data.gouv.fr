@@ -1,5 +1,9 @@
-const fs = require('fs').promises
-const path = require('path')
+import { promises as fsp } from 'fs';
+import * as path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const staticSrcPath = path.join(__dirname, '.next/static')
 const staticDestPath = path.join(__dirname, '.next/standalone/.next/static')
@@ -11,8 +15,8 @@ const resvgSrcPath = path.join(__dirname, 'node_modules/@resvg/resvg-wasm')
 const resvgDestPath = path.join(__dirname, '.next/standalone/node_modules/@resvg/resvg-wasm')
 
 function copyAssets(src, dest) {
-  return fs.mkdir(dest, { recursive: true })
-    .then(() => fs.readdir(src, { withFileTypes: true }))
+  return fsp.mkdir(dest, { recursive: true })
+    .then(() => fsp.readdir(src, { withFileTypes: true }))
     .then((items) => {
       const promises = items.map((item) => {
         const srcPath = path.join(src, item.name)
@@ -22,7 +26,7 @@ function copyAssets(src, dest) {
           return copyAssets(srcPath, destPath)
         }
         else {
-          return fs.copyFile(srcPath, destPath)
+          return fsp.copyFile(srcPath, destPath)
         }
       })
       return Promise.all(promises)
