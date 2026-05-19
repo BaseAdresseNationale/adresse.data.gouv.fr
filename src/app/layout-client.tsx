@@ -27,7 +27,17 @@ interface LayoutClientProps {
 export default function LayoutClient({ children, lang }: LayoutClientProps) {
   const dataNotices = {
     data: [{
-      text: ' Incident détecté sur la génération des exports, les exports quotidiens sont temporairement suspendus. Merci de votre compréhension'
+      text: <>
+        Nouveauté: L&apos;API de géocodage intègre maintenant des capacités avancées de{' '}
+        <Link
+          href="https://geoplateforme.github.io/tutoriels/production/changements/2026/04/22/changement-sur-le-géocodage/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          recherche ciblée par département et multicritères
+        </Link>
+        .
+      </>
     }],
     duration: 4000,
   }
