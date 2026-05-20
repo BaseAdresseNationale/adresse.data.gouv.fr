@@ -50,8 +50,9 @@ function isValidMatomoBaseUrl(value: string) {
 }
 
 function getMatomoUrls() {
-  const NEXT_PUBLIC_MATOMO_URL = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_URL)
-  const NEXT_PUBLIC_MATOMO_SITE_ID = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_SITE_ID)
+  // Prefer server-only env vars in runtime to avoid build-time inlining of NEXT_PUBLIC_*.
+  const NEXT_PUBLIC_MATOMO_URL = normalizeEnvValue(process.env.MATOMO_URL || process.env.NEXT_PUBLIC_MATOMO_URL)
+  const NEXT_PUBLIC_MATOMO_SITE_ID = normalizeEnvValue(process.env.MATOMO_SITE_ID || process.env.NEXT_PUBLIC_MATOMO_SITE_ID)
   const MATOMO_TOKEN_AUTH = normalizeEnvValue(process.env.MATOMO_TOKEN_AUTH)
 
   if (!NEXT_PUBLIC_MATOMO_URL || !NEXT_PUBLIC_MATOMO_SITE_ID || !MATOMO_TOKEN_AUTH) {
