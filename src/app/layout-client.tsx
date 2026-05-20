@@ -16,6 +16,7 @@ import { BALWidgetProvider } from '@/contexts/BALWidget.context'
 import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
 import theme from '@/theme'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
+import { ImageLightboxProvider } from '@/components/ImageLightbox'
 import GlobalStyle from './global.styles'
 import { StyledLayout, PageWrapper } from './layout.styles'
 
@@ -60,25 +61,27 @@ export default function LayoutClient({ children, lang }: LayoutClientProps) {
         <LayoutProvider>
           <ThemeProvider theme={theme}>
             <BALWidgetProvider>
-              <GlobalStyle />
-              <StyledLayout>
-                <Header notices={dataNotices} />
-                <PageWrapper>{children}</PageWrapper>
-                <Footer />
-                <ToastContainer
-                  position="bottom-right"
-                  autoClose={5000}
-                  hideProgressBar
-                  newestOnTop={false}
-                  closeOnClick={false}
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="dark"
-                  transition={Slide}
-                />
-              </StyledLayout>
+              <ImageLightboxProvider>
+                <GlobalStyle />
+                <StyledLayout>
+                  <Header notices={dataNotices} />
+                  <PageWrapper>{children}</PageWrapper>
+                  <Footer />
+                  <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition={Slide}
+                  />
+                </StyledLayout>
+              </ImageLightboxProvider>
             </BALWidgetProvider>
           </ThemeProvider>
         </LayoutProvider>
