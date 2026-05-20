@@ -42,7 +42,7 @@ export default function ZoomableImage({
     >
       <Image {...imageProps} src={src} alt={alt} />
       <span className={styles.indicator} aria-hidden="true">
-        <span className="fr-icon-search-line" aria-hidden="true" />
+        <span className="fr-icon fr-icon-search-line" aria-hidden="true" />
       </span>
       <span className={styles.srOnly}>{buttonLabel}</span>
     </button>
