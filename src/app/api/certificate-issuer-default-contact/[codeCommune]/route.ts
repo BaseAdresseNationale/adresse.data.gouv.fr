@@ -8,6 +8,7 @@ import {
 import { cookies } from 'next/headers'
 import { env } from 'next-runtime-env'
 import { NextRequest, NextResponse } from 'next/server'
+import { codeCommuneRegex } from '@/utils/string'
 
 const NEXT_PUBLIC_API_GEO_URL = env('NEXT_PUBLIC_API_GEO_URL')
 
@@ -26,7 +27,7 @@ export async function GET(
     }
 
     const { codeCommune } = await context.params
-    if (!codeCommune || typeof codeCommune !== 'string' || !/^\d{5}$/.test(codeCommune)) {
+    if (!codeCommune || typeof codeCommune !== 'string' || !codeCommuneRegex.test(codeCommune)) {
       return NextResponse.json({ error: 'Invalid codeCommune' }, { status: 400 })
     }
 
