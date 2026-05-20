@@ -13,6 +13,9 @@ import {
   defDataDailyDownload,
 } from '../utils/stats-config-data'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 // Any : is from matomo's data extracted from helper.js
 type StatValue = Record<string, any>
 
@@ -175,7 +178,7 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
     }
 
     if (url) {
-      const response = await fetch(url, { cache: 'force-cache' })
+      const response = await fetch(url, { cache: 'no-store' })
       const { status } = response
       const validStatus = [200, 304]
       if (!validStatus.includes(status)) {
