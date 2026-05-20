@@ -139,6 +139,38 @@ function getMatomoUrls() {
   }
 }
 
+function getMatomoDebugInfo() {
+  const matomoUrlRaw = normalizeEnvValue(process.env.MATOMO_URL)
+  const siteIdRaw = normalizeEnvValue(process.env.MATOMO_SITE_ID)
+  const publicMatomoUrlRaw = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_URL)
+  const publicSiteIdRaw = normalizeEnvValue(process.env.NEXT_PUBLIC_MATOMO_SITE_ID)
+  const tokenRaw = normalizeEnvValue(process.env.MATOMO_TOKEN_AUTH)
+
+  const selectedUrl = matomoUrlRaw || publicMatomoUrlRaw
+  const selectedSiteId = siteIdRaw || publicSiteIdRaw
+
+  return {
+    selectedSource: {
+      url: matomoUrlRaw ? 'MATOMO_URL' : 'NEXT_PUBLIC_MATOMO_URL',
+      siteId: siteIdRaw ? 'MATOMO_SITE_ID' : 'NEXT_PUBLIC_MATOMO_SITE_ID',
+    },
+    presence: {
+      MATOMO_URL: Boolean(matomoUrlRaw),
+      NEXT_PUBLIC_MATOMO_URL: Boolean(publicMatomoUrlRaw),
+      MATOMO_SITE_ID: Boolean(siteIdRaw),
+      NEXT_PUBLIC_MATOMO_SITE_ID: Boolean(publicSiteIdRaw),
+      MATOMO_TOKEN_AUTH: Boolean(tokenRaw),
+    },
+    validation: {
+      hasRequiredValues: Boolean(selectedUrl && selectedSiteId && tokenRaw),
+      isPlaceholderUrl: selectedUrl ? isPlaceholderEnvValue(selectedUrl) : false,
+      isPlaceholderSiteId: selectedSiteId ? isPlaceholderEnvValue(selectedSiteId) : false,
+      isPlaceholderToken: tokenRaw ? isPlaceholderEnvValue(tokenRaw) : false,
+      isValidMatomoUrl: selectedUrl ? isValidMatomoBaseUrl(selectedUrl) : false,
+    },
+  }
+}
+
 function getApis(): Record<string, DataResponse> {
   const matomoUrls = getMatomoUrls()
 
@@ -164,6 +196,15 @@ function getApis(): Record<string, DataResponse> {
 export async function GET(_req: NextRequest, props: { params: Promise<{ slug: string }> }) {
   const params = await props.params
   const slug = params.slug
+  const debugRequested = _req.nextUrl.searchParams.get('debug') === '1'
+
+  if (debugRequested) {
+    return NextResponse.json({
+      slug,
+      debug: getMatomoDebugInfo(),
+    }, { status: 200 })
+  }
+
   const APIs = getApis()
   try {
     const { url, getter, data: dataRaw, converter = (d: object) => d }: DataResponse = APIs?.[slug] || {}
