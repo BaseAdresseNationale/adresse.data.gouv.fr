@@ -111,7 +111,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
               </div>
             </AuthorWrapper>
 
-            <HtmlViewer html={contentHtml} />
+            <HtmlViewer html={contentHtml} enableImageZoom />
           </article>
           <aside>
             <AsideContent />
