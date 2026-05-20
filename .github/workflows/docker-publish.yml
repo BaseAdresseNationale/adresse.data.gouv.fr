@@ -6,7 +6,7 @@ on:
       - "master"
       - "main" # Ajout de la branche main
       - "develop"
-      - "maj_next_react_refactcode"
+      - "test-fix-stats"
     # Publish semver tags as releases.
     tags: ["v*.*.*"]
   pull_request:
