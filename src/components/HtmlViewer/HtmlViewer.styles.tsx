@@ -58,6 +58,15 @@ export const TextWrapper = styled.div`
       box-shadow: 0 0 1rem -0.7rem;
     }
 
+    img.html-viewer__zoomable-image {
+      cursor: zoom-in;
+    }
+
+    img.html-viewer__zoomable-image:focus-visible {
+      outline: 2px solid var(--border-action-high-blue-france);
+      outline-offset: 4px;
+    }
+
     figure {
       display: flex;
       flex-direction: column;
