@@ -5,7 +5,13 @@ import { useImageLightbox } from '@/components/ImageLightbox'
 
 import { TextWrapper } from './HtmlViewer.styles'
 
-export default function HtmlViewer({ html, isStyled = true }: { html: string, isStyled?: boolean }) {
+interface HtmlViewerProps {
+  html: string
+  isStyled?: boolean
+  enableImageZoom?: boolean
+}
+
+export default function HtmlViewer({ html, isStyled = true, enableImageZoom = false }: HtmlViewerProps) {
   const wrapperElement = useRef(null)
   const { openImage } = useImageLightbox()
 
@@ -15,6 +21,10 @@ export default function HtmlViewer({ html, isStyled = true }: { html: string, is
     element?.querySelectorAll('video').forEach((video: HTMLVideoElement) => {
       video.controls = true
     })
+
+    if (!enableImageZoom) {
+      return
+    }
 
     const imageElements = Array.from(element?.querySelectorAll('img') || []) as HTMLImageElement[]
     const cleanups: Array<() => void> = []
@@ -52,7 +62,7 @@ export default function HtmlViewer({ html, isStyled = true }: { html: string, is
     return () => {
       cleanups.forEach((cleanup) => cleanup())
     }
-  }, [html, openImage])
+  }, [html, openImage, enableImageZoom])
 
   return html && (
     isStyled
