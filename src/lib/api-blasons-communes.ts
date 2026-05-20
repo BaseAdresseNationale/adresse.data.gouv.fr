@@ -9,18 +9,20 @@ export const getCommuneFlagProxy = async (codeCommune: string): Promise<string> 
     try {
       const response = await fetch(`${base}/commune/logo/${codeCommune}`, { cache: 'force-cache' })
       const url = await response.json()
-      const { logo: urlLogo, blason: urlBlason, primary: primary} = url
+      // API non fiabilisée /!\ champ 'primary' non stabilisé pour l'instant
+      const { logo: urlLogo, blason: urlBlason} = url
       // On récupère le logo de la commune
-      if (response.ok && (primary=="logo" || !primary) && urlLogo) {
+      if (response.ok && urlLogo) {
         return urlLogo
       }
       // Sinon le blason de la commune
-      if (response.ok && primary=="blason" && urlBlason) {
+      if (response.ok && urlBlason) {
         return urlBlason
       }
     }
-    catch {
+    catch (error){
       // CORS ou erreur réseau → fallback S3
+      console.error(`Erreur lors de l'appel à l'API Annuaire des collectivités : `, error)
     }
   }
   // Pas de fetch HEAD : CORS bloque côté client. L'img charge directement l'URL S3.
