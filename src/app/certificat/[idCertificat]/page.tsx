@@ -27,7 +27,8 @@ export async function generateMetadata({
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
-async function Certificat({ params }: { params: { idCertificat: string } }) {
+async function Certificat(props: { params: Promise<{ idCertificat: string }> }) {
+  const params = await props.params
   const { idCertificat } = params
 
   if (!isUUIDv4(idCertificat)) {
@@ -37,6 +38,7 @@ async function Certificat({ params }: { params: { idCertificat: string } }) {
   const rawResponse = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/${idCertificat}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
+    cache: 'force-cache',
   })
   const response = rawResponse.ok ? await rawResponse.json() : {}
   // temporary check migrating ban api response structure

@@ -7,17 +7,26 @@ import { BaseAdresseLocale } from '@/types/api-mes-adresses.types'
 import { env } from 'next-runtime-env'
 
 const StyledWrapper = styled.div`
+height: 100%;
+
 .card {
     box-shadow: 0 0 1px rgba(67, 90, 111, 0.3), 0 5px 8px -4px rgba(67, 90, 111, 0.47);
     border: 1px solid #E6E8F0;
     border-radius: 5px;
-    margin-bottom: 12px;
     padding: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 .card-header {
     justify-content: space-between;
+    align-items: flex-start;
     display: flex;
     margin-bottom: 12px;
+    gap: 8px;
+}
+.card-header > *:last-child {
+    flex-shrink: 0;
 }
 .card-header-title h4 {
     margin: 0;
@@ -27,6 +36,9 @@ const StyledWrapper = styled.div`
     margin: 0;
     text-align: left;
     font-size: 12px;
+}
+.card-body {
+    margin-top: auto;
 }
 `
 

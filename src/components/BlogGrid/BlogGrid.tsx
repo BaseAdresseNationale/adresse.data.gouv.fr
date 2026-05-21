@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 
 import Section from '@/components/Section'
 import BlogCard, { PostItem } from '@/components/BlogCard'
@@ -18,19 +18,13 @@ interface BlogGridProps {
 }
 
 function BlogGrid({ title, header, footer, posts, nbPost, isLoading, isVisible }: BlogGridProps) {
-  const [loading, setLoading] = useState(isLoading ?? true)
-
-  useEffect(() => {
-    if (posts && posts.length) {
-      setLoading(false)
-    }
-  }, [posts])
+  const loading = posts && posts.length ? false : (isLoading ?? true)
 
   return (
     <Section title={title} isVisible={isVisible}>
       {header}
 
-      <CardWrapper $loading={isLoading}>
+      <CardWrapper $loading={loading}>
         {
           !posts || loading
             ? 'Chargement en cours...'

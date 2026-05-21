@@ -1,9 +1,4 @@
-/* eslint-disable @stylistic/semi */
-/* eslint-disable @stylistic/multiline-ternary */
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable @stylistic/no-multiple-empty-lines */
-/* eslint-disable @stylistic/no-trailing-spaces */
-import React from 'react'
 import { Accordion } from '@codegouvfr/react-dsfr/Accordion'
 import { Badge } from '@codegouvfr/react-dsfr/Badge'
 

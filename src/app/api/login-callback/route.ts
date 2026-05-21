@@ -12,12 +12,11 @@ import { env } from 'next-runtime-env'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(req: NextRequest) {
-  // eslint-disable-next-line
   const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
   try {
     const config = await getProviderConfig()
     const currentUrl = getCurrentUrl(req)
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const nonce = cookieStore.get('nonce')
     const state = cookieStore.get('state')
     const tokens = await client.authorizationCodeGrant(
@@ -79,6 +78,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(url)
   }
   catch (error) {
+    console.error('Login callback failed', error)
     return NextResponse.json({ error: 'Callback failed' }, { status: 500 })
   }
 }

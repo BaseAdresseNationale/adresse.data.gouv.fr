@@ -13,6 +13,8 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     height: 40px;
+    background-color: white;
+    padding-left: 8px;
 
     > button {
       margin-left: 1rem;

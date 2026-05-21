@@ -13,13 +13,16 @@ const GEO_URL = env('NEXT_PUBLIC_API_GEO_URL')
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-export async function GET(_req: NextRequest, { params }: { params: { districtId: string } }) {
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ districtId: string }> },
+) {
   if (!BAN_API_TOKEN || !BAN_URL) return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
 
-  const { districtId } = params
+  const { districtId } = await params
   if (!UUID_REGEX.test(districtId)) return NextResponse.json({ error: 'Invalid districtId' }, { status: 400 })
 
-  const userSiren = readUserSirenFromCookies(cookies())
+  const userSiren = readUserSirenFromCookies(await cookies())
   if (!userSiren || !GEO_URL) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }

@@ -646,5 +646,53 @@
     "instructions": "",
     "startHour": "10:30",
     "endHour": "12:00"
+  },
+  {
+    "title": "Adresse-Lab T2 2026",
+    "subtitle": "Point d'échange trimestriel T2 2026",
+    "description": "Actualités BAN. Cette session sera conjointe avec la Rencontre des Partenaires de la Charte.",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2026-06-16",
+    "tags": ["Technique", "Utilisateurs", "Base Adresse Nationale"],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/meet/38329775365421?p=8eqMWoWIfCezfSjVLX",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
+  },
+  {
+    "title": "Adresse-Lab T3 2026",
+    "subtitle": "Point d'échange trimestriel T3 2026",
+    "description": "Actualités BAN de la rentrée",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2026-09-15",
+    "tags": ["Technique", "Utilisateurs", "Base Adresse Nationale"],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/meet/38329775365421?p=8eqMWoWIfCezfSjVLX",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
+  },
+  {
+    "title": "Adresse-Lab T4 2026",
+    "subtitle": "Point d'échange trimestriel T4 2026",
+    "description": "Actualités BAN",
+    "type": "adresselab",
+    "target": "utilisateurs de la donnée adresse",
+    "date": "2026-12-08",
+    "tags": ["Technique", "Utilisateurs", "Base Adresse Nationale"],
+    "isOnlineOnly": true,
+    "address": {},
+    "href": "https://teams.microsoft.com/meet/38329775365421?p=8eqMWoWIfCezfSjVLX",
+    "isSubscriptionClosed": false,
+    "instructions": "",
+    "startHour": "10:30",
+    "endHour": "12:00"
   }
 ]

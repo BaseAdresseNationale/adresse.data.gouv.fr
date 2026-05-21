@@ -420,7 +420,7 @@ export function CertificatePdfPreviewButtonClean({
             onClick={handleOpen}
             nativeButtonProps={previewOpenButtonId ? { id: previewOpenButtonId } : undefined}
           >
-            {modalLoading && open ? 'Génération…' : 'Aperçu du certificat (modèle officiel)'}
+            {modalLoading && open ? 'Génération…' : 'Aperçu du certificat'}
           </Button>
         </div>
         {buttonHint && (

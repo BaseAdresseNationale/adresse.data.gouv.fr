@@ -2,6 +2,7 @@ import Section from '@/components/Section'
 import { getRootPath } from '@/utils/path'
 import { readdir, readFile } from 'fs/promises'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
+import path from 'path'
 import pageTitle from '@/utils/pageTitle'
 
 export const metadata = pageTitle('Info-lettre')
@@ -13,12 +14,13 @@ const getNewsletterName = (newsletter: string) => {
 }
 
 export default async function NewslettersPage() {
-  const newsletters = await readdir(getRootPath() + '/data/newsletters')
+  const newslettersDirectory = path.join(getRootPath(), 'data', 'newsletters')
+  const newsletters = await readdir(newslettersDirectory)
 
   const newslettersWithContent = await Promise.all(newsletters.map(async (newsletter) => {
     return {
       name: getNewsletterName(newsletter),
-      htmlContent: await readFile(getRootPath() + '/data/newsletters/' + newsletter, 'utf-8'),
+      htmlContent: await readFile(path.join(newslettersDirectory, newsletter), 'utf-8'),
     }
   }))
 

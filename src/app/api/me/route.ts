@@ -3,9 +3,9 @@ import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
 
-export function GET() {
+export async function GET() {
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const userinfo = cookieStore.get('userinfo')
 
     if (!userinfo) {

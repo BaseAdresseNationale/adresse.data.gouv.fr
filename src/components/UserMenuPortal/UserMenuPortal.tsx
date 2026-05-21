@@ -57,8 +57,7 @@ export default function UserMenuPortal({
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
-    const el = document.querySelector('.fr-header__tools-links .fr-btns-group')
-    setContainer(el)
+    setContainer(document.querySelector('.fr-header__tools-links .fr-btns-group'))
   }, [])
 
   const content = useMemo(() => {
@@ -77,7 +76,7 @@ export default function UserMenuPortal({
         </MenuButton>
         <UserMenuPopover
           open={open}
-          anchorRef={buttonRef}
+          anchorRef={buttonRef as React.RefObject<HTMLElement>} 
           onClose={() => setOpen(false)}
           displayName={displayName}
           userEmail={userEmail}

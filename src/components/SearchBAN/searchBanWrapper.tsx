@@ -10,6 +10,9 @@ export default function SearchBANWrapper() {
   const router = useRouter()
   const defaultHandleSelect = useCallback((feature: GeoJSON.Feature) => {
     const { id } = feature?.properties || {}
+    if (!id) {
+      return
+    }
     router.push(`${URL_CARTOGRAPHY_BAN}?id=${id}`)
   }, [router])
 

@@ -62,16 +62,14 @@ env:
   NEXT_PUBLIC_GRIST_API_URL: ${{vars.NEXT_PUBLIC_GRIST_API_URL}}
   NEXT_PUBLIC_GRIST_DOC_ID: ${{vars.NEXT_PUBLIC_GRIST_DOC_ID}}
   NEXT_PUBLIC_GRIST_TABLE_ID: ${{vars.NEXT_PUBLIC_GRIST_TABLE_ID}}
-  NEXT_PUBLIC_GRIST_BAN_ORGANIZATION_ID: ${{vars.NEXT_PUBLIC_GRIST_BAN_ORGANIZATION_ID}}
-  NEXT_PUBLIC_GRIST_WORKSPACE_ID: ${{vars.NEXT_PUBLIC_GRIST_WORKSPACE_ID}}
-  NEXT_PUBLIC_GRIST_API_TOKEN: ${{vars.NEXT_PUBLIC_GRIST_API_TOKEN}}
+  GRIST_API_TOKEN: ${{vars.GRIST_API_TOKEN}}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x, 22.6]
+        node-version: [24.14.0]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -79,7 +77,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Lint the codebase
         run: npm run lint
       - name: Build

@@ -7,10 +7,10 @@ const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { codeCommune: string } }
+  { params }: { params: Promise<{ codeCommune: string }> }
 ) {
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const userinfo = cookieStore.get('userinfo')
 
     if (!userinfo) {
@@ -30,7 +30,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Invalid user data' }, { status: 401 })
     }
 
-    const { codeCommune: districtID } = params
+    const { codeCommune: districtID } = await params
 
     const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
     if (typeof districtID !== 'string' || !uuidRegex.test(districtID)) {

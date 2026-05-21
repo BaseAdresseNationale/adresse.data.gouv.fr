@@ -6,7 +6,7 @@ export const metadata = pageTitle('Mise en forme')
 
 const DynamicComponentWithNoSSR = dynamic(
   () => import('../../../components/MiseEnForme'),
-  { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
+  { ssr: !!false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
 )
 
 // This page is a dynamic import of the ValidateurBAL component

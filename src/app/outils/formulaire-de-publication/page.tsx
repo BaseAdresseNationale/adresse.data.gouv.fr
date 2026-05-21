@@ -10,15 +10,15 @@ export const metadata = pageTitle('Formulaire')
 
 const DynamicComponentWithNoSSR = dynamic<{ initialCommune?: Commune & { flagUrl?: string }, initialRevision?: Revision, initialHabilitation?: Habilitation }>(
   () => import('../../../components/FormulaireDePublication'),
-  { ssr: false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
+  { ssr: !!false, loading: () => <div style={{ display: 'flex', width: '100%', justifyContent: 'center', height: '400px', alignItems: 'center' }}><Loader size={50} /></div> }
 )
 
 interface FormulaireDePublicationPageProps {
-  searchParams: { habilitationId?: string, revisionId?: string }
+  searchParams: Promise<{ habilitationId?: string, revisionId?: string }>
 }
 
 export default async function FormulaireDePublicationPage(props: FormulaireDePublicationPageProps) {
-  const { habilitationId, revisionId } = props.searchParams
+  const { habilitationId, revisionId } = (await props.searchParams)
   let habilitation
   let revision
   let commune

@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from 'next-runtime-env'
 import { cookies } from 'next/headers'
+import { codeCommuneRegex } from '@/utils/string'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const userinfo = cookieStore.get('userinfo')
 
     if (!userinfo) {
@@ -74,7 +75,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const userinfo = cookieStore.get('userinfo')
 
     if (!userinfo) {
@@ -104,7 +105,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const codeCommuneRegex = /^\d{5}$/
     if (typeof codeCommune !== 'string' || !codeCommuneRegex.test(codeCommune)) {
       return NextResponse.json(
         { error: 'Invalid codeCommune format (must be 5 digits)' },

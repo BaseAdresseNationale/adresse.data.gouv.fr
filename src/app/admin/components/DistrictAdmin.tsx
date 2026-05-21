@@ -13,6 +13,7 @@ import language from './DistrictActions/langues-regionales.json'
 import { CommuneStatusBadge } from './CommuneStatusBadge'
 import { useDistrictConfigSave, type SaveMessage } from './useDistrictConfigSave'
 import { CertificateAdminPanel, type CertificateContentStep, type CertificatePdfUiPhase } from './CertificateAdminPanel'
+import { codeCommuneRegex } from '@/utils/string'
 
 import {
   certificateIssuerBlockFingerprint,
@@ -254,7 +255,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     JSON.stringify(withCertificateFieldDefaults({ ...config }, district?.nomCommune, district?.population)),
   )
   const [configState, setConfigState] = useState<BANConfig>(() => {
-    let c = { ...config }
+    const c = { ...config }
     if (typeof c.certificateIssuerDetails === 'string') {
       c.certificateIssuerDetails = sanitizeCertificateIssuerDetails(c.certificateIssuerDetails)
     }
@@ -276,7 +277,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
     certificateIssuerBlockFingerprint(
       withCertificateFieldDefaults(
         (() => {
-          let c = { ...config }
+          const c = { ...config }
           if (typeof c.certificateIssuerDetails === 'string') {
             c.certificateIssuerDetails = sanitizeCertificateIssuerDetails(c.certificateIssuerDetails)
           }
@@ -378,7 +379,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
 
   useEffect(() => {
     const code = district?.codeCommune
-    if (!code || !/^\d{5}$/.test(code)) return
+    if (!code || !codeCommuneRegex.test(code)) return
     let cancelled = false
     void fetch(`/api/certificate-issuer-default-contact/${code}`, { credentials: 'same-origin' })
       .then(async (res) => {
