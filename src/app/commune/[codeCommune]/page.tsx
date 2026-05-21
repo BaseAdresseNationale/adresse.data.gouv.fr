@@ -40,10 +40,8 @@ interface CommunePageProps {
   codeCommune: string
 }
 
-export async function generateMetadata({
-  params,
-}: CommunePageProps): Promise<Metadata> {
-  const { codeCommune } = await params
+export async function generateMetadata(props : { params : Promise<CommunePageProps> }): Promise<Metadata> {
+  const { codeCommune } = await props.params
 
   return {
     title: `Commune - ${codeCommune}`,
