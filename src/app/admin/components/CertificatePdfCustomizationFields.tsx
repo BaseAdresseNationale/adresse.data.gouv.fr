@@ -8,7 +8,7 @@ import {
   certificateIssuerDetailsEffectiveMaxChars,
   issuerDetailsDefaultHintWithCommuneVillePrefix,
 } from '@/lib/certificate-issuer-config'
-import CommuneLogo, { COMMUNE_LOGO_PANEL_PRESET } from '@/components/CommuneLogo/CommuneLogo'
+import CommuneLogo, { COMMUNE_LOGO_PAGE_PRESET } from '@/components/CommuneLogo/CommuneLogo'
 import { collectiviteFrCommuneAuthUrl } from '@/lib/collectivite-fr-url'
 import { type BANConfig } from '@/types/api-ban.types'
 
@@ -114,7 +114,7 @@ export function CertificatePdfCustomizationFields(props: CertificatePdfCustomiza
                     <CommuneLogo
                       codeCommune={codeCommune}
                       alt=""
-                      {...COMMUNE_LOGO_PANEL_PRESET}
+                      {...COMMUNE_LOGO_PAGE_PRESET}
                     />
                   )
                 : (

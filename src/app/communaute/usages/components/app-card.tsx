@@ -29,7 +29,7 @@ export interface UsersBan {
   typeIntegration: string
   nomApplication: string
   descriptionUtilisation: string
-  imageUtilisateur: string
+  logoDownloadUrl: string
   urlApplication: string
   urlArticle: string
   dernierTelechargement: string
@@ -43,7 +43,7 @@ function AppCard({
   typeIntegration,
   nomApplication,
   descriptionUtilisation,
-  imageUtilisateur,
+  logoDownloadUrl,
   urlApplication,
   urlArticle,
   dernierTelechargement,
@@ -55,7 +55,7 @@ function AppCard({
       size="small"
       title={nomApplication}
       desc={descriptionUtilisation}
-      imageComponent={<ResponsiveImage src={imageUtilisateur} alt={nomUtilisateur} style={{ objectFit: 'contain' }} />}
+      imageComponent={<ResponsiveImage src={logoDownloadUrl} alt={nomUtilisateur} style={{ objectFit: 'contain' }} />}
       start={tagsApplication && (
         <TagsAndBadges>
           <ul className="fr-tags-group">

@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const userinfo = cookieStore.get('userinfo')
     if (!userinfo) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })

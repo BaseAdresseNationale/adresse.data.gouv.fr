@@ -1,6 +1,6 @@
 import { fr } from '@codegouvfr/react-dsfr'
 
-const theme = {
+export const theme = {
   breakpoints: fr.breakpoints.values,
   colors: {
     primary: {

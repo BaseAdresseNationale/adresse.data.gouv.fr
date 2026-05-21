@@ -7,26 +7,27 @@ import {
 } from '@/lib/certificate-issuer-config'
 import { cookies } from 'next/headers'
 import { env } from 'next-runtime-env'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { codeCommuneRegex } from '@/utils/string'
 
 const NEXT_PUBLIC_API_GEO_URL = env('NEXT_PUBLIC_API_GEO_URL')
 
 export async function GET(
-  _request: Request,
-  context: { params: { codeCommune: string } },
+  _request: NextRequest,
+  context: { params: Promise<{ codeCommune: string }> },
 ) {
   try {
     if (!NEXT_PUBLIC_API_GEO_URL) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const userSiren = readUserSirenFromCookies(cookies())
+    const userSiren = readUserSirenFromCookies(await cookies())
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    const codeCommune = context.params.codeCommune
-    if (!codeCommune || typeof codeCommune !== 'string' || !/^\d{5}$/.test(codeCommune)) {
+    const { codeCommune } = await context.params
+    if (!codeCommune || typeof codeCommune !== 'string' || !codeCommuneRegex.test(codeCommune)) {
       return NextResponse.json({ error: 'Invalid codeCommune' }, { status: 400 })
     }
 

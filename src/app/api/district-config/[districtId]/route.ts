@@ -7,10 +7,13 @@ const BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-export async function GET(_req: NextRequest, { params }: { params: { districtId: string } }) {
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ districtId: string }> },
+) {
   if (!BAN_API_TOKEN || !BAN_URL) return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
 
-  const { districtId } = params
+  const { districtId } = await params
   if (!UUID_REGEX.test(districtId)) return NextResponse.json({ error: 'Invalid districtId' }, { status: 400 })
 
   const res = await fetch(`${BAN_URL}/api/district-config/${districtId}`, {

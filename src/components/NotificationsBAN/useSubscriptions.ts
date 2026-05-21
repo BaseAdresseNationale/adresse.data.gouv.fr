@@ -2,6 +2,7 @@ import { useCallback, useState, useEffect } from 'react'
 import { customFetch } from '@/lib/fetch'
 import { redirectToLogoutOnSessionExpired } from '@/utils/sessionExpired'
 import { NotificationSubscription, FormData, UseSubscriptionsReturn } from './types'
+import { codeCommuneRegex } from '@/utils/string'
 
 export const useSubscriptions = (): UseSubscriptionsReturn => {
   const [authLoading, setAuthLoading] = useState<boolean>(true)
@@ -48,7 +49,7 @@ export const useSubscriptions = (): UseSubscriptionsReturn => {
       .split(',')
       .map(code => code.trim())
       .filter((code) => {
-        if (!/^\d{5}$/.test(code)) {
+        if (!codeCommuneRegex.test(code)) {
           console.warn(`Code commune invalide ignoré: ${code}`)
           return false
         }

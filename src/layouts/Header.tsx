@@ -214,14 +214,14 @@ export default function Header(
         linkProps: {
           href: '/carte-base-adresse-nationale',
         },
-        text: <Tooltip kind="hover" title="Explorateur de la Base adresse nationale">La Carte&nbsp;</Tooltip>,
+        text: "La Carte",
       },
       {
         iconId: 'ri-quill-pen-fill' as const,
         linkProps: {
           href: '/blog',
         },
-        text: <Tooltip kind="hover" title="Le blog et les témoignages">Le Blog</Tooltip>,
+        text: "Le Blog",
       },
     ]
 
@@ -237,7 +237,7 @@ export default function Header(
           linkProps: {
             href: '/admin',
           },
-          text: <Tooltip kind="hover" title="Accéder à l'espace admin">Se connecter</Tooltip>,
+          text: "Se connecter",
         },
       ]
     }

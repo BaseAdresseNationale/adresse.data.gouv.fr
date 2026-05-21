@@ -55,7 +55,7 @@ export default async function ApiAdresse() {
                 <aside>{data?.aside?.map(
                   ({ data }) =>
                     data?.contentHtml && (
-                      <CallOut key={`${data?.data?.title}`}>
+                      <CallOut key={`${data?.data?.title}`} bodyAs="div">
                         <HtmlViewer html={data?.contentHtml} />
                       </CallOut>
                     )

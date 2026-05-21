@@ -7,6 +7,8 @@ import HtmlViewer from '@/components/HtmlViewer'
 import SharingBlock from '@/components/SharingBlock'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { getSinglePost } from '@/lib/blog'
+import parseHtmlReact from 'html-react-parser';
+import DOMPurify from 'isomorphic-dompurify';
 
 import {
   TagsWrapper,
@@ -20,9 +22,10 @@ import AsideContent from './components/AsideContent'
 
 export const dynamic = 'force-dynamic'
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
+export default async function BlogPost(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params
   const pageUrl = `https://adresse.data.gouv.fr/blog/${params.slug}`
-  const blogPost = await getSinglePost(params.slug) || {}
+  const blogPost = (await getSinglePost(params.slug)) || {}
 
   const {
     excerpt,
@@ -39,7 +42,21 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   const excerptRegex = new RegExp(excerpt.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i')
   const excerptMatch = contentHtml.match(excerptRegex)
   const excerptIndex = excerptMatch?.index || 0
-
+  const sanitizedCaption =
+    typeof featureImageCaption === 'string'
+      ? DOMPurify.sanitize(featureImageCaption, {
+          ALLOWED_TAGS: [
+            'b',
+            'i',
+            'em',
+            'strong',
+            'a',
+            'br',
+          ],
+          ALLOWED_ATTR: ['href'],
+        })
+      : ''
+      
   return (
     <>
       <Breadcrumb
@@ -93,12 +110,11 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               <ImageWrapper>
                 <figure>
                   <ResponsiveImage src={featureImage} alt={title} />
-
-                  {featureImageCaption && (
-                    <figcaption
-                      dangerouslySetInnerHTML={{ __html: featureImageCaption }}
-                    />
-                  )}
+                  {typeof featureImageCaption === "string" && (
+                    <figcaption>
+                     {parseHtmlReact(DOMPurify.sanitize(featureImageCaption))}
+                    </figcaption>
+        )}
                 </figure>
               </ImageWrapper>
             )}
