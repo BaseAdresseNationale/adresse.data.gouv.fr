@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { useImageLightbox } from '@/components/ImageLightbox'
+import parse, { domToReact, Element, HTMLReactParserOptions } from 'html-react-parser'
+import ZoomableImage from '@/components/ImageLightbox/ZoomableImage'
 
 import { TextWrapper } from './HtmlViewer.styles'
 
@@ -12,61 +12,49 @@ interface HtmlViewerProps {
 }
 
 export default function HtmlViewer({ html, isStyled = true, enableImageZoom = false }: HtmlViewerProps) {
-  const wrapperElement = useRef(null)
-  const { openImage } = useImageLightbox()
-
-  useEffect(() => {
-    const element = wrapperElement.current as unknown as HTMLElement | null
-
-    element?.querySelectorAll('video').forEach((video: HTMLVideoElement) => {
-      video.controls = true
-    })
-
-    if (!enableImageZoom) {
-      return
-    }
-
-    const imageElements = Array.from(element?.querySelectorAll('img') || []) as HTMLImageElement[]
-    const cleanups: Array<() => void> = []
-
-    imageElements.forEach((img) => {
-      if (!img.src || img.closest('a')) {
+  const parserOptions: HTMLReactParserOptions = {
+    replace: (node) => {
+      if (!(node instanceof Element)) {
         return
       }
 
-      img.classList.add('html-viewer__zoomable-image')
-      img.setAttribute('role', 'button')
-      img.setAttribute('tabindex', '0')
-      img.setAttribute('aria-label', `Agrandir l'image${img.alt ? `: ${img.alt}` : ''}`)
-
-      const onOpen = () => {
-        openImage({ src: img.currentSrc || img.src, alt: img.alt || 'Image de contenu' })
+      if (node.name === 'video') {
+        return (
+          <video controls>
+            {domToReact(node.children as never, parserOptions)}
+          </video>
+        )
       }
 
-      const onKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault()
-          onOpen()
-        }
+      if (!enableImageZoom || node.name !== 'img' || !node.attribs?.src) {
+        return
       }
 
-      img.addEventListener('click', onOpen)
-      img.addEventListener('keydown', onKeyDown)
+      if (node.parent?.type === 'tag' && node.parent.name === 'a') {
+        return
+      }
 
-      cleanups.push(() => {
-        img.removeEventListener('click', onOpen)
-        img.removeEventListener('keydown', onKeyDown)
-      })
-    })
+      const src = node.attribs.src
+      const alt = node.attribs.alt || 'Image de contenu'
 
-    return () => {
-      cleanups.forEach((cleanup) => cleanup())
+      return (
+        <ZoomableImage
+          src={src}
+          alt={alt}
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '100%', height: 'auto' }}
+          buttonClassName="html-viewer__zoomable-image"
+          buttonLabel="Agrandir l'image"
+        />
+      )
     }
-  }, [html, openImage, enableImageZoom])
+  }
 
   return html && (
     isStyled
-      ? <TextWrapper ref={wrapperElement} dangerouslySetInnerHTML={{ __html: html }} />
-      : <div ref={wrapperElement} dangerouslySetInnerHTML={{ __html: html }} />
+      ? <TextWrapper>{parse(html, parserOptions)}</TextWrapper>
+      : <div>{parse(html, parserOptions)}</div>
   )
 }
