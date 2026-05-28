@@ -2,7 +2,7 @@ import { fetchAndProcessGristData } from '@/lib/api-grist'
 import UsagesClient from './components/UsagesClient'
 import pageTitle from '@/utils/pageTitle'
 
-export const metadata = pageTitle('Usagers')
+export const metadata = pageTitle('Nos usagers')
 
 export const revalidate = 86400 // 24h
 
