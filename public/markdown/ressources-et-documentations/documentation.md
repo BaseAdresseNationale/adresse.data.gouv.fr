@@ -17,7 +17,7 @@ Les *CommonToponym* sont 'liés à' et 'administrés par’ un *District*.
 
 Chacune de ces entités est capable de porter des données additionnelles pour apporter des informations complémentaires composantes de l'adresse BAN. Ces données sont de sources externes au périmètre de l'Adresse, mais ouvertes et d'utilité publique (par exemple, les codes INSEE, les Identifiants de parcelles cadastrale, les codes postaux, etc.).
 
-[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/DRAFT%23-Schema-de-la-base-de-donn%C3%A9es-BAN) 
+[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/2%E2%80%90-DRAFT%23-Schema-de-la-base-de-donn%C3%A9es-BAN)
 
 
 
@@ -42,4 +42,4 @@ Les identifiants BanID sont fournis par le biais de fichiers BAL 1.4 par l'usage
             ID_BAN_TOPONYME
             ID_BAN_COMMUNE
 
-[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/DRAFT-%23-Int%C3%A9gration-des-BanID)
+[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/6%E2%80%90-DRAFT-%23-Int%C3%A9gration-des-BanID)
