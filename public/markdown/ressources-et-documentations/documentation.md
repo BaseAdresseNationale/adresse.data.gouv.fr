@@ -3,7 +3,7 @@ title: Ressources et documentations
 ---
 
 ## Architecture
-L'écosystème Base Adresse Nationale est complexe. Les nombreux composants nécessaires à la production de l'adresse, la gestion de la base de données puis son exploitation sont étroitement imbriqués. Des dépendances avec des composants sous responsabilités d'autres organismes sont également nécessaires pour assurer la cohérence d'ensemble.   Le schéma d'architecture globale est accessible ici : [Schéma d'architecture BAN - BAL](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Schéma-général-d’architecture-BAN-BAL-(fev-2025))
+L'écosystème Base Adresse Nationale est complexe. Les nombreux composants nécessaires à la production de l'adresse, la gestion de la base de données puis son exploitation sont étroitement imbriqués. Des dépendances avec des composants sous responsabilités d'autres organismes sont également nécessaires pour assurer la cohérence d'ensemble.   Le schéma d'architecture globale est accessible ici : [Schéma d'architecture BAN - BAL](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/1%E2%80%90-Sch%C3%A9ma-g%C3%A9n%C3%A9ral-d%E2%80%99architecture-BAN-BAL-(fev-2025))
 
 
 ## Structure de données interne BAN
