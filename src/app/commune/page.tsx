@@ -6,8 +6,10 @@ import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 
 import SearchBAN from '@/components/SearchBAN'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
 export default function VotreCommuneEtSaBALPage() {
+  useClientSidePageTitle('Commune')
   const router = useRouter()
 
   const handleSelectDistrict = useCallback((feature: GeoJSON.Feature) => {

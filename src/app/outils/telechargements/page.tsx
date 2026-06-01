@@ -12,6 +12,9 @@ import { getMarkdown } from '@/lib/markdown'
 import { TextWrapper, CardContainer } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Téléchargements')
 
 export default async function PageDownloadBan() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('les_donnees_de_la_BAN') || {}

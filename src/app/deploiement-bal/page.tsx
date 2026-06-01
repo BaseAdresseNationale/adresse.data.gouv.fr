@@ -6,6 +6,9 @@ import Section from '@/components/Section'
 import { mapToSearchResult } from '@/lib/deploiement-search'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import { Departement } from '@/types/api-geo.types'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Déploiement')
 
 export default async function DeploiementBALPage(props: { searchParams: Promise<Record<string, string>> }) {
   const searchParams = await props.searchParams

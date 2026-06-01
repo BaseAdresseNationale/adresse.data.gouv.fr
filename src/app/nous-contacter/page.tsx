@@ -1,6 +1,7 @@
 'use client'
 
 import Section from '@/components/Section'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -25,6 +26,7 @@ const StyledWrapper = styled(Section)`
 `
 
 export default function NousContacterPage() {
+  useClientSidePageTitle('Nous contacter')
   return (
     <StyledWrapper pageTitle="Nous contacter">
       <section>

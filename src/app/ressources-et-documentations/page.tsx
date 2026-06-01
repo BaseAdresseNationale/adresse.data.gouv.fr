@@ -7,6 +7,9 @@ import HtmlViewer from '@/components/HtmlViewer'
 import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
 import { TextWrapper } from './page.styled'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Documentation')
 
 export default async function DocumentationPage() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('ressources-et-documentations/documentation--intro') || {}

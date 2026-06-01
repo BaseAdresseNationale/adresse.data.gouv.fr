@@ -9,6 +9,9 @@ import SearchBANWrapper from '@/components/SearchBAN/searchBanWrapper'
 import { TextWrapper } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Certificat')
 
 export default async function Home() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('/certificat-adressage/certificat--intro') || {}

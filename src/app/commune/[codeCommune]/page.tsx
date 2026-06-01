@@ -33,10 +33,19 @@ import { getPartenairesDeLaCharte } from '@/lib/api-bal-admin'
 import { SignalementStatusEnum } from '@/types/api-signalement.types'
 import { notFound } from 'next/navigation'
 import { ClientTypeEnum } from '@/types/partenaire.types'
+import { Metadata } from 'next'
 
 export const revalidate = 0
 interface CommunePageProps {
   codeCommune: string
+}
+
+export async function generateMetadata(props : { params : Promise<CommunePageProps> }): Promise<Metadata> {
+  const { codeCommune } = await props.params
+
+  return {
+    title: `Commune - ${codeCommune}`,
+  }
 }
 
 export default async function CommunePage(props: { params: Promise<CommunePageProps> }) {

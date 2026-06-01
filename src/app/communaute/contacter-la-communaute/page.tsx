@@ -7,6 +7,9 @@ import HtmlViewer from '@/components/HtmlViewer'
 import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
 import { TextWrapper } from './page.styled'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Contact')
 
 export default async function ContactCommunautePage() {
   const { contentHtml: heroContentHtml, data: heroData }: { contentHtml?: string, data?: DataType } = await getMarkdown('contacter-la-communaute/contacter-communaute-intro') || {}
