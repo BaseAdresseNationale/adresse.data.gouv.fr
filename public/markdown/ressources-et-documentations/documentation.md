@@ -3,7 +3,7 @@ title: Ressources et documentations
 ---
 
 ## Architecture
-L'écosystème Base Adresse Nationale est complexe. Les nombreux composants nécessaires à la production de l'adresse,la gestion de la base de donnée puis son exploitation sont étroitement imbriqués. Des dépendances avec des composants sous responsabilités d'autres organismes sont également nécessaires pour assurer la cohérence d'ensemble.   Le schéma d'architecture globale est accessible ici : [Schéma d'architecture BAN - BAL](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/Schéma-général-d’architecture-BAN-BAL-(fev-2025))
+L'écosystème Base Adresse Nationale est complexe. Les nombreux composants nécessaires à la production de l'adresse, la gestion de la base de données puis son exploitation sont étroitement imbriqués. Des dépendances avec des composants sous responsabilités d'autres organismes sont également nécessaires pour assurer la cohérence d'ensemble.   Le schéma d'architecture globale est accessible ici : [Schéma d'architecture BAN - BAL](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/1%E2%80%90-Sch%C3%A9ma-g%C3%A9n%C3%A9ral-d%E2%80%99architecture-BAN-BAL-(fev-2025))
 
 
 ## Structure de données interne BAN
@@ -11,13 +11,13 @@ L'écosystème Base Adresse Nationale est complexe. Les nombreux composants néc
 La Base Adresse Nationale (BAN) est une **base de données géolocalisées**, constituée des entités des 3 types de 'localisants' composant la donnée Adresse :
 
 * *District* : Les entités administratives responsables de la gestion des adresses (les communes, ou les arrondissements pour les villes de Paris, Lyon et Marseille)
-*  *CommonToponym* : Les odonymes (= noms de voies) utilisés pour la partie littérale des adresses (rue, place, lieu-dit, etc) sous la dénomination *mainCommonToponym*. Ils peuvent également être ajoutés en tant que composant secondaire de l'adresse (certains usages de lieux-dits), sous la dénomination *secondaryCommonToponyms*. 
+*  *CommonToponym* : Les odonymes (= noms de voies) utilisés pour la partie littérale des adresses (rue, place, lieu-dit, etc) sous la dénomination *mainCommonToponym*. Ils peuvent également être ajoutés en tant que composant secondaire de l'adresse (certains usages de lieux-dits), sous la dénomination *secondaryCommonToponyms*.
 Les *CommonToponym* sont 'liés à' et 'administrés par’ un *District*.
-* *Address* : Les adresses, représentées par un objet géométrique ponctuel. Les adresses sont chacune 'liées à' et ‘administrée par’ un District, et composées d'un ou plusieurs *CommonToponym*.
+* *Address* : Les adresses, représentées par un objet géométrique ponctuel. Les adresses sont chacune 'liées à' et ‘administrées par’ un District, et composées d'un ou plusieurs *CommonToponym*.
 
-Chacune de ces entités est capable de porter des données additionnelles pour apporter des informations complémentaires composantes de l'adresse BAN. Ces données sont de sources externes au périmètre de l'Adresse, mais ouvertes et d'utilité publique (par exemple, les codes INSEE, les Identifiants de parcelles cadastrale, les codes postaux, etc.).
+Chacune de ces entités est capable de porter des données additionnelles pour apporter des informations complémentaires composantes de l'adresse BAN. Ces données sont de sources externes au périmètre de l'Adresse, mais ouvertes et d'utilité publique (par exemple, les codes INSEE, les Identifiants de parcelles cadastrales, les codes postaux, etc.).
 
-[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/DRAFT%23-Schema-de-la-base-de-donn%C3%A9es-BAN) 
+[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/2%E2%80%90-DRAFT%23-Schema-de-la-base-de-donn%C3%A9es-BAN)
 
 
 
@@ -42,4 +42,4 @@ Les identifiants BanID sont fournis par le biais de fichiers BAL 1.4 par l'usage
             ID_BAN_TOPONYME
             ID_BAN_COMMUNE
 
-[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/DRAFT-%23-Int%C3%A9gration-des-BanID)
+[En savoir plus](https://github.com/BaseAdresseNationale/ban-plateforme/wiki/6%E2%80%90-DRAFT-%23-Int%C3%A9gration-des-BanID)
