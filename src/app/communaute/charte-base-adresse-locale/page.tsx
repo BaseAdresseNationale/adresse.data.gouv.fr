@@ -5,6 +5,9 @@ import Section from '@/components/Section'
 import { PartenairesMap } from '@/components/PartenairesDeLaCharte/PartenairesMap'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Charte')
 
 const PARTENAIRE_SEARCH_FILTER = {
   type: PartenaireDeLaCharteTypeEnum.ORGANISME,

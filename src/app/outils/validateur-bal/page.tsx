@@ -1,5 +1,8 @@
 import Loader from '@/components/Loader'
 import dynamic from 'next/dynamic'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('Validateur BAL')
 
 const DynamicComponentWithNoSSR = dynamic(
   () => import('../../../components/ValidateurBAL'),

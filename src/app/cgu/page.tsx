@@ -6,6 +6,9 @@ import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
 import Breadcrumb from '@/layouts/Breadcrumb'
 import { TextWrapper } from './page.styled'
+import pageTitle from '@/utils/pageTitle'
+
+export const metadata = pageTitle('CGU')
 
 export default async function Home() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('cgu') || {}

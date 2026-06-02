@@ -19,6 +19,7 @@ import { getCommunesBySiren } from '@/lib/api-geo'
 import { getCommuneWithoutCache, getDistrictConfigForAdminByCodeCommune } from '@/lib/api-ban'
 import { BANCommune, CertificateTypeEnum } from '@/types/api-ban.types'
 import { Commune } from '@/types/api-geo.types'
+import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
 const useHash = () => {
   const [hash, setHash] = useState(() =>
@@ -79,6 +80,8 @@ type TabId = keyof typeof tabsDescriptions
 const isTabId = (value: string): value is TabId => value in tabsDescriptions
 
 export default function Home() {
+  useClientSidePageTitle('Administration')
+
   const router = useRouter()
   const pathname = usePathname()
   const { hash, hashInitialized } = useHash()
