@@ -19,7 +19,7 @@ const fetchOptions: RequestInit = {
   method: 'GET',
   headers: { 'content-type': 'application/json' },
   mode: 'cors',
-  cache: 'force-cache',
+  next: { revalidate: 900 }, // 15min
 }
 
 function buildTagFilter(tags?: string) {
@@ -58,11 +58,12 @@ function buildQuery(options: PostOptions = {}) {
   return computedUrl
 }
 
-export async function getPosts(options: PostOptions = {}) {
+export async function getPosts(options: PostOptions = {}, fetchInit?: RequestInit) {
   const query = buildQuery(options)
+  const opts = fetchInit ? { ...fetchOptions, ...fetchInit } : fetchOptions
 
   try {
-    const res = await fetch(query, fetchOptions)
+    const res = await fetch(query, opts)
     if (res.ok) {
       return await res.json()
     }
@@ -92,9 +93,12 @@ export async function getSinglePost(slug: string) {
   return null
 }
 
-export async function getTags() {
+export async function getTags(fetchInit?: RequestInit) {
+  const opts = fetchInit
+    ? { method: 'GET', headers: { 'content-type': 'application/json' }, mode: 'cors' as RequestMode, ...fetchInit }
+    : { method: 'GET', headers: { 'content-type': 'application/json' }, mode: 'cors' as RequestMode, next: { revalidate: 900 } }
   try {
-    const res = await fetch(`${API_URL}/tags?key=${KEY}`, { cache: 'force-cache' })
+    const res = await fetch(`${API_URL}/tags?key=${KEY}`, opts)
 
     if (res.ok) {
       const data = await res.json()
