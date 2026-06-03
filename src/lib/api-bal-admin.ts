@@ -39,7 +39,7 @@ export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaChart
   url.searchParams.append('limit', limit.toString())
   addSearchParams(url, queryObject)
 
-  return customFetch(url, { cache: 'force-cache' })
+  return customFetch(url, { next: { revalidate: 1800 } })
 }
 
 export async function getPartenairesDeLaCharteServices(queryObject: PartenairesDeLaCharteQuery): Promise<Record<string, number>> {
