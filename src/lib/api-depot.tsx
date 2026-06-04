@@ -71,7 +71,7 @@ export async function getCurrentRevisionFile(codeCommune: string): Promise<any> 
 }
 
 export async function getRevisions(codeCommune: string): Promise<Revision[]> {
-  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/revisions`, { cache: 'force-cache' })
+  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/revisions`, { cache: 'no-store' })
 
   return revisions.sort((a: Revision, b: Revision) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
