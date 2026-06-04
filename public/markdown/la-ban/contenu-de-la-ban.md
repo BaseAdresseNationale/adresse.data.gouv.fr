@@ -4,7 +4,7 @@ aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir-la-BAN--la-ba
 ---
 
 
-![Exemple d'adresse sur une carte](img/pages/contenu_de_la_ban/contenu-la-ban-hero-illu.png)
+![Exemple d'adresses sur une carte](img/pages/contenu_de_la_ban/contenu-la-ban-hero-illu.png)
 
 ## Structure de la donnée BAN
 

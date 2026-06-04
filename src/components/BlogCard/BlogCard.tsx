@@ -27,7 +27,7 @@ function BlogCard({ post }: BlogCardProps) {
   return (
     <Card
       key={title}
-      imageAlt="texte alternatif de l’image"
+      imageAlt="Illustration de l'article"
       imageUrl={picto}
       linkProps={{ href: `/blog/${slug}` }}
       title={title}
