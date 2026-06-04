@@ -42,7 +42,10 @@ export default function DoughnutCounter({ title, valueUp, valueDown, data, optio
       <div className="title">{title}</div>
       <div className="value-up">{valueUp}</div>
       <div className="donut">
-        <Doughnut data={data} options={options} />
+        <Doughnut 
+          data={data} 
+          options={options}
+          aria-label="Graphique illustratif du pourcentage" />
       </div>
       <div className="value-down">{valueDown}</div>
     </StyledWrapper>
