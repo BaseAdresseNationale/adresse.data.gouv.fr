@@ -8,14 +8,12 @@ import PartenaireOrganisme from '@/components/Partenaires/PartenaireOrganisme'
 import { Metadata } from 'next'
 
 interface PartenairePageprops {
-  params: { id: string }
+  id: string
 }
 
-export async function generateMetadata({
-  params,
-}: PartenairePageprops): Promise<Metadata> {
-  const { id } = await params
-  const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(params.id)
+export async function generateMetadata(props : { params : Promise<PartenairePageprops> }): Promise<Metadata> {
+  const { id } = await props.params
+  const partenaireDeLaCharte = await getOnePartenairesDeLaCharte(id)
 
   return {
     title: `Partenaire - ${partenaireDeLaCharte.name}`,
