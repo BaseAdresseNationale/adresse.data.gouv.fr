@@ -27,26 +27,25 @@ interface LayoutClientProps {
 }
 
 export default function LayoutClient({ children, lang, alertes }: LayoutClientProps) {
-  
   const dataNotices = alertes.length > 0 ? {
-  data: alertes.map((alerte) => ({
-    text: (
-      <>
-        {alerte.message + ' '}
-        <Link
-          href={alerte.lien}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {alerte.message_lien}
-        </Link>
-        .
-      </>
-    ),
-    style: alerte.type,
-  })),
-  duration: 4000,
-} : undefined
+    data: alertes.map((alerte) => ({
+      text: (
+        <>
+          {alerte.message + ' '}
+          <Link
+            href={alerte.lien}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {alerte.message_lien}
+          </Link>
+          .
+        </>
+      ),
+      style: alerte.type,
+    })),
+    duration: 4000,
+  } : undefined
 
   useEffect(() => {
     const matomoUrl = env('NEXT_PUBLIC_MATOMO_URL')

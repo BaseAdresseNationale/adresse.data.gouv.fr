@@ -74,7 +74,6 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]
 
   if (!records || records.length === 0) return []
 
-
   const activeRecords = records.filter((record) => {
     const date_debut = Number(record.fields.date_debut)
     const date_fin = Number(record.fields.date_fin)
@@ -87,20 +86,22 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]
     return dateDebut <= now && now <= dateFin
   })
 
-  return activeRecords.map(record => {
-    const fields = record.fields
-    return {
-      type: fields.type ?? '',
-      message: fields.message ?? '',
-      date_debut: fields.date_debut ?? '',
-      date_fin: fields.date_fin ?? '',
-      validation_publication: fields.validation_publication ?? '',
-      lien: fields.lien ?? '',
-      message_lien: fields.message_lien ?? ''
-    }
-  })
+  const order = { alert: 0, warning: 1, info: 2 }
 
-
+  return activeRecords
+    .sort((a, b) => (order[a.fields.type as keyof typeof order] ?? 3) - (order[b.fields.type as keyof typeof order] ?? 3))
+    .map(record => {
+      const fields = record.fields
+        return {
+          type: fields.type ?? '',
+          message: fields.message ?? '',
+          date_debut: fields.date_debut ?? '',
+          date_fin: fields.date_fin ?? '',
+          validation_publication: fields.validation_publication ?? '',
+          lien: fields.lien ?? '',
+          message_lien: fields.message_lien ?? ''
+        }
+    })
 }
 
 export async function fetchAndProcessApplicationGristData(): Promise<ApplicationRecord[]> {
