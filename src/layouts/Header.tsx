@@ -179,6 +179,7 @@ interface Notices {
       href: string
       target?: string
     }
+    style: string
   }[]
   duration: number
 }

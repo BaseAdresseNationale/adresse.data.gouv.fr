@@ -12,7 +12,7 @@ interface GristRecord {
   }
 }
 
-interface ProcessedRecord {
+interface ApplicationRecord {
   id_application: string
   nom_application: string
   description_utilisation: string
@@ -26,11 +26,21 @@ interface ProcessedRecord {
   tags_application: string
 }
 
-async function fetchTableJson(): Promise<{ records: GristRecord[] }> {
+interface AlerteRecord {
+  type: string
+  message: string
+  date_debut: string
+  date_fin: string
+  validation_publication: string
+  lien: string
+  message_lien: string
+}
+
+async function fetchTableJson(table: string): Promise<{ records: GristRecord[] }> {
   const filterDict = { non_publication_usage: [false], validation_publication: [true] }
   const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
 
-  const response = await fetch(`${BASE_URL}/docs/${DOC_ID}/tables/${WANTED_TABLE_ID}/records?${params}`, {
+  const response = await fetch(`${BASE_URL}/docs/${DOC_ID}/tables/${table}/records?${params}`, {
     headers: {
       Authorization: `Bearer ${API_TOKEN}`,
     },
@@ -58,12 +68,46 @@ function flattenTags(val: any): string {
   return val
 }
 
-export async function fetchAndProcessGristData(): Promise<ProcessedRecord[]> {
-  const data = await fetchTableJson()
+export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord | null>{
+  const data = await fetchTableJson('Alertes')
+  const records = data?.records
+
+  if (!records || records.length === 0) return null
+
+
+  const activeRecord = records.find((record) => {
+    const date_debut = Number(record.fields.date_debut)
+    const date_fin = Number(record.fields.date_fin)
+    if (!date_debut || !date_fin) return false
+
+    const now = new Date()
+    const dateDebut = new Date(date_debut * 1000)
+    const dateFin = new Date(date_fin * 1000)
+
+    return dateDebut <= now && now <= dateFin
+  })
+
+  if (!activeRecord) return null
+
+  const fields = activeRecord.fields
+  return {
+    type: fields.type ?? '',
+    message: fields.message ?? '',
+    date_debut: fields.date_debut ?? '',
+    date_fin: fields.date_fin ?? '',
+    validation_publication: fields.validation_publication ?? '',
+    lien: fields.lien ?? '',
+    message_lien: fields.message_lien ?? ''
+  }
+
+}
+
+export async function fetchAndProcessApplicationGristData(): Promise<ApplicationRecord[]> {
+  const data = await fetchTableJson(WANTED_TABLE_ID)
   const records = data.records || []
 
   // Traiter les données
-  const processedRecords: ProcessedRecord[] = records.map((record) => {
+  const processedRecords: ApplicationRecord[] = records.map((record) => {
     const fields = record.fields
 
     // Aplatir les tags

@@ -22,25 +22,28 @@ import { StyledLayout, PageWrapper } from './layout.styles'
 interface LayoutClientProps {
   children: ReactNode
   lang: string
+  alerte: any
 }
 
-export default function LayoutClient({ children, lang }: LayoutClientProps) {
-  const dataNotices = {
+export default function LayoutClient({ children, lang, alerte }: LayoutClientProps) {
+  
+  const dataNotices =  alerte ? {
     data: [{
       text: <>
-        Nouveauté: L&apos;API de géocodage intègre maintenant des capacités avancées de{' '}
+        {alerte.message + ' '} 
         <Link
-          href="https://geoplateforme.github.io/tutoriels/production/changements/2026/04/22/changement-sur-le-géocodage/"
+          href={alerte.lien}
           target="_blank"
           rel="noopener noreferrer"
         >
-          recherche ciblée par département et multicritères
+          {alerte.message_lien}
         </Link>
         .
-      </>
+      </>,
+      style: alerte.type,
     }],
     duration: 4000,
-  }
+  } : undefined
 
   useEffect(() => {
     const matomoUrl = env('NEXT_PUBLIC_MATOMO_URL')
