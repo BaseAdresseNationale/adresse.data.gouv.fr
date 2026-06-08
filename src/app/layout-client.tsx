@@ -18,19 +18,21 @@ import theme from '@/theme'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import GlobalStyle from './global.styles'
 import { StyledLayout, PageWrapper } from './layout.styles'
+import { AlerteRecord } from '@/lib/api-grist'
 
 interface LayoutClientProps {
   children: ReactNode
   lang: string
-  alerte: any
+  alertes: AlerteRecord[]
 }
 
-export default function LayoutClient({ children, lang, alerte }: LayoutClientProps) {
+export default function LayoutClient({ children, lang, alertes }: LayoutClientProps) {
   
-  const dataNotices =  alerte ? {
-    data: [{
-      text: <>
-        {alerte.message + ' '} 
+  const dataNotices = alertes.length > 0 ? {
+  data: alertes.map((alerte) => ({
+    text: (
+      <>
+        {alerte.message + ' '}
         <Link
           href={alerte.lien}
           target="_blank"
@@ -39,11 +41,12 @@ export default function LayoutClient({ children, lang, alerte }: LayoutClientPro
           {alerte.message_lien}
         </Link>
         .
-      </>,
-      style: alerte.type,
-    }],
-    duration: 4000,
-  } : undefined
+      </>
+    ),
+    style: alerte.type,
+  })),
+  duration: 4000,
+} : undefined
 
   useEffect(() => {
     const matomoUrl = env('NEXT_PUBLIC_MATOMO_URL')

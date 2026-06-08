@@ -292,7 +292,7 @@ export default function Header(
           logoutUrl={`/api/logout?returnUrl=${encodeURIComponent(pathname || '/')}`}
         />
       )}
-      {notices && notices.data.length > 0 && <Notices className="dsfr-notice" {...notices} />}
+      {notices && notices.data.length > 0 && <Notices  {...notices} />}
     </HeaderWrapper>
   )
 }

@@ -26,7 +26,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         />
       </head>
       <body>
-        <LayoutClient lang={lang} alerte={appsData}>{children}</LayoutClient>
+        <LayoutClient lang={lang} alertes={appsData}>{children}</LayoutClient>
       </body>
     </html>
   )

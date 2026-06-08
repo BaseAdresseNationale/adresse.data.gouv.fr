@@ -26,7 +26,7 @@ interface ApplicationRecord {
   tags_application: string
 }
 
-interface AlerteRecord {
+export interface AlerteRecord {
   type: string
   message: string
   date_debut: string
@@ -68,14 +68,14 @@ function flattenTags(val: any): string {
   return val
 }
 
-export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord | null>{
+export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]>{
   const data = await fetchTableJson('Alertes')
   const records = data?.records
 
-  if (!records || records.length === 0) return null
+  if (!records || records.length === 0) return []
 
 
-  const activeRecord = records.find((record) => {
+  const activeRecords = records.filter((record) => {
     const date_debut = Number(record.fields.date_debut)
     const date_fin = Number(record.fields.date_fin)
     if (!date_debut || !date_fin) return false
@@ -87,18 +87,19 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord |
     return dateDebut <= now && now <= dateFin
   })
 
-  if (!activeRecord) return null
+  return activeRecords.map(record => {
+    const fields = record.fields
+    return {
+      type: fields.type ?? '',
+      message: fields.message ?? '',
+      date_debut: fields.date_debut ?? '',
+      date_fin: fields.date_fin ?? '',
+      validation_publication: fields.validation_publication ?? '',
+      lien: fields.lien ?? '',
+      message_lien: fields.message_lien ?? ''
+    }
+  })
 
-  const fields = activeRecord.fields
-  return {
-    type: fields.type ?? '',
-    message: fields.message ?? '',
-    date_debut: fields.date_debut ?? '',
-    date_fin: fields.date_fin ?? '',
-    validation_publication: fields.validation_publication ?? '',
-    lien: fields.lien ?? '',
-    message_lien: fields.message_lien ?? ''
-  }
 
 }
 
