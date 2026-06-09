@@ -2,6 +2,7 @@ import { env } from 'next-runtime-env'
 
 const BASE_URL = env('NEXT_PUBLIC_GRIST_API_URL') || ''
 const DOC_ID = env('NEXT_PUBLIC_GRIST_DOC_ID') || ''
+const DOC_BANDEAU_ID= env('NEXT_PUBLIC_GRIST_DOC_BANDEAU_ID') || ''
 const WANTED_TABLE_ID = env('NEXT_PUBLIC_GRIST_TABLE_ID') || ''
 const API_TOKEN = env('GRIST_API_TOKEN') || ''
 
@@ -36,11 +37,11 @@ export interface AlerteRecord {
   message_lien: string
 }
 
-async function fetchTableJson(table: string): Promise<{ records: GristRecord[] }> {
+async function fetchTableJson(table: string, docId: string): Promise<{ records: GristRecord[] }> {
   const filterDict = { non_publication_usage: [false], validation_publication: [true] }
   const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
 
-  const response = await fetch(`${BASE_URL}/docs/${DOC_ID}/tables/${table}/records?${params}`, {
+  const response = await fetch(`${BASE_URL}/docs/${docId}/tables/${table}/records?${params}`, {
     headers: {
       Authorization: `Bearer ${API_TOKEN}`,
     },
@@ -69,7 +70,7 @@ function flattenTags(val: any): string {
 }
 
 export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]>{
-  const data = await fetchTableJson('Alertes')
+  const data = await fetchTableJson('Alertes', DOC_BANDEAU_ID)
   const records = data?.records
 
   if (!records || records.length === 0) return []
@@ -105,7 +106,7 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]
 }
 
 export async function fetchAndProcessApplicationGristData(): Promise<ApplicationRecord[]> {
-  const data = await fetchTableJson(WANTED_TABLE_ID)
+  const data = await fetchTableJson(WANTED_TABLE_ID, DOC_ID)
   const records = data.records || []
 
   // Traiter les données

@@ -31,14 +31,17 @@ export default function LayoutClient({ children, lang, alertes }: LayoutClientPr
     data: alertes.map((alerte) => ({
       text: (
         <>
-          {alerte.message + ' '}
-          <Link
-            href={alerte.lien}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {alerte.message_lien}
-          </Link>
+          {alerte.message }
+          {
+            alerte.lien && 
+              <Link
+                href={alerte.lien}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {' ' + alerte.message_lien}
+              </Link>
+          }
           .
         </>
       ),
