@@ -1,2 +1,2 @@
 export const removeAccent = (str: string) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-export const codeCommuneRegex = /^(?:(?:0[1-9]|[1-8]\d|9[0-5]|2A|2B)\d{3}|97[1-8]\d{2}|98(?:4|[6-8])\d{2})$/
+export const codeCommuneRegex = /^(?:(?:0[1-9]|1\d|2[1-9]|[3-8]\d|9[0-5])\d{3}|2[AB]\d{3}|97[1-8]\d{2}|98[46-9]\d{2})$/
