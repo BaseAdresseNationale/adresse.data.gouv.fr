@@ -2,6 +2,7 @@
   {
     "title": "Je débute sur Mes Adresses",
     "picto": "/img/picto-fr/calendar.svg",
+    "alt": "picto calendrier",
     "link": {
       "href": "/formation-en-ligne",
       "target": "_self"
@@ -11,6 +12,7 @@
   {
     "title": "Comprendre la Base Adresse Locale",
     "picto": "/img/picto-fr/video.svg",
+    "alt": "picto vidéo",
     "link": {
       "href": "https://tube.numerique.gouv.fr/w/tsqJcL1c7axB9HrMgebyp8",
       "target": "_self"
@@ -20,6 +22,7 @@
   {
     "title": "Comment mettre à jour ma Base Adresse Locale ?",
     "picto": "/img/picto-fr/document.svg",
+    "alt": "picto document",
     "link": {
       "href": "https://doc.adresse.data.gouv.fr/docs/documentation-generale/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale",
       "target": "_self"
@@ -29,6 +32,7 @@
   {
     "title": "Installer un géocodeur sur son serveur",
     "picto": "/img/picto-fr/coding.svg",
+    "alt": "picto code",
     "link": {
       "href": "https://github.com/BaseAdresseNationale/addok-docker#installer-une-instance-avec-les-donn%C3%A9es-de-la-base-adresse-nationale",
       "target": "_github"

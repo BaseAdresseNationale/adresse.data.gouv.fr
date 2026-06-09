@@ -20,7 +20,7 @@ export function getBanItem(idBanItem: string, signal?: AbortSignal): Promise<BAN
 }
 
 export function getStats(): Promise<BANStats> {
-  return customFetch(`${API_BAN_SEARCH_URL}/ban/stats`, { cache: 'force-cache' })
+  return customFetch(`${API_BAN_SEARCH_URL}/ban/stats`, { next: { revalidate: 3600 } })
 }
 
 export function getCommune(codeCommune: string, signal?: AbortSignal): Promise<BANCommune> {

@@ -39,7 +39,7 @@ export async function getPartenairesDeLaCharte(queryObject: PartenairesDeLaChart
   url.searchParams.append('limit', limit.toString())
   addSearchParams(url, queryObject)
 
-  return customFetch(url, { cache: 'force-cache' })
+  return customFetch(url, { next: { revalidate: 1800 } })
 }
 
 export async function getPartenairesDeLaCharteServices(queryObject: PartenairesDeLaCharteQuery): Promise<Record<string, number>> {
@@ -87,7 +87,10 @@ export async function sendReview(partenaireId: string, review: ReviewFormType) {
 
 export async function getBalEvents(): Promise<EventType[]> {
   try {
-    const response = await fetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events`, { cache: 'force-cache' })
+    const response = await fetch(
+      `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events`,
+      { cache: 'no-store' }
+    )
     if (!response.ok) {
       void response.body?.cancel().catch(() => {})
       throw new Error('Error while fetching bal events')

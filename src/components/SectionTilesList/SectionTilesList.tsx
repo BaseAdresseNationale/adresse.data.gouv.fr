@@ -7,6 +7,7 @@ import type { ColorTheme } from '@/theme'
 
 interface TilesData {
   picto: string
+  alt: string
   title: string
   description?: string
   detail?: string
@@ -50,6 +51,7 @@ function SectionTilesList({
             desc={item.description}
             detail={item.detail}
             imageUrl={item.picto}
+            imageAlt={item.alt}
             linkProps={item.link}
             orientation="vertical"
             titleAs={tileTitleAs}

@@ -23,7 +23,7 @@ export function getSignalements(options?: {
   url.searchParams.append('limit', limit.toString())
   addSearchParams(url, options)
 
-  return customFetch(url, { cache: 'force-cache' })
+  return customFetch(url, { next: { revalidate: 1800 } })
 }
 
 export const getSignalementSourceId = (): string | null => {
