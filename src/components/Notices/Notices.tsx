@@ -12,6 +12,7 @@ interface NoticeProps {
       href: string
       target?: string
     }
+    style: string
   }[]
   duration?: number
   className?: string
@@ -33,16 +34,25 @@ function Notice({
     return () => clearInterval(interval)
   }, [data, duration, titleId])
 
-  const { text, link } = data?.[titleId] || {}
+  const { text, link, style } = data?.[titleId] || {}
   const title = text && (data.length > 1 ? `(${titleId + 1}/${data.length}) ${text}` : text)
 
   return title && (
-    <NoticeWrapper className={className}>
-      <NoticeDSFR
-        title={<NoticeMessage {...(link ? { as: 'a', ...link } : {})}>{title}</NoticeMessage>}
-        isClosable
-      />
-    </NoticeWrapper>
+    <>
+      {data.map((item, index) => (
+          <NoticeWrapper key={index} className={className}>
+            <NoticeDSFR
+              title={
+                <NoticeMessage $severity={item.style} {...(item.link ? { as: 'a', ...item.link } : {})}>
+                  {item.text}
+                </NoticeMessage>
+              }
+              severity={item.style as ('warning' | 'alert' | 'info' | undefined)}
+              isClosable
+            />
+          </NoticeWrapper>
+      ))}
+    </>
   )
 }
 

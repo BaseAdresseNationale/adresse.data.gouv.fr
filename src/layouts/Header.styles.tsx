@@ -32,7 +32,7 @@ export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small', $withN
       ${({ $size }) => $size === 'small' && css`z-index: 990;`}
       ${({ $size, $withNotice }) => $size === 'small'
         ? css`height: 7.4rem;`
-        : css`height: ${$withNotice ? '14.4rem' : '10.8rem'};`
+        : css`height: 10.8rem`
       }
     }
 

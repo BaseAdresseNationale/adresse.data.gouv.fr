@@ -18,29 +18,37 @@ import theme from '@/theme'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import GlobalStyle from './global.styles'
 import { StyledLayout, PageWrapper } from './layout.styles'
+import { AlerteRecord } from '@/lib/api-grist'
 
 interface LayoutClientProps {
   children: ReactNode
   lang: string
+  alertes: AlerteRecord[]
 }
 
-export default function LayoutClient({ children, lang }: LayoutClientProps) {
-  const dataNotices = {
-    data: [{
-      text: <>
-        Nouveauté: L&apos;API de géocodage intègre maintenant des capacités avancées de{' '}
-        <Link
-          href="https://geoplateforme.github.io/tutoriels/production/changements/2026/04/22/changement-sur-le-géocodage/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          recherche ciblée par département et multicritères
-        </Link>
-        .
-      </>
-    }],
+export default function LayoutClient({ children, lang, alertes }: LayoutClientProps) {
+  const dataNotices = alertes.length > 0 ? {
+    data: alertes.map((alerte) => ({
+      text: (
+        <>
+          {alerte.message }
+          {
+            alerte.lien && 
+              <Link
+                href={alerte.lien}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {' ' + alerte.message_lien}
+              </Link>
+          }
+          .
+        </>
+      ),
+      style: alerte.type,
+    })),
     duration: 4000,
-  }
+  } : undefined
 
   useEffect(() => {
     const matomoUrl = env('NEXT_PUBLIC_MATOMO_URL')
