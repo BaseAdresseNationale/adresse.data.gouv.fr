@@ -56,7 +56,7 @@ const LightboxModalStyle = createGlobalStyle`
   }
 
   .image-lightbox-modal .fr-modal__body {
-    width: calc(100vw - 1rem);
+    width: auto;
     max-width: calc(100vw - 1rem);
     max-height: calc(100vh - 1rem);
     padding: 0;
