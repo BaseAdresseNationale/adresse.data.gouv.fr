@@ -184,7 +184,7 @@ const paintLayers = {
       {
         title: "Source BAL",
         content: {
-          published: { name: "Publiée", color: toolsColors.mesAdresses },
+          published: { name: "Mes adresses", color: toolsColors.mesAdresses },
           moissoneur: { name: "Moissonneur", color: toolsColors.moissonneur },
           form: { name: "Formulaire", color: toolsColors.formulaire },
           api: { name: "Api", color: toolsColors.api },
