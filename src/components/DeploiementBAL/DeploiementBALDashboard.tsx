@@ -11,13 +11,22 @@ import TabDeploiementBAL from './TabDeploiementBAL'
 import { StyledDeploiementBALDashboard } from './DeploiementBALDashboard.styles'
 import { Tabs } from '@codegouvfr/react-dsfr/Tabs'
 import DeploiementMap, { getStyle } from './DeploiementMap'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { ReadonlyURLSearchParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { mapToSearchResult } from '@/lib/deploiement-search'
 import { FullScreenControl } from '../Map/FullScreenControl'
 import { getSuiviBanTilesTemplateUrl } from '@/lib/suivi-ban-api'
 import { useSuiviBan } from './useSuiviBan'
 import { SuiviBanMapLayers } from './SuiviBanMapLayers'
 import { SuiviBanOverlay } from './SuiviBanOverlay'
+
+const getInitalTab = (searchParams: ReadonlyURLSearchParams | null): 'source-bal' | 'suivi-ban' | null => {
+  const tabId = Array.from(searchParams?.entries() || [])
+    .find(([searchParam]) => searchParam === 'tab')?.[1] || null
+  if (tabId && ['source-bal', 'suivi-ban'].includes(tabId)) {
+    return tabId as 'source-bal' | 'suivi-ban'
+  }
+  return null
+}
 
 interface DeploiementBALMapProps {
   initialStats: BANStats
@@ -30,7 +39,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
-  const [selectedTab, setSelectedTab] = useState<'source-bal' | 'suivi-ban'>('source-bal')
+  const [selectedTab, setSelectedTab] = useState<'source-bal' | 'suivi-ban'>(getInitalTab(searchParams) || 'source-bal')
   const [origin, setOrigin] = useState('')
 
   const suivi = useSuiviBan({ selectedTab })
@@ -100,6 +109,11 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   }, [setFilter, pathname, searchParams, router])
 
   const handleTabChange = useCallback((tabId: string) => {
+    const current = new URLSearchParams(Array.from(searchParams?.entries() || []))
+    current.set('tab', tabId)
+    const search = current.toString()
+    const query = search ? `?${search}` : ''
+    router.replace(`${pathname}${query}`)
     setSelectedTab(tabId as 'source-bal' | 'suivi-ban')
   }, [])
 
