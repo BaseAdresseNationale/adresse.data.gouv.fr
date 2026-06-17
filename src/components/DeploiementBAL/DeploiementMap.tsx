@@ -178,7 +178,7 @@ const PopupContent = styled.div<{ accentColor: string }>`
 `;
 
 const paintLayers = {
-  source: {
+  'source-bal': {
     name: "Déploiement BAL",
     legend: [
       {
@@ -245,7 +245,7 @@ const getPopupAccentColor = ({
 };
 
 export const getStyle = (
-  selectedPaintLayer: "source",
+  selectedPaintLayer: "source-bal",
   filteredCodesCommmune: string[],
 ) => {
   const stylePaint = ["case"] as any;
@@ -283,7 +283,7 @@ interface DeploiementMapProps {
   center: [number, number];
   zoom: number;
   filteredCodesCommmune: string[];
-  selectedPaintLayer: "source";
+  selectedPaintLayer: "source-bal";
 }
 
 export default function DeploiementMap({
@@ -306,8 +306,8 @@ export default function DeploiementMap({
       return;
     }
 
-    map.setCenter(center);
     map.setZoom(zoom);
+    map.setCenter(center);
   }, [map, center, zoom]);
 
   const closePopup = useCallback(() => {

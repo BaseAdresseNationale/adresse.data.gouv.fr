@@ -30,7 +30,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const { stats, formatedStats, filter, setFilter, filteredCodesCommmune, geometry } = useStatsDeploiement({ initialStats, initialFilter })
-  const [selectedTab, setSelectedTab] = useState<'source' | 'suivi-ban'>('source')
+  const [selectedTab, setSelectedTab] = useState<'source-bal' | 'suivi-ban'>('source-bal')
   const [origin, setOrigin] = useState('')
 
   const suivi = useSuiviBan({ selectedTab })
@@ -101,7 +101,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
   }, [setFilter, pathname, searchParams, router])
 
   const handleTabChange = useCallback((tabId: string) => {
-    setSelectedTab(tabId as 'source' | 'suivi-ban')
+    setSelectedTab(tabId as 'source-bal' | 'suivi-ban')
   }, [])
 
   return (
@@ -111,7 +111,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
           <Tabs
             selectedTabId={selectedTab}
             tabs={[
-              { tabId: 'source', label: 'Déploiement BAL' },
+              { tabId: 'source-bal', label: 'Déploiement BAL' },
               { tabId: 'suivi-ban', label: 'Déploiement id BAN' },
             ]}
             onTabChange={handleTabChange}
@@ -134,7 +134,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 interactiveLayerIds={selectedTab === 'suivi-ban' ? interactiveLayerIds : []}
                 cursor={selectedTab === 'suivi-ban' ? 'pointer' : 'auto'}
               >
-                {selectedTab === 'source'
+                {selectedTab === 'source-bal'
                 && (
                   <div className="input-wrapper">
                     <AutocompleteInput
@@ -149,6 +149,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                 <FullScreenControl position="top-right" container={mapContainerRef as React.RefObject<HTMLElement>} />
 
                 {selectedTab !== 'suivi-ban' && (
+                  <>
                   <Source promoteId="code" id="data" type="vector" tiles={[getSuiviBanTilesTemplateUrl().startsWith('/api') ? `${origin}${getSuiviBanTilesTemplateUrl()}` : getSuiviBanTilesTemplateUrl()]}>
                     <Layer
                       id="bal-polygon-fill"
@@ -156,7 +157,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                       source="data"
                       source-layer="communes"
                       paint={{
-                        'fill-color': getStyle('source', filteredCodesCommmune),
+                        'fill-color': getStyle('source-bal', filteredCodesCommmune),
                         'fill-opacity': [
                           'case',
                           ['boolean', ['feature-state', 'hover'], false],
@@ -167,14 +168,13 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                       filter={['==', '$type', 'Polygon']}
                     />
                   </Source>
-                )}
-                {selectedTab !== 'suivi-ban' && (
                   <DeploiementMap
                     center={geometry.center}
                     zoom={geometry.zoom}
                     filteredCodesCommmune={filteredCodesCommmune}
-                    selectedPaintLayer="source"
+                    selectedPaintLayer="source-bal"
                   />
+                  </>
                 )}
 
                 {selectedTab === 'suivi-ban' && <SuiviBanMapLayers suivi={suivi} />}
@@ -183,7 +183,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
               {selectedTab === 'suivi-ban' && <SuiviBanOverlay suivi={suivi} filter={filter} />}
             </div>
 
-            {selectedTab === 'source' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
+            {selectedTab === 'source-bal' && <TabDeploiementBAL stats={stats} formatedStats={formatedStats} filter={filter} filteredCodesCommmune={filteredCodesCommmune} />}
           </Tabs>
         </div>
       </div>
