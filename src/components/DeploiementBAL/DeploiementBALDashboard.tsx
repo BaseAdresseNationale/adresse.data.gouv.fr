@@ -1,7 +1,7 @@
 'use client'
 
 import AutocompleteInput from '@/components/Autocomplete/AutocompleteInput'
-import { DeploiementBALSearchResult, useStatsDeploiement } from '@/hooks/useStatsDeploiement'
+import { DeploiementBALSearchResult, DeploiementBALSearchResultDepartement, useStatsDeploiement } from '@/hooks/useStatsDeploiement'
 import { getEpcis } from '@/lib/api-geo'
 import { BANStats } from '@/types/api-ban.types'
 import { Departement } from '@/types/api-geo.types'
@@ -42,7 +42,6 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
     handleMapClick,
     restoreSuiviBanView,
    } = suivi
-   const mapContainerElement = mapContainerRef.current
 
   useEffect(() => {
     const changeOrigin=() =>{
@@ -102,6 +101,24 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
 
   const handleTabChange = useCallback((tabId: string) => {
     setSelectedTab(tabId as 'source-bal' | 'suivi-ban')
+  }, [])
+
+  const handleTerritorySelect = useCallback((codeTerritory: string) => {
+    const filteredDepartement = departements.find(({ code }) => code === codeTerritory)
+
+    if (filteredDepartement) {
+      const filter: DeploiementBALSearchResultDepartement = {
+        type: 'Département',
+        code: filteredDepartement.code,
+        nom: filteredDepartement.nom,
+        center: filteredDepartement.centre as {
+          type: string;
+          coordinates: [number, number];
+        },
+      }
+
+      handleFilter(filter)
+    }
   }, [])
 
   return (
@@ -173,6 +190,7 @@ export default function DeploiementBALMap({ initialStats, initialFilter, departe
                     zoom={geometry.zoom}
                     filteredCodesCommmune={filteredCodesCommmune}
                     selectedPaintLayer="source-bal"
+                    handleTerritorySelect={handleTerritorySelect}
                   />
                   </>
                 )}

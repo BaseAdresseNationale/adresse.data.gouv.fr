@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 import Button from "@codegouvfr/react-dsfr/Button";
 import { MapMouseEvent, Popup, useMap } from "react-map-gl/maplibre";
 import { toolsColors } from "@/theme/theme";
+import { SelectDomTom } from "./SelectDomTom";
 
 export type PropertyDataType = {
   nom: string;
@@ -284,6 +285,7 @@ interface DeploiementMapProps {
   zoom: number;
   filteredCodesCommmune: string[];
   selectedPaintLayer: "source-bal";
+  handleTerritorySelect: (code: string) => void;
 }
 
 export default function DeploiementMap({
@@ -291,6 +293,7 @@ export default function DeploiementMap({
   zoom,
   filteredCodesCommmune,
   selectedPaintLayer,
+  handleTerritorySelect
 }: DeploiementMapProps) {
   const { current: map } = useMap();
   const hoveredRef = React.useRef<string | null>(null);
@@ -418,6 +421,7 @@ export default function DeploiementMap({
 
   return (
     <StyledWrapper>
+      <SelectDomTom handleTerritorySelect={handleTerritorySelect}/>
       <DeploiementPopupGlobalStyle />
       <div className="legend-wrapper">
         {paintLayers[selectedPaintLayer].legend.map(({ title, content }) => (
