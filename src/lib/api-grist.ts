@@ -37,6 +37,15 @@ export interface AlerteRecord {
   message_lien: string
 }
 
+export interface ActuRecord {
+  date: string
+  titre: string
+  description: string
+  auteur: string
+  lien: string
+  tags_application: string
+}
+
 async function fetchTableJson(table: string, docId: string): Promise<{ records: GristRecord[] }> {
   const filterDict = { non_publication_usage: [false], validation_publication: [true] }
   const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
@@ -103,6 +112,32 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]
           message_lien: fields.message_lien ?? ''
         }
     })
+}
+
+export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
+  const data = await fetchTableJson('News', DOC_BANDEAU_ID)
+  const records = data.records || []
+
+  // Traiter les données
+  const processedRecords: ActuRecord[] = records.map((record) => {
+    const fields = record.fields
+
+    // Aplatir les tags
+    let tagsApplication = fields.tags_application
+    if (tagsApplication) {
+      tagsApplication = flattenTags(tagsApplication)
+    }
+    return {
+      date: fields.date,
+      titre: fields.titre,
+      description: fields.description,
+      auteur: fields.auteur,
+      lien: fields.lien,
+      tags_application: tagsApplication,
+    }
+  })
+
+  return processedRecords
 }
 
 export async function fetchAndProcessApplicationGristData(): Promise<ApplicationRecord[]> {
