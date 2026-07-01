@@ -1,5 +1,6 @@
 import Card from '@codegouvfr/react-dsfr/Card'
 import Tag from '@codegouvfr/react-dsfr/Tag'
+import ResponsiveImage from '@/components/ResponsiveImage'
 
 export interface PostItem {
   title: string

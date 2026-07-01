@@ -42,21 +42,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
   const excerptRegex = new RegExp(excerpt.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i')
   const excerptMatch = contentHtml.match(excerptRegex)
   const excerptIndex = excerptMatch?.index || 0
-  const sanitizedCaption =
-    typeof featureImageCaption === 'string'
-      ? DOMPurify.sanitize(featureImageCaption, {
-          ALLOWED_TAGS: [
-            'b',
-            'i',
-            'em',
-            'strong',
-            'a',
-            'br',
-          ],
-          ALLOWED_ATTR: ['href'],
-        })
-      : ''
-      
+
   return (
     <>
       <Breadcrumb
@@ -109,7 +95,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
             {featureImage && (
               <ImageWrapper>
                 <figure>
-                  <ResponsiveImage src={featureImage} alt={title} />
+                  <ResponsiveImage src={featureImage} alt={title} zoomable />
                   {typeof featureImageCaption === "string" && (
                     <figcaption>
                      {parseHtmlReact(DOMPurify.sanitize(featureImageCaption))}
@@ -125,7 +111,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
               </div>
             </AuthorWrapper>
 
-            <HtmlViewer html={contentHtml} />
+            <HtmlViewer html={contentHtml} enableImageZoom />
           </article>
           <aside>
             <AsideContent />
