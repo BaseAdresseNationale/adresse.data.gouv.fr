@@ -1,6 +1,7 @@
 'use client'
 
 import Section from "@/components/Section"
+import TabActualite from "./tab-actualite"
 import Breadcrumb from "@/layouts/Breadcrumb"
 import Tag from "@codegouvfr/react-dsfr/Tag"
 import { camelCase } from "lodash"
@@ -108,50 +109,16 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
 
         <Section>
           <Grid>
-        {filteredApps.map((item, i) => {
-          const label = new Date(item.date * 1000).toLocaleDateString("fr-FR", { month: "long"})
-          const prevLabel = i > 0
-            ? new Date(filteredApps[i - 1].date * 1000).toLocaleDateString("fr-FR", { month: "long" })
-            : null
-
-          return (
-            <div key={i}>
-              {label !== prevLabel && (
-                <MonthLabel>
-                  {label}
-                </MonthLabel>
-              )}
-              <div>
-                <Item>
-                  <DateBlock>
-                    <span className="day">{new Date(item.date * 1000).toLocaleDateString("fr-FR", { day: "2-digit" })}</span>
-                    <span className="month">{new Date(item.date * 1000).toLocaleDateString("fr-FR", { month: "long" })}</span>
-                    <span className="year">{new Date(item.date * 1000).toLocaleDateString("fr-FR", { year: "numeric" })}</span>
-                  </DateBlock>
-                  <div>
-                    <h3 className="fr-text--md fr-mb-1v" style={{ fontWeight: 700 }}>{item.titre}</h3>
-                    <p className="fr-text--sm fr-mb-0" style={{ color: "#555" }}>{item.description}</p>
-                  </div>
-                  <div>
-                    {item.tagsApplication && 
-                    item.tagsApplication.split(', ').map((tag: string) => <Tag key={tag} className="fr-mb-1w">{tag}</Tag>)}
-                  </div>
-                  <div>
-                    <Link href="#" className="fr-link fr-link--icon-right fr-icon-arrow-right-line fr-mt-1w">
-                      Lire l&apos;actualité
-                    </Link>
-                  </div>
-                
-                </Item>
-                
-                
-                
-              </div>
-            </div>
-          )
-        })}
-        </Grid>
-      </Section>
+            {filteredApps.map((item, i) => (
+              <TabActualite
+                key={i}
+                item={item}
+                data={filteredApps}
+                index={i}
+              />
+            ))}
+          </Grid>
+        </Section>
       </>
     )
 }
