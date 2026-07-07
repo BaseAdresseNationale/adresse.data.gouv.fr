@@ -29,7 +29,7 @@ La Base Adresse Nationale est constituée commune par commune, sur le principe s
 - La commune fournit et actualise sa Base Adresse Locale (**BAL**) : ce sont ces adresses qui sont incluses dans la Base Adresse Nationale;
 - En cas d'absence de BAL, et afin d'assurer une couverture exhaustive du territoire, une liste d'adresses est fournie par l'IGN à partir des meilleures sources disponibles _[(1)](#user-content-notes)_ (**DGFiP**, **IGN**, **ARCEP**, **Guichet Adresse**).
 
-![Shema illustrant le fonctionnement de la Base Adresse Nationale](/img/pages/decouvrir_la_BAN/schema_composition_ban.svg)
+![Schéma illustrant le fonctionnement de la Base Adresse Nationale](/img/pages/decouvrir_la_BAN/schema_composition_ban.svg)
 
 La constitution des BAL est progressive. L'objectif est de disposer d'adresses BAL, fiabilisées et certifiées par le producteur, sur l'ensemble du territoire.
 

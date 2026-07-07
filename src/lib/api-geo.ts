@@ -33,7 +33,7 @@ export function getEPCI(code: string, fields?: string[]): Promise<EPCI> {
     url.searchParams.append('fields', fields.toString())
   }
 
-  return customFetch(url, { cache: 'force-cache' })
+  return customFetch(url, { next: { revalidate: 1800 } })
 }
 
 export function getCommunes(args: any): Promise<Commune[]> {

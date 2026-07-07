@@ -4,6 +4,7 @@
     "description": "Repérez les adresses manquantes, les doublons...",
     "detail": "Créer une base pour ma commune",
     "picto": "/img/picto/road.svg",
+    "alt": "picto route",
     "link": {
       "href": "/programme-bal#creer-sa-base-adresse-locale",
       "target": "_self"
@@ -14,6 +15,7 @@
     "description": "Complétez votre base, consultez la population et délibérez en Conseil municipal.",
     "detail": "Découvrez les bonnes pratiques",
     "picto": "/img/picto/city-hall.svg",
+    "alt": "picto mairie",
     "link": {
       "href": "/documentation-bal#guide-bonnes-pratiques",
       "target": "_self"
@@ -24,6 +26,7 @@
     "description": "Publiez votre base, placez des panneaux et informez vos habitants et partenaires.",
     "detail": "Découvrez les méthodes de publication",
     "picto": "/img/picto/map-target.svg",
+    "alt": "picto position",
     "link": {
       "href": "https://doc.adresse.data.gouv.fr/docs/documentation-generale/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale",
       "target": "_blank"

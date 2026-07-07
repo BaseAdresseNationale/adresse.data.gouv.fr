@@ -41,7 +41,7 @@ export default async function ProgrammeBALPage() {
             </div>
             <div className="fr-col-md-5 image-wrapper">
               <ResponsiveImage
-                alt="Illustration d'une carte dans un smartphone"
+                alt="Illustration d'une carte sur un smartphone"
                 src="/programme-bal/illustration-1.png"
               />
             </div>
@@ -56,16 +56,19 @@ export default async function ProgrammeBALPage() {
               title="Ludique"
               text="Redécouvrez votre commune autrement"
               imageSrc="/programme-bal/ludique.svg"
+              alt="icone carte"
             />
             <IconCard
               title="À votre rythme"
               text="Complétez votre base en plusieurs temps"
               imageSrc="/programme-bal/a-votre-rythme.svg"
+              alt="icone calendrier"
             />
             <IconCard
               title="Simple"
               text="Sans frais et sans compétence technique"
               imageSrc="/programme-bal/simple.svg"
+              alt="icone valider"
             />
           </div>
         </div>
@@ -304,7 +307,7 @@ export default async function ProgrammeBALPage() {
             <div className="fr-col-offset-1 fr-col-md-3 image-wrapper">
               <ResponsiveImage
                 src="/programme-bal/illustration-2.png"
-                alt="Illustraction d'un homme cochant des cases"
+                alt="Illustration d'un bloc note avec une liste"
               />
             </div>
           </div>

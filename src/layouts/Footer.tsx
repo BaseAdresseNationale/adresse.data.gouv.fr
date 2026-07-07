@@ -157,7 +157,7 @@ export default function Footer() {
           )}
           accessibility="non compliant"
           operatorLogo={{
-            alt: '[À MODIFIER - texte alternatif de l’image]',
+            alt: 'Logo Base Adresse Nationale',
             imgUrl: '/logo-ban-site.svg',
             orientation: 'vertical',
           }}

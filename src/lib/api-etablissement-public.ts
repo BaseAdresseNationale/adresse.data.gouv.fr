@@ -11,7 +11,7 @@ export async function getMairiePageURL(codeCommune: string) {
   const query = `select=nom,url_service_public&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"&limit=-1`
   const url = `${env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')}/${route}?${query}`
 
-  const response: { results: APIEtablissementPublicMairie[] } = await customFetch(url, { cache: 'force-cache' })
+  const response: { results: APIEtablissementPublicMairie[] } = await customFetch(url, { next: { revalidate: 1800 } })
   if (!response?.results || response.results.length === 0) {
     return null
   }

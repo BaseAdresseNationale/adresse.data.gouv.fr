@@ -62,7 +62,7 @@ function BlogView() {
   useEffect(() => {
     getPosts({
       limit: nbHighlightedPosts,
-    }).then((data) => {
+    }, { cache: 'no-store' }).then((data) => {
       setHighlightedPosts(data.posts)
     })
   }, [])
@@ -75,8 +75,8 @@ function BlogView() {
         page,
         limit: nbPost,
         tags: tags.size ? [...tags].join(',') : undefined,
-      }),
-      getTags(),
+      }, { cache: 'no-store' }),
+      getTags({ cache: 'no-store' }),
     ])
       .then(([postsData, tagsData]) => {
         if (!isCurrent) {

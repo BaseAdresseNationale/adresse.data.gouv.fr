@@ -31,8 +31,7 @@ const scrollText = keyframes`
   }
 `
 
-export const NoticeMessage = styled.span.attrs(({ children }) => ({ children: <span>{children}</span> }))`
-  max-width: calc(100% - 2rem);
+export const NoticeMessage = styled.span.attrs<{ $severity?: string }>(({ children }) => ({ children: <span>{children}</span> }))<{ $severity?: string }>`  max-width: calc(100% - 2rem);
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
@@ -47,8 +46,7 @@ export const NoticeMessage = styled.span.attrs(({ children }) => ({ children: <s
     width: 2rem;
     display: block;
     clear: both;
-    background: linear-gradient(-90deg,var(--background-contrast-info) calc(100% - 1.5rem),transparent 100%);
-    pointer-events: none;
+    background: linear-gradient(-90deg, var(--background-contrast-${({ $severity }) => $severity ?? 'info'}) calc(100% - 1.5rem), transparent 100%);    pointer-events: none;
   }
 
   &::before {
@@ -61,8 +59,7 @@ export const NoticeMessage = styled.span.attrs(({ children }) => ({ children: <s
     width: 2rem;
     display: block;
     clear: both;
-    background: linear-gradient(90deg, var(--background-contrast-info) calc(100% - 1.5rem), transparent 100%);
-    opacity: 0;
+    background: linear-gradient(90deg, var(--background-contrast-${({ $severity }) => $severity ?? 'info'}) calc(100% - 1.5rem), transparent 100%);    opacity: 0;
     transition: opacity 0.25s ease;
     pointer-events: none;
   }

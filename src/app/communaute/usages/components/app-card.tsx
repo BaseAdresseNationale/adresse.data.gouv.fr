@@ -55,7 +55,7 @@ function AppCard({
       size="small"
       title={nomApplication}
       desc={descriptionUtilisation}
-      imageComponent={<ResponsiveImage src={logoDownloadUrl} alt={nomUtilisateur} style={{ objectFit: 'contain' }} />}
+      imageComponent={<ResponsiveImage src={logoDownloadUrl} alt={'Logo ' + nomApplication} style={{ objectFit: 'contain' }} />}
       start={tagsApplication && (
         <TagsAndBadges>
           <ul className="fr-tags-group">
