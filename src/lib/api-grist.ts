@@ -66,6 +66,30 @@ async function fetchTableJson(table: string, docId: string): Promise<{ records: 
   return response.json()
 }
 
+export async function fetchTagColumn(): Promise<string[]> {
+  const response = await fetch(`${BASE_URL}/docs/${DOC_BANDEAU_ID}/tables/News/columns`, {
+    headers: {
+      Authorization: `Bearer ${API_TOKEN}`,
+    },
+  })
+
+  if (!response.ok) {
+    console.error(new Error(`Erreur HTTP (${response.status}) lors de la récupération des colonnes de Grist`))
+    return []
+  }
+
+  const { columns } = await response.json()
+  const tagColumn = columns.find((column: any) => column.id === 'tags_application')
+
+  if (!tagColumn?.fields?.widgetOptions) {
+    return []
+  }
+
+  const widgetOptions = JSON.parse(tagColumn.fields.widgetOptions)
+  return widgetOptions.choices ?? []
+}
+
+
 function flattenTags(val: any): string {
   if (Array.isArray(val)) {
     let cleaned = val
