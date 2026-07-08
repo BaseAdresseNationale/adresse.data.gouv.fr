@@ -4,6 +4,7 @@ import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import TabSuiviBAN from './TabSuiviBAN'
 import { SuiviBanContext, SuiviBanSelectedDept } from './useSuiviBan'
 import { fr } from '@codegouvfr/react-dsfr'
+import { SelectDomTom } from './SelectDomTom'
 
 const DSFR_HEX_OVERLAY = fr.colors.getHex({ isDark: false }).decisions
 
@@ -283,49 +284,7 @@ export function SuiviBanOverlay({ suivi, filter }: SuiviBanOverlayProps) {
         <CommuneTooltip commune={suivi.hoveredCommune} deptNom={suivi.suiviBanSelectedDept.nom} />
       )}
 
-      <div
-        style={{
-          position: 'absolute',
-          top: 10,
-          right: 50,
-          pointerEvents: 'auto',
-          background: 'var(--background-default-grey)',
-          borderRadius: 8,
-          boxShadow: 'var(--overlap-shadow)',
-          overflow: 'hidden',
-        }}
-      >
-        <select
-          style={{
-            border: 'none',
-            padding: '9px 36px 9px 14px',
-            fontSize: 13,
-            fontWeight: 600,
-            color: 'var(--text-default-grey)',
-            background: 'var(--background-default-grey)',
-            cursor: 'pointer',
-            appearance: 'none',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='${encodeURIComponent(DSFR_HEX_OVERLAY.text.default.grey.default)}' d='M6 9L1 4h10z'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'right 10px center',
-            outline: 'none',
-            minWidth: 180,
-          }}
-          value=""
-          onChange={(e) => {
-            if (e.target.value) suivi.handleTerritorySelect(e.target.value)
-            e.target.value = ''
-          }}
-        >
-          <option value="">Naviguer vers…</option>
-          <optgroup label="DOM-TOM">
-            {TERRITOIRES_OPTIONS.map(t => (
-              <option key={t.value} value={t.value}>{t.label}</option>
-            ))}
-          </optgroup>
-        </select>
-      </div>
-
+      <SelectDomTom handleTerritorySelect={suivi.handleTerritorySelect} />
     </div>
   )
 }

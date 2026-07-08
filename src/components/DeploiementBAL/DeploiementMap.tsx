@@ -1,19 +1,20 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
-import Button from '@codegouvfr/react-dsfr/Button'
-import { MapMouseEvent, Popup, useMap } from 'react-map-gl/maplibre'
-import { toolsColors } from '@/theme/theme'
+import React, { useCallback, useEffect, useState } from "react";
+import styled, { createGlobalStyle } from "styled-components";
+import Button from "@codegouvfr/react-dsfr/Button";
+import { MapMouseEvent, Popup, useMap } from "react-map-gl/maplibre";
+import { toolsColors } from "@/theme/theme";
+import { SelectDomTom } from "./SelectDomTom";
 
 export type PropertyDataType = {
-  nom: string
-  code: string
-  nbNumeros: number
-  hasBAL: boolean
-  certificationPercentage: string
-  idClient?: string
-  nomClient?: string
-  statusBals: string
-}
+  nom: string;
+  code: string;
+  nbNumeros: number;
+  hasBAL: boolean;
+  certificationPercentage: string;
+  idClient?: string;
+  nomClient?: string;
+  statusBals: string;
+};
 
 const StyledWrapper = styled.div`
   .legend-wrapper {
@@ -47,7 +48,7 @@ const StyledWrapper = styled.div`
   }
 
   }
-`
+`;
 
 const DeploiementPopupGlobalStyle = createGlobalStyle`
   .deploiement-popup .maplibregl-popup-content {
@@ -61,7 +62,7 @@ const DeploiementPopupGlobalStyle = createGlobalStyle`
   .deploiement-popup .maplibregl-popup-close-button {
     display: none;
   }
-`
+`;
 
 const PopupContent = styled.div<{ accentColor: string }>`
   font-family: inherit;
@@ -169,36 +170,31 @@ const PopupContent = styled.div<{ accentColor: string }>`
     margin-top: 4px;
     display: flex;
 
-    > a, > button {
+    > a,
+    > button {
       flex: 1;
       justify-content: center;
     }
   }
-`
+`;
 
 const paintLayers = {
-  source: {
-    name: 'Déploiement BAL',
+  'source-bal': {
+    name: "Déploiement BAL",
     legend: [
       {
-        title: 'Mes Adresses',
+        title: "Source BAL",
         content: {
-          published: { name: 'Publiée', color: toolsColors.mesAdresses },
-          draft: { name: 'Brouillon', color: `${toolsColors.mesAdresses}80` },
+          published: { name: "Mes adresses", color: toolsColors.mesAdresses },
+          moissoneur: { name: "Moissonneur", color: toolsColors.moissonneur },
+          form: { name: "Formulaire", color: toolsColors.formulaire },
+          api: { name: "Api", color: toolsColors.api },
         },
       },
       {
-        title: 'Autres sources',
+        title: "Source BAN",
         content: {
-          moissoneur: { name: 'Moissonneur', color: toolsColors.moissonneur },
-          form: { name: 'Formulaire', color: toolsColors.formulaire },
-          api: { name: 'Api', color: toolsColors.api },
-        },
-      },
-      {
-        title: 'BAN',
-        content: {
-          other: { name: 'Assemblage', color: '#ddd' },
+          other: { name: "Assemblage", color: "#ddd" },
         },
       },
     ],
@@ -206,216 +202,265 @@ const paintLayers = {
       styles: [
         {
           expression: [
-            ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'idClient'], 'mes-adresses'],
+            ["==", ["get", "hasBAL"], true],
+            ["==", ["get", "idClient"], "mes-adresses"],
           ], // Mes Adresses
           color: toolsColors.mesAdresses,
         },
         {
           expression: [
-            ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'idClient'], 'moissonneur-bal'],
+            ["==", ["get", "hasBAL"], true],
+            ["==", ["get", "idClient"], "moissonneur-bal"],
           ], // Moissonneur
           color: toolsColors.moissonneur,
         },
         {
           expression: [
-            ['==', ['get', 'hasBAL'], true],
-            ['==', ['get', 'idClient'], 'formulaire-publication'],
+            ["==", ["get", "hasBAL"], true],
+            ["==", ["get", "idClient"], "formulaire-publication"],
           ], // Formulaire
           color: toolsColors.formulaire,
         },
         {
           expression: [
-            ['==', ['get', 'hasBAL'], true],
-            ['==', ['has', 'idClient'], true],
+            ["==", ["get", "hasBAL"], true],
+            ["==", ["has", "idClient"], true],
           ], // API
           color: toolsColors.api,
         },
-        {
-          expression: [
-            ['==', ['get', 'hasBAL'], false],
-            ['==', ['get', 'statusBals'], 'draft'],
-          ], // Mes Adresses
-          color: `${toolsColors.mesAdresses}80`,
-        },
       ],
-      default: '#ddd',
+      default: "#ddd",
     },
   },
-}
+};
 
-const getPopupAccentColor = ({ hasBAL, idClient }: PropertyDataType): string => {
-  if (!hasBAL) return '#aaa'
-  if (idClient === 'mes-adresses') return toolsColors.mesAdresses
-  if (idClient === 'moissonneur-bal') return '#b88200' // toolsColors.moissonneur assombri pour le contraste
-  if (idClient === 'formulaire-publication') return toolsColors.formulaire
-  return '#8c8a00' // toolsColors.api assombri pour le contraste
-}
+const getPopupAccentColor = ({
+  hasBAL,
+  idClient,
+}: PropertyDataType): string => {
+  if (!hasBAL) return "#aaa";
+  if (idClient === "mes-adresses") return toolsColors.mesAdresses;
+  if (idClient === "moissonneur-bal") return "#b88200"; // toolsColors.moissonneur assombri pour le contraste
+  if (idClient === "formulaire-publication") return toolsColors.formulaire;
+  return "#8c8a00"; // toolsColors.api assombri pour le contraste
+};
 
-export const getStyle = (selectedPaintLayer: 'source', filteredCodesCommmune: string[]) => {
-  const stylePaint = ['case'] as any
+export const getStyle = (
+  selectedPaintLayer: "source-bal",
+  filteredCodesCommmune: string[],
+) => {
+  const stylePaint = ["case"] as any;
 
-  (paintLayers[selectedPaintLayer] as any).paint.styles.forEach((style: any) => {
-    const { expression, color } = style
-    const exp = [
-      'all',
-      ...expression,
-    ]
-    if (filteredCodesCommmune.length > 0) {
-      const inFilteredCommunesExp = ['in', ['get', 'code'], ['literal', filteredCodesCommmune]]
-      exp.push(inFilteredCommunesExp)
-    }
+  (paintLayers[selectedPaintLayer] as any).paint.styles.forEach(
+    (style: any) => {
+      const { expression, color } = style;
+      const exp = ["all", ...expression];
+      if (filteredCodesCommmune.length > 0) {
+        const inFilteredCommunesExp = [
+          "in",
+          ["get", "code"],
+          ["literal", filteredCodesCommmune],
+        ];
+        exp.push(inFilteredCommunesExp);
+      }
 
-    stylePaint.push(exp, color)
-  })
+      stylePaint.push(exp, color);
+    },
+  );
   if (filteredCodesCommmune.length > 0) {
     stylePaint.push(
-      ['in', ['get', 'code'], ['literal', filteredCodesCommmune]],
-      '#ddd',
-      'transparent')
-  }
-  else {
-    stylePaint.push((paintLayers[selectedPaintLayer] as any).paint.default)
+      ["in", ["get", "code"], ["literal", filteredCodesCommmune]],
+      "#ddd",
+      "transparent",
+    );
+  } else {
+    stylePaint.push((paintLayers[selectedPaintLayer] as any).paint.default);
   }
 
-  return stylePaint
-}
+  return stylePaint;
+};
 
 interface DeploiementMapProps {
-  center: [number, number]
-  zoom: number
-  filteredCodesCommmune: string[]
-  selectedPaintLayer: 'source'
+  center: [number, number];
+  zoom: number;
+  filteredCodesCommmune: string[];
+  selectedPaintLayer: "source-bal";
+  handleTerritorySelect: (code: string) => void;
 }
 
-export default function DeploiementMap({ center, zoom, filteredCodesCommmune, selectedPaintLayer }: DeploiementMapProps) {
-  const { current: map } = useMap()
-  const hoveredRef = React.useRef<string | null>(null)
-  const selectedRef = React.useRef<string | null>(null)
-  const [popup, setPopup] = useState<{ latitude: number, longitude: number, properties: any } | null>(null)
+export default function DeploiementMap({
+  center,
+  zoom,
+  filteredCodesCommmune,
+  selectedPaintLayer,
+  handleTerritorySelect
+}: DeploiementMapProps) {
+  const { current: map } = useMap();
+  const hoveredRef = React.useRef<string | null>(null);
+  const selectedRef = React.useRef<string | null>(null);
+  const [popup, setPopup] = useState<{
+    latitude: number;
+    longitude: number;
+    properties: any;
+  } | null>(null);
 
   useEffect(() => {
     if (!map) {
-      return
+      return;
     }
 
-    map.setCenter(center)
-    map.setZoom(zoom)
-  }, [map, center, zoom])
+    map.setZoom(zoom);
+    map.setCenter(center);
+  }, [map, center, zoom]);
 
   const closePopup = useCallback(() => {
-    setPopup(null)
+    setPopup(null);
     if (selectedRef.current) {
       try {
-        map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: selectedRef.current }, { hover: false })
+        map?.setFeatureState(
+          { source: "data", sourceLayer: "communes", id: selectedRef.current },
+          { hover: false },
+        );
+      } catch {
+        /* map may have been destroyed */
       }
-      catch { /* map may have been destroyed */ }
-      selectedRef.current = null
+      selectedRef.current = null;
     }
     if (hoveredRef.current) {
       try {
-        map?.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
+        map?.setFeatureState(
+          { source: "data", sourceLayer: "communes", id: hoveredRef.current },
+          { hover: false },
+        );
+      } catch {
+        /* map may have been destroyed */
       }
-      catch { /* map may have been destroyed */ }
-      hoveredRef.current = null
+      hoveredRef.current = null;
     }
-  }, [map])
+  }, [map]);
 
   useEffect(() => {
     if (!map) {
-      return
+      return;
     }
 
     const onClick = (event: MapMouseEvent) => {
-      const [feature] = (event as any).features
-      if (filteredCodesCommmune.length === 0 || filteredCodesCommmune.includes(feature.properties.code)) {
-        closePopup()
+      const [feature] = (event as any).features;
+      if (
+        filteredCodesCommmune.length === 0 ||
+        filteredCodesCommmune.includes(feature.properties.code)
+      ) {
+        closePopup();
         setPopup({
           latitude: event.lngLat.lat,
           longitude: event.lngLat.lng,
           properties: feature.properties,
-        })
-        selectedRef.current = feature.id
-        map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: feature.id }, { hover: true })
+        });
+        selectedRef.current = feature.id;
+        map.setFeatureState(
+          { source: "data", sourceLayer: "communes", id: feature.id },
+          { hover: true },
+        );
       }
-    }
+    };
 
-    map.on('click', 'bal-polygon-fill', onClick)
+    map.on("click", "bal-polygon-fill", onClick);
 
     return () => {
-      map.off('click', 'bal-polygon-fill', onClick)
-    }
-  }, [map, filteredCodesCommmune, closePopup])
+      map.off("click", "bal-polygon-fill", onClick);
+    };
+  }, [map, filteredCodesCommmune, closePopup]);
 
   useEffect(() => {
     if (!map) {
-      return
+      return;
     }
 
     const onMouseMove = (event: MapMouseEvent) => {
       if (!map) {
-        return
+        return;
       }
 
-      const [feature] = (event as any).features
+      const [feature] = (event as any).features;
 
       if (hoveredRef.current && hoveredRef.current !== selectedRef.current) {
-        map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
+        map.setFeatureState(
+          { source: "data", sourceLayer: "communes", id: hoveredRef.current },
+          { hover: false },
+        );
       }
 
-      hoveredRef.current = feature.id
-      map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: feature.id }, { hover: true })
-    }
+      hoveredRef.current = feature.id;
+      map.setFeatureState(
+        { source: "data", sourceLayer: "communes", id: feature.id },
+        { hover: true },
+      );
+    };
 
     const onMouseLeave = () => {
       if (!map) {
-        return
+        return;
       }
 
       if (hoveredRef.current) {
-        map.setFeatureState({ source: 'data', sourceLayer: 'communes', id: hoveredRef.current }, { hover: false })
+        map.setFeatureState(
+          { source: "data", sourceLayer: "communes", id: hoveredRef.current },
+          { hover: false },
+        );
       }
-    }
+    };
 
-    map.on('mousemove', 'bal-polygon-fill', onMouseMove)
-    map.on('mouseleave', 'bal-polygon-fill', onMouseLeave)
+    map.on("mousemove", "bal-polygon-fill", onMouseMove);
+    map.on("mouseleave", "bal-polygon-fill", onMouseLeave);
 
     return () => {
-      map.off('mousemove', 'bal-polygon-fill', onMouseMove)
-      map.off('mouseleave', 'bal-polygon-fill', onMouseLeave)
-    }
-  }, [map])
+      map.off("mousemove", "bal-polygon-fill", onMouseMove);
+      map.off("mouseleave", "bal-polygon-fill", onMouseLeave);
+    };
+  }, [map]);
 
   return (
     <StyledWrapper>
+      <SelectDomTom handleTerritorySelect={handleTerritorySelect}/>
       <DeploiementPopupGlobalStyle />
-      <div
-        className="legend-wrapper"
-      >
-        {
-          paintLayers[selectedPaintLayer].legend.map(({ title, content }) => (
-            <React.Fragment key={title}>
-              <div className="legend-title">{title}</div>
-              {Object.values(content).map(({ name, color }) => (
-                <div className="legend-container" key={name}>
-                  <div className="legend-color" style={{ backgroundColor: `${color}` }} />
-                  <div>{name}</div>
-                </div>
-              ))}
-            </React.Fragment>
-          ))
-        }
+      <div className="legend-wrapper">
+        {paintLayers[selectedPaintLayer].legend.map(({ title, content }) => (
+          <React.Fragment key={title}>
+            <div className="legend-title">{title}</div>
+            {Object.values(content).map(({ name, color }) => (
+              <div className="legend-container" key={name}>
+                <div
+                  className="legend-color"
+                  style={{ backgroundColor: `${color}` }}
+                />
+                <div>{name}</div>
+              </div>
+            ))}
+          </React.Fragment>
+        ))}
       </div>
       {popup && (
-        <Popup className="deploiement-popup" latitude={popup.latitude} longitude={popup.longitude} onClose={closePopup}>
+        <Popup
+          className="deploiement-popup"
+          latitude={popup.latitude}
+          longitude={popup.longitude}
+          onClose={closePopup}
+        >
           <PopupContent accentColor={getPopupAccentColor(popup.properties)}>
             <div className="popup-header">
               <div className="header-row">
                 <p className="commune-name">{popup.properties.nom}</p>
-                <button className="close-btn" onClick={closePopup} aria-label="Fermer">&#x2715;</button>
+                <button
+                  className="close-btn"
+                  onClick={closePopup}
+                  aria-label="Fermer"
+                >
+                  &#x2715;
+                </button>
               </div>
-              <span className="commune-code">Code INSEE : {popup.properties.code}</span>
+              <span className="commune-code">
+                Code INSEE : {popup.properties.code}
+              </span>
             </div>
             <div className="popup-body">
               <div className="popup-row">
@@ -425,17 +470,27 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
               <div className="popup-row">
                 <span className="row-label">Certification :</span>
                 <span className="row-value">
-                  {popup.properties.certificationPercentage ? `${popup.properties.certificationPercentage}%` : 'Aucune'}
+                  {popup.properties.certificationPercentage
+                    ? `${popup.properties.certificationPercentage}%`
+                    : "Aucune"}
                 </span>
               </div>
               <div className="popup-row">
                 <span className="row-label">Source :</span>
-                {popup.properties.hasBAL
-                  ? <span className="popup-badge">{popup.properties.nomClient}</span>
-                  : <span className="popup-no-bal">Pas de BAL&nbsp;d&eacute;pos&eacute;e</span>}
+                {popup.properties.hasBAL ? (
+                  <span className="popup-badge">
+                    {popup.properties.nomClient}
+                  </span>
+                ) : (
+                  <span className="popup-no-bal">
+                    Pas de BAL&nbsp;d&eacute;pos&eacute;e
+                  </span>
+                )}
               </div>
               <div className="popup-link-wrapper">
-                <Button linkProps={{ href: `/commune/${popup.properties.code}` }}>
+                <Button
+                  linkProps={{ href: `/commune/${popup.properties.code}` }}
+                >
                   Voir la page commune
                 </Button>
               </div>
@@ -444,5 +499,5 @@ export default function DeploiementMap({ center, zoom, filteredCodesCommmune, se
         </Popup>
       )}
     </StyledWrapper>
-  )
+  );
 }

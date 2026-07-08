@@ -78,7 +78,7 @@ export async function getPosts(options: PostOptions = {}, fetchInit?: RequestIni
 
 export async function getSinglePost(slug: string) {
   try {
-    const res = await fetch(`${API_URL}/posts/slug/${slug}/?key=${KEY}&include=authors,tags`, { cache: 'force-cache' })
+    const res = await fetch(`${API_URL}/posts/slug/${slug}/?key=${KEY}&include=authors,tags`, { cache: 'no-store' })
 
     if (res.ok) {
       const data = await res.json()
