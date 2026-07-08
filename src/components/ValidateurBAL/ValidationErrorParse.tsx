@@ -19,7 +19,7 @@ function ValidationErrorParseReport({ report }: ValidationErrorParseReportProps)
     <Section>
       <Alert
         description={<>
-          {report.parseErrors.map(({message, row}) => (<p>{message}{row ? ` at the line ${row}` : ''}</p>))}
+          {report.parseErrors.map(({index, message, row}) => (<p key={index}>{message}{row ? ` at the line ${row}` : ''}</p>))}
         </>}
         severity="error"
         title="Le fichier n'est pas un CSV valide"
