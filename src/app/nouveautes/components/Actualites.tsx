@@ -5,7 +5,7 @@ import TabActualite, { ActuRecord } from "./tab-actualite"
 import Breadcrumb from "@/layouts/Breadcrumb"
 import { camelCase } from "lodash"
 import { useMemo, useState } from "react"
-import { Grid, MonthButton, MonthsNav } from "../page.styles"
+import { EmptyMessage, Grid, MonthButton, MonthsNav } from "../page.styles"
 
 export default function Actualites({ appsData, filterTags }: { appsData: Record<string, any>[]; filterTags: string[]; }) {
 
@@ -137,14 +137,16 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
              ))}
           </MonthsNav>
           <Grid>
-            {filteredApps.map((item, i) => (
+            {filteredApps.length >0 ? filteredApps.map((item, i) => (
               <TabActualite
                 key={i}
                 item={item}
                 data={filteredApps}
                 index={i}
               />
-            ))}
+            )) :
+            <EmptyMessage>Pas de nouveautés ce moi-ci</EmptyMessage>
+            }
           </Grid>
         </Section>
       </>

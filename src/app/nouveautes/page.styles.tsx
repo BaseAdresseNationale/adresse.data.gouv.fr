@@ -7,10 +7,16 @@ export const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   gap: 1px;
-  background-color: #ddd;
   list-style-type: none;
   padding: 0;
   margin: 0;
+`;
+
+export const EmptyMessage = styled.p`
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+  font-style: italic;
 `;
 
 export const Item = styled.div`
