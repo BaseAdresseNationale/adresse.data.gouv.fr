@@ -1,18 +1,16 @@
 'use client'
 
 import Section from "@/components/Section"
-import TabActualite from "./tab-actualite"
+import TabActualite, { ActuRecord } from "./tab-actualite"
 import Breadcrumb from "@/layouts/Breadcrumb"
-import Tag from "@codegouvfr/react-dsfr/Tag"
 import { camelCase } from "lodash"
 import { useMemo, useState } from "react"
-import { DateBlock, Grid, Item, MonthLabel } from "../page.styles"
-import Link from "next/link"
+import { Grid, MonthButton, MonthsNav } from "../page.styles"
 
-export default function Actualites({ appsData, filterTags }: { appsData: Record<string, any>[]; filterTags: string[] }) {
+export default function Actualites({ appsData, filterTags }: { appsData: Record<string, any>[]; filterTags: string[]; }) {
 
   const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [selectedYear, setSelectedYear] = useState<number | null>(2026)
+  const [selectedMonth, setSelectedMonth] = useState<number | null>(null);
     
   const appsDataCamel = useMemo(() => appsData
     .map(appData => 
@@ -22,20 +20,47 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
           .filter(([key]) => key)
           .map(([key, value]) => [camelCase(key), value])
       )
-    ), [appsData])
-  .sort((a,b) => a.date - b.date)
+    ) as ActuRecord[], [appsData])
+  .sort((a,b) => Number(a.date) - Number(b.date))
+
+  const years = useMemo(() => {
+    const extractedYears = appsDataCamel.map(app => 
+      new Date(Number(app.date) * 1000).getFullYear()
+    )
+    return Array.from(new Set(extractedYears)).sort((a, b) => b - a)
+  }, [appsDataCamel])
+
+
+  const months = [
+    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+  ];
+
+  const [selectedYear, setSelectedYear] = useState<number | null>(years[0])
 
   const filteredApps = useMemo(() => {
-    if (selectedTags.length === 0) return appsDataCamel
     return appsDataCamel.filter(app => {
-      const tags = app.tagsApplication
-      const tagList = Array.isArray(tags)
-      ? tags.map((tag: string) => tag.trim())
-      : String(tags).split(',').map((tag: string) => tag.trim())
+      if(selectedTags.length > 0) {
+        const tags = app.tagsApplication
+        const tagList = Array.isArray(tags)
+          ? tags.map((tag: string) => tag.trim())
+          : String(tags).split(',').map((tag: string) => tag.trim())
+        const mathcesTags = selectedTags.some(selected => tagList.includes(selected))
+        if (!mathcesTags) return false
+      }
+      const date = new Date(Number(app.date) * 1000)
 
-    return selectedTags.some(selected => tagList.includes(selected))
+      if (selectedMonth !== null && date.getMonth() !== selectedMonth) {
+        return false
+      }
+
+      if (selectedYear !== null && date.getFullYear() !== selectedYear) {
+        return false
+      }
+
+      return true
     })
-  }, [appsDataCamel, selectedTags])
+  }, [appsDataCamel, selectedTags, selectedMonth, selectedYear])
 
   const toggleTag = (tag: string) => {
     setSelectedTags(prev =>
@@ -44,8 +69,6 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
         : [...prev, tag]
     )
   }
-  // voir comment fait dans usage
-  const years = [2026, 2025, 2024]
 
   return (
       <>
@@ -90,7 +113,7 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
                 <button
                   type="button"
                   className="fr-tag"
-                  aria-current={selectedYear === year}
+                  aria-pressed={selectedYear === year}
                   onClick={() => setSelectedYear(year)}
                 >
                   {year}
@@ -104,10 +127,17 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
           <h4>
             {selectedYear}
           </h4>
-
-        </Section>
-
-        <Section>
+          <MonthsNav>
+            {months.map((month, index) => (
+              <MonthButton 
+                key={month} 
+                type="button"
+                $active={selectedMonth === index}
+                onClick={() => setSelectedMonth(selectedMonth === index ? null : index)}>
+                {month}
+              </MonthButton>
+             ))}
+          </MonthsNav>
           <Grid>
             {filteredApps.map((item, i) => (
               <TabActualite
