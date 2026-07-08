@@ -101,9 +101,7 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
               </li>
             ))}
           </ul>
-        </Section>
 
-        <Section>
           <h4>
             Années
           </h4>
