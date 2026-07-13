@@ -229,10 +229,10 @@ function CandidacyForm({ onClose, services, departements, defaultType = Partenai
               placeholder="Sélectionnez un ou plusieurs départements"
               value={formData.coverDepartement}
               options={departementsOptions}
-              onChange={(codeDepartement: string[]) => {
+              onChange={(coverDepartement: string[]) => {
                 setFormData(state => ({
                   ...state,
-                  codeDepartement,
+                  coverDepartement,
                 }))
               }}
             />
