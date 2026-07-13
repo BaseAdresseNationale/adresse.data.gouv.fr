@@ -37,7 +37,6 @@ export default function ValidateurBAL() {
     try {
       setIsLoading(true)
       const report = await validate(file as any, profile ? { profile } : undefined)
-      console.log(report)
       if (report.parseOk) {
         setProfile((report as ValidateType).profile)
       }
