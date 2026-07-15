@@ -30,14 +30,14 @@ export const HeaderWrapper = styled.header<{ $size?: 'default' | 'small', $withN
       transition: height .3s ease;
 
       ${({ $size }) => $size === 'small' && css`z-index: 990;`}
-      ${({ $size, $withNotice }) => $size === 'small'
+      ${({ $size }) => $size === 'small'
         ? css`height: 7.4rem;`
         : css`height: 10.8rem`
       }
     }
 
     .dsfr-notice {
-      position: absolute;
+      ${({ $size }) => $size === 'small' && css`position: absolute;`}
     }
 
     .dsfr-header {
