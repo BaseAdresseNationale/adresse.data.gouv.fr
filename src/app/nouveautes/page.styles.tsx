@@ -21,9 +21,9 @@ export const EmptyMessage = styled.p`
 
 export const Item = styled.div`
   background: #fff;
-  padding: 1.5rem 1.5rem 1.5rem 0rem;
+  padding: 1.5rem 1.5rem 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 4fr 2fr 1fr;
+  grid-template-columns: 1fr 4fr 2fr;
   gap: 1rem;
   align-items: start;
 `;

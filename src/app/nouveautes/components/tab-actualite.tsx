@@ -47,6 +47,12 @@ function TabActualite({item, data, index}: Tab) {
                     <div>
                         <h3 className="fr-text--md fr-mb-1v" style={{ fontWeight: 700 }}>{item.titre}</h3>
                          <p className="fr-text--sm fr-mb-0" style={{ color: "#555" }}>{item.description}</p>
+                         {
+                            item.lien &&
+                            <Link href={item.lien} {...(item.lien.startsWith('http') && { target: '_blank' })} className="fr-link fr-link--icon-right fr-icon-arrow-right-line fr-mt-1w">
+                                En savoir plus
+                            </Link>
+                        }
                     </div>
 
                     <TagsWrapper>
@@ -55,15 +61,6 @@ function TabActualite({item, data, index}: Tab) {
                             <StyledTag key={tag}>{tag}</StyledTag>
                             ))}
                     </TagsWrapper>
-
-                    <div>
-                        {
-                            item.lien &&
-                            <Link href={item.lien} target={item.lien.startsWith('http') ? '_blank' : undefined} className="fr-link fr-link--icon-right fr-icon-arrow-right-line fr-mt-1w">
-                                En savoir plus
-                            </Link>
-                        }
-                    </div>                   
                 </Item>
 
             </div>
