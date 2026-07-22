@@ -5,10 +5,10 @@ import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import type { ReactNode } from 'react'
 import { PublicEnvScript } from 'next-runtime-env'
 import LayoutClient from './layout-client'
-import { fetchAndProcessAlertesGristData } from '@/lib/api-grist'
+import { AlerteRecord, fetchAndProcessAlertesGristData } from '@/lib/api-grist'
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
-  const appsData = await fetchAndProcessAlertesGristData()
+  const appsData: AlerteRecord[] = []
   const lang = 'fr'
   const { getHtmlAttributes } = createGetHtmlAttributes({ defaultColorScheme })
 
