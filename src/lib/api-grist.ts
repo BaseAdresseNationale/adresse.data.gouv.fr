@@ -47,6 +47,10 @@ export interface ActuRecord {
 }
 
 async function fetchTableJson(table: string, docId: string): Promise<{ records: GristRecord[] }> {
+  if (!BASE_URL || !docId) {
+    console.error('BASE_URL ou docId manquant — variables env non résolues à ce stade')
+    return { records: [] }
+  }
   const filterDict = { non_publication_usage: [false], validation_publication: [true] }
   const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
 
@@ -55,7 +59,7 @@ async function fetchTableJson(table: string, docId: string): Promise<{ records: 
       Authorization: `Bearer ${API_TOKEN}`,
     },
     next: {
-      revalidate: 0,
+      revalidate: 120, // 2 minutes
       tags: ['grist'],
     },
   })

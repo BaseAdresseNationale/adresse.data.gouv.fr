@@ -42,7 +42,6 @@ export default function LayoutClient({ children, lang, alertes }: LayoutClientPr
                 {' ' + alerte.message_lien}
               </Link>
           }
-          .
         </>
       ),
       style: alerte.type,

@@ -11,6 +11,7 @@ import DropZoneInput from '../DropZoneInput'
 import Alert from '@codegouvfr/react-dsfr/Alert'
 import Button from '@codegouvfr/react-dsfr/Button'
 import { useSearchParams } from 'next/navigation'
+import ValidationErrorParseReport from './ValidationErrorParse'
 
 const availableProfiles = ['1.3', '1.4', '1.5']
 
@@ -98,7 +99,7 @@ export default function ValidateurBAL() {
         {
           isLoading
             ? <Loader />
-            : (validationReport && profile && file)
+            : validationReport ? ((validationReport.parseOk && profile && file)
                 ? (
                     <>
                       <div style={{ marginLeft: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
@@ -115,8 +116,12 @@ export default function ValidateurBAL() {
                       </div>
                       <ValidationReport file={file} report={validationReport} profile={profile} />
                     </>
-                  )
-                : (
+                  ) : (
+                      <div>
+                        <Button iconId="fr-icon-arrow-left-line" style={{ height: 'fit-content' }} onClick={handleReset}>Retour à la sélection du fichier</Button>
+                        <ValidationErrorParseReport report={validationReport as ParseFileType} />
+                      </div>
+                  )) : (
                     <DropZoneInput
                       onChange={handleFileChange}
                       label="Déposez ou cliquez ici pour uploader votre fichier BAL à valider"
