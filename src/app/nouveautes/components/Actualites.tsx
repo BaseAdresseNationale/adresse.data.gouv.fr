@@ -112,7 +112,7 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
                   type="button"
                   className="fr-tag"
                   aria-pressed={selectedYear === year}
-                  onClick={() => setSelectedYear(year)}
+                  onClick={() => {setSelectedYear(year); setSelectedMonth(null);}}
                 >
                   {year}
                 </button>
