@@ -3,6 +3,10 @@
 import styled from 'styled-components'
 
 export const TextWrapper = styled.div`
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        
         .wip-info,
         .note-info {
           font-size: 0.75em;
@@ -21,8 +25,10 @@ export const TextWrapper = styled.div`
         }
 
         .chart-wrapper {
+          position: relative;
           width: 100%;
           height: 560px;
+          overflow: hidden;
         }
 
         .section-footer-notes {

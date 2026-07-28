@@ -112,7 +112,7 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
   if (typeComponents[type]) {
     const { chart: Chart, axis: Axis } = typeComponents[type]
     return (
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height={560}>
         <Chart
           data={data}
           outerRadius={90}
@@ -171,4 +171,6 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
       </ResponsiveContainer>
     )
   }
+
+  return null
 }
