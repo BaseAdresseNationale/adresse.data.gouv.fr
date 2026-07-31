@@ -9,6 +9,24 @@ export function formatCoords(coords: [number, number]): string {
   return `${formattedLat}° ${latDirection}, ${formattedLon}° ${lonDirection}`
 }
 
+export function formatCoordsDMS(coords: [number, number]): string {
+  const [lon, lat] = coords
+
+  const toDMS = (value: number): string => {
+    const absValue = Math.abs(value)
+    const degrees = Math.floor(absValue)
+    const minutesFloat = (absValue - degrees) * 60
+    const minutes = Math.floor(minutesFloat)
+    const seconds = ((minutesFloat - minutes) * 60).toFixed(2)
+    return `${degrees}°${minutes}'${seconds}"`
+  }
+
+  const lonDirection = lon >= 0 ? 'E' : 'W'
+  const latDirection = lat >= 0 ? 'N' : 'S'
+
+  return `${toDMS(lat)}${latDirection}, ${toDMS(lon)}${lonDirection}`
+}
+
 export function copyCoordsToClipboard(coords: [number, number]) {
   const [lon, lat] = coords
   const coordsString = `${lat.toFixed(6)},${lon.toFixed(6)}`

@@ -18,6 +18,7 @@ import {
   formatCoords,
   copyCoordsToClipboard,
   getLinkFromCoords,
+  formatCoordsDMS,
 } from './AddressDetailPosition.helper'
 
 interface AddressDetailPositionProps {
@@ -47,6 +48,19 @@ export const AddressDetailPosition = ({ type, coords, marker, onFlyToPosition, i
         <PositionType>Type : <PositionDetailEntryType>{type}</PositionDetailEntryType></PositionType>
         <PositionCoords>{
           formatCoords(coords)?.split(',').map(
+            (coord, i, arr) => (
+              <Fragment key={coord}>
+                <PositionCoordValue>
+                  {coord.trim()}
+                </PositionCoordValue>
+                {(i < (arr.length - 1)) ? ', ' : ''}
+              </Fragment>
+            )
+          )
+        }
+        </PositionCoords>
+        <PositionCoords>{
+          formatCoordsDMS(coords)?.split(',').map(
             (coord, i, arr) => (
               <Fragment key={coord}>
                 <PositionCoordValue>
