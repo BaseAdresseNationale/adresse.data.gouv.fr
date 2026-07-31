@@ -34,5 +34,10 @@ export function copyCoordsToClipboard(coords: [number, number]) {
   toast(`Position GPS copiée dans le presse-papier (${coordsString})`)
 }
 
+export function copyCoordsDMSToClipboard(coords: string) {
+  navigator?.clipboard.writeText(coords)
+  toast(`Position GPS copiée dans le presse-papier (${coords})`)
+}
+
 const toFixedGPS = (gps: number) => gps.toFixed(6)
 export const getLinkFromCoords = (coords: [number, number]) => `geo:${toFixedGPS(coords[1])},${toFixedGPS(coords[0])}`
