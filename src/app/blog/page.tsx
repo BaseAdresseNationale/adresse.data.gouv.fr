@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <>
       <Breadcrumb
-        currentPageLabel="Conditions Générales d'Utilisation"
+        currentPageLabel="Blog"
         segments={[]}
       />
       <Section>
