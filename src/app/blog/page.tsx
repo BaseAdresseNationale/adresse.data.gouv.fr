@@ -8,7 +8,7 @@ import Breadcrumb from '@/layouts/Breadcrumb'
 import { TextWrapper } from './page.styled'
 import pageTitle from '@/utils/pageTitle'
 
-export const metadata = pageTitle('CGU')
+export const metadata = pageTitle('Blog en maintenance')
 
 export default async function Home() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('blog-en-maintenance') || {}
