@@ -151,7 +151,7 @@ export default async function ProgrammeBALPage() {
 
           <div className="fr-grid-row">
             <div className="fr-col-md-6">
-              <h2 className="reasons-list-title">Vos habitants</h2>
+              <h3 className="reasons-list-title">Vos habitants</h3>
               <p>
                 Valorisez votre commune en mettant à jour votre{' '}
                 <strong>Base Adresse Locale</strong>.
@@ -202,7 +202,7 @@ export default async function ProgrammeBALPage() {
               </ul>
             </div>
             <div className="fr-col-md-6">
-              <h2 className="reasons-list-title">Vous</h2>
+              <h3 className="reasons-list-title">Vous</h3>
               <p>
                 Profitez d’une <strong>Base Adresse Locale</strong> à jour pour
                 vous faciliter la vie.

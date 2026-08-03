@@ -2,7 +2,7 @@
 title: Mentions Legales
 ---
 
-### Mentions légales
+## Mentions légales
 
 ### ÉDITEURS :
 
