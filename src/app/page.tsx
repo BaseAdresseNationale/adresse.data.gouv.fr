@@ -157,7 +157,8 @@ export default async function Home() {
         </CardContainer>
       </Section>
 
-      <BlogGrid
+      {/* BlogGrid Disable during maintenance // Todo : A remplacer par une variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE` */}
+      {/* <BlogGrid
         title="Le blog : articles et témoignages"
         posts={highlightedPosts}
         footer={(
@@ -172,7 +173,7 @@ export default async function Home() {
             Parcourir tout le blog
           </Button>
         )}
-      />
+      /> */}
     </>
   )
 }
