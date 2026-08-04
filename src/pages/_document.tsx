@@ -8,7 +8,7 @@ const {
 
 export default function Document(props: DocumentProps) {
   return (
-    <Html {...getColorSchemeHtmlAttributes(props)}>
+    <Html data-scroll-behavior="smooth" {...getColorSchemeHtmlAttributes(props)}>
       <Head />
       <body>
         <Main />

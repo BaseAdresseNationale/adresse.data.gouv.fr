@@ -13,7 +13,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const { getHtmlAttributes } = createGetHtmlAttributes({ defaultColorScheme })
 
   return (
-    <html {...getHtmlAttributes({ lang })}>
+    <html data-scroll-behavior="smooth" {...getHtmlAttributes({ lang })}>
       <head>
         <PublicEnvScript />
         <DsfrHead
