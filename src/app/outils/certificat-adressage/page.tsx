@@ -48,9 +48,9 @@ export default async function Home() {
             </p>
           </div>
           <div className="fr-col-12 fr-col-md-6">
-            <h3 style={{ marginBottom: '0.5rem' }}>
+            <h2 style={{ marginBottom: '0.5rem' }}>
               Trouver une adresse pour générer un certificat
-            </h3>
+            </h2>
             <SearchBANWrapper />
           </div>
           <div className="fr-col-12">

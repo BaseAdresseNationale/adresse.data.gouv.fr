@@ -84,7 +84,7 @@ export default function ListCommunes({ filteredCodesCommmune }: ListCommunesProp
 
   return (
     <StyledWrapper>
-      <h3>Liste des Communes</h3>
+      <h2>Liste des Communes</h2>
       {isLoading && (
         <div className="loader">
           <div className="fr-spinner" aria-label="Chargement en cours" />

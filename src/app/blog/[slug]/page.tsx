@@ -56,7 +56,7 @@ export default async function BlogPost(props: { params: Promise<{ slug: string }
           ALLOWED_ATTR: ['href'],
         })
       : ''
-      
+
   return (
     <>
       <Breadcrumb
