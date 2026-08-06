@@ -32,11 +32,11 @@ export const PositionCoords = styled.strong`
   letter-spacing: 0.04em;
 `
 
-export const PositionActions = styled.div`
+export const PositionLine = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  margin-bottom: -0.2rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: -0.2rem;
 `
 
 export const PositionCoordValue = styled.span`
