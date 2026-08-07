@@ -86,6 +86,7 @@ export async function geocodeCsv(
   inputFile: File,
   filters: { name: string, value: string }[],
   columns: string[],
+  mode: 'search' | 'reverse',
 ) {
   class GeocodeError extends (Error as { new(message: string): ExtendedError }) {
     constructor(status: number, message: string) {
@@ -101,7 +102,7 @@ export async function geocodeCsv(
   requestBody.append('data', inputFile)
 
   // Execute request + handle response
-  const response = await fetch(`${API_ADRESSE}/search/csv/`, { method: 'POST', body: requestBody })
+  const response = await fetch(`${API_ADRESSE}/${mode}/csv/`, { method: 'POST', body: requestBody })
 
   if (response.ok) {
     return response.blob()
