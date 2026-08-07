@@ -6,7 +6,7 @@ import { useMapFlyTo } from '../ban-map/BanMap.context'
 import {
   PositionWrapper,
   PositionDetails,
-  PositionActions,
+  PositionLine,
   PositionDetailEntryType,
   PositionType,
   PositionCoords,
@@ -18,6 +18,8 @@ import {
   formatCoords,
   copyCoordsToClipboard,
   getLinkFromCoords,
+  formatCoordsDMS,
+  copyCoordsDMSToClipboard,
 } from './AddressDetailPosition.helper'
 
 interface AddressDetailPositionProps {
@@ -44,51 +46,81 @@ export const AddressDetailPosition = ({ type, coords, marker, onFlyToPosition, i
     <PositionWrapper>
       {marker && <PositionMarker>{marker}</PositionMarker>}
       <PositionDetails>
-        <PositionType>Type : <PositionDetailEntryType>{type}</PositionDetailEntryType></PositionType>
-        <PositionCoords>{
-          formatCoords(coords)?.split(',').map(
-            (coord, i, arr) => (
-              <Fragment key={coord}>
-                <PositionCoordValue>
-                  {coord.trim()}
-                </PositionCoordValue>
-                {(i < (arr.length - 1)) ? ', ' : ''}
-              </Fragment>
+        <PositionLine>
+          <PositionType>Type : <PositionDetailEntryType>{type}</PositionDetailEntryType></PositionType>
+          <Button
+            iconId="ri-focus-3-line"
+            onClick={() => flyToPosition?.(coords, { zoom: 19 })}
+            priority="tertiary no outline"
+            size="small"
+            title="Centrer sur la position"
+          />
+        </PositionLine>
+
+        <PositionLine>
+          <PositionCoords>{
+            formatCoords(coords)?.split(',').map(
+              (coord, i, arr) => (
+                <Fragment key={coord}>
+                  <PositionCoordValue>
+                    {coord.trim()}
+                  </PositionCoordValue>
+                  {(i < (arr.length - 1)) ? ', ' : ''}
+                </Fragment>
+              )
             )
-          )
-        }
-        </PositionCoords>
+          }
+          </PositionCoords>
+          <Button
+            iconId="ri-file-copy-line"
+            onClick={() => copyCoordsToClipboard(coords)}
+            priority="tertiary no outline"
+            size="small"
+            title="Copier la position GPS"
+          />
+          {
+            isSmartDevice && 'geolocation' in navigator
+            && (
+              <Button
+                iconId="ri-share-forward-line"
+                linkProps={{
+                  href: getLinkFromCoords(coords),
+                }}
+                priority="tertiary no outline"
+                size="small"
+                title="Afficher la position GPS"
+              />
+            )
+          }
+        </PositionLine>
+
+        <PositionLine>
+          <PositionCoords>
+            <b>DMS : </b>
+            {
+              formatCoordsDMS(coords)?.split(',').map(
+                (coord, i, arr) => (
+                  <Fragment key={coord}>
+                    <PositionCoordValue>
+                      {coord.trim()}
+                    </PositionCoordValue>
+                    {(i < (arr.length - 1)) ? ', ' : ''}
+                  </Fragment>
+                )
+              )
+            }
+          </PositionCoords>
+          <Button
+            iconId="ri-file-copy-line"
+            onClick={() => copyCoordsDMSToClipboard(formatCoordsDMS(coords))}
+            priority="tertiary no outline"
+            size="small"
+            title="Copier la position GPS - format DMS"
+          />
+        </PositionLine>
+        
       </PositionDetails>
-      <PositionActions>
-        <Button
-          iconId="ri-focus-3-line"
-          onClick={() => flyToPosition?.(coords, { zoom: 19 })}
-          priority="tertiary no outline"
-          size="small"
-          title="Centrer sur la position"
-        />
-        <Button
-          iconId="ri-file-copy-line"
-          onClick={() => copyCoordsToClipboard(coords)}
-          priority="tertiary no outline"
-          size="small"
-          title="Copier la position GPS"
-        />
-        {
-          isSmartDevice && 'geolocation' in navigator
-          && (
-            <Button
-              iconId="ri-share-forward-line"
-              linkProps={{
-                href: getLinkFromCoords(coords),
-              }}
-              priority="tertiary no outline"
-              size="small"
-              title="Afficher la position GPS"
-            />
-          )
-        }
-      </PositionActions>
+
     </PositionWrapper>
   )
 }
