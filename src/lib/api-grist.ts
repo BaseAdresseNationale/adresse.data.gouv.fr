@@ -37,6 +37,16 @@ export interface AlerteRecord {
   message_lien: string
 }
 
+export interface ActuRecord {
+  date: string
+  titre: string
+  description: string
+  illustration_download_url: string
+  auteur: string
+  lien: string
+  tags_application: string
+}
+
 async function fetchTableJson(table: string, docId: string): Promise<{ records: GristRecord[] }> {
   if (!BASE_URL || !docId) {
     console.error('BASE_URL ou docId manquant — variables env non résolues à ce stade')
@@ -60,6 +70,30 @@ async function fetchTableJson(table: string, docId: string): Promise<{ records: 
   }
   return response.json()
 }
+
+export async function fetchTagColumn(): Promise<string[]> {
+  const response = await fetch(`${BASE_URL}/docs/${DOC_BANDEAU_ID}/tables/News/columns`, {
+    headers: {
+      Authorization: `Bearer ${API_TOKEN}`,
+    },
+  })
+
+  if (!response.ok) {
+    console.error(new Error(`Erreur HTTP (${response.status}) lors de la récupération des colonnes de Grist`))
+    return []
+  }
+
+  const { columns } = await response.json()
+  const tagColumn = columns.find((column: any) => column.id === 'tags_application')
+
+  if (!tagColumn?.fields?.widgetOptions) {
+    return []
+  }
+
+  const widgetOptions = JSON.parse(tagColumn.fields.widgetOptions)
+  return widgetOptions.choices ?? []
+}
+
 
 function flattenTags(val: any): string {
   if (Array.isArray(val)) {
@@ -109,6 +143,34 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]
     })
 }
 
+export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
+  const data = await fetchTableJson('News', DOC_BANDEAU_ID)
+  const records = data.records || []
+
+  // Traiter les données
+  const processedRecords: ActuRecord[] = records.map((record) => {
+    const fields = record.fields
+
+    // Aplatir les tags
+    let tagsApplication = fields.tags_application
+    if (tagsApplication) {
+      tagsApplication = flattenTags(tagsApplication)
+    }
+    const imgId = fields.Illustration?.[1]?.toString() ?? ''
+    return {
+      date: fields.date,
+      titre: fields.titre,
+      description: fields.description,
+      illustration_download_url: imgId ? `/api/grist/attachments/actus/${imgId}` : '',
+      auteur: fields.auteur,
+      lien: fields.lien,
+      tags_application: tagsApplication,
+    }
+  })
+
+  return processedRecords
+}
+
 export async function fetchAndProcessApplicationGristData(): Promise<ApplicationRecord[]> {
   const data = await fetchTableJson(WANTED_TABLE_ID, DOC_ID)
   const records = data.records || []
@@ -128,7 +190,7 @@ export async function fetchAndProcessApplicationGristData(): Promise<Application
       nom_application: fields.nom_application,
       description_utilisation: fields.description_utilisation,
       nom_utilisateur: fields.nom_utilisateur,
-      logo_download_url: imgId ? `/api/grist/attachments/${imgId}` : '',
+      logo_download_url: imgId ? `/api/grist/attachments/applications/${imgId}` : '',
       statut_integration: fields.statut_integration,
       type_integration: fields.type_integration,
       url_article: fields.url_article_blog,
