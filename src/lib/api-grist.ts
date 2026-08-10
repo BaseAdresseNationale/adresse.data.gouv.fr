@@ -41,6 +41,7 @@ export interface ActuRecord {
   date: string
   titre: string
   description: string
+  illustration_download_url: string
   auteur: string
   lien: string
   tags_application: string
@@ -155,10 +156,12 @@ export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
     if (tagsApplication) {
       tagsApplication = flattenTags(tagsApplication)
     }
+    const imgId = fields.Illustration?.[1]?.toString() ?? ''
     return {
       date: fields.date,
       titre: fields.titre,
       description: fields.description,
+      illustration_download_url: imgId ? `/api/grist/attachments/actus/${imgId}` : '',
       auteur: fields.auteur,
       lien: fields.lien,
       tags_application: tagsApplication,
@@ -187,7 +190,7 @@ export async function fetchAndProcessApplicationGristData(): Promise<Application
       nom_application: fields.nom_application,
       description_utilisation: fields.description_utilisation,
       nom_utilisateur: fields.nom_utilisateur,
-      logo_download_url: imgId ? `/api/grist/attachments/${imgId}` : '',
+      logo_download_url: imgId ? `/api/grist/attachments/applications/${imgId}` : '',
       statut_integration: fields.statut_integration,
       type_integration: fields.type_integration,
       url_article: fields.url_article_blog,

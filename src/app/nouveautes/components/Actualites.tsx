@@ -77,7 +77,7 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
           segments={[]}
         />
 
-        <Section pageTitle="Nouveautés">
+        <Section pageTitle="Évolutions BAN">
           <p>
             Suivez les évolutions récentes de la Base Adresse Nationale et des services adresse.data.gouv.fr.
           </p>

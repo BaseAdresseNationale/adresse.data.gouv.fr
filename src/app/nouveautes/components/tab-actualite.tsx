@@ -1,5 +1,6 @@
 'use client'
 
+import ResponsiveImage from "@/components/ResponsiveImage"
 import { DateBlock, Item, MonthLabel, StyledTag, TagsWrapper } from "../page.styles"
 import Link from "next/link"
 
@@ -7,6 +8,7 @@ export interface ActuRecord {
   date: string
   titre: string
   description: string
+  illustrationDownloadUrl: string
   auteur: string
   lien: string
   tagsApplication: string
@@ -52,6 +54,14 @@ function TabActualite({item, data, index}: Tab) {
                             <Link href={item.lien} {...(item.lien.startsWith('http') && { target: '_blank' })} className="fr-link fr-link--icon-right fr-icon-arrow-right-line fr-mt-1w">
                                 En savoir plus
                             </Link>
+                        }
+                        {
+                            item.illustrationDownloadUrl &&
+                            <ResponsiveImage
+                                src={item.illustrationDownloadUrl}
+                                alt={item.titre}
+                                style={{ maxWidth: '200px', objectFit: 'cover' }}
+                            />
                         }
                     </div>
 

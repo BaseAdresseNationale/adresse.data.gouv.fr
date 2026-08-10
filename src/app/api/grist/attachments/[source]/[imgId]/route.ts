@@ -3,15 +3,30 @@ import { env } from 'next-runtime-env'
 import { ensureWasmInitialized } from '@/lib/resolve-certificat-commune-logo'
 import { Resvg } from '@resvg/resvg-wasm'
 
+function resolveDocId(source: string): string {
+  const map: Record<string, string> = {
+    actus: env('NEXT_PUBLIC_GRIST_DOC_BANDEAU_ID') || '',
+    applications: env('NEXT_PUBLIC_GRIST_DOC_ID') || '',
+  }
+  return map[source] ?? ''
+}
+
 export async function GET(
   _req: NextRequest,
-  { params }: { params: Promise<{ imgId: string }> }
+  { params }: { params: Promise<{ source: string; imgId: string }> }
 ) {
-  const { imgId } = await params
+  const { source, imgId } = await params
   if (!imgId || !/^\d+$/.test(imgId)) {
     return new NextResponse('Invalid imgId', { status: 400 })
   }
-  const gristUrl = `${env('NEXT_PUBLIC_GRIST_API_URL')}/docs/${env('NEXT_PUBLIC_GRIST_DOC_ID')}/attachments/${imgId}/download`
+
+  const docId = resolveDocId(source)
+console.log('SSSSSSSSSSSSOURCE reçu:', JSON.stringify(source), '→ docId:', docId)
+  if (!docId) {
+    return new NextResponse('Invalid source', { status: 400 })
+  }
+  const gristUrl = `${env('NEXT_PUBLIC_GRIST_API_URL')}/docs/${docId}/attachments/${imgId}/download`
+console.log(gristUrl)
   const response = await fetch(gristUrl, {
     headers: { Authorization: `Bearer ${env('GRIST_API_TOKEN')}` },
   })
