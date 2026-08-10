@@ -151,7 +151,7 @@ export const navEntries: MainNavigationProps.Item[] = [
         linkProps: { href: '/blog' },
       },
       { text: 'L’Info-lettre', linkProps: { href: '/newsletters' } },
-      { text: 'Les évolutions', linkProps: { href: '/nouveautes' } },
+      { text: 'Les évolutions', linkProps: { href: '/evolutions' } },
     ],
   },
   {
