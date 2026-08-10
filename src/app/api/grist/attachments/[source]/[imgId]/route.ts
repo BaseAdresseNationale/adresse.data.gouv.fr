@@ -21,12 +21,10 @@ export async function GET(
   }
 
   const docId = resolveDocId(source)
-console.log('SSSSSSSSSSSSOURCE reçu:', JSON.stringify(source), '→ docId:', docId)
   if (!docId) {
     return new NextResponse('Invalid source', { status: 400 })
   }
   const gristUrl = `${env('NEXT_PUBLIC_GRIST_API_URL')}/docs/${docId}/attachments/${imgId}/download`
-console.log(gristUrl)
   const response = await fetch(gristUrl, {
     headers: { Authorization: `Bearer ${env('GRIST_API_TOKEN')}` },
   })
