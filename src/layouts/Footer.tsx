@@ -20,7 +20,7 @@ const SOCIAL_NETWORKS_URL_MASTODON = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_MASTOD
 const SOCIAL_NETWORKS_URL_FACEBOOK = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_FACEBOOK')
 const SOCIAL_NETWORKS_URL_LINKEDIN = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_LINKEDIN')
 const SOCIAL_NETWORKS_URL_GITHUB = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_GITHUB')
-const SOCIAL_NETWORKS_URL_RSS = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_RSS')
+//const SOCIAL_NETWORKS_URL_RSS = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_RSS')
 
 const NewsletterOptinWithNoSSR = dynamic(
   () => import('../components/NewsletterOptin'),
@@ -136,14 +136,14 @@ export default function Footer() {
                 },
                 type: 'github',
               },
-              {
+              /*{
                 linkProps: {
                   href: SOCIAL_NETWORKS_URL_RSS as unknown as URL ?? '',
                   target: '_blank',
                   title: 'Suivez nos flux RSS',
                 },
                 type: 'rss' as FollowProps.SocialType,
-              },
+              },*/
             ],
           }}
         />
