@@ -5,7 +5,6 @@ import { ActionMessage } from '../../PanelAddress/ActionComponents/ActionCompone
 import { env } from 'next-runtime-env'
 import { matomoTrackEvent } from '@/lib/matomo'
 import { SignalementTypeEnum } from '@/types/api-signalement.types'
-import Badge from '@codegouvfr/react-dsfr/Badge'
 import { useSignalementCommuneStatus } from '@/hooks/useSignalementCommuneStatus'
 
 interface ActionSignalementMicroToponymProps {
@@ -29,7 +28,7 @@ const ActionSignalementMicroToponym: React.FC<ActionSignalementMicroToponymProps
         priority="tertiary no outline"
         style={disabled ? { color: 'var(--text-disabled-grey)' } : {}}
       >
-        Signaler un problème<Badge severity="info" noIcon style={{ marginLeft: '0.4rem' }}>Beta</Badge>
+        Signaler un problème
       </Button>
       {
         isExtended && (
