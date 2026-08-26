@@ -78,13 +78,13 @@ export function CertificateStatsSummary({ codeCommune }: { codeCommune?: string 
         <div style={{ display: 'flex', gap: '0.25rem' }}>
           <button
             type="button"
-            className="fr-btn fr-btn--tertiary-no-outline fr-icon-arrow-left-s-line fr-btn--icon-left"
+            className="fr-btn fr-btn--tertiary-no-outline fr-icon-arrow-left-line"
             aria-label="Année précédente"
             onClick={() => setYear(y => y - 1)}
           />
           <button
             type="button"
-            className="fr-btn fr-btn--tertiary-no-outline fr-icon-arrow-right-s-line fr-btn--icon-left"
+            className="fr-btn fr-btn--tertiary-no-outline fr-icon-arrow-right-line"
             aria-label="Année suivante"
             disabled={year >= new Date().getFullYear()}
             onClick={() => setYear(y => y + 1)}
@@ -118,7 +118,7 @@ export function CertificateStatsSummary({ codeCommune }: { codeCommune?: string 
                     width: '100%',
                     height: `${heightPercent}%`,
                     minHeight: count > 0 ? '4px' : 0,
-                    background: 'var(--background-action-high-blue-france)',
+                    background: month === 'all' ? 'var(--border-default-grey)' : 'var(--background-action-high-blue-france)',
                     borderRadius: '2px 2px 0 0',
                   }}
                 />
