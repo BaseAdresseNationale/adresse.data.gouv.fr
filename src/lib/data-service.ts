@@ -45,6 +45,13 @@ interface Context extends GetServerSidePropsContext {
   }
 }
 
+function isS3ObjectNotFoundError(err: any) {
+  const statusCode = err?.$metadata?.httpStatusCode
+  const code = `${err?.Code || err?.code || err?.name || ''}`
+
+  return statusCode === 404 || ['NoSuchKey', 'NotFound', 'NoSuchBucket'].includes(code)
+}
+
 export async function handleS3Data(context: Context) {
   const { params, res, req } = context
   const { path: paramPathRaw = [] } = params
@@ -59,28 +66,22 @@ export async function handleS3Data(context: Context) {
   const s3ObjectPath = [...rootDir, ...paramPath].join('/')
 
   try {
-    const s3Head = await clientS3.headObject({
-      Bucket: bucketName || '',
-      Key: s3ObjectPath,
+    sendToTracker(getDownloadToEventTracker({
+      downloadDataType: `${paramPath[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
+      downloadFileName: dirPath,
+      nbDownload: 1,
+    }))
+    await asyncSendS3(clientS3)((req as unknown as Request), res, {
+      params: {
+        ...(req?.headers?.range ? { Range: req.headers.range } : {}),
+        Bucket: bucketName || '',
+        Key: s3ObjectPath,
+      },
+      fileName: paramPath[paramPath.length - 1],
     })
-
-    try {
-      sendToTracker(getDownloadToEventTracker({
-        downloadDataType: `${paramPath[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
-        downloadFileName: dirPath,
-        nbDownload: 1,
-      }))
-      await asyncSendS3(clientS3)((req as unknown as Request), res, {
-        params: {
-          ...(req?.headers?.range ? { Range: req.headers.range } : {}),
-          Bucket: bucketName || '',
-          Key: s3ObjectPath,
-        },
-        fileName: paramPath[paramPath.length - 1],
-        metadata: s3Head,
-      })
-    }
-    catch (err) {
+  }
+  catch (err) {
+    if (!isS3ObjectNotFoundError(err)) {
       console.warn(`[${formattedDate} - ERROR]`, 'File access error:', err)
       return {
         props: {
@@ -89,8 +90,7 @@ export async function handleS3Data(context: Context) {
         },
       }
     }
-  }
-  catch {
+
     const s3DirPath = `${s3ObjectPath}/`
     const s3Objects = await listObjectsRecursively(clientS3, bucketName || '')(s3DirPath)
     if (s3Objects) {
