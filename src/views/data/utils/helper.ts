@@ -92,11 +92,10 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
   (req: Request, res: any, options: AsyncSendS3Options) =>
     new Promise<void>(
       (resolve, reject) => {
-        res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
-
         if (req.method === 'HEAD') {
           clientS3.headObject(options.params)
             .then(({ ContentLength, LastModified, ETag }) => {
+              res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
               if (ContentLength !== undefined) {
                 res.setHeader('Content-Length', ContentLength)
               }
@@ -115,6 +114,8 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
 
         clientS3.getObject(options.params)
           .then(({ Body, AcceptRanges, ContentRange, ContentLength, LastModified, ETag }) => {
+            // Only set once the object is confirmed to exist, so a 404 never leaks a download header onto the fallback HTML page
+            res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
             if (ContentLength !== undefined) {
               res.setHeader('Content-Length', ContentLength)
             }
