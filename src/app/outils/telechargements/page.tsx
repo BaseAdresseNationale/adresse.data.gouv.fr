@@ -149,7 +149,7 @@ export default async function PageDownloadBan() {
               title="Format WFS"
               descPrefix="Visualisation cartographique des adresses BAN en WFS"
               items={[
-                <>Mise à jour mensuelle</>,
+                <>Mise à jour les lundis et jeudis</>,
                 <>Nom de la couche : BAN.DATA.GOUV:ban</>,
                 <>1 position par adresse</>,
               ]}
@@ -157,7 +157,7 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: 'https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme',
+                    href: 'https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme/diffusion/',
                     target: '_blank',
                     rel: 'noopener noreferrer',
                   }}
@@ -174,7 +174,7 @@ export default async function PageDownloadBan() {
               title="Format WMS"
               descPrefix="Visualisation cartographique des adresses BAN en WMS"
               items={[
-                <>Mise à jour mensuelle</>,
+                <>Mise à jour les lundis et jeudis</>,
                 <>Nom de la couche : BAN.DATA.GOUV</>,
                 <>1 position par adresse</>,
               ]}
@@ -182,7 +182,7 @@ export default async function PageDownloadBan() {
                 <Button
                   iconId="fr-icon-book-2-line"
                   linkProps={{
-                    href: 'https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme',
+                    href: 'https://cartes.gouv.fr/aide/fr/guides-utilisateur/utiliser-les-services-de-la-geoplateforme/diffusion/', 
                     target: '_blank',
                     rel: 'noopener noreferrer',
                   }}
