@@ -149,7 +149,7 @@ export default async function PageDownloadBan() {
               title="Format WFS"
               descPrefix="Visualisation cartographique des adresses BAN en WFS"
               items={[
-                <>Mise à jour les lundis et jeudis</>,
+                <>Mise à jour bi-hebdomadaire</>,
                 <>Nom de la couche : BAN.DATA.GOUV:ban</>,
                 <>1 position par adresse</>,
               ]}
@@ -174,7 +174,7 @@ export default async function PageDownloadBan() {
               title="Format WMS"
               descPrefix="Visualisation cartographique des adresses BAN en WMS"
               items={[
-                <>Mise à jour les lundis et jeudis</>,
+                <>Mise à jour bi-hebdomadaire</>,
                 <>Nom de la couche : BAN.DATA.GOUV</>,
                 <>1 position par adresse</>,
               ]}
