@@ -25,7 +25,6 @@ const CommuneActions = dynamicImport(() => import('../../../components/Commune/C
 const CommuneAchievements = dynamicImport(() => import('../../../components/Commune/CommuneAchievements'), { ssr: !!false })
 const CommuneUpdatesSection = dynamicImport(() => import('../../../components/Commune/CommuneUpdatesSection'), { ssr: !!false })
 const CommuneCertificationBar = dynamicImport(() => import('../../../components/Commune/CommuneCertificationBar'), { ssr: !!false })
-const CommunePublicationConsole = dynamicImport(() => import('../../../components/Commune/CommunePublicationConsole'), { ssr: !!false })
 const CommuneAdministrationBlock = dynamicImport(() => import('../../../components/Commune/CommuneAdministrationBlock'), { ssr: !!false })
 import { CertificateTypeEnum } from '@/types/api-ban.types'
 import { getSignalements } from '@/lib/api-signalement'
@@ -273,7 +272,6 @@ export default async function CommunePage(props: { params: Promise<CommunePagePr
 
         <CommuneAdministrationBlock commune={commune} />
 
-        {partenaireDeLaCharte && publicationConsoleTabs.length > 0 && <CommunePublicationConsole partenaireDeLaCharte={partenaireDeLaCharte} tabs={publicationConsoleTabs} />}
       </StyledCommunePage>
     </>
   )
