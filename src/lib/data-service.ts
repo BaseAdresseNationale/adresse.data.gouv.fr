@@ -127,6 +127,8 @@ export async function handleS3Data(context: Context) {
         )
       )
 
+      res.setHeader('Cache-Control','public, s-maxage=21600, stale-while-revalidate=3600')
+
       return {
         props: {
           title: ['data', ...paramPath].join('/') || '',
