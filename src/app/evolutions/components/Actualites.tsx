@@ -145,7 +145,7 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
                 index={i}
               />
             )) :
-            <EmptyMessage>Pas d&apos;évolutions ce moi-ci</EmptyMessage>
+            <EmptyMessage>Pas d&apos;évolutions ce mois-ci</EmptyMessage>
             }
           </Grid>
         </Section>
