@@ -27,7 +27,8 @@ export const metadata = pageTitle('Accueil')
 
 export default async function Home() {
   const stats = await getStats()
-  const highlightedDatas = await getPosts({ limit: 3 })
+  // BlogGrid Disable during maintenance // Todo : A remplacer par une variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE`
+  const highlightedDatas = env('NEXT_PUBLIC_BLOG_MAINTENANCE_MODE') !== 'true' ? await getPosts({ limit: 3 }) : {}
   const highlightedPosts = highlightedDatas?.posts || []
 
   return (
@@ -157,23 +158,24 @@ export default async function Home() {
         </CardContainer>
       </Section>
 
-      {/* BlogGrid Disable during maintenance // Todo : A remplacer par une variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE` */}
-      {/* <BlogGrid
-        title="Le blog : articles et témoignages"
-        posts={highlightedPosts}
-        footer={(
-          <Button
-            iconId="fr-icon-arrow-right-line"
-            iconPosition="right"
-            linkProps={{
-              href: '/blog',
-            }}
-            priority="primary"
-          >
-            Parcourir tout le blog
-          </Button>
-        )}
-      /> */}
+      {highlightedPosts.length > 0 && (
+        <BlogGrid
+          title="Le blog : articles et témoignages"
+          posts={highlightedPosts}
+          footer={(
+            <Button
+              iconId="fr-icon-arrow-right-line"
+              iconPosition="right"
+              linkProps={{
+                href: '/blog',
+              }}
+              priority="primary"
+            >
+              Parcourir tout le blog
+            </Button>
+          )}
+        />
+      )}
     </>
   )
 }

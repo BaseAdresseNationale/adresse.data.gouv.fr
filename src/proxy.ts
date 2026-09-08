@@ -2,8 +2,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function proxy(request: NextRequest) {
-  const isBlogMaintenance = true; // TODO : Remplacer par la variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE`
-  // const isBlogMaintenance = process.env.NEXT_PUBLIC_BLOG_MAINTENANCE_MODE === 'true';
+  const isBlogMaintenance = process.env.NEXT_PUBLIC_BLOG_MAINTENANCE_MODE === 'true';
 
   if (isBlogMaintenance && request.nextUrl.pathname.startsWith('/blog')) {
 
