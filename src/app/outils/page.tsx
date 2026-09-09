@@ -348,7 +348,7 @@ export default async function Outils() {
             footer={(
               <Button
                 linkProps={{
-                  href: '/outils/validateur-bal',
+                  href: '/outils/mise-en-forme',
                 }}
                 size="small"
               >
