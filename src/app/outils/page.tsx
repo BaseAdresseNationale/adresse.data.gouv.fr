@@ -382,7 +382,7 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="L'explorateur FANTOIR"
+            title={<>L'explorateur FANTOIR  <Badge noIcon severity="new">Déprécié</Badge></>}
             titleAs="h5"
             desc="Consulter la base FANTOIR de la Direction générale des finances publiques (DGFIP) en quelques clics."
             className="fr-card--horizontal-tier fr-card--md"
