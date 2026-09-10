@@ -2,6 +2,7 @@ import OnlineTrainingPage from '@/components/Events/OnlineTrainingPage'
 import { getBalEvents } from '@/lib/api-bal-admin'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Formations')
 
@@ -13,5 +14,10 @@ export default async function FormationEnLignePage() {
   const { allEvents, tagToColor } = mapEvents(balEvents, 'formation')
   const { upcomingEvents } = getUpcomingAndPassedEvents(allEvents)
 
-  return <OnlineTrainingPage tagToColor={tagToColor} upcomingEvents={upcomingEvents} />
+  return (
+    <>
+      <Breadcrumb currentPageLabel="Webinaires et tutoriels" segments={[]} />
+      <OnlineTrainingPage tagToColor={tagToColor} upcomingEvents={upcomingEvents} />
+    </>
+  )
 }

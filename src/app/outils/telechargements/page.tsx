@@ -13,6 +13,7 @@ import { TextWrapper, CardContainer } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Téléchargements')
 
@@ -21,6 +22,7 @@ export default async function PageDownloadBan() {
 
  return (
     <>
+      <Breadcrumb currentPageLabel="Télécharger les données" segments={[]} />
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>
