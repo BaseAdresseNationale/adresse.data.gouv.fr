@@ -7,6 +7,7 @@ import { getPartenairesDeLaCharteServices } from '@/lib/api-bal-admin'
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Communes partenaires')
 
@@ -19,7 +20,9 @@ export default async function CommunesPartenairesPage() {
   const departements = await getDepartements()
 
   return (
-    <Section pageTitle="Communes partenaires de la Charte">
+    <>
+      <Breadcrumb currentPageLabel="Communes partenaires" segments={[]} />
+      <Section pageTitle="Communes partenaires de la Charte">
       <PartenairesMap />
       <p>
         La Charte des communes partenaires s’adresse aux communes qui ont publié leur Base Adresse Locale, qui ont porté attention particulière portée à la qualité des données publiées, et qui souhaitent rejoindre la communauté des partenaires afin de participer aux échanges et à l’évolution du programme Base Adresse Locale et nous faire remonter leurs pratiques de terrain. Les communes partenaires s’engagent également à partager leur expérience auprès des autres communes.
@@ -48,6 +51,7 @@ export default async function CommunesPartenairesPage() {
         filter={PARTENAIRE_SEARCH_FILTER}
       />
 
-    </Section>
+      </Section>
+    </>
   )
 }

@@ -8,12 +8,14 @@ import { getMarkdown } from '@/lib/markdown'
 import { TextWrapper } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export default async function Home() {
   const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('accessibilite/accessibilite') || {}
 
   return (
     <>
+      <Breadcrumb currentPageLabel="Accessibilité" segments={[]} />
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>
