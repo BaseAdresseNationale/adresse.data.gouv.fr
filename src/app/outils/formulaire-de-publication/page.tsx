@@ -5,6 +5,7 @@ import { getHabilitation, getRevision } from '@/lib/api-depot'
 import { Habilitation, Revision } from '@/types/api-depot.types'
 import { Commune } from '@/types/api-geo.types'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Formulaire')
 
@@ -35,5 +36,10 @@ export default async function FormulaireDePublicationPage(props: FormulaireDePub
 
   // This page is a dynamic import of the FormulaireDePublication component
   // because pre-rendering fails when importing package @ban-team/validateur-bal
-  return <DynamicComponentWithNoSSR initialCommune={commune} initialRevision={revision} initialHabilitation={habilitation} />
+  return (
+    <>
+      <Breadcrumb currentPageLabel="Formulaire de publication" segments={[]} />
+      <DynamicComponentWithNoSSR initialCommune={commune} initialRevision={revision} initialHabilitation={habilitation} />
+    </>
+  )
 }

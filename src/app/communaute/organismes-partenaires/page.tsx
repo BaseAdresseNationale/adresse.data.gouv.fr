@@ -7,6 +7,7 @@ import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import DownloadCard from '@/components/DownloadCard'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Organismes')
 
@@ -19,7 +20,9 @@ export default async function OrganismesPartenairesPage() {
   const departements = await getDepartements()
 
   return (
-    <Section pageTitle="Organismes partenaires de la Charte">
+    <>
+      <Breadcrumb currentPageLabel="Organismes partenaires" segments={[]} />
+      <Section pageTitle="Organismes partenaires de la Charte">
       <PartenairesMap />
       <p>
         La Charte des organismes partenaires s’adresse aux organismes publics (intercommunalités, syndicats mixtes, départements…) qui accompagnent les communes dans la publication de leurs adresses.
@@ -51,6 +54,7 @@ export default async function OrganismesPartenairesPage() {
         departements={departements}
         filter={PARTENAIRE_SEARCH_FILTER}
       />
-    </Section>
+      </Section>
+    </>
   )
 }

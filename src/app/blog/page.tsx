@@ -12,6 +12,7 @@ import { getPosts, getTags } from '@/lib/blog'
 
 import { TagsWrapper, TagWrapper } from './page.styled'
 import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 interface PostMeta {
   pagination?: {
@@ -103,6 +104,7 @@ function BlogView() {
 
   return (
     <>
+      <Breadcrumb currentPageLabel="Le blog et les témoignages" segments={[]} />
       {/* <Suspense fallback={<div>Loading...</div>}> */}
       <BlogGrid
         title="Le blog : articles et témoignages"

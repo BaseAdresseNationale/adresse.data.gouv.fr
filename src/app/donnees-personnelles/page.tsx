@@ -1,21 +1,15 @@
-import { Suspense } from 'react'
-import { CallOut } from '@codegouvfr/react-dsfr/CallOut'
 import Section from '@/components/Section'
-import HtmlViewer from '@/components/HtmlViewer'
-import { getMarkdown } from '@/lib/markdown'
-import type { DataType } from '@/lib/markdown'
 import Breadcrumb from '@/layouts/Breadcrumb'
-import { TextWrapper } from './page.styled'
 import { Table } from '@codegouvfr/react-dsfr/Table'
 import pageTitle from '@/utils/pageTitle'
 
 export const metadata = pageTitle('Données')
 
 export default async function Home() {
-  const { contentHtml, data }: { contentHtml?: string, data?: DataType } = await getMarkdown('donnees-personnelles') || {}
-
   return (
-    <Section pageTitle="Données Personnelles">
+    <>
+      <Breadcrumb currentPageLabel="Données personnelles" segments={[]} />
+      <Section pageTitle="Données Personnelles">
       <div className="on-this-page">
         <div className="text-wrapper">
           <div>
@@ -197,6 +191,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-    </Section>
+      </Section>
+    </>
   )
 }
