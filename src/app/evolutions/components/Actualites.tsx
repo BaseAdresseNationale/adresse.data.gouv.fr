@@ -21,7 +21,6 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
           .map(([key, value]) => [camelCase(key), value])
       )
     ) as ActuRecord[], [appsData])
-  .sort((a,b) => Number(a.date) - Number(b.date))
 
   const years = useMemo(() => {
     const extractedYears = appsDataCamel.map(app => 
@@ -58,8 +57,12 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
         return false
       }
 
-      return true
-    })
+        return true
+      })
+      .sort((a, b) => selectedMonth === null
+        ? Number(b.date) - Number(a.date)
+        : Number(a.date) - Number(b.date)
+      )
   }, [appsDataCamel, selectedTags, selectedMonth, selectedYear])
 
   const toggleTag = (tag: string) => {
