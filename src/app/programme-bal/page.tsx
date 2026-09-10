@@ -7,6 +7,7 @@ import IconCard from '@/components/IconCard'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { Quote } from '@codegouvfr/react-dsfr/Quote'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Programme BAL')
 
@@ -14,7 +15,9 @@ export default async function ProgrammeBALPage() {
   const stats = await getStats()
 
   return (
-    <StyledPageProgrammeBAL>
+    <>
+      <Breadcrumb currentPageLabel="Découvrir le programme Base Adresse Locale" segments={[]} />
+      <StyledPageProgrammeBAL>
       <Section className="hero-section" theme="primary">
         <div className="fr-container fr-py-5w">
           <div className="fr-grid-row">
@@ -362,6 +365,7 @@ export default async function ProgrammeBALPage() {
           </div>
         </div>
       </Section>
-    </StyledPageProgrammeBAL>
+      </StyledPageProgrammeBAL>
+    </>
   )
 }

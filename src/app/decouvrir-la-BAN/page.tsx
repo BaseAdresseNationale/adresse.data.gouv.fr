@@ -10,6 +10,7 @@ import { TextWrapper } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Découvrir la BAN')
 
@@ -19,6 +20,7 @@ export default async function Home() {
 
   return (
     <>
+      <Breadcrumb currentPageLabel="Découvrir la Base Adresse Nationale" segments={[]} />
       <Suspense fallback={<p>Chargement...</p>}>
         {heroContentHtml
         && (

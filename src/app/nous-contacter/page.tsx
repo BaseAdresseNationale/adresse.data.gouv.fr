@@ -5,6 +5,7 @@ import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 import Button from '@codegouvfr/react-dsfr/Button'
 import Link from 'next/link'
 import styled from 'styled-components'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 const StyledWrapper = styled(Section)`
   > section {
@@ -28,7 +29,9 @@ const StyledWrapper = styled(Section)`
 export default function NousContacterPage() {
   useClientSidePageTitle('Nous contacter')
   return (
-    <StyledWrapper pageTitle="Nous contacter">
+    <>
+      <Breadcrumb currentPageLabel="Nous contacter" segments={[]} />
+      <StyledWrapper pageTitle="Nous contacter">
       <section>
         <h2>
           Je suis un particulier ou une entreprise et j’ai constaté une adresse manquante ou incorrecte.
@@ -91,6 +94,7 @@ export default function NousContacterPage() {
         >Nous contacter
         </Button>
       </section>
-    </StyledWrapper>
+      </StyledWrapper>
+    </>
   )
 }
