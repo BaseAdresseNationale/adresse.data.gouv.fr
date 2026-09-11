@@ -15,7 +15,10 @@ const DynamicComponentWithNoSSR = dynamic(
 export default function MiseEnFormePage() {
   return (
     <>
-      <Breadcrumb currentPageLabel="Mise en forme BAL" segments={[]} />
+      <Breadcrumb
+        currentPageLabel="Mise en forme BAL"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <DynamicComponentWithNoSSR />
     </>
   )

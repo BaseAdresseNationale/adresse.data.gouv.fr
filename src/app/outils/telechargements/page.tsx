@@ -22,7 +22,10 @@ export default async function PageDownloadBan() {
 
  return (
     <>
-      <Breadcrumb currentPageLabel="Télécharger les données" segments={[]} />
+      <Breadcrumb
+        currentPageLabel="Télécharger les données"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>

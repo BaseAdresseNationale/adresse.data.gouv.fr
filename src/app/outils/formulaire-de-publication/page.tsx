@@ -38,7 +38,10 @@ export default async function FormulaireDePublicationPage(props: FormulaireDePub
   // because pre-rendering fails when importing package @ban-team/validateur-bal
   return (
     <>
-      <Breadcrumb currentPageLabel="Formulaire de publication" segments={[]} />
+      <Breadcrumb
+        currentPageLabel="Formulaire de publication"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <DynamicComponentWithNoSSR initialCommune={commune} initialRevision={revision} initialHabilitation={habilitation} />
     </>
   )

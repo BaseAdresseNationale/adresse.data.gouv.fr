@@ -14,6 +14,10 @@ export default async function formatCSV() {
 
   return (
     <>
+      <Breadcrumb
+        currentPageLabel="Format CSV"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Section>
         <TextWrapper>
           <Suspense fallback={<p>Chargement...</p>}>
