@@ -11,7 +11,10 @@ export default function NotificationsBANPage() {
   useClientSidePageTitle('Notifications')
   return (
     <>
-      <Breadcrumb currentPageLabel="Notifications BAN" segments={[]} />
+      <Breadcrumb
+        currentPageLabel="Notifications BAN"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Section title="Notifications BAN">
         <div className="fr-container fr-py-4w">
         <div className="fr-background-contrast--grey fr-p-3w fr-mb-4w">

@@ -138,7 +138,10 @@ export default function Csv() {
 
   return (
     <>
-      <Breadcrumb currentPageLabel="Géocodeur CSV" segments={[]} />
+      <Breadcrumb
+        currentPageLabel="Géocodeur CSV"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Section pageTitle="Géocoder un fichier CSV">
         <p>Ce service propose une interface de téléversement de fichiers csv pour vous permettre de géocoder un grand nombre d’adresses en lot.</p>
         <p>Les fichiers doivent être encodés en UTF-8, et faire moins de 50 Mo ou 200000 lignes.</p>
