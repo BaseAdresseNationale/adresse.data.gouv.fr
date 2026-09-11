@@ -20,7 +20,10 @@ export default async function Home() {
 
   return (
     <>
-      <Breadcrumb currentPageLabel="Certificat d'adressage" segments={[]} />
+      <Breadcrumb
+        currentPageLabel="Certificat d'adressage"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Suspense fallback={<p>Chargement...</p>}>
         {heroContentHtml && (
           <SectionHero
