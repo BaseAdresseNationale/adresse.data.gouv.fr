@@ -6,6 +6,7 @@ import PartenaireReviews from '@/components/PartenairesDeLaCharte/PartenaireRevi
 import { ClientTypeEnum, PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import PartenaireOrganisme from '@/components/Partenaires/PartenaireOrganisme'
 import { Metadata } from 'next'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 interface PartenairePageprops {
   id: string
@@ -37,6 +38,7 @@ export default async function PartenairePage(props: { params: Promise<{ id: stri
 
   return (
     <>
+      <Breadcrumb currentPageLabel={partenaireDeLaCharte.name} segments={[]} />
       <Section>
         <div className="fr-grid-row" style={{ flexWrap: 'nowrap', marginBottom: '2rem' }}>
           <ResponsiveImage style={{ maxWidth: 300, maxHeight: 300, marginRight: '1rem' }} src={partenaireDeLaCharte.pictureUrl} alt={`Logo de ${partenaireDeLaCharte.name}`} />

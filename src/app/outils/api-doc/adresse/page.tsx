@@ -23,7 +23,7 @@ export default async function ApiAdresse() {
         currentPageLabel="Service de géocodage de la Géoplateforme"
         segments={[
           {
-            label: 'Outils & APIs',
+            label: 'Outils & API',
             linkProps: {
               href: '/outils',
             },

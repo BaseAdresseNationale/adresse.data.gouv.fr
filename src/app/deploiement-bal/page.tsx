@@ -7,6 +7,7 @@ import { mapToSearchResult } from '@/lib/deploiement-search'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
 import { Departement } from '@/types/api-geo.types'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Déploiement')
 
@@ -34,8 +35,11 @@ export default async function DeploiementBALPage(props: { searchParams: Promise<
   }
 
   return (
-    <Section pageTitle="État du déploiement">
-      <DeploiementBALDashboard departements={departementsWithCenter} initialStats={stats} initialFilter={initialFilter} />
-    </Section>
+    <>
+      <Breadcrumb currentPageLabel="État du déploiement" segments={[]} />
+      <Section pageTitle="État du déploiement">
+        <DeploiementBALDashboard departements={departementsWithCenter} initialStats={stats} initialFilter={initialFilter} />
+      </Section>
+    </>
   )
 }
