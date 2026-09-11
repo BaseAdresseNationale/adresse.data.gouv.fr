@@ -15,7 +15,10 @@ const DynamicComponentWithNoSSR = dynamic(
 export default function ValidateurBALPage() {
   return (
     <>
-      <Breadcrumb currentPageLabel="Validateur BAL" segments={[]} />
+      <Breadcrumb
+        currentPageLabel="Validateur BAL"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <DynamicComponentWithNoSSR />
     </>
   )
