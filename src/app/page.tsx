@@ -158,22 +158,24 @@ export default async function Home() {
       </Section>
 
       {/* BlogGrid Disable during maintenance // Todo : A remplacer par une variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE` */}
-      {/* <BlogGrid
-        title="Le blog : articles et témoignages"
-        posts={highlightedPosts}
-        footer={(
-          <Button
-            iconId="fr-icon-arrow-right-line"
-            iconPosition="right"
-            linkProps={{
-              href: '/blog',
-            }}
-            priority="primary"
-          >
-            Parcourir tout le blog
-          </Button>
-        )}
-      /> */}
+      {process.env.NEXT_PUBLIC_BLOG_MAINTENANCE_MODE !== 'true' && (
+        <BlogGrid
+          title="Le blog : articles et témoignages"
+          posts={highlightedPosts}
+          footer={(
+            <Button
+              iconId="fr-icon-arrow-right-line"
+              iconPosition="right"
+              linkProps={{
+                href: '/blog',
+              }}
+              priority="primary"
+            >
+              Parcourir tout le blog
+            </Button>
+          )}
+        />
+      )}
     </>
   )
 }
