@@ -56,7 +56,7 @@ export default async function Home() {
         </p>
         <p>
           <strong>
-            Notre Objectif : référencer l’intégralité des adresses du territoire et
+            Notre objectif : référencer l’intégralité des adresses du territoire et
             les rendre utilisables par tous.
           </strong>
         </p>

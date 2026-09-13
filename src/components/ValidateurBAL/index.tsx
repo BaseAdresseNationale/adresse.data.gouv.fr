@@ -179,10 +179,10 @@ export default function ValidateurBAL() {
         </p>
         <ul>
           <li>
-            Les erreurs sont bloquantes et entraînent un rejet de l&apos;ligne concernée. La BAL publiée sera alors incomplète.
+            Les erreurs sont bloquantes et entraînent un rejet de la ligne concernée. La BAL publiée sera alors incomplète.
           </li>
           <li>
-            Les alertes n&apos;empêchent pas la publication et l&apos;ligne sera donc acceptée, mais les informations rattachées à l&apos;adresse seront dégradées.
+            Les alertes n&apos;empêchent pas la publication et la ligne sera donc acceptée, mais les informations rattachées à l&apos;adresse seront dégradées.
           </li>
         </ul>
         <p>
