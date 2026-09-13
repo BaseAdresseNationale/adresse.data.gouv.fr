@@ -44,7 +44,7 @@ export default async function Home() {
               </strong>
             </p>
             <p>
-              C&apos;est rapide, fiable, et certifié par la Mairie !
+              C&apos;est rapide, fiable, et certifié par la mairie !
             </p>
           </div>
           <div className="fr-col-12 fr-col-md-6">
