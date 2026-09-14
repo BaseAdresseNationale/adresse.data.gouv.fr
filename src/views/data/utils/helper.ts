@@ -36,7 +36,6 @@ interface AsyncSendS3Params {
 interface AsyncSendS3Options {
   params: AsyncSendS3Params
   fileName: string
-  metadata?: AWS.HeadObjectCommandOutput
 }
 
 interface AliasAction {
@@ -50,6 +49,14 @@ interface Aliase {
     params: string[]
   }
 }
+
+interface AliasCacheEntry {
+  expiresAt: number
+  value: Aliase | null
+}
+
+const ALIAS_CACHE_TTL_MS = 60000
+const aliasCache = new Map<string, AliasCacheEntry>()
 
 export const getFormatedDate = () => {
   const date = new Date()
@@ -85,11 +92,33 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
   (req: Request, res: any, options: AsyncSendS3Options) =>
     new Promise<void>(
       (resolve, reject) => {
-        res.setHeader('Content-Length', options.metadata?.ContentLength)
-        res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
+        if (req.method === 'HEAD') {
+          clientS3.headObject(options.params)
+            .then(({ ContentLength, LastModified, ETag }) => {
+              res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
+              if (ContentLength !== undefined) {
+                res.setHeader('Content-Length', ContentLength)
+              }
+              res.setHeader('Last-Modified', LastModified?.toUTCString())
+              res.setHeader('Etag', ETag)
+              res.end()
+              resolve()
+            })
+            .catch((err: Error) => {
+              console.error(err)
+              reject(err)
+            })
+
+          return
+        }
 
         clientS3.getObject(options.params)
           .then(({ Body, AcceptRanges, ContentRange, ContentLength, LastModified, ETag }) => {
+            // Only set once the object is confirmed to exist, so a 404 never leaks a download header onto the fallback HTML page
+            res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
+            if (ContentLength !== undefined) {
+              res.setHeader('Content-Length', ContentLength)
+            }
             res.setHeader('Last-Modified', LastModified?.toUTCString())
             res.setHeader('Etag', ETag)
             if (AcceptRanges && ContentRange) {
@@ -98,13 +127,6 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               res.setHeader('Content-Length', ContentLength)
               res.statusCode = 206
             }
-
-            if (req.method === 'HEAD') {
-              res.end()
-              destroy(Body) // force clean up
-              return resolve()
-            }
-
             let streamEnded = false
             let streamErrored = false
 
@@ -191,6 +213,12 @@ const aliasAction: AliasAction = {
 }
 
 export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir: string[], aliasesRaw: Aliase[], currentPath: string) => {
+  const cacheKey = `${bucketName}:${currentPath}`
+  const cached = aliasCache.get(cacheKey)
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.value
+  }
+
   const aliases = aliasesRaw && (
     [...aliasesRaw]
       .sort((a, b) => `${b.parent}${b.name}`.localeCompare(`${a.parent}${a.name}`))
@@ -199,10 +227,12 @@ export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir
   const alias = aliases?.find(({ parent }) => (new RegExp(`^${parent}(/|$)`)).test(currentPath)) || null
 
   if (!alias) {
+    aliasCache.set(cacheKey, { value: null, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
     return null
   }
 
   if (typeof alias.target === 'string') {
+    aliasCache.set(cacheKey, { value: alias, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
     return alias
   }
 
@@ -216,10 +246,13 @@ export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir
 
     const targetAlias = aliasAction[alias.target.action](s3data, ...((alias.target?.params) || []))
 
-    return ({
+    const resolvedAlias = ({
       ...alias,
       target: targetAlias?.name,
     } as Aliase)
+
+    aliasCache.set(cacheKey, { value: resolvedAlias, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
+    return resolvedAlias
   }
 
   throw new Error('Alias target should be a string, or an object with an action key')

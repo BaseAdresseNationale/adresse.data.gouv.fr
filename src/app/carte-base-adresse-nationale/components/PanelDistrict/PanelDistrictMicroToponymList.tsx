@@ -28,8 +28,30 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
   const microToponymes = useMemo(() => (district?.voies || []).toSorted(sortMicroToponymes), [district])
   const [isMicroTopoWithAddressVisible, setIsMicroTopoWithAddressVisible] = useState(true)
   const [isMicroTopoWithoutAddressVisible, setIsMicroTopoWithoutAddressVisible] = useState(true)
-  const [filtredMicroToponymes, setFiltredMicroToponymes] = useState(microToponymes)
   const [search, setSearch] = useState('')
+
+  const filtredMicroToponymes = useMemo(() => {
+    if (search === '') {
+      return microToponymes
+    }
+
+    return microToponymes.filter(
+      (voie: any) => deburr(voie.nomVoie.toLowerCase())
+        .includes(deburr(search.toLowerCase()))
+    ).sort(
+      (voieA: any, voieB: any) => {
+        const nameA = deburr(voieA.nomVoie.toLowerCase())
+        const nameB = deburr(voieB.nomVoie.toLowerCase())
+        const searchLower = deburr(search.toLowerCase())
+        const positionA = nameA.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
+        const positionB = nameB.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
+        if (positionA.length === 0 && positionB.length === 0) return 0
+        if (positionA.length === 0) return 1
+        if (positionB.length === 0) return -1
+        return positionA[0] - positionB[0]
+      }
+    )
+  }, [microToponymes, search])
 
   const MicroTopoWithAddress = useMemo(
     () => filtredMicroToponymes.filter(testMicroTopoWithAddress)
@@ -52,28 +74,6 @@ function PanelDistrictMicroToponymList({ district }: PanelDistrictMicroToponymLi
 
   function handleSearch(param: string) {
     setSearch(param)
-    if (param === '') {
-      setFiltredMicroToponymes(microToponymes)
-    }
-    else {
-      const voies = microToponymes.filter(
-        (voie: any) => deburr(voie.nomVoie.toLowerCase())
-          .includes(deburr(param.toLowerCase()))
-      ).sort(
-        (voieA: any, voieB: any) => {
-          const nameA = deburr(voieA.nomVoie.toLowerCase())
-          const nameB = deburr(voieB.nomVoie.toLowerCase())
-          const searchLower = deburr(param.toLowerCase())
-          const positionA = nameA.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
-          const positionB = nameB.split(' ').map((word: string) => word.indexOf(searchLower)).sort().filter((position: number) => position !== -1)
-          if (positionA.length === 0 && positionB.length === 0) return 0
-          if (positionA.length === 0) return 1
-          if (positionB.length === 0) return -1
-          return positionA[0] - positionB[0]
-        }
-      )
-      setFiltredMicroToponymes(voies)
-    }
   }
   
 
