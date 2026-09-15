@@ -13,6 +13,7 @@ import ColumnsSelect from './components/columns-select'
 import DropZoneInput from '@/components/DropZoneInput'
 import Table from '@codegouvfr/react-dsfr/Table'
 import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 const allowedTypes = new Set([
   'text/plain',
@@ -137,6 +138,10 @@ export default function Csv() {
 
   return (
     <>
+      <Breadcrumb
+        currentPageLabel="Géocodeur CSV"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Section pageTitle="Géocoder un fichier CSV">
         <p>Ce service propose une interface de téléversement de fichiers csv pour vous permettre de géocoder un grand nombre d’adresses en lot.</p>
         <p>Les fichiers doivent être encodés en UTF-8, et faire moins de 50 Mo ou 200000 lignes.</p>

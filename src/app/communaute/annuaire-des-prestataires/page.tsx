@@ -3,6 +3,7 @@ import { DEFAULT_PARTENAIRES_DE_LA_CHARTE_LIMIT, getPartenairesDeLaCharte, getPa
 import { getDepartements } from '@/lib/api-geo'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Annuaire')
 
@@ -23,6 +24,9 @@ export default async function SocietesPartenairesPage() {
   const randomPage = Math.floor(mathRandom() * numPages) + 1
 
   return (
-    <CompanyPage services={services} departements={departements} page={randomPage} />
+    <>
+      <Breadcrumb currentPageLabel="Annuaire des prestataires" segments={[]} />
+      <CompanyPage services={services} departements={departements} page={randomPage} />
+    </>
   )
 }

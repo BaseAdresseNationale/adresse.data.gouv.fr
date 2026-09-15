@@ -1,6 +1,7 @@
 import Loader from '@/components/Loader'
 import dynamic from 'next/dynamic'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Mise en forme')
 
@@ -12,5 +13,13 @@ const DynamicComponentWithNoSSR = dynamic(
 // This page is a dynamic import of the ValidateurBAL component
 // because pre-rendering fails when importing package @ban-team/validateur-bal
 export default function MiseEnFormePage() {
-  return <DynamicComponentWithNoSSR />
+  return (
+    <>
+      <Breadcrumb
+        currentPageLabel="Mise en forme BAL"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
+      <DynamicComponentWithNoSSR />
+    </>
+  )
 }

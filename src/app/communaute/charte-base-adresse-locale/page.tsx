@@ -6,6 +6,7 @@ import { PartenairesMap } from '@/components/PartenairesDeLaCharte/PartenairesMa
 import Button from '@codegouvfr/react-dsfr/Button'
 import { PartenaireDeLaCharteTypeEnum } from '@/types/partenaire.types'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Charte')
 
@@ -18,8 +19,10 @@ export default async function CharteBALPage() {
   const initialPartenaires = await getPartenairesDeLaCharte({})
 
   return (
-    <Section pageTitle={`${initialPartenaires.totalCommunes + initialPartenaires.totalOrganismes} acteurs engagés pour accompagner les communes dans l’adressage`}>
-      <PartenairesMap />
+    <>
+      <Breadcrumb currentPageLabel="Charte de la Base Adresse Locale" segments={[]} />
+      <Section pageTitle={`${initialPartenaires.totalCommunes + initialPartenaires.totalOrganismes} acteurs engagés pour accompagner les communes dans l’adressage`}>
+        <PartenairesMap />
       <p>
         <b>{initialPartenaires.totalCommunes} communes partenaires et {initialPartenaires.totalOrganismes} organismes partenaires</b>
       </p>
@@ -36,6 +39,7 @@ export default async function CharteBALPage() {
         departements={departements}
         filter={PARTENAIRE_SEARCH_FILTER}
       />
-    </Section>
+      </Section>
+    </>
   )
 }
