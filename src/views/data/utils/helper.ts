@@ -36,6 +36,7 @@ interface AsyncSendS3Params {
 interface AsyncSendS3Options {
   params: AsyncSendS3Params
   fileName: string
+  onObjectFound?: () => void
 }
 
 interface AliasAction {
@@ -52,7 +53,7 @@ interface Aliase {
 
 interface AliasCacheEntry {
   expiresAt: number
-  value: Aliase | null
+  value: Aliase
 }
 
 const ALIAS_CACHE_TTL_MS = 60000
@@ -95,6 +96,7 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
         if (req.method === 'HEAD') {
           clientS3.headObject(options.params)
             .then(({ ContentLength, LastModified, ETag }) => {
+              options.onObjectFound?.()
               res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
               if (ContentLength !== undefined) {
                 res.setHeader('Content-Length', ContentLength)
@@ -104,16 +106,14 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               res.end()
               resolve()
             })
-            .catch((err: Error) => {
-              console.error(err)
-              reject(err)
-            })
+            .catch(reject)
 
           return
         }
 
         clientS3.getObject(options.params)
           .then(({ Body, AcceptRanges, ContentRange, ContentLength, LastModified, ETag }) => {
+            options.onObjectFound?.()
             // Only set once the object is confirmed to exist, so a 404 never leaks a download header onto the fallback HTML page
             res.setHeader('Content-Disposition', `attachment; filename="${options.fileName}"`)
             if (ContentLength !== undefined) {
@@ -153,10 +153,7 @@ export const asyncSendS3 = (clientS3: AWS.S3) =>
               })
               .pipe(res)
           })
-          .catch((err: Error) => {
-            console.error(err)
-            reject(err)
-          })
+          .catch(reject)
       }
     )
 
@@ -212,13 +209,16 @@ const aliasAction: AliasAction = {
     .sort().at(-1),
 }
 
-export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir: string[], aliasesRaw: Aliase[], currentPath: string) => {
-  const cacheKey = `${bucketName}:${currentPath}`
-  const cached = aliasCache.get(cacheKey)
-  if (cached && cached.expiresAt > Date.now()) {
-    return cached.value
-  }
+function getAliasCacheKey(bucketName: string, alias: Aliase) {
+  return JSON.stringify({
+    bucketName,
+    parent: alias.parent,
+    name: alias.name,
+    target: alias.target,
+  })
+}
 
+export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir: string[], aliasesRaw: Aliase[], currentPath: string) => {
   const aliases = aliasesRaw && (
     [...aliasesRaw]
       .sort((a, b) => `${b.parent}${b.name}`.localeCompare(`${a.parent}${a.name}`))
@@ -227,16 +227,23 @@ export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir
   const alias = aliases?.find(({ parent }) => (new RegExp(`^${parent}(/|$)`)).test(currentPath)) || null
 
   if (!alias) {
-    aliasCache.set(cacheKey, { value: null, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
     return null
   }
 
   if (typeof alias.target === 'string') {
-    aliasCache.set(cacheKey, { value: alias, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
     return alias
   }
 
   if (typeof alias.target === 'object' && alias.target.action) {
+    const cacheKey = getAliasCacheKey(bucketName, alias)
+    const cached = aliasCache.get(cacheKey)
+    if (cached) {
+      if (cached.expiresAt > Date.now()) {
+        return cached.value
+      }
+      aliasCache.delete(cacheKey)
+    }
+
     const s3ObjectPath = [...rootDir, ...alias.parent.replace(/\/$/, '').split('/')].join('/')
     const s3DirPath = `${s3ObjectPath}/`
     const s3Objects = await listObjectsRecursively(clientS3, bucketName)(s3DirPath)
@@ -251,7 +258,9 @@ export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir
       target: targetAlias?.name,
     } as Aliase)
 
-    aliasCache.set(cacheKey, { value: resolvedAlias, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
+    if (targetAlias) {
+      aliasCache.set(cacheKey, { value: resolvedAlias, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
+    }
     return resolvedAlias
   }
 
