@@ -1,5 +1,4 @@
 import { getBalEvents } from '@/lib/api-bal-admin'
-import { EventType } from '@/types/events.types'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
 import EventPage from '@/components/Events/EventPage'
 import pageTitle from '@/utils/pageTitle'
@@ -15,12 +14,7 @@ export default async function EvenementsPage() {
     fetchAndProcessEventsGristData(),
   ])
 
-  const eventsFromGrist: EventType[] = gristEvents.map(event => ({
-    ...event,
-    address: undefined,
-  }))
-
-  const { allEvents, tagToColor } = mapEvents([...balEvents, ...eventsFromGrist])
+  const { allEvents, tagToColor } = mapEvents([...balEvents, ...gristEvents])
   const { upcomingEvents, pastEvents } = getUpcomingAndPassedEvents(allEvents)
   const lastMonthPastEvents = pastEvents.filter((event) => {
     const eventDate = new Date(event.date)
