@@ -20,7 +20,7 @@ La BAN est composée d'objets de différents types :
 
 ## Les fichiers BAL
 
-L'autorité principale de production de l'adresse est la commune dans le périmètre de la Loi3DS. Les adresses de la BAN sont donc construites à partir des données source provenant des Bases adresses locales (BAL) sur les emprises communales.
+L'autorité principale de production de l'adresse est la commune dans le périmètre de la loi 3DS. Les adresses de la BAN sont donc construites à partir des données sources provenant des Bases adresses locales (BAL) sur les emprises communales.
 
 Les fichiers BAL sont des fichiers au format CSV qui suivent la structure définie dans la [Spécification du format BAL 1.4](https://aitf-sig-topo.github.io/voies-adresses/files/AITF_SIG_Topo_Format_Base_Adresse_Locale_v1.4.pdf). Un fichier BAL contient l’ensemble des données d’adressage d’une commune. À chaque soumission de fichier BAL auprès de la BAN, le fichier est traité dans son intégralité.
 
@@ -42,7 +42,7 @@ La présence de ces identifiants **permet la gestion du cycle de vie des adresse
 
 La gestion du cycle de vie permet :
 - d’assurer le suivi d’un lieu et donc d’une adresse dans le temps, comme la création ou suppression d'une nouvelle adresse ou la modification d'un libellé,
-- et ce de façon indépendantes des évolutions administratives, comme par ex son rattachement à une nouvelle commune.
+- et ce de façon indépendantes des évolutions administratives, comme par exemple son rattachement à une nouvelle commune.
 
 Les événements du cycle de vie des toponymes et adresses seront (travail en cours) mis à disposition dans des fichiers différentiels.
 
@@ -52,4 +52,4 @@ Le code postal caractérise l’organisation interne de La Poste pour la distrib
 Chaque zone de distribution postale est identifiée par un code postal unique pour faciliter la gestion. Un code postal est couramment associé à plusieurs communes. Il y a également des communes en France qui peuvent avoir plusieurs codes postaux (au-delà des localités à arrondissement).
 
 Cette information n'étant pas de la responsabilité des communes, ce champ ne figure pas dans le format BAL.
-L'information du code postal est associée à l'adresse par le dispositif BAN lors de la publication de la BAL, à partir de données source La Poste.
+L'information du code postal est associée à l'adresse par le dispositif BAN lors de la publication de la BAL, à partir de données sources de La Poste.

@@ -9,9 +9,9 @@ Le certificat atteste de l'existence d'une adresse sur le territoire de la commu
 Il ne contient **aucune information personnelle ni nominative**.
 L'émission de chaque certificat fait l'objet d'un suivi dans notre base de donnée.
 
-**Le QR code ou l'url** présent sur le certificat permet de vérifier **l'authenticité** des informations directement  aurpès de la base adresse nationale.
+**Le QR code ou l'url** présent sur le certificat permet de vérifier **l'authenticité** des informations directement auprès de la Base Adresse Nationale.
 
-Ci-dessous un exemple de corps de certificat:
+Ci-dessous un exemple de corps de certificat :
 
 ![Exemple certificat d'adressage](/img/pages/certificat-adressage/certificat-pdf.png)
 
@@ -24,4 +24,4 @@ Il faut se positionner au niveau de l'adresse (= le numéro) pour voir apparaitr
 
 ![Explication téléchargement certificat en pdf sur l'explorateur BAN](/img/pages/certificat-adressage/certificat-carte.png)
 
-*Rappel: Si la fonctionnalité n'est pas disponible pour votre adresse, veuillez contacter votre mairie.*
+*Rappel : Si la fonctionnalité n'est pas disponible pour votre adresse, veuillez contacter votre mairie.*
