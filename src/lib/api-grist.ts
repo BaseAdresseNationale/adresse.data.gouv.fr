@@ -47,13 +47,36 @@ export interface ActuRecord {
   tags_application: string
 }
 
-async function fetchTableJson(table: string, docId: string): Promise<{ records: GristRecord[] }> {
+export interface EventRecord {
+  title: string
+  subtitle: string
+  description: string
+  type: string
+  target: string
+  date: string
+  tags: string[]
+  isOnlineOnly: boolean
+  address: number
+  href: string
+  isSubscriptionClosed: boolean
+  instructions: string
+  startHour: string
+  endHour: string
+}
+
+async function fetchTableJson(
+  table: string,
+  docId: string,
+  filterDict?: Record<string, unknown>,
+): Promise<{ records: GristRecord[] }> {
   if (!BASE_URL || !docId) {
     console.error('BASE_URL ou docId manquant — variables env non résolues à ce stade')
     return { records: [] }
   }
-  const filterDict = { non_publication_usage: [false], validation_publication: [true] }
-  const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
+  const params = new URLSearchParams()
+  if (filterDict) {
+    params.set('filter', JSON.stringify(filterDict))
+  }
 
   const response = await fetch(`${BASE_URL}/docs/${docId}/tables/${table}/records?${params}`, {
     headers: {
@@ -65,7 +88,8 @@ async function fetchTableJson(table: string, docId: string): Promise<{ records: 
     },
   })
   if (!response.ok) {
-    console.error(new Error(`Erreur HTTP ${response.status} lors de la récupération des données Grist.`))
+    const details = await response.text()
+    console.error(new Error(`Erreur HTTP ${response.status} lors de la récupération des données Grist: ${details}`))
     return { records: [] }
   }
   return response.json()
@@ -108,7 +132,10 @@ function flattenTags(val: any): string {
 }
 
 export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]>{
-  const data = await fetchTableJson('Alertes', DOC_BANDEAU_ID)
+  const data = await fetchTableJson('Alertes', DOC_BANDEAU_ID, {
+    non_publication_usage: [false],
+    validation_publication: [true],
+  })
   const records = data?.records
 
   if (!records || records.length === 0) return []
@@ -144,7 +171,10 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]
 }
 
 export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
-  const data = await fetchTableJson('News', DOC_BANDEAU_ID)
+  const data = await fetchTableJson('News', DOC_BANDEAU_ID, {
+    non_publication_usage: [false],
+    validation_publication: [true],
+  })
   const records = data.records || []
 
   // Traiter les données
@@ -171,8 +201,40 @@ export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
   return processedRecords
 }
 
+export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
+  const data = await fetchTableJson('Evenements', DOC_BANDEAU_ID)
+  const records = data.records || []
+
+  // Traiter les données
+  const processedRecords: EventRecord[] = records.map((record) => {
+    const fields = record.fields
+
+    return {
+      title: fields.title ?? '',
+      subtitle: fields.subtitle ?? '',
+      description: fields.description,
+      type: fields.type ?? '',
+      target: fields.target ?? '',
+      date: fields.date ?? '',
+      tags: fields.tags ? flattenTags(fields.tags).split(', ').filter(Boolean) : [],
+      isOnlineOnly: fields.isOnlineOnly === 'true',
+      address: Number(fields.address) || 0,
+      href: fields.href ?? '',
+      isSubscriptionClosed: fields.isSubscriptionClosed === 'true',
+      instructions: fields.instructions ?? '',
+      startHour: fields.startHour ?? '',
+      endHour: fields.endHour ?? '',
+    }
+  })
+
+  return processedRecords
+}
+
 export async function fetchAndProcessApplicationGristData(): Promise<ApplicationRecord[]> {
-  const data = await fetchTableJson(WANTED_TABLE_ID, DOC_ID)
+  const data = await fetchTableJson(WANTED_TABLE_ID, DOC_ID, {
+    non_publication_usage: [false],
+    validation_publication: [true],
+  })
   const records = data.records || []
 
   // Traiter les données
