@@ -46,6 +46,7 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
         {address?.commune ? <span> | {getAdressToString(address)}</span> : null}
       </div>
       <h3>{title}</h3>
+      {event.subtitle && <div className="event-subtitle">{event.subtitle}</div>}
       <p>
         {actualDescription}
       </p>
@@ -71,8 +72,9 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
                 Rejoindre
               </Button>
             )
-          : (
-              !isSubscriptionClosed && !isPassed && onRegister && (
+          : ( //TODO: faire un nouveau formulaire pour rediriger vers le formulaire d'inscription de l'IGN
+            // il faudra enlever "event.isOnlineOnly" de la condition si on fait un formulaire d'inscription pour les évènements en présentiel
+              event.isOnlineOnly && !isSubscriptionClosed && !isPassed && onRegister && (
                 <Button
                   iconId="fr-icon-questionnaire-line"
                   iconPosition="right"
