@@ -1,4 +1,5 @@
 import { env } from 'next-runtime-env'
+import { EventTypeTagEnum, EventTypeTypeEnum } from '@/types/events.types'
 
 const BASE_URL = env('NEXT_PUBLIC_GRIST_API_URL') || ''
 const DOC_ID = env('NEXT_PUBLIC_GRIST_DOC_ID') || ''
@@ -48,13 +49,16 @@ export interface ActuRecord {
 }
 
 export interface EventRecord {
+  id: string
+  createdAt: string
+  updatedAt: string
   title: string
   subtitle: string
   description: string
-  type: string
+  type: EventTypeTypeEnum
   target: string
   date: string
-  tags: string[]
+  tags: EventTypeTagEnum[]
   isOnlineOnly: boolean
   address: number
   href: string
@@ -210,13 +214,16 @@ export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
     const fields = record.fields
 
     return {
+      id: String(record.id),
+      createdAt: '',
+      updatedAt: '',
       title: fields.title ?? '',
       subtitle: fields.subtitle ?? '',
       description: fields.description,
-      type: fields.type ?? '',
+      type: fields.type as EventTypeTypeEnum,
       target: fields.target ?? '',
       date: fields.date ?? '',
-      tags: fields.tags ? flattenTags(fields.tags).split(', ').filter(Boolean) : [],
+      tags: (fields.tags ? flattenTags(fields.tags).split(', ').filter(Boolean) : []) as EventTypeTagEnum[],
       isOnlineOnly: fields.isOnlineOnly === 'true',
       address: Number(fields.address) || 0,
       href: fields.href ?? '',
