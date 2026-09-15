@@ -52,7 +52,7 @@ interface Aliase {
 
 interface AliasCacheEntry {
   expiresAt: number
-  value: Aliase | null
+  value: Aliase
 }
 
 const ALIAS_CACHE_TTL_MS = 60000
@@ -213,12 +213,6 @@ const aliasAction: AliasAction = {
 }
 
 export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir: string[], aliasesRaw: Aliase[], currentPath: string) => {
-  const cacheKey = `${bucketName}:${currentPath}`
-  const cached = aliasCache.get(cacheKey)
-  if (cached && cached.expiresAt > Date.now()) {
-    return cached.value
-  }
-
   const aliases = aliasesRaw && (
     [...aliasesRaw]
       .sort((a, b) => `${b.parent}${b.name}`.localeCompare(`${a.parent}${a.name}`))
@@ -227,16 +221,23 @@ export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir
   const alias = aliases?.find(({ parent }) => (new RegExp(`^${parent}(/|$)`)).test(currentPath)) || null
 
   if (!alias) {
-    aliasCache.set(cacheKey, { value: null, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
     return null
   }
 
   if (typeof alias.target === 'string') {
-    aliasCache.set(cacheKey, { value: alias, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
     return alias
   }
 
   if (typeof alias.target === 'object' && alias.target.action) {
+    const cacheKey = `${bucketName}:${alias.parent}:${alias.name}`
+    const cached = aliasCache.get(cacheKey)
+    if (cached) {
+      if (cached.expiresAt > Date.now()) {
+        return cached.value
+      }
+      aliasCache.delete(cacheKey)
+    }
+
     const s3ObjectPath = [...rootDir, ...alias.parent.replace(/\/$/, '').split('/')].join('/')
     const s3DirPath = `${s3ObjectPath}/`
     const s3Objects = await listObjectsRecursively(clientS3, bucketName)(s3DirPath)
@@ -246,9 +247,13 @@ export const getAlias = (clientS3: AWS.S3, bucketName: string) => async (rootDir
 
     const targetAlias = aliasAction[alias.target.action](s3data, ...((alias.target?.params) || []))
 
+    if (!targetAlias) {
+      return alias
+    }
+
     const resolvedAlias = ({
       ...alias,
-      target: targetAlias?.name,
+      target: targetAlias.name,
     } as Aliase)
 
     aliasCache.set(cacheKey, { value: resolvedAlias, expiresAt: Date.now() + ALIAS_CACHE_TTL_MS })
