@@ -23,7 +23,15 @@ export enum EventTypeTagEnum {
   UTILISATEURS = 'Utilisateurs',
 }
 
-export type EventType = {
+export interface EventAddressRecord {
+  nom?: string
+  numero?: string
+  voie?: string
+  codePostal?: string
+  commune?: string
+}
+
+export interface EventRecord {
   id: string
   createdAt: string
   updatedAt: string
@@ -32,16 +40,10 @@ export type EventType = {
   description: string
   type: EventTypeTypeEnum
   target: string
-  date: string
+  date: Date
   tags: EventTypeTagEnum[]
   isOnlineOnly: boolean
-  address?: {
-    nom?: string
-    numero?: string
-    voie?: string
-    codePostal?: string
-    commune?: string
-  }
+  address?: EventAddressRecord
   href?: string
   isSubscriptionClosed: boolean
   instructions?: string

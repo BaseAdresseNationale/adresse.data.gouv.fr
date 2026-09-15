@@ -1,4 +1,5 @@
 import { env } from 'next-runtime-env'
+import { EventAddressRecord, EventRecord, EventTypeTagEnum, EventTypeTypeEnum } from '@/types/events.types'
 
 const BASE_URL = env('NEXT_PUBLIC_GRIST_API_URL') || ''
 const DOC_ID = env('NEXT_PUBLIC_GRIST_DOC_ID') || ''
@@ -46,14 +47,20 @@ export interface ActuRecord {
   lien: string
   tags_application: string
 }
-
-async function fetchTableJson(table: string, docId: string): Promise<{ records: GristRecord[] }> {
+async function fetchTableJson(
+  table: string,
+  docId: string,
+  withPublicationFilter = true,
+): Promise<{ records: GristRecord[] }> {
   if (!BASE_URL || !docId) {
     console.error('BASE_URL ou docId manquant — variables env non résolues à ce stade')
     return { records: [] }
   }
-  const filterDict = { non_publication_usage: [false], validation_publication: [true] }
-  const params = new URLSearchParams({ filter: JSON.stringify(filterDict) })
+  const params = new URLSearchParams()
+  if (withPublicationFilter) {
+    const filterDict = { non_publication_usage: [false], validation_publication: [true] }
+    params.set('filter', JSON.stringify(filterDict))
+  }
 
   const response = await fetch(`${BASE_URL}/docs/${docId}/tables/${table}/records?${params}`, {
     headers: {
@@ -65,7 +72,8 @@ async function fetchTableJson(table: string, docId: string): Promise<{ records: 
     },
   })
   if (!response.ok) {
-    console.error(new Error(`Erreur HTTP ${response.status} lors de la récupération des données Grist.`))
+    const details = await response.text()
+    console.error(new Error(`Erreur HTTP ${response.status} lors de la récupération des données Grist: ${details}`))
     return { records: [] }
   }
   return response.json()
@@ -105,6 +113,15 @@ function flattenTags(val: any): string {
     return cleaned.join(', ')
   }
   return val
+}
+
+function parseGristDate(value: string): Date {
+  const numericValue = Number(value)
+  if (value && Number.isFinite(numericValue)) {
+    const timestamp = numericValue < 1_000_000_000_000 ? numericValue * 1000 : numericValue
+    return new Date(timestamp)
+  }
+  return new Date(value)
 }
 
 export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]>{
@@ -165,6 +182,52 @@ export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
       auteur: fields.auteur,
       lien: fields.lien,
       tags_application: tagsApplication,
+    }
+  })
+
+  return processedRecords
+}
+
+export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
+  const data = await fetchTableJson('Evenements', DOC_BANDEAU_ID)
+  const records = data.records || []
+  const addressRecords = await fetchTableJson('Adresses_Evenements', DOC_BANDEAU_ID, false)
+  const addressesById = new Map(addressRecords.records.map(record => [record.id, record.fields]))
+
+  const processedRecords: EventRecord[] = records.map((record) => {
+    const fields = record.fields
+    const rawAddress = fields.address as unknown
+    const addressId = Array.isArray(rawAddress)
+      ? Number(rawAddress[1])
+      : Number(rawAddress)
+    const addressFields = addressesById.get(addressId)
+
+    return {
+      id: String(record.id),
+      createdAt: '',
+      updatedAt: '',
+      title: fields.title ?? '',
+      subtitle: fields.subtitle ?? '',
+      description: fields.description,
+      type: fields.type as EventTypeTypeEnum,
+      target: fields.target ?? '',
+      date: parseGristDate(fields.date),
+      tags: (fields.tags ? flattenTags(fields.tags).split(', ').filter(Boolean) : []) as EventTypeTagEnum[],
+      isOnlineOnly: fields.isOnlineOnly === 'true',
+      address: addressFields
+        ? {
+            nom: addressFields.nom ?? '',
+            numero: addressFields.numero ?? '',
+            voie: addressFields.voie ?? '',
+            codePostal: addressFields.codePostal ?? '',
+            commune: addressFields.commune ?? '',
+          }
+        : undefined,
+      href: fields.href ?? '',
+      isSubscriptionClosed: fields.isSubscriptionClosed === 'true',
+      instructions: fields.instructions ?? '',
+      startHour: fields.startHour ?? '',
+      endHour: fields.endHour ?? '',
     }
   })
 

@@ -1,5 +1,5 @@
 import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, PartenaireDeLaChartType, ReviewFormType } from '@/types/partenaire.types'
-import { EventType, ParticipantType } from '@/types/events.types'
+import { EventRecord, ParticipantType } from '@/types/events.types'
 import { addSearchParams, customFetch } from './fetch'
 import { env } from 'next-runtime-env'
 
@@ -85,7 +85,7 @@ export async function sendReview(partenaireId: string, review: ReviewFormType) {
   })
 }
 
-export async function getBalEvents(): Promise<EventType[]> {
+export async function getBalEvents(): Promise<EventRecord[]> {
   try {
     const response = await fetch(
       `${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/events`,
