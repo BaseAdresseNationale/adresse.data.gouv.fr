@@ -4,7 +4,7 @@ import CardWrapper from '@/components/CardWrapper'
 import EventCard from '@/components/Events/EventCard'
 import Section from '@/components/Section'
 import VideoMiniature from '@/components/VideoMiniature'
-import { EventType } from '@/types/events.types'
+import { EventRecord } from '@/types/events.types'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import ParticipantForm from './ParticipantForm'
 import { useEffect, useMemo, useState } from 'react'
@@ -75,7 +75,7 @@ const videoFormations = [
 
 interface OnlineTrainingPageProps {
   tagToColor: Record<string, { color: string, background: string }>
-  upcomingEvents: EventType[]
+  upcomingEvents: EventRecord[]
 }
 
 export default function OnlineTrainingPage({ tagToColor, upcomingEvents }: OnlineTrainingPageProps) {

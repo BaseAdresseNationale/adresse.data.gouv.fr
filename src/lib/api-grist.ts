@@ -1,5 +1,5 @@
 import { env } from 'next-runtime-env'
-import { EventTypeTagEnum, EventTypeTypeEnum } from '@/types/events.types'
+import { EventAddressRecord, EventRecord, EventTypeTagEnum, EventTypeTypeEnum } from '@/types/events.types'
 
 const BASE_URL = env('NEXT_PUBLIC_GRIST_API_URL') || ''
 const DOC_ID = env('NEXT_PUBLIC_GRIST_DOC_ID') || ''
@@ -47,35 +47,6 @@ export interface ActuRecord {
   lien: string
   tags_application: string
 }
-
-export interface EventAddressRecord {
-  nom?: string
-  numero?: string
-  voie?: string
-  codePostal?: string
-  commune?: string
-}
-
-export interface EventRecord {
-  id: string
-  createdAt: string
-  updatedAt: string
-  title: string
-  subtitle: string
-  description: string
-  type: EventTypeTypeEnum
-  target: string
-  date: string
-  tags: EventTypeTagEnum[]
-  isOnlineOnly: boolean
-  address?: EventAddressRecord
-  href: string
-  isSubscriptionClosed: boolean
-  instructions: string
-  startHour: string
-  endHour: string
-}
-
 async function fetchTableJson(
   table: string,
   docId: string,
@@ -219,7 +190,6 @@ export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
   const addressRecords = await fetchTableJson('Adresses_Evenements', DOC_BANDEAU_ID)
   const addressesById = new Map(addressRecords.records.map(record => [record.id, record.fields]))
 
-  // Traiter les données
   const processedRecords: EventRecord[] = records.map((record) => {
     const fields = record.fields
     const rawAddress = fields.address as unknown

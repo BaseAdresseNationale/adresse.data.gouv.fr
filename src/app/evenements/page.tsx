@@ -1,4 +1,5 @@
 import { getBalEvents } from '@/lib/api-bal-admin'
+import { EventRecord } from '@/types/events.types'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
 import EventPage from '@/components/Events/EventPage'
 import pageTitle from '@/utils/pageTitle'
@@ -14,14 +15,14 @@ export default async function EvenementsPage() {
     fetchAndProcessEventsGristData(),
   ])
 
-  const { allEvents, tagToColor } = mapEvents([...balEvents, ...gristEvents])
+  const events: EventRecord[] = [...balEvents, ...gristEvents]
+  const { allEvents, tagToColor } = mapEvents(events)
   const { upcomingEvents, pastEvents } = getUpcomingAndPassedEvents(allEvents)
-  const lastMonthPastEvents = pastEvents.filter((event) => {
-    const eventDate = new Date(event.date)
-    const lastMonth = new Date()
-    lastMonth.setMonth(lastMonth.getMonth() - 1)
-    return eventDate > lastMonth
-  })
+  const lastMonth = new Date()
+  lastMonth.setMonth(lastMonth.getMonth() - 1)
+  const lastMonthPastEvents = pastEvents
+    .filter(event => new Date(event.date) > lastMonth)
+    .reverse()
   return (
     <EventPage upcomingEvents={upcomingEvents} lastMonthPastEvents={lastMonthPastEvents} tagToColor={tagToColor} />
   )

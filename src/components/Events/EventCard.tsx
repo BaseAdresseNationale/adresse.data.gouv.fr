@@ -1,6 +1,6 @@
 'use client'
 
-import { EventType, EventTypeTypeEnum } from '@/types/events.types'
+import { EventRecord, EventTypeTypeEnum } from '@/types/events.types'
 import { StyledEventCard } from './EventCard.styles'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { getFullDate } from '@/utils/date'
@@ -8,7 +8,7 @@ import { useState } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 interface EventCardProps {
-  event: EventType
+  event: EventRecord
   tagToColor: Record<string, { color: string, background: string }>
   isPassed?: boolean
   onRegister?: () => void
@@ -28,7 +28,7 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
   const actualDescription = showAllDescription ? description : description.slice(0, 100) + '...'
   const backgroundColor = backgroundColors[type]
 
-  const getAdressToString = (adress: EventType['address']) => {
+  const getAdressToString = (adress: EventRecord['address']) => {
     if (!adress) return ''
     return `${adress.nom}, ${adress.numero} ${adress.voie}, ${adress.codePostal} ${adress.commune}`
   }
