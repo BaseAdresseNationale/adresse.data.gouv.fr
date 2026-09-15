@@ -48,6 +48,14 @@ export interface ActuRecord {
   tags_application: string
 }
 
+export interface EventAddressRecord {
+  nom?: string
+  numero?: string
+  voie?: string
+  codePostal?: string
+  commune?: string
+}
+
 export interface EventRecord {
   id: string
   createdAt: string
@@ -60,7 +68,7 @@ export interface EventRecord {
   date: string
   tags: EventTypeTagEnum[]
   isOnlineOnly: boolean
-  address: number
+  address?: EventAddressRecord
   href: string
   isSubscriptionClosed: boolean
   instructions: string
@@ -208,10 +216,17 @@ export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
 export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
   const data = await fetchTableJson('Evenements', DOC_BANDEAU_ID)
   const records = data.records || []
+  const addressRecords = await fetchTableJson('Adresses_Evenements', DOC_BANDEAU_ID)
+  const addressesById = new Map(addressRecords.records.map(record => [record.id, record.fields]))
 
   // Traiter les données
   const processedRecords: EventRecord[] = records.map((record) => {
     const fields = record.fields
+    const rawAddress = fields.address as unknown
+    const addressId = Array.isArray(rawAddress)
+      ? Number(rawAddress[1])
+      : Number(rawAddress)
+    const addressFields = addressesById.get(addressId)
 
     return {
       id: String(record.id),
@@ -225,7 +240,15 @@ export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
       date: fields.date ?? '',
       tags: (fields.tags ? flattenTags(fields.tags).split(', ').filter(Boolean) : []) as EventTypeTagEnum[],
       isOnlineOnly: fields.isOnlineOnly === 'true',
-      address: Number(fields.address) || 0,
+      address: addressFields
+        ? {
+            nom: addressFields.nom ?? '',
+            numero: addressFields.numero ?? '',
+            voie: addressFields.voie ?? '',
+            codePostal: addressFields.codePostal ?? '',
+            commune: addressFields.commune ?? '',
+          }
+        : undefined,
       href: fields.href ?? '',
       isSubscriptionClosed: fields.isSubscriptionClosed === 'true',
       instructions: fields.instructions ?? '',
