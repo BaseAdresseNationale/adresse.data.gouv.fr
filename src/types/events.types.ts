@@ -40,7 +40,7 @@ export interface EventRecord {
   description: string
   type: EventTypeTypeEnum
   target: string
-  date: string
+  date: Date
   tags: EventTypeTagEnum[]
   isOnlineOnly: boolean
   address?: EventAddressRecord
