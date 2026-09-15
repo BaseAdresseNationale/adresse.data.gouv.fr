@@ -50,14 +50,15 @@ export interface ActuRecord {
 async function fetchTableJson(
   table: string,
   docId: string,
-  filterDict?: Record<string, unknown>,
+  withPublicationFilter = true,
 ): Promise<{ records: GristRecord[] }> {
   if (!BASE_URL || !docId) {
     console.error('BASE_URL ou docId manquant — variables env non résolues à ce stade')
     return { records: [] }
   }
   const params = new URLSearchParams()
-  if (filterDict) {
+  if (withPublicationFilter) {
+    const filterDict = { non_publication_usage: [false], validation_publication: [true] }
     params.set('filter', JSON.stringify(filterDict))
   }
 
@@ -114,11 +115,17 @@ function flattenTags(val: any): string {
   return val
 }
 
+function parseGristDate(value: string): Date {
+  const numericValue = Number(value)
+  if (value && Number.isFinite(numericValue)) {
+    const timestamp = numericValue < 1_000_000_000_000 ? numericValue * 1000 : numericValue
+    return new Date(timestamp)
+  }
+  return new Date(value)
+}
+
 export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]>{
-  const data = await fetchTableJson('Alertes', DOC_BANDEAU_ID, {
-    non_publication_usage: [false],
-    validation_publication: [true],
-  })
+  const data = await fetchTableJson('Alertes', DOC_BANDEAU_ID)
   const records = data?.records
 
   if (!records || records.length === 0) return []
@@ -154,10 +161,7 @@ export async function fetchAndProcessAlertesGristData() : Promise<AlerteRecord[]
 }
 
 export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
-  const data = await fetchTableJson('News', DOC_BANDEAU_ID, {
-    non_publication_usage: [false],
-    validation_publication: [true],
-  })
+  const data = await fetchTableJson('News', DOC_BANDEAU_ID)
   const records = data.records || []
 
   // Traiter les données
@@ -187,7 +191,7 @@ export async function fetchAndProcessActusGristData(): Promise<ActuRecord[]> {
 export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
   const data = await fetchTableJson('Evenements', DOC_BANDEAU_ID)
   const records = data.records || []
-  const addressRecords = await fetchTableJson('Adresses_Evenements', DOC_BANDEAU_ID)
+  const addressRecords = await fetchTableJson('Adresses_Evenements', DOC_BANDEAU_ID, false)
   const addressesById = new Map(addressRecords.records.map(record => [record.id, record.fields]))
 
   const processedRecords: EventRecord[] = records.map((record) => {
@@ -207,7 +211,7 @@ export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
       description: fields.description,
       type: fields.type as EventTypeTypeEnum,
       target: fields.target ?? '',
-      date: fields.date ?? '',
+      date: parseGristDate(fields.date),
       tags: (fields.tags ? flattenTags(fields.tags).split(', ').filter(Boolean) : []) as EventTypeTagEnum[],
       isOnlineOnly: fields.isOnlineOnly === 'true',
       address: addressFields
@@ -231,10 +235,7 @@ export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
 }
 
 export async function fetchAndProcessApplicationGristData(): Promise<ApplicationRecord[]> {
-  const data = await fetchTableJson(WANTED_TABLE_ID, DOC_ID, {
-    non_publication_usage: [false],
-    validation_publication: [true],
-  })
+  const data = await fetchTableJson(WANTED_TABLE_ID, DOC_ID)
   const records = data.records || []
 
   // Traiter les données
