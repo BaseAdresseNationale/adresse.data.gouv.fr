@@ -225,6 +225,7 @@ export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
           }
         : undefined,
       href: fields.href ?? '',
+      resources: fields.resources ?? '',
       isSubscriptionClosed: fields.isSubscriptionClosed === 'true',
       instructions: fields.instructions ?? '',
       startHour: fields.startHour ?? '',

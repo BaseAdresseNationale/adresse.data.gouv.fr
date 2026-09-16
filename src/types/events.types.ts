@@ -48,6 +48,7 @@ export interface EventRecord {
   isOnlineOnly: boolean
   address?: EventAddressRecord
   href?: string
+  resources?: string
   isSubscriptionClosed: boolean
   instructions?: string
   startHour: string

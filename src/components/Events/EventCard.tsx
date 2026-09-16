@@ -22,6 +22,8 @@ const backgroundColors: Record<string, string> = {
 
 export default function EventCard({ event, isPassed, tagToColor, onRegister }: EventCardProps) {
   const { tags, title, description, startHour, endHour, date, address, isSubscriptionClosed, type } = event
+  const eventLink = isPassed ? event.resources : event.href
+  const eventLinkLabel = isPassed ? 'Accéder aux ressources' : 'Rejoindre'
 
   const hasLargeDescription = description.length > 100
   const [showAllDescription, setShowAllDescription] = useState(!hasLargeDescription)
@@ -56,7 +58,7 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
         </button>
       )}
       {
-        type === EventTypeTypeEnum.ADRESSE_LAB && event.href
+        ((isPassed && event.resources) || (!isPassed && type === EventTypeTypeEnum.ADRESSE_LAB && event.href))
           ? (
               <Button
                 iconId="fr-icon-questionnaire-line"
@@ -64,12 +66,12 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
                 priority="secondary"
                 style={{ marginBottom: '1rem' }}
                 linkProps={{
-                  href: event.href,
+                  href: eventLink as string,
                   target: '_blank',
                   rel: 'noopener noreferrer',
                 }}
               >
-                Rejoindre
+                {eventLinkLabel}
               </Button>
             )
           : ( //TODO: faire un nouveau formulaire pour rediriger vers le formulaire d'inscription de l'IGN
