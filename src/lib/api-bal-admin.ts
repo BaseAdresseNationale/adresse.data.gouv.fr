@@ -96,7 +96,8 @@ export async function getBalEvents(): Promise<EventRecord[]> {
       throw new Error('Error while fetching bal events')
     }
 
-    return response.json()
+    const events = await response.json() as EventRecord[]
+    return events.map(event => ({ ...event, source: 'BAL' as const }))
   }
   catch (error) {
     console.error(error)

@@ -31,8 +31,11 @@ export interface EventAddressRecord {
   commune?: string
 }
 
+export type EventSource = 'BAL' | 'GRIST'
+
 export interface EventRecord {
   id: string
+  source?: EventSource
   createdAt: string
   updatedAt: string
   title: string

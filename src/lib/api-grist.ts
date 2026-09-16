@@ -204,6 +204,7 @@ export async function fetchAndProcessEventsGristData(): Promise<EventRecord[]> {
 
     return {
       id: String(record.id),
+      source: 'GRIST' as const,
       createdAt: '',
       updatedAt: '',
       title: fields.title ?? '',

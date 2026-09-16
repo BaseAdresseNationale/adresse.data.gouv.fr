@@ -46,7 +46,7 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
         {address?.commune ? <span> | {getAdressToString(address)}</span> : null}
       </div>
       <h3>{title}</h3>
-      {event.subtitle && <div className="event-subtitle">{event.subtitle}</div>}
+      {event.source !== 'BAL' && event.subtitle && <div className="event-subtitle">{event.subtitle}</div>}
       <p>
         {actualDescription}
       </p>
