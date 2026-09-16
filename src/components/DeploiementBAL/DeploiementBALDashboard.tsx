@@ -14,6 +14,7 @@ import Map, { Layer, NavigationControl, Source } from "react-map-gl/maplibre";
 import TabDeploiementBAL from "./TabDeploiementBAL";
 import { StyledDeploiementBALDashboard } from "./DeploiementBALDashboard.styles";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
+import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import DeploiementMap, { getStyle } from "./DeploiementMap";
 import {
   ReadonlyURLSearchParams,
@@ -23,7 +24,10 @@ import {
 } from "next/navigation";
 import { mapToSearchResult } from "@/lib/deploiement-search";
 import { FullScreenControl } from "../Map/FullScreenControl";
-import { getSuiviBanTilesTemplateUrl } from "@/lib/suivi-ban-api";
+import {
+  getSuiviBanTilesTemplateUrl,
+  isSuiviBanMaintenanceMode,
+} from "@/lib/suivi-ban-api";
 import { useSuiviBan } from "./useSuiviBan";
 import { SuiviBanMapLayers } from "./SuiviBanMapLayers";
 import { SuiviBanOverlay } from "./SuiviBanOverlay";
@@ -69,8 +73,11 @@ export default function DeploiementBALMap({
     getInitalTab(searchParams) || "source-bal",
   );
   const [origin, setOrigin] = useState("");
+  const suiviBanMaintenance = isSuiviBanMaintenanceMode();
 
-  const suivi = useSuiviBan({ selectedTab });
+  const suivi = useSuiviBan({
+    selectedTab: suiviBanMaintenance ? "source-bal" : selectedTab,
+  });
   const {
     mapRef,
     mapContainerRef,
@@ -92,7 +99,7 @@ export default function DeploiementBALMap({
   useEffect(() => {
     const map = mapRef.current?.getMap();
     if (!map) return;
-    if (selectedTab === "suivi-ban") {
+    if (selectedTab === "suivi-ban" && !suiviBanMaintenance) {
       map.setPadding({
         left: SUIVI_BAN_PANEL_WIDTH,
         top: 0,
@@ -111,7 +118,7 @@ export default function DeploiementBALMap({
     } else {
       map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
     }
-  }, [selectedTab, mapRef, suiviBanSelectedDept, restoreSuiviBanView]);
+  }, [selectedTab, mapRef, suiviBanSelectedDept, restoreSuiviBanView, suiviBanMaintenance]);
 
   const handleSearch = useCallback(
     async (input: string) => {
@@ -212,6 +219,19 @@ export default function DeploiementBALMap({
                 height: selectedTab === "suivi-ban" ? 650 : undefined,
               }}
             >
+              {selectedTab === "suivi-ban" && suiviBanMaintenance ? (
+                <Alert
+                  severity="info"
+                  title="Onglet en maintenance"
+                  description={
+                    <>
+                      Le suivi du déploiement de l'identifiant BAN est temporairement indisponible.
+                      <br />
+                      La carte sera de retour d'ici quelques jours
+                    </>
+                  }
+                />
+              ) : (
               <Map
                 ref={mapRef}
                 initialViewState={{
@@ -291,8 +311,9 @@ export default function DeploiementBALMap({
                   <SuiviBanMapLayers suivi={suivi} />
                 )}
               </Map>
+              )}
 
-              {selectedTab === "suivi-ban" && (
+              {selectedTab === "suivi-ban" && !suiviBanMaintenance && (
                 <SuiviBanOverlay suivi={suivi} filter={filter} />
               )}
             </div>
