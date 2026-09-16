@@ -225,9 +225,9 @@ export default function DeploiementBALMap({
                   title="Onglet en maintenance"
                   description={
                     <>
-                      Le suivi du déploiement de l'identifiant BAN est temporairement indisponible.
+                      Le suivi du déploiement de l&apos;identifiant BAN est temporairement indisponible.
                       <br />
-                      La carte sera de retour d'ici quelques jours
+                      La carte sera de retour d&apos;ici quelques jours
                     </>
                   }
                 />
