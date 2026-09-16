@@ -6,7 +6,7 @@ function trimTrailingSlash(value: string) {
 
 type DeploiementBalBackendMode = 'suivi-ban' | 'adresse-local'
 
-const DEPLOIEMENT_BAL_BACKEND_MODE: DeploiementBalBackendMode = 'suivi-ban'
+const DEPLOIEMENT_BAL_BACKEND_MODE: DeploiementBalBackendMode = 'adresse-local'
 
 const SUIVI_BAN_STATS_PATH = '/deploiement-bal/stats'
 const SUIVI_BAN_TILES_PATH = '/tiles/deploiement-bal/{z}/{x}/{y}.pbf'
