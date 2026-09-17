@@ -14,7 +14,6 @@ import Map, { Layer, NavigationControl, Source } from "react-map-gl/maplibre";
 import TabDeploiementBAL from "./TabDeploiementBAL";
 import { StyledDeploiementBALDashboard } from "./DeploiementBALDashboard.styles";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
-import { Alert } from "@codegouvfr/react-dsfr/Alert";
 import DeploiementMap, { getStyle } from "./DeploiementMap";
 import {
   ReadonlyURLSearchParams,
@@ -69,15 +68,13 @@ export default function DeploiementBALMap({
     filteredCodesCommmune,
     geometry,
   } = useStatsDeploiement({ initialStats, initialFilter });
+  const suiviBanMaintenance = isSuiviBanMaintenanceMode();
   const [selectedTab, setSelectedTab] = useState<"source-bal" | "suivi-ban">(
-    getInitalTab(searchParams) || "source-bal",
+    (suiviBanMaintenance ? null : getInitalTab(searchParams)) || "source-bal",
   );
   const [origin, setOrigin] = useState("");
-  const suiviBanMaintenance = isSuiviBanMaintenanceMode();
 
-  const suivi = useSuiviBan({
-    selectedTab: suiviBanMaintenance ? "source-bal" : selectedTab,
-  });
+  const suivi = useSuiviBan({ selectedTab });
   const {
     mapRef,
     mapContainerRef,
@@ -99,7 +96,7 @@ export default function DeploiementBALMap({
   useEffect(() => {
     const map = mapRef.current?.getMap();
     if (!map) return;
-    if (selectedTab === "suivi-ban" && !suiviBanMaintenance) {
+    if (selectedTab === "suivi-ban") {
       map.setPadding({
         left: SUIVI_BAN_PANEL_WIDTH,
         top: 0,
@@ -118,7 +115,7 @@ export default function DeploiementBALMap({
     } else {
       map.setPadding({ left: 0, top: 0, right: 0, bottom: 0 });
     }
-  }, [selectedTab, mapRef, suiviBanSelectedDept, restoreSuiviBanView, suiviBanMaintenance]);
+  }, [selectedTab, mapRef, suiviBanSelectedDept, restoreSuiviBanView]);
 
   const handleSearch = useCallback(
     async (input: string) => {
@@ -207,7 +204,9 @@ export default function DeploiementBALMap({
             selectedTabId={selectedTab}
             tabs={[
               { tabId: "source-bal", label: "Déploiement BAL" },
-              { tabId: "suivi-ban", label: "Déploiement id BAN" },
+              ...(suiviBanMaintenance
+                ? []
+                : [{ tabId: "suivi-ban", label: "Déploiement id BAN" }]),
             ]}
             onTabChange={handleTabChange}
           >
@@ -219,19 +218,6 @@ export default function DeploiementBALMap({
                 height: selectedTab === "suivi-ban" ? 650 : undefined,
               }}
             >
-              {selectedTab === "suivi-ban" && suiviBanMaintenance ? (
-                <Alert
-                  severity="info"
-                  title="Onglet en maintenance"
-                  description={
-                    <>
-                      Le suivi du déploiement de l&apos;identifiant BAN est temporairement indisponible.
-                      <br />
-                      La carte sera de retour d&apos;ici quelques jours
-                    </>
-                  }
-                />
-              ) : (
               <Map
                 ref={mapRef}
                 initialViewState={{
@@ -311,9 +297,8 @@ export default function DeploiementBALMap({
                   <SuiviBanMapLayers suivi={suivi} />
                 )}
               </Map>
-              )}
 
-              {selectedTab === "suivi-ban" && !suiviBanMaintenance && (
+              {selectedTab === "suivi-ban" && (
                 <SuiviBanOverlay suivi={suivi} filter={filter} />
               )}
             </div>
