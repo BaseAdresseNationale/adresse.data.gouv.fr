@@ -7,6 +7,7 @@ import { useCallback } from 'react'
 
 import SearchBAN from '@/components/SearchBAN'
 import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export default function VotreCommuneEtSaBALPage() {
   useClientSidePageTitle('Commune')
@@ -19,6 +20,7 @@ export default function VotreCommuneEtSaBALPage() {
 
   return (
     <>
+      <Breadcrumb currentPageLabel="Consulter la page d'une commune" segments={[]} />
       <Section pageTitle="Consulter la page d'une commune">
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
           <div style={{ maxWidth: 600, flexGrow: 1 }}>

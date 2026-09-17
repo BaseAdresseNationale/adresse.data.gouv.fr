@@ -21,7 +21,7 @@ export default async function Outils() {
   return (
     <>
       <Breadcrumb
-        currentPageLabel="Outils et API"
+        currentPageLabel="Outils & API"
         segments={[]}
       />
       <Suspense fallback={<p>Chargement...</p>}>

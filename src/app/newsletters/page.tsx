@@ -4,6 +4,7 @@ import { readdir, readFile } from 'fs/promises'
 import Accordion from '@codegouvfr/react-dsfr/Accordion'
 import path from 'path'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Info-lettre')
 
@@ -25,14 +26,17 @@ export default async function NewslettersPage() {
   }))
 
   return (
-    <Section title="Nos dernières newsletters">
-      <div style={{ marginTop: '2rem' }}>
-        {newslettersWithContent.map(({ name, htmlContent }, index) => (
-          <Accordion key={index} label={name}>
-            <iframe width="100%" height="600px" srcDoc={htmlContent} />
-          </Accordion>
-        ))}
-      </div>
-    </Section>
+    <>
+      <Breadcrumb currentPageLabel="L'Info-lettre" segments={[]} />
+      <Section title="Nos dernières newsletters">
+        <div style={{ marginTop: '2rem' }}>
+          {newslettersWithContent.map(({ name, htmlContent }, index) => (
+            <Accordion key={index} label={name}>
+              <iframe width="100%" height="600px" srcDoc={htmlContent} />
+            </Accordion>
+          ))}
+        </div>
+      </Section>
+    </>
   )
 }
