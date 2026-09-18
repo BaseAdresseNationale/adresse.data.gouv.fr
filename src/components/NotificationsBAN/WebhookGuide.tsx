@@ -66,7 +66,7 @@ export default function WebhookGuide({ alwaysExpanded = false }: WebhookGuidePro
         </div>
 
         <p className="fr-mt-2w">
-          <strong>Objectif :</strong> Réduire le délai entre la détection d&apos;un problème et sa résolution
+          <strong>Objectif : </strong>Réduire le délai entre la détection d&apos;un problème et sa résolution
           pour maintenir la qualité des données adresses en continu.
         </p>
       </div>
@@ -122,7 +122,7 @@ export default function WebhookGuide({ alwaysExpanded = false }: WebhookGuidePro
             <h5>Prestataire technique (GeoPal, etc.)</h5>
             <p className="fr-text--sm">
               <strong>Contexte :</strong> Gestion BAL pour plusieurs collectivités clientes<br />
-              <strong>Configuration :</strong> Webhook → Système de tickets automatique<br />
+              <strong>Configuration :</strong> Webhook → Système de tickets automatiques<br />
               <strong>Workflow :</strong> Problème détecté → Ticket créé → Technicien assigné → Correction client → Republication<br />
               <strong>Bénéfice :</strong> Suivi proactif et amélioration de la qualité de service
             </p>
