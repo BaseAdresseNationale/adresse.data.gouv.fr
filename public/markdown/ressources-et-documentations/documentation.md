@@ -8,12 +8,12 @@ L'écosystème Base Adresse Nationale est complexe. Les nombreux composants néc
 
 ## Structure de données interne BAN
 
-La Base Adresse Nationale (BAN) est une **base de données géolocalisées**, constituée des entités des 3 types de 'localisants' composant la donnée Adresse :
+La Base Adresse Nationale (BAN) est une **base de données géolocalisées**, constituée des entités des 3 types de &laquo;localisants&raquo; composant la donnée Adresse :
 
 * *District* : Les entités administratives responsables de la gestion des adresses (les communes, ou les arrondissements pour les villes de Paris, Lyon et Marseille)
 *  *CommonToponym* : Les odonymes (= noms de voies) utilisés pour la partie littérale des adresses (rue, place, lieu-dit, etc) sous la dénomination *mainCommonToponym*. Ils peuvent également être ajoutés en tant que composant secondaire de l'adresse (certains usages de lieux-dits), sous la dénomination *secondaryCommonToponyms*.
-Les *CommonToponym* sont 'liés à' et 'administrés par’ un *District*.
-* *Address* : Les adresses, représentées par un objet géométrique ponctuel. Les adresses sont chacune 'liées à' et ‘administrées par’ un District, et composées d'un ou plusieurs *CommonToponym*.
+Les *CommonToponym* sont &laquo;liés à&raquo; et &laquo;administrés par&raquo; un *District*.
+* *Address* : Les adresses, représentées par un objet géométrique ponctuel. Les adresses sont chacune &laquo;liées à&raquo; et &laquo;administrées par&raquo; un District, et composées d'un ou plusieurs *CommonToponym*.
 
 Chacune de ces entités est capable de porter des données additionnelles pour apporter des informations complémentaires composantes de l'adresse BAN. Ces données sont de sources externes au périmètre de l'Adresse, mais ouvertes et d'utilité publique (par exemple, les codes INSEE, les Identifiants de parcelles cadastrales, les codes postaux, etc.).
 
@@ -29,7 +29,7 @@ Exemple:
 
     Un objet "Adresse" : 2bis Route des Prodiges, Cocorico
     - disposera d'un BanID_Adresse UUIDv4-0004
-    - contiendra une liaison vers une voie ou un lieudit : "Route des Prodiges", via un BanID_Toponyme UUIDv4-0002
+    - contiendra une liaison vers une voie ou un lieu-dit : "Route des Prodiges", via un BanID_Toponyme UUIDv4-0002
     - contiendra une liaison vers la commune (ou l'arrondissement) d'appartenance : Cocorico, via son BanID_Commune UUIDv4-0001
 
 

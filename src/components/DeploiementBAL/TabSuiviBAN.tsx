@@ -747,7 +747,7 @@ export default function TabSuiviBAN({
       ]
     : [
         { value: fmt(displayStats.total), label: 'Communes', accent: DSFR.text.actionHigh.blueFrance.default, valueColor: DSFR.text.actionHigh.blueFrance.default },
-        { value: `${pct(displayStats.vert, total)}%`, label: 'Communes fiabilisées', accent: STATUS_TEXT_COLORS.vert, valueColor: STATUS_TEXT_COLORS.vert },
+        { value: `${pct(displayStats.vert, total)} %`, label: 'Communes fiabilisées', accent: STATUS_TEXT_COLORS.vert, valueColor: STATUS_TEXT_COLORS.vert },
         { value: fmt(displayStats.numeros), label: 'Numéros', accent: DSFR.text.actionHigh.blueCumulus.default, valueColor: DSFR.text.actionHigh.blueCumulus.default },
         { value: formatPctNumerosFiabilises(globalStats?.pct_numeros_fiabilises), label: 'Numéros fiabilisés', accent: DSFR.text.actionHigh.greenArchipel.default, valueColor: DSFR.text.actionHigh.greenArchipel.default },
       ]
@@ -850,7 +850,7 @@ export default function TabSuiviBAN({
             <div
               key={s}
               className="status-bar-segment"
-              style={{ width: `${pct(displayStats[s] ?? 0, total)}%`, background: STATUS_COLORS[s] }}
+              style={{ width: `${pct(displayStats[s] ?? 0, total)} %`, background: STATUS_COLORS[s] }}
             />
           ))}
         </div>
@@ -870,7 +870,7 @@ export default function TabSuiviBAN({
                   <span className="row-dot" style={{ background: STATUS_COLORS[s] }} />
                   <span className="row-label">{STATUS_LABELS[s]}</span>
                   <span className="row-count">{fmt(displayStats[s] ?? 0)}</span>
-                  <span className="row-pct">{p}%</span>
+                  <span className="row-pct">{p} %</span>
                   {isFiltering && <span className={`row-check ${isActive ? 'on' : ''}`}>✓</span>}
                 </button>
               )
@@ -880,7 +880,7 @@ export default function TabSuiviBAN({
                 <span className="row-dot" style={{ background: STATUS_COLORS[s] }} />
                 <span className="row-label">{STATUS_LABELS[s]}</span>
                 <span className="row-count">{fmt(displayStats[s] ?? 0)}</span>
-                <span className="row-pct">{p}%</span>
+                <span className="row-pct">{p} %</span>
               </div>
             )
           })}
