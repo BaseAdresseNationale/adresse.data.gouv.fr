@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { MapRef } from 'react-map-gl/maplibre'
 
-const SUIVI_BAN_API = process.env.NEXT_PUBLIC_SUIVI_BAN_API_URL || 'https://suivi-ban.mut-dev.ign.fr/api'
+const SUIVI_BAN_API = process.env.NEXT_PUBLIC_SUIVI_BAN_API_URL
 const ENABLE_HOVER = true
 
 const TERRITOIRES: Record<string, { lat: number, lon: number, zoom: number, nom: string }> = {

@@ -23,7 +23,10 @@ import {
 } from "next/navigation";
 import { mapToSearchResult } from "@/lib/deploiement-search";
 import { FullScreenControl } from "../Map/FullScreenControl";
-import { getSuiviBanTilesTemplateUrl } from "@/lib/suivi-ban-api";
+import {
+  getSuiviBanTilesTemplateUrl,
+  isSuiviBanMaintenanceMode,
+} from "@/lib/suivi-ban-api";
 import { useSuiviBan } from "./useSuiviBan";
 import { SuiviBanMapLayers } from "./SuiviBanMapLayers";
 import { SuiviBanOverlay } from "./SuiviBanOverlay";
@@ -65,8 +68,9 @@ export default function DeploiementBALMap({
     filteredCodesCommmune,
     geometry,
   } = useStatsDeploiement({ initialStats, initialFilter });
+  const suiviBanMaintenance = isSuiviBanMaintenanceMode();
   const [selectedTab, setSelectedTab] = useState<"source-bal" | "suivi-ban">(
-    getInitalTab(searchParams) || "source-bal",
+    (suiviBanMaintenance ? null : getInitalTab(searchParams)) || "source-bal",
   );
   const [origin, setOrigin] = useState("");
 
@@ -200,7 +204,9 @@ export default function DeploiementBALMap({
             selectedTabId={selectedTab}
             tabs={[
               { tabId: "source-bal", label: "Déploiement BAL" },
-              { tabId: "suivi-ban", label: "Déploiement id BAN" },
+              ...(suiviBanMaintenance
+                ? []
+                : [{ tabId: "suivi-ban", label: "Déploiement id BAN" }]),
             ]}
             onTabChange={handleTabChange}
           >
