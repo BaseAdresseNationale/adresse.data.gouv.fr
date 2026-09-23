@@ -30,6 +30,13 @@ export const StyledEventCard = styled.div<{ $isPassed?: boolean, $backgroundColo
         font-size: 1.5rem;
     }
 
+    .event-subtitle {
+        margin: -1.5rem 0 1rem;
+        font-size: 0.8rem;
+        line-height: 1.25;
+        font-weight: 400;
+    }
+
     .fr-btn {
         &::after {
             display: none;
