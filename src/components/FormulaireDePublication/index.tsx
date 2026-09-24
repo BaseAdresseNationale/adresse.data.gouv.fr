@@ -76,8 +76,8 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
     if (!report.parseOk) {
       throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
     }
-    else if (!(report as ValidateType).profilesValidation?.['1.3'].isValid) {
-      throw new Error('Le fichier n\'est pas valide en version 1.3, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
+    else if (!(report as ValidateType).profilesValidation?.['1.5'].isValid) {
+      throw new Error('Le fichier n\'est pas valide en version 1.5, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
     }
     return report as ValidateType
   }
