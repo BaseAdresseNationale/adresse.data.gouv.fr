@@ -18,6 +18,7 @@ import { PinCodeValidation } from './steps/PinCodeValidation'
 import { PublishingBAL } from './steps/PublishingBAL'
 import { PublishedBAL } from './steps/PublishedBAL'
 import Link from 'next/link'
+import RadioButtons from '@codegouvfr/react-dsfr/RadioButtons'
 
 const getStepIndex = (revision?: Revision, habilitation?: Habilitation) => {
   if (revision && habilitation) {
@@ -60,6 +61,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
   const [habilitation, setHabilitation] = useState<Habilitation | undefined>(initialHabilitation)
   const [revision, setRevision] = useState<Revision | undefined>(initialRevision)
   const [communeCurrentRevision, setCommuneCurrentRevision] = useState<Revision>()
+  const [balVersion, setBalVersion] = useState('1.5')
 
   const [stepIndex, setStepIndex] = useState(0)
 
@@ -71,13 +73,13 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
     }
   }, [revision, habilitation, stepIndex])
 
-  const getReport = async (file?: File): Promise<ValidateType> => {
+  const getReport = async (version: string, file?: File): Promise<ValidateType> => {
     const report: ParseFileType | ValidateType = await validate(file as any)
     if (!report.parseOk) {
       throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
     }
-    else if (!(report as ValidateType).profilesValidation?.['1.5'].isValid) {
-      throw new Error('Le fichier n\'est pas valide en version 1.5, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
+    else if (!(report as ValidateType).profilesValidation?.[version]?.isValid) {
+      throw new Error(`Le fichier n'est pas valide en version ${version}, veuillez corriger les erreurs en utilisant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.`)
     }
     return report as ValidateType
   }
@@ -88,7 +90,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
     }
     try {
       setIsLoading(true)
-      const report: ValidateType = await getReport(file)
+      const report: ValidateType = await getReport(balVersion, file)
 
       const communes = new Set<string>(report.rows?.map((r: ValidateRowFullType) => r.parsedValues.commune_insee || r.additionalValues.cle_interop.codeCommune))
 
@@ -186,13 +188,29 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
 
   const steps = [
     { title: 'Dépôt du fichier BAL', content: (
-      <DropZoneInput
-        onChange={handleFileChange}
-        label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
-        hint="Taille maximale: 50 Mo. Format supporté : CSV"
-        accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
-        maxSize={50 * 1024 * 1024}
-      />
+      <>
+        <RadioButtons
+          legend="Veuillez sélectionner la version de votre BAL"
+          name="bal-version"
+          options={['1.5', '1.4', '1.3'].map(version => ({
+            label: `BAL ${version}`,
+            hintText: version === '1.3' ? 'Attention : Le format BAL 1.3 ne sera plus supporté à compter du 1er janvier 2027' : (version === '1.4' ? '(Déprécié)' :undefined),
+            nativeInputProps: {
+              value: version,
+              checked: balVersion === version,
+              onChange: () => setBalVersion(version),
+            },
+          }))}
+        />
+        
+        <DropZoneInput
+          onChange={handleFileChange}
+          label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
+          hint="Taille maximale: 50 Mo. Format supporté : CSV"
+          accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
+          maxSize={50 * 1024 * 1024}
+        />
+      </>
     ) },
     { title: 'Choix de la méthode d\'habilitation', content: (revision && habilitation) && <HabilitationMethod revision={revision} habilitation={habilitation} sendPinCode={sendPinCode} emailSelected={emailSelected} setEmailSelected={setEmailSelected} /> },
     { title: 'Validation de l\'habilitation', content: habilitation && <PinCodeValidation email={habilitation.emailCommune} onSubmit={checkPinCode} sendPinCode={sendPinCode} isLoading={isLoading} /> },
