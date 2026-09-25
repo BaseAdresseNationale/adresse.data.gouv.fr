@@ -30,7 +30,7 @@ export function PublishingBAL({ commune, handlePublishRevision, hasConflict }: P
             severity="warning"
             description={(
               <p>
-                Une autre Base Adresses Locale est déjà synchronisée avec la Base Adresses Nationale pour la commune de {commune.nom} ({commune.code}).<br />
+                Une autre Base Adresse Locale est déjà synchronisée avec la Base Adresse Nationale pour la commune de {commune.nom} ({commune.code}).<br />
                 En choisissant de publier, votre Base Adresse Locale <b>remplacera celle actuellement en place</b>.
               </p>
             )}
@@ -40,7 +40,7 @@ export function PublishingBAL({ commune, handlePublishRevision, hasConflict }: P
             style={{ marginTop: '2rem' }}
             options={[
               {
-                label: 'Je comprends que ma Base Adresse Locale remplacera celle actuellement synchronisée avec la Base Adresses Nationale',
+                label: 'Je comprends que ma Base Adresse Locale remplacera celle actuellement synchronisée avec la Base Adresse Nationale',
                 nativeInputProps: {
                   checked: isConfirmed,
                   onChange: () => {

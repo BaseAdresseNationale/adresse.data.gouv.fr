@@ -211,7 +211,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
             <p>
               Vous allez publier votre BAL dans la Base Adresse Nationale.
               Pour assurer la cohérence de la donnée, merci de vous assurer d&apos;être bien reparti de la version précédente de la BAL,
-              dont une copie est disponible sur &nbsp;
+              dont une copie est disponible sur&#0020;
               <Link
                 href="/commune"
                 rel="noopener noreferrer"

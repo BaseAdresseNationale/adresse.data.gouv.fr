@@ -54,13 +54,13 @@ export default function NousContacterPage() {
       </section>
       <section>
         <h2>
-          En tant qu’utilisateur des données, rejoignez notre Collectif des Utilisateurs de la BAN
+          En tant qu’utilisateur des données, rejoignez notre Collectif des Utilisateurs de la BAN.
         </h2>
         <p>
-          La démarche Adresse_Lab, instance de concertation et de co-construction sur les évolutions de la Base Adresse Nationale, propose des points d&apos;échanges réguliers et met à disposition un espace collaboratif de travail au sein de l&apos;outil &quot;Expertises Territoires&quot; du Cerema.
+          La démarche Adresse-Lab, instance de concertation et de co-construction sur les évolutions de la Base Adresse Nationale, propose des points d&apos;échanges réguliers et met à disposition un espace collaboratif de travail au sein de l&apos;outil &laquo;Expertises Territoires&raquo; du Cerema.
         </p>
         <p>
-          Elle s&apos;adresse aux utilisateurs de la donnée BAN : administrations et services publics, services de secours et de sécurité, opérateurs de réseaux, services de localisation et navigation, ... constitués par le biais de cette démarche en &quot;Collectif des usagers de la BAN&quot;. L&apos;objectif est la connaissance des cas d&apos;application et la compréhension des besoins pour piloter les évolutions de la feuille de route BAN en adéquation avec les usages.
+          Elle s&apos;adresse aux utilisateurs de la donnée BAN : administrations et services publics, services de secours et de sécurité, opérateurs de réseaux, services de localisation et navigation, etc. constitués par le biais de cette démarche en &laquo;Collectif des usagers de la BAN&raquo;. L&apos;objectif est la connaissance des cas d&apos;application et la compréhension des besoins pour piloter les évolutions de la feuille de route BAN en adéquation avec les usages.
         </p>
         <div className="osmose-buttons">
           <Button
