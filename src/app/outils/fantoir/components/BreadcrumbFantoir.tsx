@@ -16,6 +16,11 @@ function BreadcrumbFantoir({ rootPath, nomDepartement, codeDepartement, nomCommu
       <div className="fr-collapse" id="breadcrumb-1">
         <ol className="fr-breadcrumb__list">
           <li>
+            <Link className="fr-breadcrumb__link" href="/outils">
+              Outils &amp; API
+            </Link>
+          </li>
+          <li>
             {
               nomDepartement && codeDepartement
                 ? (
