@@ -97,7 +97,7 @@ export default async function ProgrammeBALPage() {
                   Créer la base de ma commune
                 </Button>
                 <p style={{ marginTop: '1.5rem' }}>
-                  Vous disposez déjà d&apos;un SIG? Rendez-vous sur :<br />
+                  Vous disposez déjà d&apos;un SIG ? Rendez-vous sur :<br />
                   <Link
                     href="https://doc.adresse.data.gouv.fr/docs/documentation-generale/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale"
                     className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
@@ -213,7 +213,7 @@ export default async function ProgrammeBALPage() {
 
               <ul style={{ listStyleType: 'none' }}>
                 <li>
-                  <span className="fr-h6">Listing d’adresses à jour</span>
+                  <span className="fr-h6">Liste d’adresses à jour</span>
                   <ul className="inner-list">
                     <li>
                       <span className="fr-icon-check-line" aria-hidden="true" />

@@ -417,7 +417,7 @@ export default async function Outils() {
           <Card
             title="Convertisseur TOPO - FANTOIR"
             titleAs="h5"
-            desc="Outil de conversion TOPO vers FANTOIR développé par le Centre régional Auvergne-Rhône-Alpes de l'information géographique(CRAIG)"
+            desc="Outil de conversion TOPO vers FANTOIR développé par le Centre régional Auvergne-Rhône-Alpes de l'information géographique (CRAIG)"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
