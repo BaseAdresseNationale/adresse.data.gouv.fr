@@ -10,6 +10,7 @@ import { TextWrapper } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Certificat')
 
@@ -19,6 +20,10 @@ export default async function Home() {
 
   return (
     <>
+      <Breadcrumb
+        currentPageLabel="Certificat d'adressage"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Suspense fallback={<p>Chargement...</p>}>
         {heroContentHtml && (
           <SectionHero

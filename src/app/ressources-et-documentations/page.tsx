@@ -8,6 +8,7 @@ import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
 import { TextWrapper } from './page.styled'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Documentation')
 
@@ -17,6 +18,7 @@ export default async function DocumentationPage() {
 
   return (
     <>
+      <Breadcrumb currentPageLabel="Documentation technique BAN" segments={[]} />
       <Suspense fallback={<p>Chargement...</p>}>
         {heroContentHtml
         && (
