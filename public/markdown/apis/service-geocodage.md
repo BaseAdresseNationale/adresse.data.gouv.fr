@@ -42,7 +42,7 @@ Prenons l'exemple du géocodage d’un fichier de 1 000 lignes au moyen d’un s
 Si le script sollicite l'API de géocodage sans précaution particulière, avec une fréquence qui dépasse la limite d'usage de 50 requêtes par seconde et par IP, alors :
 
 * Les 50 premiers appels sont traités normalement ;
-* Le 51ème appel et les suivants sont bloqués tant que le script continue à solliciter l'API de géocodage au-delà de la limite de 50 requêtes par seconde et que le délai de 5 secondes qui s'en suit n'est pas écoulé.
+* Le 51&#x1D49; appel et les suivants sont bloqués tant que le script continue à solliciter l'API de géocodage au-delà de la limite de 50 requêtes par seconde et que le délai de 5 secondes qui s'en suit n'est pas écoulé.
 
 #### Solution : 
 Paramétrer le script de telle sorte que la fréquence d'appel à l'API de géocodage ne dépasse pas 50 requêtes par seconde, en instaurant par exemple un plafond à 40 ou 45 requêtes par seconde.

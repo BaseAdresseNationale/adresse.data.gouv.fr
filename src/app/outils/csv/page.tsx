@@ -185,7 +185,6 @@ export default function Csv() {
                 <div className="file-details">
                   <div className="file-infos">
                     <div className="name">Nom du fichier : {file.name}</div>
-                    {/* <div className="size">Taille : {((file.size / 10 ** 6) <= 1) ? (file.size) + ' octets' : (file.size / 10 ** 6) + ' Mo'}</div> */}
                     <div className="size">Taille : {sizeInOctets(file.size)}</div>
                   </div>
                 </div>

@@ -9,7 +9,7 @@ Le certificat atteste de l'existence d'une adresse sur le territoire de la commu
 Il ne contient **aucune information personnelle ni nominative**.
 L'émission de chaque certificat fait l'objet d'un suivi dans notre base de données.
 
-**Le QR code ou l'url** présent sur le certificat permet de vérifier **l'authenticité** des informations directement  auprès de la Base Adresse Nationale.
+**Le QR code ou l'url** présent sur le certificat permet de vérifier **l'authenticité** des informations directement auprès de la Base Adresse Nationale.
 
 Ci-dessous un exemple de corps de certificat :
 

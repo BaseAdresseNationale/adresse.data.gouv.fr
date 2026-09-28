@@ -15,6 +15,19 @@ import ValidationErrorParseReport from './ValidationErrorParse'
 
 const availableProfiles = ['1.3', '1.4', '1.5']
 
+const number2stringFR: Record<number, string> = {
+  0 : "zéro",
+  1 : "un",
+  2 : "deux",
+  3 : "trois",
+  4 : "quatre",
+  5 : "cinq",
+  6 : "six",
+  7 : "sept",
+  8 : "huit",
+  9 : "neuf",
+};
+
 const profilesOptions: {
   label: string
   value: string
@@ -147,7 +160,7 @@ export default function ValidateurBAL() {
           Il est utilisé pour s&apos;assurer avant la publication que toutes les adresses d&apos;une BAL remonteront correctement dans la Base Adresse Nationale.
         </p>
         <p>
-          Il existe {/*availableProfiles.length*/} trois profils sur le validateur :
+          Il existe {number2stringFR[availableProfiles.length]} profils sur le validateur :
         </p>
         <ul>
           <li>
