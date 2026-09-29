@@ -7,6 +7,7 @@ import IconCard from '@/components/IconCard'
 import ResponsiveImage from '@/components/ResponsiveImage'
 import { Quote } from '@codegouvfr/react-dsfr/Quote'
 import pageTitle from '@/utils/pageTitle'
+import theme from '@/theme'
 import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Programme BAL')
@@ -29,7 +30,7 @@ export default async function ProgrammeBALPage() {
                 style={{ marginBottom: 40 }}
                 className="fr-text--lead fr-pr-3w"
               >
-                <b>Base Adresse Locale</b> est un programme de l&apos;ANCT
+                <b>Base Adresse Locale</b> &nbsp;est un programme de l&apos;ANCT
                 destiné aux communes. Référencez toutes les adresses de votre
                 commune pour offrir de meilleurs services à vos administrés.
               </p>
@@ -97,7 +98,7 @@ export default async function ProgrammeBALPage() {
                   Créer la base de ma commune
                 </Button>
                 <p style={{ marginTop: '1.5rem' }}>
-                  Vous disposez déjà d&apos;un SIG? Rendez-vous sur :<br />
+                  Vous disposez déjà d&apos;un SIG ? Rendez-vous sur :<br />
                   <Link
                     href="https://doc.adresse.data.gouv.fr/docs/documentation-generale/mettre-a-jour-sa-base-adresse-locale/publier-une-base-adresse-locale"
                     className="fr-link--icon-right fr-icon-arrow-right-line fr-link"
@@ -130,7 +131,7 @@ export default async function ProgrammeBALPage() {
                   Différents types{' '}
                   <strong>d&apos;organismes à but non lucratif</strong> peuvent
                   vous accompagner dans la confection de votre Base Adresse
-                  Locale, découvrez les via une{' '}
+                  Locale, découvrez-les via une{' '}
                   <strong>carte interactive</strong>.
                 </p>
                 <Link
@@ -213,7 +214,7 @@ export default async function ProgrammeBALPage() {
 
               <ul style={{ listStyleType: 'none' }}>
                 <li>
-                  <span className="fr-h6">Listing d’adresses à jour</span>
+                  <span className="fr-h6">Liste d’adresses à jour</span>
                   <ul className="inner-list">
                     <li>
                       <span className="fr-icon-check-line" aria-hidden="true" />
@@ -317,8 +318,8 @@ export default async function ProgrammeBALPage() {
           {stats && (
             <div style={{ marginTop: 50 }} className="fr-grid-row">
               <h2>
-                Déjà <strong>{stats.bal.nbCommunesCouvertes}</strong> communes
-                ont mis jour leurs bases d’adresses
+                Déjà <strong style={{ color: theme.colors['primary'].main }}>{new Intl.NumberFormat('fr-FR').format(stats.bal.nbCommunesCouvertes)} communes</strong>{' '}
+                ont mis à jour leur base d’adresses
               </h2>
             </div>
           )}
