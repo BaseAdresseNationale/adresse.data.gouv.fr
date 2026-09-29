@@ -65,7 +65,6 @@ export function CertificateStatsSummary({ codeCommune }: { codeCommune?: string 
   }
 
   const maxCount = Math.max(1, ...stats.byMonth.map(m => m.count))
-  console.log(stats)
 
   return (
     <div className="fr-mt-2w" style={{ maxWidth: '32rem' }}>
