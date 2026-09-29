@@ -1,5 +1,5 @@
 ---
-title: la Base Adresse Nationale
+title: La Base Adresse Nationale
 intro: [{attach: "la-base-adresse-nationale", filename: "decouvrir-la-BAN--intro"}]
 aside: [{attach: "la-base-adresse-nationale", filename: "decouvrir-la-BAN--la-base-adresse-nationale"}]
 ---

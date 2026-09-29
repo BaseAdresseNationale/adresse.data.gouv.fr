@@ -7,9 +7,9 @@ title: Decouvrir la BAN - La Base Adresse Nationale
 - Producteur : IGN
 - Licence : [Licence Ouverte](https://www.etalab.gouv.fr/licence-ouverte-open-licence/)
 - Fréquence de mise à jour : quotidienne
-- Couverture : France entière (y compris les collectivités d’outremer)
+- Couverture : France entière (y compris les collectivités d’outre-mer)
 
 #### Chiffres clés
 
-- 250 000 lieux-dits (beta)
+- 250 000 lieux-dits (be&#770;ta)
 - 25 millions d’adresses

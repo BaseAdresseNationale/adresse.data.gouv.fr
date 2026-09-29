@@ -28,7 +28,7 @@ export function CommuneAdministrationBlock({ commune }: CommuneAdministrationBlo
         ? 'Les certificats sont téléchargeables depuis le site adresse.data.gouv.fr uniquement par les agents authentifiés de la mairie de la commune.'
         : 'Le certificat d\'adressage est désactivé pour cette commune. Les téléchargements ne sont pas disponibles.'
 
-  const langueLabel = defaultBalLang ? (LANGUE_LABELS[defaultBalLang] ?? defaultBalLang) : 'français'
+  const langueLabel = defaultBalLang ? (LANGUE_LABELS[defaultBalLang] ?? defaultBalLang) : 'Français'
 
   const certificateDisplay
     = certificate === CertificateTypeEnum.ALL

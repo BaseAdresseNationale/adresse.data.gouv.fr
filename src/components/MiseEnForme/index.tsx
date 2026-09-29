@@ -73,7 +73,7 @@ export default function MiseEnFormeBAL() {
                   <DropZoneInput
                     onChange={handleFileChange}
                     label="Déposez ou cliquez ici pour uploader votre fichier BAL"
-                    hint="Taille maximale: 50 Mo. Format supporté : CSV"
+                    hint="Taille maximale : 50 Mo. Format supporté : CSV."
                     accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
                     maxSize={50 * 1024 * 1024}
                   />

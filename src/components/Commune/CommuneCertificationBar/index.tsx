@@ -29,11 +29,11 @@ export function CommuneCertificationBar({
     <StyledWrapper $certificationPercentage={certificationPercentage}>
       <CardWrapper>
         <div className="adresse-recap">
-          <div>{commune.nbVoies}</div>
+          <div>{new Intl.NumberFormat('fr-FR').format(commune.nbVoies)}</div>
           <label>voies, places et lieux-dits adressés</label>
         </div>
         <div className="adresse-recap">
-          <div>{commune.nbNumeros}</div>
+          <div>{new Intl.NumberFormat('fr-FR').format(commune.nbNumeros)}</div>
           <label>adresses</label>
         </div>
         <div className="adresse-recap">

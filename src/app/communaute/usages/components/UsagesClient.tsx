@@ -69,7 +69,7 @@ export default function UsagesClient({ appsData }: { appsData: Record<string, an
         <p>
           L’adresse est une donnée d’intérêt général, son utilisation est un enjeu dans de nombreux domaines :<br />
           services publics, services de sécurité et de secours, gestionnaires de réseaux, services de livraison et navigation ...<br /><br />
-          Les organismes partenaires (entreprises, administrations, etc) référencés sur cette page reconnaissent la BAN comme source de référence officielle pour les adresses en France en application de la Loi 3DS. Ils travaillent activement à l’utilisation des adresses BAN dans leur processus.<br /><br />
+          Les organismes partenaires (entreprises, administrations, etc.) référencés sur cette page reconnaissent la BAN comme source de référence officielle pour les adresses en France en application de la loi 3DS. Ils travaillent activement à l’utilisation des adresses BAN dans leur processus.<br /><br />
           Note : les opérations d’exploitation et les choix techniques des opérateurs peuvent induire des sélections et des délais de prise en compte des nouvelles adresses, qui peuvent aller jusqu’à plusieurs mois.
         </p>
       </Section>

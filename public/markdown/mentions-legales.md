@@ -13,7 +13,7 @@ Téléphone : 01 43 98 80 00 \
 Contacter l'[IGN ](https://www.ign.fr/institut/nous-ecrire)
   
 
-### Pour les pages du blog :
+### POUR LES PAGES DU BLOG :
 
 Agence nationale de la cohésion des territoires (ANCT) \
 20 avenue de Ségur \
@@ -22,7 +22,7 @@ TSA 10717 \
 Téléphone : 01 85 58 60 00 \
 Contacter l'[ANCT](https://agence-cohesion-territoires.gouv.fr/contactez-nous-19)
 
-### DIRECTEURS DE LA PUBLICATION:
+### DIRECTEURS DE LA PUBLICATION :
 
 Pour l’IGN : Sébastien SORIANO, directeur général de l’IGN \
 Pour l’ANCT : Stanislas BOURRON, directeur général de l’ANCT
