@@ -14,9 +14,9 @@ La Direction Interministérielle du Numérique (**DINUM**) supervise le disposit
 
 ## L'adresse, compétence communale
 
-En vertu de la LOI du 22 février 2022, dite LOI 3DS, l'adressage est réalisé sous la responsabilité du Conseil municipal de la commune. Un adressage complet implique :
+En vertu de la loi du 22 février 2022, dite loi 3DS, l'adressage est réalisé sous la responsabilité du Conseil municipal de la commune. Un adressage complet implique :
 
-- des actions politiques (délibération et arrêté) : la commune délibère sur les **noms des voies publiques, des voies privées ouvertes à la circulation et des lieux-dits**, et prend des arrêtés pour les **numéros des locaux adressables**.
+- des actes administratifs (délibérations et arrêtés) : la commune délibère sur les **noms des voies publiques, des voies privées ouvertes à la circulation et des lieux-dits**, et prend des arrêtés pour les **numéros des locaux adressables**.
 - une information sur le terrain : la commune informe les administrés et entreprises (idéalement sans attendre la fin de l'adressage) et affiche les noms des voies sur des panneaux signalétiques
 - et la transmission sous un mois des noms des voies et lieux-dits ainsi que les numéros sous forme d'une **Base Adresse Locale (BAL)**, sur l'emprise communale, à la **Base Adresse Nationale**.  La Base Adresse Locale contient toutes les adresses de la commune.
 
