@@ -19,7 +19,6 @@ const MONTH_LABELS = ['Total', 'Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil
 export function CertificateStatsSummary({ codeCommune }: { codeCommune?: string }) {
   const [stats, setStats] = useState<CertificateStats | null>(null)
   const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
   const [year, setYear] = useState<number>(() => new Date().getFullYear())
 
   useEffect(() => {
@@ -29,7 +28,6 @@ export function CertificateStatsSummary({ codeCommune }: { codeCommune?: string 
     }
     let cancelled = false
     setLoading(true)
-    setError(null)
     fetch(`/api/certificat/stats/${codeCommune}/${year}`, { credentials: 'same-origin' })
       .then(async (res) => {
         if (!res.ok) throw new Error(`Erreur ${res.status}`)
@@ -39,7 +37,10 @@ export function CertificateStatsSummary({ codeCommune }: { codeCommune?: string 
         if (!cancelled) setStats(data)
       })
       .catch((err) => {
-        if (!cancelled) setError(err?.message ?? 'Erreur de chargement des statistiques')
+        if (!cancelled) {
+          console.error('Erreur de chargement des statistiques', err)
+          setStats(null)
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false)
@@ -60,7 +61,7 @@ export function CertificateStatsSummary({ codeCommune }: { codeCommune?: string 
     )
   }
 
-  if (error || !stats) {
+  if (!stats) {
     return <p className="fr-hint-text fr-mb-0">Statistiques indisponibles</p>
   }
 
