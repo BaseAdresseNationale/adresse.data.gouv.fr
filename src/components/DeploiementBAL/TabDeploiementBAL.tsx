@@ -124,7 +124,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
           <DoughnutCounter
             title="Adresses issues des BAL"
             valueUp={numFormater(stats.bal.nbAdresses)}
-            valueDown={`${adressesGereesBALPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+            valueDown={`${adressesGereesBALPercent} % des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
             data={dataAdressesGereesBAL}
             options={options}
           />
@@ -132,14 +132,14 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
         <DoughnutCounter
           title="Communes couvertes"
           valueUp={numFormater(stats.bal.nbCommunesCouvertes)}
-          valueDown={`${communesCouvertesPercent}% des ${numFormater(total.nbCommunes)} communes`}
+          valueDown={`${communesCouvertesPercent} % des ${numFormater(total.nbCommunes)} communes`}
           data={dataCommunesCouvertes}
           options={options}
         />
         <DoughnutCounter
           title="Population couverte"
           valueUp={numFormater(stats.bal.populationCouverte)}
-          valueDown={`${Math.round((stats.bal.populationCouverte * 100) / total.population)}% des ${numFormater(total.population)} d’habitants`}
+          valueDown={`${Math.round((stats.bal.populationCouverte * 100) / total.population)} % des ${numFormater(total.population)} d’habitants`}
           data={dataPopulationCouverte}
           options={options}
         />
@@ -147,7 +147,7 @@ export default function TabDeploiementBAL({ stats, formatedStats, filteredCodesC
           <DoughnutCounter
             title="Adresses certifiées"
             valueUp={numFormater(stats.bal.nbAdressesCertifiees)}
-            valueDown={`${adressesCertifieesPercent}% des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
+            valueDown={`${adressesCertifieesPercent} % des ${numFormater(stats.ban.nbAdresses)} d’adresses présentes dans la BAN`}
             data={dataAdressesCertifiees}
             options={options}
           />

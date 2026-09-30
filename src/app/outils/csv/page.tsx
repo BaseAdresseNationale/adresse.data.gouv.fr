@@ -13,6 +13,7 @@ import ColumnsSelect from './components/columns-select'
 import DropZoneInput from '@/components/DropZoneInput'
 import Table from '@codegouvfr/react-dsfr/Table'
 import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 const allowedTypes = new Set([
   'text/plain',
@@ -133,13 +134,39 @@ export default function Csv() {
     setValue(column)
   }
 
+  function sizeInOctets(filesize:number): string {
+    if (filesize < 10 ** 3) {
+      const numAsTxt = String(filesize)
+      const numAsTxtComma = numAsTxt.replace('.',',')
+      const sizeInOctets = numAsTxtComma + ' octets'
+      return sizeInOctets
+    }
+    if (filesize < 10 ** 6) {
+      const numAsTxt = String(filesize / 10 ** 3)
+      const numAsTxtComma = numAsTxt.replace('.',',')
+      const sizeInOctets = numAsTxtComma + ' Ko'
+      return sizeInOctets
+    }
+    if (filesize < 10 ** 9) {
+      const numAsTxt = String(filesize / 10 ** 6)
+      const numAsTxtComma = numAsTxt.replace('.',',')
+      const sizeInOctets = numAsTxtComma + ' Mo'
+      return sizeInOctets
+    }
+    return ""
+  }
+
   const columns = csv ? csv.data[0] : []
 
   return (
     <>
+      <Breadcrumb
+        currentPageLabel="Géocodeur CSV"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Section pageTitle="Géocoder un fichier CSV">
-        <p>Ce service propose une interface de téléversement de fichiers csv pour vous permettre de géocoder un grand nombre d’adresses en lot.</p>
-        <p>Les fichiers doivent être encodés en UTF-8, et faire moins de 50 Mo ou 200000 lignes.</p>
+        <p>Ce service propose une interface de téléversement de fichiers CSV pour vous permettre de géocoder un grand nombre d’adresses en lot.</p>
+        <p>Les fichiers doivent être encodés en UTF-8, et faire moins de 50 Mo ou 200 000 lignes.</p>
         <p><b>NOUVEAU</b> : ajout du géocodage inverse (juillet 2026)</p>
         <p>Le géocodage inverse permet de retourner, à partir de points géographiques indiqués en latitude/longitude, les adresses ou odonymes les plus proches.</p>
         <TextWrapper>
@@ -149,7 +176,7 @@ export default function Csv() {
               <DropZoneInput
                 onChange={handleFileDrop}
                 label="Glisser un fichier ici, ou cliquez pour choisir"
-                hint="Taille maximale: 50 Mo. Format accepté: CSV."
+                hint="Taille maximale : 50 Mo. Format accepté : CSV."
                 maxSize={MAX_SIZE * 1024 * 1024}
               >
               </DropZoneInput>
@@ -158,7 +185,7 @@ export default function Csv() {
                 <div className="file-details">
                   <div className="file-infos">
                     <div className="name">Nom du fichier : {file.name}</div>
-                    <div className="size">Taille : {((file.size / 10 ** 6) <= 1) ? (file.size) + ' octets' : (file.size / 10 ** 6) + ' Mo'}</div>
+                    <div className="size">Taille : {sizeInOctets(file.size)}</div>
                   </div>
                 </div>
               )}

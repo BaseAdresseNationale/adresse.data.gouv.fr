@@ -60,6 +60,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
   const [habilitation, setHabilitation] = useState<Habilitation | undefined>(initialHabilitation)
   const [revision, setRevision] = useState<Revision | undefined>(initialRevision)
   const [communeCurrentRevision, setCommuneCurrentRevision] = useState<Revision>()
+  const BAL_VERSIONS = ['1.3', '1.4', '1.5']
 
   const [stepIndex, setStepIndex] = useState(0)
 
@@ -76,8 +77,14 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
     if (!report.parseOk) {
       throw new Error(`Impossible d’analyser le fichier… [${report.parseErrors[0].message}]`)
     }
-    else if (!(report as ValidateType).profilesValidation?.['1.3'].isValid) {
-      throw new Error('Le fichier n\'est pas valide en version 1.3, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
+    const validatedReport = report as ValidateType
+    const isValidVersion = BAL_VERSIONS.some(
+      (version) => {
+        return validatedReport.profilesValidation?.[version]?.isValid 
+      }
+    )
+    if(!isValidVersion) {
+      throw new Error('La version du fichier n\'est pas valide, veuillez corriger les erreurs en utilsant le Validateur BAL (Les Outils -> Validateur BAL) puis essayez à nouveau.')
     }
     return report as ValidateType
   }
@@ -189,7 +196,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
       <DropZoneInput
         onChange={handleFileChange}
         label="Déposer ou cliquer ici pour télécharger votre fichier BAL à publier"
-        hint="Taille maximale: 50 Mo. Format supporté : CSV"
+        hint="Taille maximale : 50 Mo. Format supporté : CSV."
         accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
         maxSize={50 * 1024 * 1024}
       />
@@ -211,7 +218,7 @@ export default function FormulaireDePublication({ initialHabilitation, initialRe
             <p>
               Vous allez publier votre BAL dans la Base Adresse Nationale.
               Pour assurer la cohérence de la donnée, merci de vous assurer d&apos;être bien reparti de la version précédente de la BAL,
-              dont une copie est disponible sur &nbsp;
+              dont une copie est disponible sur{' '}
               <Link
                 href="/commune"
                 rel="noopener noreferrer"

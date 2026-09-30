@@ -21,7 +21,7 @@ export default async function Outils() {
   return (
     <>
       <Breadcrumb
-        currentPageLabel="Outils et API"
+        currentPageLabel="Outils & API"
         segments={[]}
       />
       <Suspense fallback={<p>Chargement...</p>}>
@@ -239,7 +239,7 @@ export default async function Outils() {
           <Card
             title="Formulaire de publication"
             titleAs="h5"
-            desc="Publier une base adresse locale à partir d'un formulaire."
+            desc="Publier une Base Adresse Locale à partir d'un formulaire."
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">
@@ -251,7 +251,7 @@ export default async function Outils() {
                     }}
                     size="small"
                   >
-                    Formulaire Publication
+                    Formulaire de publication
                   </Button>
                 </li>
               </ul>
@@ -348,7 +348,7 @@ export default async function Outils() {
             footer={(
               <Button
                 linkProps={{
-                  href: '/outils/validateur-bal',
+                  href: '/outils/mise-en-forme',
                 }}
                 size="small"
               >
@@ -382,7 +382,7 @@ export default async function Outils() {
             )}
           />
           <Card
-            title="L'explorateur FANTOIR"
+            title={<>L&apos;explorateur FANTOIR  <Badge noIcon severity="new">Déprécié</Badge></>}
             titleAs="h5"
             desc="Consulter la base FANTOIR de la Direction générale des finances publiques (DGFIP) en quelques clics."
             className="fr-card--horizontal-tier fr-card--md"
@@ -417,7 +417,7 @@ export default async function Outils() {
           <Card
             title="Convertisseur TOPO - FANTOIR"
             titleAs="h5"
-            desc="Outil de conversion TOPO vers FANTOIR développé par le Centre régional Auvergne-Rhône-Alpes de l'information géographique(CRAIG)"
+            desc="Outil de conversion TOPO vers FANTOIR développé par le Centre régional Auvergne-Rhône-Alpes de l'information géographique (CRAIG)"
             className="fr-card--horizontal-tier fr-card--md"
             footer={(
               <ul className="fr-btns-group fr-btns-group--sm fr-btns-group--equisized fr-btns-group--inline-reverse fr-btns-group--inline-lg">

@@ -27,7 +27,8 @@ export const metadata = pageTitle('Accueil')
 
 export default async function Home() {
   const stats = await getStats()
-  const highlightedDatas = await getPosts({ limit: 3 })
+  // BlogGrid Disable during maintenance // Todo : A remplacer par une variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE`
+  const highlightedDatas = env('NEXT_PUBLIC_BLOG_MAINTENANCE_MODE') !== 'true' ? await getPosts({ limit: 3 }) : {}
   const highlightedPosts = highlightedDatas?.posts || []
 
   return (
@@ -56,7 +57,7 @@ export default async function Home() {
         </p>
         <p>
           <strong>
-            Notre Objectif : référencer l’intégralité des adresses du territoire et
+            Notre objectif : référencer l’intégralité des adresses du territoire et
             les rendre utilisables par tous.
           </strong>
         </p>
@@ -109,7 +110,7 @@ export default async function Home() {
               title="Adopter la charte"
               titleAs="h3"
               desc={(
-                <>La Charte de la Base Adresse Locale rassemble les organismes qui privilégient
+                <>La charte de la Base Adresse Locale rassemble les organismes qui privilégient
                   le format Base Adresse Locale et s’engagent en matière de gouvernance. L’enjeu pour la
                   commune, autorité responsable de l’adresse, est d’identifier un référent en capacité de
                   l’assister au besoin.
@@ -157,23 +158,24 @@ export default async function Home() {
         </CardContainer>
       </Section>
 
-      {/* BlogGrid Disable during maintenance // Todo : A remplacer par une variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE` */}
-      {/* <BlogGrid
-        title="Le blog : articles et témoignages"
-        posts={highlightedPosts}
-        footer={(
-          <Button
-            iconId="fr-icon-arrow-right-line"
-            iconPosition="right"
-            linkProps={{
-              href: '/blog',
-            }}
-            priority="primary"
-          >
-            Parcourir tout le blog
-          </Button>
-        )}
-      /> */}
+      {highlightedPosts.length > 0 && (
+        <BlogGrid
+          title="Le blog : articles et témoignages"
+          posts={highlightedPosts}
+          footer={(
+            <Button
+              iconId="fr-icon-arrow-right-line"
+              iconPosition="right"
+              linkProps={{
+                href: '/blog',
+              }}
+              priority="primary"
+            >
+              Parcourir tout le blog
+            </Button>
+          )}
+        />
+      )}
     </>
   )
 }

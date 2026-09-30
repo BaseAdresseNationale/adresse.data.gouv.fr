@@ -4,6 +4,7 @@ import { EventType } from '@/types/events.types'
 import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
 import EventPage from '@/components/Events/EventPage'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Évènements')
 
@@ -22,6 +23,9 @@ export default async function EvenementsPage() {
   })
 
   return (
-    <EventPage upcomingEvents={upcomingEvents} lastMonthPastEvents={lastMonthPastEvents} tagToColor={tagToColor} />
+    <>
+      <Breadcrumb currentPageLabel="Les événements" segments={[]} />
+      <EventPage upcomingEvents={upcomingEvents} lastMonthPastEvents={lastMonthPastEvents} tagToColor={tagToColor} />
+    </>
   )
 }

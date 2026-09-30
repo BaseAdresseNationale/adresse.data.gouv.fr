@@ -10,6 +10,7 @@ import {
 import { env } from 'next-runtime-env'
 import { isUUIDv4 } from '@/utils/validate'
 import { Metadata } from 'next'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 interface CertificatProps {
   params: { idCertificat: string }
@@ -64,6 +65,7 @@ async function Certificat(props: { params: Promise<{ idCertificat: string }> }) 
 
   return (
     <>
+      <Breadcrumb currentPageLabel="Certificat d'adressage" segments={[]} />
       <Section>
         <CertificateContainer>
           <CertificateTitle>Certificat d&apos;adressage</CertificateTitle>
