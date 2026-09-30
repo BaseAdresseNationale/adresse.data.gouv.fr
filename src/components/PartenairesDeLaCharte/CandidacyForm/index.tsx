@@ -23,6 +23,7 @@ const organismeTypeOptions = [
   { value: PartenaireDeLaCharteOrganismeTypeEnum.EPCI, label: 'EPCI' },
   { value: PartenaireDeLaCharteOrganismeTypeEnum.DEPARTEMENT, label: 'Département' },
   { value: PartenaireDeLaCharteOrganismeTypeEnum.REGION, label: 'Région' },
+  { value: PartenaireDeLaCharteOrganismeTypeEnum.SYNDICAT_MIXTE, label: 'Syndicat mixte' },
   { value: PartenaireDeLaCharteOrganismeTypeEnum.AUTRE, label: 'Autre' },
 ]
 
