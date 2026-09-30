@@ -32,6 +32,7 @@ import { getRevisions } from '@/lib/api-depot'
 import type { Revision } from '@/types/api-depot.types'
 import { getDataset } from '@/lib/api-data-gouv'
 import { env } from 'next-runtime-env'
+import { CertificateStatsSummary } from './CertificateStatsSummary'
 
 const DEFAULT_CODE_LANGUAGE = 'fra'
 
@@ -737,6 +738,7 @@ function DistrictAdmin({ district, commune, config, onUpdateConfig = () => true,
                             : CertificateTypeLabel[CertificateTypeEnum.DISABLED]}
                       </Badge>
                     </p>
+                    <CertificateStatsSummary codeCommune={district?.codeCommune} />
                   </div>
                 </div>
                 {!readOnly && hasBanId && !isAssemblage && (
