@@ -149,6 +149,21 @@ const matomoMonthlyLookupToData = (matomoMonthlyLookupData = {}) => {
   }
 }
 
+export const fetchMatomo = url => {
+  const endpoint = new URL(url)
+  const body = new URLSearchParams(endpoint.searchParams)
+  endpoint.search = ''
+
+  return fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+    },
+    body,
+    cache: 'no-store',
+  })
+}
+
 export const getMonthlyUsageData = ([monthlyDownloadUrl, monthlyLookupUrl]) => async () => {
   const validStatus = new Set([200, 304])
 
@@ -203,7 +218,7 @@ export const getMonthlyUsageData = ([monthlyDownloadUrl, monthlyLookupUrl]) => a
     [
       monthlyDownloadUrl,
       monthlyLookupUrl,
-    ].map(url => fetch(url, { cache: 'force-cache' }))
+    ].map(fetchMatomo)
   )
 
   const { status: statusMonthlyDownload } = responseMonthlyDownload
