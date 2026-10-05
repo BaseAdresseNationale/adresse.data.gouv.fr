@@ -4,7 +4,7 @@ import {
 } from '@/components/Charts/ColorTheme'
 import { getStats } from '@/lib/api-ban'
 import { getStats as getBalAdminStats } from '@/lib/api-bal-admin'
-import { defDataFirstsPublications } from './stats-config-data'
+import { defDataFirstsPublications, firstsPublicationsObjectives } from './stats-config-data'
 
 const defaultColorName = 'glicyne'
 
@@ -343,23 +343,47 @@ export const getBanStatsData = async () => {
 
 const FIRSTS_PUBLICATIONS_START_PERIOD = '2019-01'
 
-// Convertit { 'MM-yyyy': nombre } en [{ period: 'yyyy-MM', [label]: cumul }] trié par date
-const firstsPublicationsToData = dataDef => (record = {}) => {
-  const [{ dataKeyLabel }] = dataDef.config
-  let cumulative = 0
+// Liste des mois 'yyyy-MM' entre from et to inclus
+const getMonthlyPeriods = (from, to) => {
+  const periods = []
+  let [year, month] = from.split('-').map(Number)
+  const [toYear, toMonth] = to.split('-').map(Number)
+  while (year < toYear || (year === toYear && month <= toMonth)) {
+    periods.push(`${year}-${String(month).padStart(2, '0')}`)
+    month = month === 12 ? 1 : month + 1
+    year = month === 1 ? year + 1 : year
+  }
 
-  return Object.entries(record)
-    .map(([monthKey, value]) => {
+  return periods
+}
+
+// Convertit { 'MM-yyyy': nombre } en [{ period: 'yyyy-MM', [label]: cumul, [objectif]: valeur }] mois par mois
+const firstsPublicationsToData = dataDef => (record = {}) => {
+  const [{ dataKeyLabel }, { dataKeyLabel: objectiveKeyLabel }] = dataDef.config
+  const monthlyValues = new Map(
+    Object.entries(record).map(([monthKey, value]) => {
       const [month, year] = monthKey.split('-')
       return [`${year}-${month}`, Number(value) || 0]
     })
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([period, value]) => {
-      cumulative += value
+  )
+  const dataPeriods = [...monthlyValues.keys()].sort()
+  if (dataPeriods.length === 0) {
+    return []
+  }
+
+  const lastDataPeriod = dataPeriods.at(-1)
+  const lastPeriod = [lastDataPeriod, ...Object.keys(firstsPublicationsObjectives)].sort().at(-1)
+  let cumulative = 0
+
+  return getMonthlyPeriods(dataPeriods[0], lastPeriod)
+    .map((period) => {
+      cumulative += monthlyValues.get(period) || 0
       return {
         ...dataDef.default,
         period,
-        [dataKeyLabel]: cumulative,
+        // Pas de cumul après le dernier mois de données : la courbe s'arrête
+        ...(period <= lastDataPeriod && { [dataKeyLabel]: cumulative }),
+        ...(firstsPublicationsObjectives[period] && { [objectiveKeyLabel]: firstsPublicationsObjectives[period] }),
       }
     })
     // Le cumul inclut les mois antérieurs, mais l'affichage commence en janvier 2019

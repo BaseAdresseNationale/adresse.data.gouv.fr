@@ -7,6 +7,7 @@ import {
   Line,
   ScatterChart,
   Scatter,
+  ComposedChart,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -110,7 +111,9 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
     : 'auto'
 
   if (typeComponents[type]) {
-    const { chart: Chart, axis: Axis } = typeComponents[type]
+    // Une série peut définir son propre `chartType` pour mélanger les styles (ex: ligne + points)
+    const isComposed = dataList.some(({ chartType }) => chartType && chartType !== type)
+    const Chart = isComposed ? ComposedChart : typeComponents[type].chart
     return (
       <ResponsiveContainer width="100%" height={560}>
         <Chart
@@ -142,16 +145,23 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
           <Tooltip content={<ChartsCustomTooltip />} />
 
           <>
-            {dataList.map((areaItem, index, arr) => (
-              <Axis
-                key={areaItem.dataKey}
-                {...(areaItem || {})}
-                name={areaItem.dataKey}
-                dataKey={(entry: Record<string, any>) => Number(entry?.[areaItem.dataKey] || 0)}
-              >
-                {totalKeyName && index === arr.length - 1 && <LabelList dataKey={(entry: Record<string, any>) => entry?.[totalKeyName] || 0} position="top" content={<ChartsCustomAxisLabel />} />}
-              </Axis>
-            ))}
+            {dataList.map(({ chartType, allowMissingValues, ...areaItem }, index, arr) => {
+              const Axis = typeComponents[chartType || type].axis
+              return (
+                <Axis
+                  key={areaItem.dataKey}
+                  {...(areaItem || {})}
+                  name={areaItem.dataKey}
+                  dataKey={(entry: Record<string, any>) => {
+                    const value = entry?.[areaItem.dataKey]
+                    // `undefined` n'est pas affiché par Recharts, contrairement à 0
+                    return allowMissingValues && value == null ? undefined : Number(value || 0)
+                  }}
+                >
+                  {totalKeyName && index === arr.length - 1 && <LabelList dataKey={(entry: Record<string, any>) => entry?.[totalKeyName] || 0} position="top" content={<ChartsCustomAxisLabel />} />}
+                </Axis>
+              )
+            })}
           </>
 
           <Legend

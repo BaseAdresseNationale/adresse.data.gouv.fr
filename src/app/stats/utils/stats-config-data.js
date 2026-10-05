@@ -89,9 +89,27 @@ export const defDataFirstsPublications = {
       dataKeyLabel: 'Cumul premières publications',
       dataKeyRaw: 'firsts_publications',
       colors: customColors.glicyne[3],
-      ordinate: true,
+      allowMissingValues: true,
+    },
+    {
+      dataKeyLabel: 'Objectif',
+      dataKeyRaw: 'objectif',
+      colors: customColors.rubi[3],
+      chartType: 'scatter',
+      allowMissingValues: true,
     },
   ],
+}
+
+// Objectifs de premières publications cumulées, au début de chaque année
+export const firstsPublicationsObjectives = {
+  '2022-01': 5000,
+  '2023-01': 10000,
+  '2024-01': 15000,
+  '2025-01': 20000,
+  '2026-01': 25000,
+  '2027-01': 30000,
+  '2028-01': 35000,
 }
 
 export const defDataBanVisit = {
