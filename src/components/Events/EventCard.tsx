@@ -1,6 +1,6 @@
 'use client'
 
-import { EventType, EventTypeTypeEnum } from '@/types/events.types'
+import { EventRecord, EventTypeTypeEnum } from '@/types/events.types'
 import { StyledEventCard } from './EventCard.styles'
 import Badge from '@codegouvfr/react-dsfr/Badge'
 import { getFullDate } from '@/utils/date'
@@ -8,7 +8,7 @@ import { useState } from 'react'
 import Button from '@codegouvfr/react-dsfr/Button'
 
 interface EventCardProps {
-  event: EventType
+  event: EventRecord
   tagToColor: Record<string, { color: string, background: string }>
   isPassed?: boolean
   onRegister?: () => void
@@ -22,13 +22,15 @@ const backgroundColors: Record<string, string> = {
 
 export default function EventCard({ event, isPassed, tagToColor, onRegister }: EventCardProps) {
   const { tags, title, description, startHour, endHour, date, address, isSubscriptionClosed, type } = event
+  const eventLink = isPassed ? event.resources : event.href
+  const eventLinkLabel = isPassed ? 'Accéder aux ressources' : 'Rejoindre'
 
   const hasLargeDescription = description.length > 100
   const [showAllDescription, setShowAllDescription] = useState(!hasLargeDescription)
   const actualDescription = showAllDescription ? description : description.slice(0, 100) + '...'
   const backgroundColor = backgroundColors[type]
 
-  const getAdressToString = (adress: EventType['address']) => {
+  const getAdressToString = (adress: EventRecord['address']) => {
     if (!adress) return ''
     return `${adress.nom}, ${adress.numero} ${adress.voie}, ${adress.codePostal} ${adress.commune}`
   }
@@ -46,6 +48,7 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
         {address?.commune ? <span> | {getAdressToString(address)}</span> : null}
       </div>
       <h3>{title}</h3>
+      {event.source !== 'BAL' && event.subtitle && <div className="event-subtitle">{event.subtitle}</div>}
       <p>
         {actualDescription}
       </p>
@@ -55,7 +58,7 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
         </button>
       )}
       {
-        type === EventTypeTypeEnum.ADRESSE_LAB && event.href
+        ((isPassed && event.resources) || (!isPassed && type === EventTypeTypeEnum.ADRESSE_LAB && event.href))
           ? (
               <Button
                 iconId="fr-icon-questionnaire-line"
@@ -63,16 +66,17 @@ export default function EventCard({ event, isPassed, tagToColor, onRegister }: E
                 priority="secondary"
                 style={{ marginBottom: '1rem' }}
                 linkProps={{
-                  href: event.href,
+                  href: eventLink as string,
                   target: '_blank',
                   rel: 'noopener noreferrer',
                 }}
               >
-                Rejoindre
+                {eventLinkLabel}
               </Button>
             )
-          : (
-              !isSubscriptionClosed && !isPassed && onRegister && (
+          : ( //TODO: faire un nouveau formulaire pour rediriger vers le formulaire d'inscription de l'IGN
+            // il faudra enlever "event.isOnlineOnly" de la condition si on fait un formulaire d'inscription pour les évènements en présentiel
+              event.isOnlineOnly && !isSubscriptionClosed && !isPassed && onRegister && (
                 <Button
                   iconId="fr-icon-questionnaire-line"
                   iconPosition="right"
