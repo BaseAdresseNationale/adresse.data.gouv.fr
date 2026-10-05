@@ -4,7 +4,11 @@ import {
 } from '@/components/Charts/ColorTheme'
 import { getStats } from '@/lib/api-ban'
 import { getStats as getBalAdminStats } from '@/lib/api-bal-admin'
-import { defDataFirstsPublications, firstsPublicationsObjectives } from './stats-config-data'
+import {
+  defDataFirstsPublications,
+  defDataSourcesPublicationBan,
+  firstsPublicationsObjectives,
+} from './stats-config-data'
 
 const defaultColorName = 'glicyne'
 
@@ -390,6 +394,33 @@ const firstsPublicationsToData = dataDef => (record = {}) => {
     .filter(({ period }) => period >= FIRSTS_PUBLICATIONS_START_PERIOD)
 }
 
+const normalizeSourceKey = value => value.toLowerCase().replace(/[^a-z0-9]/g, '')
+
+// Convertit { 'yyyy-MM-dd': { source_position: nombre } } en [{ period: 'yyyy-MM-dd', [label]: nombre }] trié par date
+// Les sources inconnues de la config sont ignorées (comme dans bal-admin)
+const sourcesPublicationBanToData = dataDef => (record = {}) => {
+  const labelBySourceKey = new Map(
+    dataDef.config.flatMap(({ dataKeyLabel, dataKeyRaw }) =>
+      dataKeyRaw.map(rawKey => [normalizeSourceKey(rawKey), dataKeyLabel])
+    )
+  )
+  const defaultCounts = Object.fromEntries(dataDef.config.map(({ dataKeyLabel }) => [dataKeyLabel, 0]))
+
+  return Object.entries(record)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([period, counts]) => ({
+      ...dataDef.default,
+      ...Object.entries(counts || {}).reduce((acc, [rawKey, count]) => {
+        const label = labelBySourceKey.get(normalizeSourceKey(rawKey))
+        if (label) {
+          acc[label] += Number(count) || 0
+        }
+        return acc
+      }, { ...defaultCounts }),
+      period,
+    }))
+}
+
 export const getBalStatsData = async () => {
   const {
     firsts_publications: firstsPublications,
@@ -398,7 +429,7 @@ export const getBalStatsData = async () => {
 
   return {
     firsts_publications: firstsPublicationsToData(defDataFirstsPublications)(firstsPublications?.value),
-    sources_publication_ban: sourcesPublicationBan?.value,
+    sources_publication_ban: sourcesPublicationBanToData(defDataSourcesPublicationBan)(sourcesPublicationBan?.value),
   }
 }
 

@@ -21,6 +21,7 @@ import {
   defDataMonthlyLookup,
   defDataBanVisit,
   defDataFirstsPublications,
+  defDataSourcesPublicationBan,
 } from './utils/stats-config-data'
 import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
@@ -45,6 +46,7 @@ function StatsPage() {
   const axisDefDataMonthlyLookup = useMemo(() => getDataDef(defDataMonthlyLookup), [])
   const axisDefDataBanVisit = useMemo(() => getDataDef(defDataBanVisit), [])
   const axisDefFirstsPublications = useMemo(() => getDataDef(defDataFirstsPublications), [])
+  const axisDefSourcesPublicationBan = useMemo(() => getDataDef(defDataSourcesPublicationBan), [])
 
   useEffect(() => {
     [
@@ -173,6 +175,8 @@ function StatsPage() {
             <KeyNumbersBlock data={dataStateBan} />
           )}
 
+          <h2>Cumul des premières publications de communes</h2>
+
           <div className="chart-wrapper">
             <Chart
               type="line"
@@ -181,14 +185,16 @@ function StatsPage() {
             />
           </div>
 
+          <h2>Compositions des adresses de la BAN</h2>
 
-          {/* <div className="chart-wrapper">
+          <div className="chart-wrapper">
             <Chart
               type="area"
-              data={dataStateBal.sources_publication_ban}
-              axisDef={axisDefDailyDownload}
+              data={dataStateBal?.sources_publication_ban}
+              axisDef={axisDefSourcesPublicationBan}
+              continuousXAxis
             />
-          </div> */}
+          </div>
 
 
           <div>
