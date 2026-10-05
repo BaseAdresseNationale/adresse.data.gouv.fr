@@ -3,6 +3,8 @@ import {
   defaultTheme,
 } from '@/components/Charts/ColorTheme'
 import { getStats } from '@/lib/api-ban'
+import { getStats as getBalAdminStats } from '@/lib/api-bal-admin'
+import { defDataFirstsPublications } from './stats-config-data'
 
 const defaultColorName = 'glicyne'
 
@@ -338,5 +340,43 @@ export const getBanStatsData = async () => {
       ]
     : []
 }
+
+const FIRSTS_PUBLICATIONS_START_PERIOD = '2019-01'
+
+// Convertit { 'MM-yyyy': nombre } en [{ period: 'yyyy-MM', [label]: cumul }] trié par date
+const firstsPublicationsToData = dataDef => (record = {}) => {
+  const [{ dataKeyLabel }] = dataDef.config
+  let cumulative = 0
+
+  return Object.entries(record)
+    .map(([monthKey, value]) => {
+      const [month, year] = monthKey.split('-')
+      return [`${year}-${month}`, Number(value) || 0]
+    })
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([period, value]) => {
+      cumulative += value
+      return {
+        ...dataDef.default,
+        period,
+        [dataKeyLabel]: cumulative,
+      }
+    })
+    // Le cumul inclut les mois antérieurs, mais l'affichage commence en janvier 2019
+    .filter(({ period }) => period >= FIRSTS_PUBLICATIONS_START_PERIOD)
+}
+
+export const getBalStatsData = async () => {
+  const {
+    firsts_publications: firstsPublications,
+    sources_publication_ban: sourcesPublicationBan,
+  } = await getBalAdminStats(['sources_publication_ban', 'firsts_publications']) || {}
+
+  return {
+    firsts_publications: firstsPublicationsToData(defDataFirstsPublications)(firstsPublications?.value),
+    sources_publication_ban: sourcesPublicationBan?.value,
+  }
+}
+
 
 export const fetcher = async (...args) => (await fetch(...args))?.json()

@@ -78,6 +78,22 @@ export const defDataMonthlyLookup = {
   ],
 }
 
+export const defDataFirstsPublications = {
+  default: {
+    label: 'Cumul premières publications',
+    toolipLabel: 'Cumul des premières publications de BAL',
+    period: '',
+  },
+  config: [
+    {
+      dataKeyLabel: 'Cumul premières publications',
+      dataKeyRaw: 'firsts_publications',
+      colors: customColors.glicyne[3],
+      ordinate: true,
+    },
+  ],
+}
+
 export const defDataBanVisit = {
   default: {
     label: 'Visite',

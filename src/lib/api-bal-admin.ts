@@ -103,3 +103,7 @@ export async function getBalEvents(): Promise<EventType[]> {
     return []
   }
 }
+
+export async function getStats(stats: string[] = []): Promise<any> {
+  return customFetch(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/stats/?` + new URLSearchParams(stats.map(stat => ['stats', stat])), { next: { revalidate: 3600 } })
+}
