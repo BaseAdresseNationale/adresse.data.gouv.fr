@@ -10,6 +10,7 @@ import { TextWrapper } from './page.styled'
 
 import type { DataType } from '@/lib/markdown'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Certificat')
 
@@ -19,6 +20,10 @@ export default async function Home() {
 
   return (
     <>
+      <Breadcrumb
+        currentPageLabel="Certificat d'adressage"
+        segments={[{ label: 'Outils & API', linkProps: { href: '/outils' } }]}
+      />
       <Suspense fallback={<p>Chargement...</p>}>
         {heroContentHtml && (
           <SectionHero
@@ -44,7 +49,7 @@ export default async function Home() {
               </strong>
             </p>
             <p>
-              C&apos;est rapide, fiable, et certifié par la Mairie !
+              C&apos;est rapide, fiable, et certifié par la mairie !
             </p>
           </div>
           <div className="fr-col-12 fr-col-md-6">
@@ -55,7 +60,7 @@ export default async function Home() {
           </div>
           <div className="fr-col-12">
             <p>
-              Note : ce service repose sur des <b>prérequis techniques</b> dont toutes les adresses ne disposent pas, il n&apos;est pas accessible sur l&apos;ensemble des adresses.
+              Note : ce service repose sur des <b>prérequis techniques</b> &nbsp;dont toutes les adresses ne disposent pas, il n&apos;est pas accessible sur l&apos;ensemble des adresses.
               En cas d&apos;indisponibilité du service sur votre adresse, veuillez contacter votre mairie.
             </p>
           </div>

@@ -76,7 +76,7 @@ export default function Actualites({ appsData, filterTags }: { appsData: Record<
   return (
       <>
         <Breadcrumb
-          currentPageLabel="Actualités"
+          currentPageLabel="Évolutions BAN"
           segments={[]}
         />
 

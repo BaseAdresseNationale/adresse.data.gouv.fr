@@ -35,6 +35,7 @@ export enum PartenaireDeLaCharteOrganismeTypeEnum {
   EPCI = 'epci',
   DEPARTEMENT = 'departement',
   REGION = 'region',
+  SYNDICAT_MIXTE = "syndicat-mixte",
   AUTRE = 'autre',
 }
 

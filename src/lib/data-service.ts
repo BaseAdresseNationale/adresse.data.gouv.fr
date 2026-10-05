@@ -66,11 +66,6 @@ export async function handleS3Data(context: Context) {
   const s3ObjectPath = [...rootDir, ...paramPath].join('/')
 
   try {
-    sendToTracker(getDownloadToEventTracker({
-      downloadDataType: `${paramPath[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
-      downloadFileName: dirPath,
-      nbDownload: 1,
-    }))
     await asyncSendS3(clientS3)((req as unknown as Request), res, {
       params: {
         ...(req?.headers?.range ? { Range: req.headers.range } : {}),
@@ -78,6 +73,13 @@ export async function handleS3Data(context: Context) {
         Key: s3ObjectPath,
       },
       fileName: paramPath[paramPath.length - 1],
+      onObjectFound: () => {
+        void sendToTracker(getDownloadToEventTracker({
+          downloadDataType: `${paramPath[0]}${req?.headers?.range ? ' (Partial)' : ''}`,
+          downloadFileName: dirPath,
+          nbDownload: 1,
+        }))
+      },
     })
   }
   catch (err) {

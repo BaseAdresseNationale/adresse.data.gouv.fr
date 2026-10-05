@@ -4,6 +4,7 @@ import {
   matomoToVisitData,
   matomoDailyDownloadToData,
   matomoToLookupMonthlyUsage,
+  fetchMatomo,
   getMonthlyUsageData,
   getQualityData,
 } from '../utils/helper'
@@ -175,7 +176,7 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
     }
 
     if (url) {
-      const response = await fetch(url, { cache: 'force-cache' })
+      const response = await fetchMatomo(url)
       const { status } = response
       const validStatus = [200, 304]
       if (!validStatus.includes(status)) {
@@ -191,6 +192,15 @@ export async function GET(_req: NextRequest, props: { params: Promise<{ slug: st
   catch (error) {
     const { message, cause } = error as Error
     console.error('Error on Front-end Stat API :', message, cause, error)
+
+    if (['monthly-usage', 'daily-lookup', 'daily-download', 'visit'].includes(slug)) {
+      const fallbackData = slug === 'monthly-usage' ? emptyMonthlyUsage : emptySeries
+      return NextResponse.json(fallbackData, {
+        status: 200,
+        headers: { 'X-Stats-Data-Fallback': 'true' },
+      })
+    }
+
     return NextResponse.json({ error: message || 'Internal server error' }, { status: ((cause as any)?.status || 500) })
   }
 }

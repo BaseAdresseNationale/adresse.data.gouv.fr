@@ -8,6 +8,7 @@ import { getMarkdown } from '@/lib/markdown'
 import type { DataType } from '@/lib/markdown'
 import { TextWrapper } from './page.styled'
 import pageTitle from '@/utils/pageTitle'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Contact')
 
@@ -17,6 +18,7 @@ export default async function ContactCommunautePage() {
 
   return (
     <>
+      <Breadcrumb currentPageLabel="Contacter la communauté" segments={[]} />
       <Suspense fallback={<p>Chargement...</p>}>
         {heroContentHtml
         && (

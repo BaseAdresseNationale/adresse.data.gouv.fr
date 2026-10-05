@@ -4,6 +4,7 @@ import { getUpcomingAndPassedEvents, mapEvents } from '@/utils/events'
 import EventPage from '@/components/Events/EventPage'
 import pageTitle from '@/utils/pageTitle'
 import { fetchAndProcessEventsGristData } from '@/lib/api-grist'
+import Breadcrumb from '@/layouts/Breadcrumb'
 
 export const metadata = pageTitle('Évènements')
 
@@ -24,6 +25,9 @@ export default async function EvenementsPage() {
     .filter(event => new Date(event.date) > lastMonth)
     .reverse()
   return (
-    <EventPage upcomingEvents={upcomingEvents} lastMonthPastEvents={lastMonthPastEvents} tagToColor={tagToColor} />
+    <>
+      <Breadcrumb currentPageLabel="Les événements" segments={[]} />
+      <EventPage upcomingEvents={upcomingEvents} lastMonthPastEvents={lastMonthPastEvents} tagToColor={tagToColor} />
+    </>
   )
 }
