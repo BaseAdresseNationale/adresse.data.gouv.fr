@@ -1,7 +1,7 @@
-import { EventType } from '@/types/events.types'
+import { EventRecord } from '@/types/events.types'
 import { fr } from '@codegouvfr/react-dsfr'
 
-export function mapEvents(events: EventType[], typeFilter?: string) {
+export function mapEvents(events: EventRecord[], typeFilter?: string) {
   let allEvents = events.sort((a, b) => {
     const dateA = new Date(a.date)
     const [hourA, minuteA] = a.startHour.split(':')
@@ -41,14 +41,14 @@ export function mapEvents(events: EventType[], typeFilter?: string) {
   return { allEvents, tagToColor }
 }
 
-export function getUpcomingAndPassedEvents(allEvents: EventType[]) {
+export function getUpcomingAndPassedEvents(allEvents: EventRecord[]) {
   const upcomingEvents = allEvents.filter(({ date, endHour }) => {
     const [hour, minute] = endHour.split(':')
     const eventDate = new Date(date)
     eventDate.setHours(parseInt(hour), parseInt(minute))
 
     return eventDate.getTime() >= Date.now()
-  }) as EventType[]
+  }) as EventRecord[]
 
   const pastEvents = allEvents.filter(({ date, endHour }) => {
     const [hour, minute] = endHour.split(':')
@@ -56,7 +56,7 @@ export function getUpcomingAndPassedEvents(allEvents: EventType[]) {
     eventDate.setHours(parseInt(hour), parseInt(minute))
 
     return eventDate.getTime() < Date.now()
-  }) as EventType[]
+  }) as EventRecord[]
 
   return { upcomingEvents, pastEvents }
 }

@@ -32,10 +32,9 @@ export enum PartenaireDeLaCharteTypeEnum {
 }
 
 export enum PartenaireDeLaCharteOrganismeTypeEnum {
-  EPCI = 'epci',
-  DEPARTEMENT = 'departement',
-  REGION = 'region',
-  AUTRE = 'autre',
+  INTERCOMMUNAL = "intercommunal",
+  DEPARTEMENTAL = "departemental",
+  REGIONAL = "regional",
 }
 
 export type CandidatePartenaireDeLaCharteType = {

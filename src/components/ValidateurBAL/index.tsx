@@ -15,6 +15,19 @@ import ValidationErrorParseReport from './ValidationErrorParse'
 
 const availableProfiles = ['1.3', '1.4', '1.5']
 
+const number2stringFR: Record<number, string> = {
+  0 : "zéro",
+  1 : "un",
+  2 : "deux",
+  3 : "trois",
+  4 : "quatre",
+  5 : "cinq",
+  6 : "six",
+  7 : "sept",
+  8 : "huit",
+  9 : "neuf",
+};
+
 const profilesOptions: {
   label: string
   value: string
@@ -125,7 +138,7 @@ export default function ValidateurBAL() {
                     <DropZoneInput
                       onChange={handleFileChange}
                       label="Déposez ou cliquez ici pour uploader votre fichier BAL à valider"
-                      hint="Taille maximale: 50 Mo. Format supporté : CSV"
+                      hint="Taille maximale : 50 Mo. Format supporté : CSV."
                       accept={{ 'text/csv': [], 'application/vnd.ms-excel': [] }}
                       maxSize={50 * 1024 * 1024}
                     />
@@ -147,17 +160,17 @@ export default function ValidateurBAL() {
           Il est utilisé pour s&apos;assurer avant la publication que toutes les adresses d&apos;une BAL remonteront correctement dans la Base Adresse Nationale.
         </p>
         <p>
-          Il existe {availableProfiles.length} profils sur le validateur :
+          Il existe {number2stringFR[availableProfiles.length]} profils sur le validateur :
         </p>
         <ul>
           <li>
-            <b>BAL 1.3</b> (legacy) assure la conformité complète avec la spécification de l&apos;AITF.
+            <b>BAL 1.3</b> &nbsp;(legacy) assure la conformité complète avec la spécification de l&apos;AITF.
           </li>
           <li>
-            <b>BAL 1.4</b> est le profil par défaut. Il intégre les identifiants uniques de la BAN.
+            <b>BAL 1.4</b> &nbsp;est le profil par défaut. Il intégre les identifiants uniques de la BAN.
           </li>
           <li>
-            <b>BAL 1.5</b> (beta) consolide l&apos;intégration des identifiants uniques de la BAN.
+            <b>BAL 1.5</b> &nbsp;(beta) consolide l&apos;intégration des identifiants uniques de la BAN.
           </li>
         </ul>
         <p>
@@ -179,10 +192,10 @@ export default function ValidateurBAL() {
         </p>
         <ul>
           <li>
-            Les erreurs sont bloquantes et entraînent un rejet de l&apos;ligne concernée. La BAL publiée sera alors incomplète.
+            Les erreurs sont bloquantes et entraînent un rejet de la ligne concernée. La BAL publiée sera alors incomplète.
           </li>
           <li>
-            Les alertes n&apos;empêchent pas la publication et l&apos;ligne sera donc acceptée, mais les informations rattachées à l&apos;adresse seront dégradées.
+            Les alertes n&apos;empêchent pas la publication et la ligne sera donc acceptée, mais les informations rattachées à l&apos;adresse seront dégradées.
           </li>
         </ul>
         <p>
