@@ -3,7 +3,7 @@
 import Section from '@/components/Section'
 import CardWrapper from '@/components/CardWrapper'
 import EventCard from '@/components/Events/EventCard'
-import { EventType } from '@/types/events.types'
+import { EventRecord } from '@/types/events.types'
 import { createModal } from '@codegouvfr/react-dsfr/Modal'
 import { useState } from 'react'
 import ParticipantForm from '@/components/Events/ParticipantForm'
@@ -14,8 +14,8 @@ const Modal = createModal({
 })
 
 interface EventPageProps {
-  upcomingEvents: EventType[]
-  lastMonthPastEvents: EventType[]
+  upcomingEvents: EventRecord[]
+  lastMonthPastEvents: EventRecord[]
   tagToColor: Record<string, { color: string, background: string }>
 }
 
