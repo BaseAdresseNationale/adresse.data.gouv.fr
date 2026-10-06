@@ -6,7 +6,7 @@ function trimTrailingSlash(value: string) {
 
 type DeploiementBalBackendMode = 'suivi-ban' | 'adresse-local'
 
-const DEPLOIEMENT_BAL_BACKEND_MODE: DeploiementBalBackendMode = 'suivi-ban'
+const DEPLOIEMENT_BAL_BACKEND_MODE: DeploiementBalBackendMode = 'adresse-local'
 
 const SUIVI_BAN_STATS_PATH = '/deploiement-bal/stats'
 const SUIVI_BAN_TILES_PATH = '/tiles/deploiement-bal/{z}/{x}/{y}.pbf'
@@ -15,7 +15,7 @@ const ADRESSE_LOCAL_STATS_PATH = '/deploiement-stats'
 const ADRESSE_LOCAL_TILES_PATH = '/deploiement-stats/{z}/{x}/{y}.pbf'
 
 export function getSuiviBanApiBase() {
-  const configuredBase = (env('NEXT_PUBLIC_SUIVI_BAN_API_URL') || 'https://suivi-ban.mut-dev.ign.fr/api').trim()
+  const configuredBase = (env('NEXT_PUBLIC_SUIVI_BAN_API_URL') || '').trim()
   if (configuredBase) {
     return trimTrailingSlash(configuredBase)
   }
@@ -50,4 +50,8 @@ export function getSuiviBanTilesTemplateUrl() {
     return `${getSuiviBanApiBase()}${SUIVI_BAN_TILES_PATH}`
   }
   return `/api${ADRESSE_LOCAL_TILES_PATH}`
+}
+
+export function isSuiviBanMaintenanceMode() {
+  return env('NEXT_PUBLIC_SUIVI_BAN_MAINTENANCE_MODE') === 'true'
 }

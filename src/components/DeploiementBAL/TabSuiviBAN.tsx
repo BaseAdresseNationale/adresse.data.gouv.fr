@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { fr } from '@codegouvfr/react-dsfr'
 import { DeploiementBALSearchResult } from '@/hooks/useStatsDeploiement'
-const SUIVI_BAN_API = process.env.NEXT_PUBLIC_SUIVI_BAN_API_URL || 'https://suivi-ban.mut-dev.ign.fr/api'
+const SUIVI_BAN_API = process.env.NEXT_PUBLIC_SUIVI_BAN_API_URL
 
 const DSFR = fr.colors.decisions
 const DSFR_HEX = fr.colors.getHex({ isDark: false }).decisions
