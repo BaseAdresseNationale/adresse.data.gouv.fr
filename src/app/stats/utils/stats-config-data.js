@@ -78,6 +78,87 @@ export const defDataMonthlyLookup = {
   ],
 }
 
+export const defDataFirstsPublications = {
+  default: {
+    label: 'Nombre de BAL',
+    toolipLabel: 'Évolution du nombre BALs publiées',
+    period: '',
+  },
+  config: [
+    {
+      dataKeyLabel: 'Nombre de BALs',
+      dataKeyRaw: 'firsts_publications',
+      colors: customColors.glicyne[3],
+      allowMissingValues: true,
+    },
+    {
+      dataKeyLabel: 'Objectif',
+      dataKeyRaw: 'objectif',
+      colors: customColors.rubi[3],
+      chartType: 'scatter',
+      allowMissingValues: true,
+    },
+  ],
+}
+
+// Sources des adresses de la BAN (aires empilées), même regroupement que dans bal-admin
+// dataKeyRaw : valeurs possibles de `source_position` dans l'export BAN
+export const defDataSourcesPublicationBan = {
+  default: {
+    label: 'Sources',
+    toolipLabel: 'Composition de la Base Adresse Nationale',
+    period: '',
+  },
+  config: [
+    {
+      dataKeyLabel: 'Certifié',
+      dataKeyRaw: ['certified'],
+      colors: ['#50C878', '#50C878'],
+    },
+    {
+      dataKeyLabel: 'BAL',
+      dataKeyRaw: ['commune'],
+      colors: ['#008300', '#008300'],
+    },
+    {
+      dataKeyLabel: 'Cadastre',
+      dataKeyRaw: ['cadastre'],
+      colors: ['#2a78d6', '#2a78d6'],
+    },
+    {
+      dataKeyLabel: 'ARCEP',
+      dataKeyRaw: ['arcep'],
+      colors: ['#4a3aa7', '#4a3aa7'],
+    },
+    {
+      dataKeyLabel: 'La Poste',
+      dataKeyRaw: ['laposte', 'la-poste', 'la poste'],
+      colors: ['#eb6834', '#eb6834'],
+    },
+    {
+      dataKeyLabel: 'SDIS',
+      dataKeyRaw: ['sdis'],
+      colors: ['#e34948', '#e34948'],
+    },
+    {
+      dataKeyLabel: 'Assemblage',
+      dataKeyRaw: ['ign', 'inconnue', 'ban'],
+      colors: ['#898781', '#898781'],
+    },
+  ],
+}
+
+// Objectifs de premières publications cumulées, au début de chaque année
+export const firstsPublicationsObjectives = {
+  '2022-01': 5000,
+  '2023-01': 10000,
+  '2024-01': 15000,
+  '2025-01': 20000,
+  '2026-01': 25000,
+  '2027-01': 30000,
+  '2028-01': 35000,
+}
+
 export const defDataBanVisit = {
   default: {
     label: 'Visite',
