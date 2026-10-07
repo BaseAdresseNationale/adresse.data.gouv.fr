@@ -80,13 +80,13 @@ export const defDataMonthlyLookup = {
 
 export const defDataFirstsPublications = {
   default: {
-    label: 'Cumul premières publications',
-    toolipLabel: 'Cumul des premières publications de BAL',
+    label: 'Nombre de BAL',
+    toolipLabel: 'Évolution du nombre BALs publiées',
     period: '',
   },
   config: [
     {
-      dataKeyLabel: 'Cumul premières publications',
+      dataKeyLabel: 'Nombre de BALs',
       dataKeyRaw: 'firsts_publications',
       colors: customColors.glicyne[3],
       allowMissingValues: true,

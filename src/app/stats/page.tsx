@@ -175,7 +175,7 @@ function StatsPage() {
             <KeyNumbersBlock data={dataStateBan} />
           )}
 
-          <h2>Cumul des premières publications de communes</h2>
+          <h2>Évolution du nombre de BALs publiées</h2>
 
           <div className="chart-wrapper">
             <Chart
@@ -185,7 +185,7 @@ function StatsPage() {
             />
           </div>
 
-          <h2>Compositions des adresses de la BAN</h2>
+          <h2>Évolution de la composition de la Base adresse Nationale</h2>
 
           <div className="chart-wrapper">
             <Chart
