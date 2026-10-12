@@ -14,11 +14,14 @@ import {
   getDataDef,
   getBanStatsData,
   fetcher,
+  getBalStatsData,
 } from './utils/helper'
 import {
   defDataDailyDownload,
   defDataMonthlyLookup,
   defDataBanVisit,
+  defDataFirstsPublications,
+  defDataSourcesPublicationBan,
 } from './utils/stats-config-data'
 import useClientSidePageTitle from '@/utils/useClientSidePageTitle'
 
@@ -35,10 +38,15 @@ function StatsPage() {
   const { data: dataMonthlyLookup, error: errorDataMonthlyLookup } = useSWR(URL_GET_STATS_LOOKUP_MONTH, fetcher)
   const { data: dataBanVisit, error: errorDataBanVisit } = useSWR(URL_GET_STATS_VISIT, fetcher)
   const { data: dataStateBan, error: errorBanStats } = useSWR('BAN__GET_STATE__API', getBanStatsData)
+  const { data: dataStateBal, error: errorBalStats } = useSWR('BAL__GET_STATE__API', getBalStatsData)
+
+  console.log(dataStateBal)
 
   const axisDefDailyDownload = useMemo(() => getDataDef(defDataDailyDownload, 'rubi'), [])
   const axisDefDataMonthlyLookup = useMemo(() => getDataDef(defDataMonthlyLookup), [])
   const axisDefDataBanVisit = useMemo(() => getDataDef(defDataBanVisit), [])
+  const axisDefFirstsPublications = useMemo(() => getDataDef(defDataFirstsPublications), [])
+  const axisDefSourcesPublicationBan = useMemo(() => getDataDef(defDataSourcesPublicationBan), [])
 
   useEffect(() => {
     [
@@ -47,6 +55,7 @@ function StatsPage() {
       errorDataMonthlyLookup,
       errorDataBanVisit,
       errorBanStats,
+      errorBalStats,
     ].filter(Boolean).forEach(err => console.error(`API CALL ERROR: ${err}`))
   }, [
     errorDataDailyDownload,
@@ -54,6 +63,7 @@ function StatsPage() {
     errorDataMonthlyLookup,
     errorDataBanVisit,
     errorBanStats,
+    errorBalStats,
   ])
   type dataMonthlyUsageObject = {
     note: string
@@ -164,6 +174,28 @@ function StatsPage() {
           {dataStateBan && (
             <KeyNumbersBlock data={dataStateBan} />
           )}
+
+          <h2>Évolution du nombre de BALs publiées</h2>
+
+          <div className="chart-wrapper">
+            <Chart
+              type="line"
+              data={dataStateBal?.firsts_publications}
+              axisDef={axisDefFirstsPublications}
+            />
+          </div>
+
+          <h2>Évolution de la composition de la Base adresse Nationale</h2>
+
+          <div className="chart-wrapper">
+            <Chart
+              type="area"
+              data={dataStateBal?.sources_publication_ban}
+              axisDef={axisDefSourcesPublicationBan}
+              continuousXAxis
+            />
+          </div>
+
 
           <div>
             <Link href="/deploiement-bal">Plus d&apos;informations sur l&apos;état du déploiement des Bases Adresses Locales</Link>
