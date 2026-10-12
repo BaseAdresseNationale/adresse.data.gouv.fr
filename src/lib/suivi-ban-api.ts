@@ -51,7 +51,3 @@ export function getSuiviBanTilesTemplateUrl() {
   }
   return `/api${ADRESSE_LOCAL_TILES_PATH}`
 }
-
-export function isSuiviBanMaintenanceMode() {
-  return env('NEXT_PUBLIC_SUIVI_BAN_MAINTENANCE_MODE') === 'true'
-}
