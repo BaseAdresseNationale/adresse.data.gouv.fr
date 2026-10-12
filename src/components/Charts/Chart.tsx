@@ -7,6 +7,7 @@ import {
   Line,
   ScatterChart,
   Scatter,
+  ComposedChart,
   CartesianGrid,
   XAxis,
   YAxis,
@@ -85,14 +86,47 @@ const defaultArea = {
   strokeWidth: 0.5,
 }
 
+// 'yyyy-MM' ou 'yyyy-MM-dd' -> timestamp
+const periodToTime = (period: string): number => {
+  const [year, month = 1, day = 1] = period.split('-').map(Number)
+  return Date.UTC(year, month - 1, day)
+}
+
+// timestamp -> 'yyyy-MM' (format attendu par AxisTickByDate)
+const timeToPeriod = (time: number): string => {
+  const date = new Date(time)
+  return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`
+}
+
+// Un tick au 1er janvier de chaque année couverte par les données
+const getYearlyTicks = (data: any[] = []): number[] => {
+  const years = data.map(({ period }) => Number(period.split('-')[0]))
+  if (years.length === 0) {
+    return []
+  }
+
+  const firstTime = periodToTime(data[0].period)
+  const ticks = []
+  for (let year = Math.min(...years); year <= Math.max(...years); year++) {
+    const time = Date.UTC(year, 0, 1)
+    if (time >= firstTime) {
+      ticks.push(time)
+    }
+  }
+
+  return ticks
+}
+
 interface CartesianChartProps {
   type: 'area' | 'bar' | 'line' | 'scatter'
   data?: any[]
   axisDef: Record<string, any>
   totalKeyName?: string
+  // Axe des abscisses proportionnel au temps (dates irrégulières), au lieu d'un point par entrée
+  continuousXAxis?: boolean
 }
 
-export default function CartesianChart({ type, data, axisDef, totalKeyName: totalKeyNameProps }: CartesianChartProps) {
+export default function CartesianChart({ type, data, axisDef, totalKeyName: totalKeyNameProps, continuousXAxis }: CartesianChartProps) {
   const dataList = Object.entries(axisDef).map(([dataKey, areaItem], index) => ({
     ...defaultArea,
     dataKey,
@@ -110,7 +144,9 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
     : 'auto'
 
   if (typeComponents[type]) {
-    const { chart: Chart, axis: Axis } = typeComponents[type]
+    // Une série peut définir son propre `chartType` pour mélanger les styles (ex: ligne + points)
+    const isComposed = dataList.some(({ chartType }) => chartType && chartType !== type)
+    const Chart = isComposed ? ComposedChart : typeComponents[type].chart
     return (
       <ResponsiveContainer width="100%" height={560}>
         <Chart
@@ -124,15 +160,29 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="period"
-            angle={-45}
-            padding={{
-              left: 0,
-              right: 0,
-            }}
-            tick={<AxisTickByDate />}
-          />
+          {continuousXAxis
+            ? (
+                <XAxis
+                  dataKey={(entry: Record<string, any>) => periodToTime(entry.period)}
+                  type="number"
+                  scale="time"
+                  domain={['dataMin', 'dataMax']}
+                  ticks={getYearlyTicks(data)}
+                  angle={-45}
+                  tick={({ payload, ...props }: Record<string, any>) => <AxisTickByDate {...props} payload={{ value: timeToPeriod(payload.value) }} />}
+                />
+              )
+            : (
+                <XAxis
+                  dataKey="period"
+                  angle={-45}
+                  padding={{
+                    left: 0,
+                    right: 0,
+                  }}
+                  tick={<AxisTickByDate />}
+                />
+              )}
           <YAxis
             dataKey={yAxisMaxKeyName}
             tickFormatter={yAxisTickFormatter}
@@ -142,16 +192,23 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
           <Tooltip content={<ChartsCustomTooltip />} />
 
           <>
-            {dataList.map((areaItem, index, arr) => (
-              <Axis
-                key={areaItem.dataKey}
-                {...(areaItem || {})}
-                name={areaItem.dataKey}
-                dataKey={(entry: Record<string, any>) => Number(entry?.[areaItem.dataKey] || 0)}
-              >
-                {totalKeyName && index === arr.length - 1 && <LabelList dataKey={(entry: Record<string, any>) => entry?.[totalKeyName] || 0} position="top" content={<ChartsCustomAxisLabel />} />}
-              </Axis>
-            ))}
+            {dataList.map(({ chartType, allowMissingValues, ...areaItem }, index, arr) => {
+              const Axis = typeComponents[chartType || type].axis
+              return (
+                <Axis
+                  key={areaItem.dataKey}
+                  {...(areaItem || {})}
+                  name={areaItem.dataKey}
+                  dataKey={(entry: Record<string, any>) => {
+                    const value = entry?.[areaItem.dataKey]
+                    // `undefined` n'est pas affiché par Recharts, contrairement à 0
+                    return allowMissingValues && value == null ? undefined : Number(value || 0)
+                  }}
+                >
+                  {totalKeyName && index === arr.length - 1 && <LabelList dataKey={(entry: Record<string, any>) => entry?.[totalKeyName] || 0} position="top" content={<ChartsCustomAxisLabel />} />}
+                </Axis>
+              )
+            })}
           </>
 
           <Legend
@@ -164,6 +221,8 @@ export default function CartesianChart({ type, data, axisDef, totalKeyName: tota
               paddingTop: '50px',
             }}
             iconType="circle"
+            // Garde l'ordre des séries (Recharts trie par ordre alphabétique par défaut)
+            itemSorter={null}
             // formatter={renderColorfulLegendText}
           />
         </Chart>
