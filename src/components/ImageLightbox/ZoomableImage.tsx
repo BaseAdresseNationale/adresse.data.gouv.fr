@@ -5,21 +5,10 @@ import { useImageLightbox } from './ImageLightboxProvider'
 import styles from './ZoomableImage.module.css'
 
 interface ZoomableImageProps extends ImageProps {
+  src: string
   buttonLabel?: string
   buttonClassName?: string
   buttonStyle?: React.CSSProperties
-}
-
-function resolveImageSource(src: ImageProps['src']) {
-  if (typeof src === 'string') {
-    return src
-  }
-
-  if ('src' in src) {
-    return src.src
-  }
-
-  return src.default.src
 }
 
 export default function ZoomableImage({
@@ -35,7 +24,7 @@ export default function ZoomableImage({
   return (
     <button
       type="button"
-      onClick={() => openImage({ src: resolveImageSource(src), alt })}
+      onClick={() => openImage({ src, alt })}
       className={[styles.zoomableButton, buttonClassName].filter(Boolean).join(' ')}
       style={buttonStyle}
       aria-label={`${buttonLabel}: ${alt}`}
