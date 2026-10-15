@@ -9,11 +9,13 @@ import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
 import type { Address, PopupInfo } from './types'
 import { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
+import LayerPanoramax from './LayerPanoramax/LayerPanoramax'
 
 interface BanMapProps {
   address: Address
   onSelect: (properties: any) => void
   isCadastreLayersShown?: boolean
+  isPanoramaxLayerShown?: boolean
   hightLightAdressesByItem: (
     banItem: TypeMicroToponymExtended,
     isSelected: boolean
@@ -32,7 +34,7 @@ interface HighLightAdressesByProperties {
 
 const SOURCES = ['adresses', 'toponymes']
 
-function BanMap({ address, onSelect, isCadastreLayersShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
+function BanMap({ address, onSelect, isCadastreLayersShown, isPanoramaxLayerShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
   const map = useMap()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
@@ -162,6 +164,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown, hightLightAdressesBy
       <LayerBan address={address} />
       <LayerAddressPositions address={address} />
       <LayerCadastre address={address} isVisible={isCadastreLayersShown} />
+      <LayerPanoramax address={address} isVisible={isPanoramaxLayerShown}/>
     </>
   )
 }

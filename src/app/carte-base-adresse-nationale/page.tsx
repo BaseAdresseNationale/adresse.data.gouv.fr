@@ -235,7 +235,7 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, buttonMapStyle, displayLandRegister, isIGNMapStyleAccessible }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, displayPanoramax, isIGNMapStyleAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
@@ -601,6 +601,7 @@ function CartoView() {
             address={mapSearchResults as unknown as Address}
             onSelect={selectBanItem}
             isCadastreLayersShown={displayLandRegister}
+            isPanoramaxLayerShown={displayPanoramax}
             hightLightAdressesByItem={hightLightAdressesByItem}
             banItemSelected={banItemSelected as TypeMicroToponymExtended}
           />

@@ -40,7 +40,7 @@ function Carto({ children }: { children: ReactNode }) {
   const [isTOMVisible, setIsTOMVisible] = useState(false)
   const banMapConfigState = useBanMapConfig()
   const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
-  const { mapStyle, isIGNMapStyleAccessible, displayLandRegister, displayMenuConfig } = banMapConfig
+  const { mapStyle, isIGNMapStyleAccessible, displayLandRegister, displayPanoramax, displayMenuConfig } = banMapConfig
 
   useEffect(() => {
     setTypeLayout('full-screen')
@@ -64,6 +64,10 @@ function Carto({ children }: { children: ReactNode }) {
     dispatchToBanMapConfig({ type: 'TOGGLE_CADASTER_LAYER', payload: !displayLandRegister })
   }, [dispatchToBanMapConfig, displayLandRegister])
 
+  const togglePanoramaxLayer = useCallback(() => {
+    dispatchToBanMapConfig({ type: 'TOGGLE_PANORAMAX_LAYER', payload: !displayPanoramax})
+  }, [dispatchToBanMapConfig, displayPanoramax])
+
   return (
     <CartoWrapper>
       <CartoMenu>
@@ -73,6 +77,7 @@ function Carto({ children }: { children: ReactNode }) {
           <RingButton tooltip="Légende" className={isLegendVisible ? 'ri-close-large-line' : 'ri-apps-2-line'} onClick={toggleLegend} $isActive={isLegendVisible} $isButtonAvailable />
           <RingButton tooltip="Zoom sur un territoire" className={isTOMVisible ? 'ri-close-large-line' : 'ri-earth-line'} onClick={toggleTOM} $isActive={isTOMVisible} $isButtonAvailable />
           <RingButton tooltip="Afficher les parcelles cadastrales" className={displayLandRegister ? 'ri-collage-fill' : 'ri-collage-line'} onClick={toggleCadasterLayer} $isActive={displayLandRegister} $isButtonAvailable />
+          <RingButton tooltip="Ajouter Panoramax" className={displayPanoramax ? 'ri-camera-line' : 'ri-camera-off-line'} onClick={togglePanoramaxLayer} $isActive={displayPanoramax} $isButtonAvailable />
           <RingButton tooltip={isIGNMapStyleAccessible ? 'Utiliser les fonds IGN' : 'Non accessible'} $img="/img/map/bg-button-map-style-ign-vector.png" onClick={isIGNMapStyleAccessible ? () => handleMapStyleChange('ign-vector') : undefined} $isActive={mapStyle === 'ign-vector'} $isTypeRadio $isButtonAvailable={isIGNMapStyleAccessible} />
           <RingButton tooltip="Utiliser le fond OSM" $img="/img/map/bg-button-map-style-osm-vector.png" onClick={() => handleMapStyleChange('osm-vector')} $isActive={mapStyle === 'osm-vector'} $isTypeRadio $isButtonAvailable />
           <RingButton tooltip="Utiliser la vue satellite IGN" $img="/img/map/bg-button-map-style-ign-ortho.png" onClick={() => handleMapStyleChange('ign-ortho')} $isActive={mapStyle === 'ign-ortho'} $isTypeRadio $isButtonAvailable />

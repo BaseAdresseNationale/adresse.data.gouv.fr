@@ -25,6 +25,7 @@ const initBanMapConfig = {
   mapStyle: 'ign-vector',
   buttonMapStyle: 'ign-vector',
   displayLandRegister: false,
+  displayPanoramax: false,
   displayMenuConfig: true,
   isIGNMapStyleAccessible: true,
 }
@@ -59,6 +60,12 @@ function banMapReducer(
       return {
         ...banMapConfig,
         displayLandRegister: action.payload as boolean,
+      }
+    }
+    case 'TOGGLE_PANORAMAX_LAYER': {
+      return {
+        ...banMapConfig,
+        displayPanoramax: action.payload as boolean
       }
     }
     case 'TOOGLE_MENU_CONFIG': {
