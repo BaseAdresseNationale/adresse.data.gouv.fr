@@ -3,11 +3,15 @@ import type { Address } from '../types'
 import { env } from 'next-runtime-env'
 import PanoramaxViewer, { PanoramaxSelection } from './PanoramaxViewer'
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
+import { PanoramaxControls } from './PanoramaxControls'
 
 interface LayerPanoramaxProps {
   address: Address
   isVisible?: boolean
 }
+
+type PanoramaxLayout = 'viewer-main' | 'map-main'
 
 const tilesEnv = env('NEXT_PUBLIC_PANORAMAX_TILES')
 
@@ -22,11 +26,32 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
   const visibility = isVisible ? 'visible' : 'none'
   const [selection, setSelection] = useState<PanoramaxSelection | null>(null)
   const [markerPos, setMarkerPos] = useState<{ lng: number, lat: number } | null>(null)
+  const [layout, setLayout] = useState<PanoramaxLayout>('viewer-main')
+  const hasSelection = selection !== null
+  const mapContainer = map?.getMap().getContainer()
+  const viewerHost = mapContainer?.parentElement
+  const isMapMinimized = hasSelection && layout === 'viewer-main'
+
+  const toggleLayout = () => setLayout(layout => (layout === 'viewer-main' ? 'map-main' : 'viewer-main'))
+  const closeViewer = () => { setSelection(null); setMarkerPos(null) }
+
+  useEffect(() => {
+    if (!mapContainer || !isMapMinimized) return
+    mapContainer.classList.add('map-minimized')
+    return () => {
+      mapContainer.classList.remove('map-minimized')
+    }
+  }, [mapContainer, isMapMinimized])
+
+  useEffect(() => {
+    if (!selection) {
+      setLayout('viewer-main')
+    }
+  }, [selection])
 
   useEffect(() => {
     if (!isVisible) {
-      setSelection(null)
-      setMarkerPos(null)
+      closeViewer()
     }
   }, [isVisible])
 
@@ -100,18 +125,30 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
           />
         </Marker>
       )}
+
+      {isVisible && selection && layout === 'viewer-main' && mapContainer && createPortal(
+        <PanoramaxControls
+          mode={layout}
+          onToggleMode={toggleLayout}
+          onClose={closeViewer}
+        />,
+        mapContainer,
+      )}
  
-      {isVisible && selection && (
+      {isVisible && selection && viewerHost && createPortal(
         <PanoramaxViewer
           selection={selection}
-          onClose={() => { setSelection(null); setMarkerPos(null) }}
+          mode={layout}
+          onToggleMode={toggleLayout}
+          onClose={closeViewer}
           onPictureChange={pos => {
             setMarkerPos(pos)
             if (map?.getMap() && !map?.getMap().getBounds().contains([pos.lng, pos.lat])) {
               map?.getMap().easeTo({ center: [pos.lng, pos.lat] })
             }
           }}
-        />
+        />,
+        viewerHost,
       )}
     </>
   )
