@@ -26,7 +26,10 @@ import pageTitle from '@/utils/pageTitle'
 export const metadata = pageTitle('Accueil')
 
 export default async function Home() {
-  const stats = await getStats()
+  const stats = await getStats(AbortSignal.timeout(3000)).catch((error) => {
+    console.warn('Statistiques BAN indisponibles pour l’accueil.', error)
+    return null
+  })
   // BlogGrid Disable during maintenance // Todo : A remplacer par une variable d'env `NEXT_PUBLIC_BLOG_MAINTENANCE_MODE`
   const highlightedDatas = env('NEXT_PUBLIC_BLOG_MAINTENANCE_MODE') !== 'true' ? await getPosts({ limit: 3 }) : {}
   const highlightedPosts = highlightedDatas?.posts || []
