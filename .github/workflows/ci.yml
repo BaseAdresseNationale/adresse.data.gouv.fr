@@ -79,6 +79,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
+      - name: Run regression tests
+        run: node --test 'src/**/*.test.mjs'
       - name: Lint the codebase
         run: npm run lint
       - name: Check TypeScript types
