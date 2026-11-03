@@ -13,7 +13,7 @@ const STATUS_COLORS_MAP: Record<string, string> = {
   gris: DSFR_HEX.text.default.grey.default,
 }
 
-const SUIVI_BAN_API = process.env.NEXT_PUBLIC_SUIVI_BAN_API_URL || 'https://suivi-ban.mut-dev.ign.fr/api'
+const SUIVI_BAN_API = process.env.NEXT_PUBLIC_SUIVI_BAN_API_URL
 
 export function SuiviBanMapLayers({ suivi }: { suivi: SuiviBanContext }) {
   const {
