@@ -6,6 +6,7 @@ const DOC_ID = env('NEXT_PUBLIC_GRIST_DOC_ID') || ''
 const DOC_BANDEAU_ID= env('NEXT_PUBLIC_GRIST_DOC_BANDEAU_ID') || ''
 const WANTED_TABLE_ID = env('NEXT_PUBLIC_GRIST_TABLE_ID') || ''
 const API_TOKEN = env('GRIST_API_TOKEN') || ''
+const GRIST_TIMEOUT_MS = 3000
 
 interface GristRecord {
   id: number
@@ -53,7 +54,7 @@ async function fetchTableJson(
   withPublicationFilter = true,
 ): Promise<{ records: GristRecord[] }> {
   if (!BASE_URL || !docId) {
-    console.error('BASE_URL ou docId manquant — variables env non résolues à ce stade')
+    console.warn(`Grist non configuré pour la table ${table} : URL ou identifiant de document manquant.`)
     return { records: [] }
   }
   const params = new URLSearchParams()
@@ -62,44 +63,64 @@ async function fetchTableJson(
     params.set('filter', JSON.stringify(filterDict))
   }
 
-  const response = await fetch(`${BASE_URL}/docs/${docId}/tables/${table}/records?${params}`, {
-    headers: {
-      Authorization: `Bearer ${API_TOKEN}`,
-    },
-    next: {
-      revalidate: 120, // 2 minutes
-      tags: ['grist'],
-    },
-  })
-  if (!response.ok) {
-    const details = await response.text()
-    console.error(new Error(`Erreur HTTP ${response.status} lors de la récupération des données Grist: ${details}`))
+  try {
+    const response = await fetch(`${BASE_URL}/docs/${docId}/tables/${table}/records?${params}`, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+      signal: AbortSignal.timeout(GRIST_TIMEOUT_MS),
+      next: {
+        revalidate: 120, // 2 minutes
+        tags: ['grist'],
+      },
+    })
+    if (!response.ok) {
+      const details = await response.text()
+      console.error(new Error(`Erreur HTTP ${response.status} lors de la récupération des données Grist: ${details}`))
+      return { records: [] }
+    }
+    return await response.json()
+  }
+  catch (error) {
+    console.error(`Impossible de récupérer la table Grist ${table}`, error)
     return { records: [] }
   }
-  return response.json()
 }
 
 export async function fetchTagColumn(): Promise<string[]> {
-  const response = await fetch(`${BASE_URL}/docs/${DOC_BANDEAU_ID}/tables/News/columns`, {
-    headers: {
-      Authorization: `Bearer ${API_TOKEN}`,
-    },
-  })
-
-  if (!response.ok) {
-    console.error(new Error(`Erreur HTTP (${response.status}) lors de la récupération des colonnes de Grist`))
+  if (!BASE_URL || !DOC_BANDEAU_ID) {
+    console.warn('Tags Grist non configurés : NEXT_PUBLIC_GRIST_API_URL ou NEXT_PUBLIC_GRIST_DOC_BANDEAU_ID manquant.')
     return []
   }
 
-  const { columns } = await response.json()
-  const tagColumn = columns.find((column: any) => column.id === 'tags_application')
+  try {
+    const response = await fetch(`${BASE_URL}/docs/${DOC_BANDEAU_ID}/tables/News/columns`, {
+      headers: {
+        Authorization: `Bearer ${API_TOKEN}`,
+      },
+      signal: AbortSignal.timeout(GRIST_TIMEOUT_MS),
+    })
 
-  if (!tagColumn?.fields?.widgetOptions) {
+    if (!response.ok) {
+      void response.body?.cancel().catch(() => {})
+      console.error(new Error(`Erreur HTTP (${response.status}) lors de la récupération des colonnes de Grist`))
+      return []
+    }
+
+    const { columns } = await response.json()
+    const tagColumn = columns.find((column: any) => column.id === 'tags_application')
+
+    if (!tagColumn?.fields?.widgetOptions) {
+      return []
+    }
+
+    const widgetOptions = JSON.parse(tagColumn.fields.widgetOptions)
+    return widgetOptions.choices ?? []
+  }
+  catch (error) {
+    console.error('Impossible de récupérer les tags Grist', error)
     return []
   }
-
-  const widgetOptions = JSON.parse(tagColumn.fields.widgetOptions)
-  return widgetOptions.choices ?? []
 }
 
 

@@ -70,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [24.14.0]
+        node-version: [24.22.1]
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -79,7 +79,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm ci
+      - name: Run regression tests
+        run: node --test 'src/**/*.test.mjs'
       - name: Lint the codebase
         run: npm run lint
+      - name: Check TypeScript types
+        run: npm run type-check
       - name: Build
         run: npm run build
