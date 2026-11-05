@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useDeferredValue, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useDeferredValue, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'
@@ -76,7 +76,9 @@ export function CertificatePdfPreviewButtonClean({
   const skipPrefetchDebounceRef = useRef(true)
   const lastSuccessKeyRef = useRef<string | null>(null)
   const previewKeyRef = useRef(previewKey)
-  previewKeyRef.current = previewKey
+  useLayoutEffect(() => {
+    previewKeyRef.current = previewKey
+  }, [previewKey])
   const panelRef = useRef<HTMLDivElement>(null)
   const titleId = useId()
 
