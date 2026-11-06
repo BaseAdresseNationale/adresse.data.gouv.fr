@@ -6,7 +6,7 @@ import {
   positionsCircleLayer,
 } from '../layers'
 
-import type { FillLayer } from 'react-map-gl/maplibre'
+import type { LayerProps } from 'react-map-gl/maplibre'
 
 import { positionsConfigs } from '../layers'
 import {
@@ -47,7 +47,7 @@ function LayerAddressPositions({ address }: { address: Address }) {
   const [zoom, setZoom] = useState(map?.getZoom() || 0)
   const dataPositionJson = useMemo(() => {
     return {
-      type: 'FeatureCollection',
+      type: 'FeatureCollection' as const,
       features: getPositionsFeatures(address),
     }
   }
@@ -87,8 +87,8 @@ function LayerAddressPositions({ address }: { address: Address }) {
         type="geojson"
         data={dataPositionJson}
       >
-        <Layer {...(positionsLabelLayer as unknown as FillLayer)} />
-        <Layer {...(positionsCircleLayer as unknown as FillLayer)} />
+        <Layer {...(positionsLabelLayer as unknown as LayerProps)} />
+        <Layer {...(positionsCircleLayer as unknown as LayerProps)} />
         {dataPositionJson.features.map((feature, index) => (
           <Marker
             key={index}

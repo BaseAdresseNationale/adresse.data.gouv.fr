@@ -3,7 +3,7 @@ import { Layer, Source } from 'react-map-gl/maplibre'
 
 import { cadastreLayers } from '../layers'
 
-import type { FillLayer } from 'react-map-gl/maplibre'
+import type { FillLayerSpecification } from 'react-map-gl/maplibre'
 import type { Address } from '../types.d'
 
 interface PropsLayerCadastre {
@@ -27,7 +27,7 @@ function LayerCadastre({ address, isVisible }: PropsLayerCadastre) {
       {cadastreLayers.map((cadastreLayerElt: any) => {
         if (cadastreLayerElt.id === 'parcelle-highlighted') {
           if (cadastreLayerElt.filter !== undefined) {
-            cadastreLayerElt.filter = cadastreFiltre as FillLayer['filter'] as string[]
+            cadastreLayerElt.filter = cadastreFiltre as FillLayerSpecification['filter'] as string[]
           }
         }
 
@@ -38,7 +38,7 @@ function LayerCadastre({ address, isVisible }: PropsLayerCadastre) {
             layout={{
               ...cadastreLayerElt.layout,
               visibility: isVisible ? 'visible' : 'none',
-            } as FillLayer['layout']}
+            } as FillLayerSpecification['layout']}
           />
         )
       }
