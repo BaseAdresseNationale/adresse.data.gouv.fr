@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copie les fichiers package pour installer les dépendances
 COPY package.json package-lock.json ./
+COPY .dsfr.yml ./
 
 # Installe les dépendances
 RUN npm install

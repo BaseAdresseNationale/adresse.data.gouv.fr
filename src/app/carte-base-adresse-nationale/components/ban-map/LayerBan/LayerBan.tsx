@@ -9,7 +9,7 @@ import {
   toponymeLayer,
 } from '../layers'
 
-import type { FillLayer } from 'react-map-gl/maplibre'
+import type { LayerProps } from 'react-map-gl/maplibre'
 import type { Address } from '../types.d'
 import { env } from 'next-runtime-env'
 
@@ -32,14 +32,14 @@ function LayerBan({ address }: { address: Address }) {
     >
 
       {/* Points Adresse */}
-      <Layer {...(adresseCircleLayer as FillLayer)} />
+      <Layer {...(adresseCircleLayer as LayerProps)} />
 
       {/* Label des adresses */}
       <Layer
         {...{
           ...adresseLabelLayer,
           filter: address?.type === 'numero' ? isNotAdresseFilter : true,
-        } as FillLayer}
+        } as LayerProps}
       />
 
       {/* Label de l'adresse en cours d'affichage */}
@@ -47,14 +47,14 @@ function LayerBan({ address }: { address: Address }) {
         {...{
           ...adresseCompletLabelLayer,
           filter: address?.type === 'numero' ? isAdresseFilter : false,
-        } as FillLayer}
+        } as LayerProps}
       />
 
       {/* Toponyme : */}
-      <Layer {...(voieLayer as unknown as FillLayer)} />
+      <Layer {...(voieLayer as unknown as LayerProps)} />
 
       {/* Toponyme sans adresse : */}
-      <Layer {...(toponymeLayer as unknown as FillLayer)} />
+      <Layer {...(toponymeLayer as unknown as LayerProps)} />
     </Source>
   )
 }
