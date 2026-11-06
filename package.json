@@ -7,9 +7,9 @@
     "npm": "11"
   },
   "scripts": {
-    "predev": "react-dsfr update-icons",
+    "predev": "react-dsfr update-icons && node copy-maplibre-worker.mjs",
     "dev": "next dev --turbopack",
-    "prebuild": "react-dsfr update-icons",
+    "prebuild": "react-dsfr update-icons && node copy-maplibre-worker.mjs",
     "build": "GIT_SHA=$(git rev-parse HEAD) next build --turbopack && node copy-assets.mjs",
     "analyze": "ANALYZE=true next build --turbopack",
     "start": "node .next/standalone/server.js",
@@ -29,7 +29,7 @@
     "@turf/bbox-polygon": "^7.4.0",
     "@turf/boolean-contains": "^7.4.0",
     "@types/remark-heading-id": "^1.0.0",
-    "altcha": "^3.5.0",
+    "altcha": "^2.3.0",
     "blob-to-buffer": "^1.2.9",
     "chardet": "^2.2.0",
     "chart.js": "^4.6.1",
@@ -84,6 +84,6 @@
     "eslint": "^10",
     "eslint-config-next": "16.4.5",
     "sass": "^1.108.0",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3"
   }
 }
