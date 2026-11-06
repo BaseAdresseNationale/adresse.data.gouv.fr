@@ -34,6 +34,5 @@ export default function ErrorLayout({ title, subTitle, imgSrc, imgAlt, children 
         </div>
       </ContentWrapper>
     </Section>
-
   )
 }
