@@ -6,6 +6,7 @@ import { env } from 'next-runtime-env'
 import { NextResponse } from 'next/server'
 import QRCode from 'qrcode'
 import ReactPDF from '@react-pdf/renderer'
+import type { ComponentProps } from 'react'
 import { codeCommuneRegex } from '@/utils/string'
 
 import {
@@ -19,6 +20,10 @@ import {
 
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const NEXT_PUBLIC_API_GEO_URL = env('NEXT_PUBLIC_API_GEO_URL')
+
+const createCertificatElement = (props: ComponentProps<typeof CertificatNumerotation>) => (
+  <CertificatNumerotation {...props} />
+)
 
 export async function POST(request: Request) {
   try {
@@ -117,18 +122,18 @@ export async function POST(request: Request) {
     const issuerDetails = normalizedIssuerDetailsForPdf({ certificateIssuerDetails })
 
     const pdfStream = await ReactPDF.renderToStream(
-      <CertificatNumerotation
-        data={mockData}
-        qrCodeDataURL={qrCodeDataURL}
-        mairie={mairieData}
-        logoUrl={logoUrl}
-        issuerCustomization={{
+      createCertificatElement({
+        data: mockData,
+        qrCodeDataURL,
+        mairie: mairieData,
+        logoUrl,
+        issuerCustomization: {
           showCommuneLogo: certificateShowLogo,
           issuerDetails,
           attestationText: sanitizeCertificateAttestationText(certificateAttestationText) || undefined,
           population,
-        }}
-      />,
+        },
+      }),
     )
 
     const chunks: Buffer[] = []
