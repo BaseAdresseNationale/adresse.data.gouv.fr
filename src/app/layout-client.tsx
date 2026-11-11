@@ -2,6 +2,7 @@
 
 import { useEffect, type ReactNode } from 'react'
 import Link from 'next/link'
+import { setWorkerUrl } from 'maplibre-gl'
 import { ToastContainer, Slide } from 'react-toastify'
 import { DsfrProviderBase as DsfrProvider } from '@codegouvfr/react-dsfr/next-app-router/DsfrProvider'
 import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router'
@@ -20,6 +21,8 @@ import { ImageLightboxProvider } from '@/components/ImageLightbox'
 import GlobalStyle from './global.styles'
 import { StyledLayout, PageWrapper } from './layout.styles'
 import { AlerteRecord } from '@/lib/api-grist'
+
+setWorkerUrl('/maplibre-gl-worker.mjs')
 
 interface LayoutClientProps {
   children: ReactNode
