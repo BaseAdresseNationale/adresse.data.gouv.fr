@@ -130,6 +130,15 @@ export default function OnlineTrainingPage({ tagToColor, upcomingEvents }: Onlin
           ))}
         </CardWrapper>
       </Section>
+      <Section title="Webinaires" id="webinaires-mes-adresses">
+        <CardWrapper isSmallCard>
+            <VideoMiniature
+              title="Webinaire Mes Adresses"
+              image="/img/formations-en-ligne/webinaire-mes-adresses.png"
+              link={{ href: 'https://tube.numerique.gouv.fr/w/refUqrog3rAn3PpbseBWNs', target: '_blank' }} 
+            />
+        </CardWrapper>
+      </Section>
       <Modal.Component title={`Formulaire d'inscription - ${eventRegister?.title} - le ${new Date(eventRegister?.date || '').toLocaleDateString('fr-FR')} de ${eventRegister?.startHour} à ${eventRegister?.endHour}`}>
         <ParticipantForm onClose={handleCloseModal} eventId={eventIdRegister} />
       </Modal.Component>
