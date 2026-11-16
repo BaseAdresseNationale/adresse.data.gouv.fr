@@ -4,12 +4,18 @@ import { useMap, Popup } from 'react-map-gl/maplibre'
 import LayerBan, { LayerAddressPositions } from './LayerBan'
 import LayerCadastre from './LayerCadastre'
 import LayerRnb from './LayerRnb'
-import Popups from './Popups'
+import Popups, { RnbPopup } from './Popups'
+import { RNB_FILL_LAYER_ID } from './layers'
 
 import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
 import type { Address, PopupInfo } from './types'
 import { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
+
+interface RnbPopupInfo {
+  rnbId: string
+  lngLat: { lng: number, lat: number }
+}
 
 interface BanMapProps {
   address: Address
@@ -33,11 +39,13 @@ interface HighLightAdressesByProperties {
 }
 
 const SOURCES = ['adresses', 'toponymes']
+const ITEM_LAYERS = ['adresse', 'adresse-label', 'voie', 'toponyme']
 
 function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
   const map = useMap()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
+  const [rnbPopup, setRnbPopup] = useState<RnbPopupInfo | null>(null)
 
   useEffect(() => {
     const currentMap = map.current
@@ -103,14 +111,16 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
       }
     }
 
-    const onLeave = () => {
+    const onLeave = (evt: MapMouseEvent) => {
       if (currentMap) {
         if (hoveredFeature.current) {
           highLightAdressesByProperties(false, hoveredFeature.current)
         }
 
         setInfoPopup(null)
-        currentMap.getCanvas().style.cursor = 'grab'
+        const isOverRnb = currentMap.getLayer(RNB_FILL_LAYER_ID)
+          && currentMap.queryRenderedFeatures(evt.point, { layers: [RNB_FILL_LAYER_ID] }).length > 0
+        currentMap.getCanvas().style.cursor = isOverRnb ? 'pointer' : 'grab'
         hoveredFeature.current = null
       }
     }
@@ -154,11 +164,71 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
     }
   }, [map, banItemSelected, onSelect, hightLightAdressesByItem])
 
+  useEffect(() => {
+    const currentMap = map.current
+    if (!currentMap) return
+
+    const onMapClick = (evt: MapMouseEvent) => {
+      if ((evt.originalEvent?.target as HTMLElement | null)?.closest('.maplibregl-marker')) return
+
+      const layers = [RNB_FILL_LAYER_ID, ...ITEM_LAYERS]
+        .filter(id => currentMap.getLayer(id))
+      const [topFeature] = currentMap.queryRenderedFeatures(evt.point, { layers })
+
+      if (topFeature?.layer.id === RNB_FILL_LAYER_ID && topFeature.properties?.rnb_id) {
+        setRnbPopup({ rnbId: String(topFeature.properties.rnb_id), lngLat: evt.lngLat })
+      }
+      else {
+        setRnbPopup(null)
+      }
+    }
+
+    const onRnbEnter = () => {
+      currentMap.getCanvas().style.cursor = 'pointer'
+    }
+
+    const onRnbLeave = (evt: MapMouseEvent) => {
+      const layers = ITEM_LAYERS.filter(id => currentMap.getLayer(id))
+      const isOverItem = layers.length > 0
+        && currentMap.queryRenderedFeatures(evt.point, { layers }).length > 0
+      currentMap.getCanvas().style.cursor = isOverItem ? 'pointer' : 'grab'
+    }
+
+    const onZoomEnd = () => {
+      if (currentMap.getZoom() < 16) {
+        setRnbPopup(null)
+      }
+    }
+
+    currentMap.on('click', onMapClick)
+    currentMap.on('zoomend', onZoomEnd)
+    currentMap.on('mouseenter', RNB_FILL_LAYER_ID, onRnbEnter)
+    currentMap.on('mouseleave', RNB_FILL_LAYER_ID, onRnbLeave)
+
+    return () => {
+      currentMap.off('click', onMapClick)
+      currentMap.off('zoomend', onZoomEnd)
+      currentMap.off('mouseenter', RNB_FILL_LAYER_ID, onRnbEnter)
+      currentMap.off('mouseleave', RNB_FILL_LAYER_ID, onRnbLeave)
+    }
+  }, [map])
+
+  useEffect(() => {
+    if (!isRnbLayerShown) {
+      setRnbPopup(null)
+    }
+  }, [isRnbLayerShown])
+
   return (
     <>
       { infoPopup?.features && (
         <Popup closeOnClick={false} closeButton={false} latitude={infoPopup.lngLat.lat} longitude={infoPopup.lngLat.lng}>
           <Popups features={infoPopup?.features as unknown as PopupFeature[] || []} />
+        </Popup>
+      )}
+      { rnbPopup && (
+        <Popup className="rnb-popup" closeButton closeOnClick={false} onClose={() => setRnbPopup(null)} latitude={rnbPopup.lngLat.lat} longitude={rnbPopup.lngLat.lng}>
+          <RnbPopup rnbId={rnbPopup.rnbId} />
         </Popup>
       )}
       <LayerRnb isVisible={isRnbLayerShown} />
