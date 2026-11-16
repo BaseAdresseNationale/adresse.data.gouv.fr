@@ -3,6 +3,7 @@ import { useMap, Popup } from 'react-map-gl/maplibre'
 
 import LayerBan, { LayerAddressPositions } from './LayerBan'
 import LayerCadastre from './LayerCadastre'
+import LayerRnb from './LayerRnb'
 import Popups from './Popups'
 
 import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
@@ -14,6 +15,7 @@ interface BanMapProps {
   address: Address
   onSelect: (properties: any) => void
   isCadastreLayersShown?: boolean
+  isRnbLayerShown?: boolean
   hightLightAdressesByItem: (
     banItem: TypeMicroToponymExtended,
     isSelected: boolean
@@ -32,7 +34,7 @@ interface HighLightAdressesByProperties {
 
 const SOURCES = ['adresses', 'toponymes']
 
-function BanMap({ address, onSelect, isCadastreLayersShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
+function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
   const map = useMap()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
@@ -159,6 +161,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown, hightLightAdressesBy
           <Popups features={infoPopup?.features as unknown as PopupFeature[] || []} />
         </Popup>
       )}
+      <LayerRnb isVisible={isRnbLayerShown} />
       <LayerBan address={address} />
       <LayerAddressPositions address={address} />
       <LayerCadastre address={address} isVisible={isCadastreLayersShown} />

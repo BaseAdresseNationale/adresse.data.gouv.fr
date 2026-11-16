@@ -495,3 +495,34 @@ export const positionsLabelLayer = {
     ],
   },
 }
+
+export const RNB_FILL_LAYER_ID = 'rnb-batiments-fill'
+
+export const rnbLayers = [{
+  'id': RNB_FILL_LAYER_ID,
+  'type': 'fill',
+  'source': 'rnb',
+  'source-layer': 'default',
+  'minzoom': 16,
+  'paint': {
+    'fill-color': '#1452e3',
+    'fill-opacity': 0.08,
+  },
+  'layout': {
+    visibility: 'none',
+  },
+},
+{
+  'id': 'rnb-batiments-line',
+  'type': 'line',
+  'source': 'rnb',
+  'source-layer': 'default',
+  'minzoom': 16,
+  'paint': {
+    'line-color': '#1452e3',
+    'line-width': 2.1,
+  },
+  'layout': {
+    visibility: 'none',
+  },
+}]
