@@ -40,6 +40,7 @@ interface HighLightAdressesByProperties {
 
 const SOURCES = ['adresses', 'toponymes']
 const ITEM_LAYERS = ['adresse', 'adresse-label', 'voie', 'toponyme']
+const PRIORITY_LAYERS = [...ITEM_LAYERS, 'adresse-complet-label', 'positions', 'positions-label']
 
 function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
@@ -171,7 +172,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
     const onMapClick = (evt: MapMouseEvent) => {
       if ((evt.originalEvent?.target as HTMLElement | null)?.closest('.maplibregl-marker')) return
 
-      const layers = [RNB_FILL_LAYER_ID, ...ITEM_LAYERS]
+      const layers = [RNB_FILL_LAYER_ID, ...PRIORITY_LAYERS]
         .filter(id => currentMap.getLayer(id))
       const [topFeature] = currentMap.queryRenderedFeatures(evt.point, { layers })
 
