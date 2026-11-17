@@ -1,12 +1,14 @@
 import { defineConfig, devices } from '@playwright/test'
 
-// Port dédié, pour ne pas réutiliser par erreur un `npm run dev` lancé sur une autre branche.
+// Port dédié : on ne réutilise pas par erreur un `npm run dev` lancé depuis un autre checkout (autre branche).
+// Next interdit deux `next dev` dans un même dossier : si un `npm run dev` tourne déjà ici,
+// l'arrêter, ou le réutiliser avec `E2E_PORT=3000 npm run test:e2e`.
 const PORT = Number(process.env.E2E_PORT) || 3100
 const baseURL = `http://localhost:${PORT}`
 
 export default defineConfig({
   testDir: './e2e',
-  timeout: 60_000,
+  timeout: 120_000,
   expect: { timeout: 15_000 },
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),

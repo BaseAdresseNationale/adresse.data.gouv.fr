@@ -72,6 +72,17 @@ npm run lint
 npm run type-check
 ```
 
+### Lancer les tests de bout en bout (e2e)
+
+Les tests e2e utilisent [Playwright](https://playwright.dev/) et interrogent les vraies API (géocodeur et BAN). Ils lisent la configuration du fichier `.env` (voir `.env.default`).
+
+```bash
+npx playwright install chromium
+npm run test:e2e
+```
+
+Playwright démarre son propre serveur de développement sur le port 3100. Next n'autorise qu'un seul `npm run dev` par dossier : si le vôtre tourne déjà, arrêtez-le ou réutilisez-le avec `E2E_PORT=3000 npm run test:e2e`.
+
 ## Licence
 
 [![Logo "Licence Ouverte / Open Licence"](https://www.etalab.gouv.fr/wp-content/uploads/2011/10/licence-ouverte-open-licence.gif)](https://www.etalab.gouv.fr/licence-ouverte-open-licence/)

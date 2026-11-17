@@ -11,7 +11,9 @@ test('rechercher une adresse depuis l’accueil ouvre sa fiche sur la carte', as
   const resultat = page.getByRole('option', { name: /20 Avenue de Ségur/ }).first()
   await resultat.click()
 
-  await expect(page).toHaveURL(/\/carte-base-adresse-nationale\?id=75107_\w+_00020$/)
+  // En dev, la page carte est compilée au premier accès : la navigation peut prendre une vingtaine de secondes.
+  // La carte ajoute ensuite sa position dans le hash de l'URL (#lat_lng_zoom).
+  await expect(page).toHaveURL(/\/carte-base-adresse-nationale\?id=75107_\w+_00020(#|$)/, { timeout: 60_000 })
   await expect(page.getByText('Avenue de Ségur,')).toBeVisible()
   await expect(page.getByText(/Commune de/)).toBeVisible()
 })
