@@ -44,6 +44,7 @@ docker-compose-prod.yml
 
 public/dsfr
 public/maplibre-gl-worker.mjs
+public/maplibre-gl-worker.mjs.map
 /data/*
 public/communes-index.json
 public/data/communes-index.json

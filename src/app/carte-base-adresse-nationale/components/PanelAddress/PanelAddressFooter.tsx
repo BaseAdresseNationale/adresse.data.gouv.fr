@@ -15,13 +15,13 @@ import { AsideFooterWrapper } from './PanelAddressFooter.styles'
 
 import type { MapItem } from '../ban-map/BanMap.context'
 import type { TypeAddressExtended } from '../../types/LegacyBan.types'
-import ActionSignalementAddress from './ActionComponents/ActionSignalementAddress'
+// import ActionSignalementAddress from './ActionComponents/ActionSignalementAddress'
 
 interface AsideFooterAddressProps {
   banItem: TypeAddressExtended
   withCertificate: boolean
   children?: React.ReactNode
-  onClickAction?: () => void
+  onClickAction?: (actionName?: string) => void
 }
 
 function AsideFooterAddress({ banItem: address, withCertificate, children, onClickAction }: AsideFooterAddressProps) {
@@ -36,11 +36,17 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
     withBanId: address.withBanId,
   }), [address])
 
-  const handleClick = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClickCenterAddr = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault()
     focusOnMap()
-    if (onClickAction) onClickAction()
+    if (onClickAction) onClickAction('panel-address--action--center-address')
   }, [focusOnMap, onClickAction])
+
+  const handleClickAddressReport = useCallback((evt: React.MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault()
+    console.log('Proposer une modification de cette adresse >>>', address)
+    if (onClickAction) onClickAction('panel-address--action--address-report')
+  }, [address, onClickAction])
 
   const codeCommune = address.commune?.code
   useEffect(() => {
@@ -59,7 +65,7 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
         <ActionList>
           <Button
             iconId="ri-focus-3-line"
-            onClick={handleClick}
+            onClick={handleClickCenterAddr}
             priority="tertiary no outline"
           >
             Centrer la carte sur l’adresse
@@ -68,9 +74,17 @@ function AsideFooterAddress({ banItem: address, withCertificate, children, onCli
         </ActionList>
 
         <ActionList>
-          <ActionSignalementAddress
+          {/* <ActionSignalementAddress
             address={address}
-          />
+            mairiePageURL={mairiePageURL}
+          /> */}
+          <Button
+            iconId="ri-file-edit-line"
+            onClick={handleClickAddressReport}
+            priority="tertiary no outline"
+          >
+            Proposer une modification de cette adresse
+          </Button>
         </ActionList>
 
         <ActionList className="certificate">
