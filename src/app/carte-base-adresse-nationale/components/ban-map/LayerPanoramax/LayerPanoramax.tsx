@@ -1,4 +1,5 @@
-import { Source, Layer, Marker, useMap, MapMouseEvent } from 'react-map-gl/maplibre'
+import { Source, Layer, Marker, Popup, useMap, MapMouseEvent } from 'react-map-gl/maplibre'
+import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { Address } from '../types'
 import { env } from 'next-runtime-env'
 import PanoramaxViewer, { PanoramaxSelection } from './PanoramaxViewer'
@@ -14,6 +15,7 @@ interface LayerPanoramaxProps {
 type PanoramaxLayout = 'viewer-main' | 'map-main'
 
 const tilesEnv = env('NEXT_PUBLIC_PANORAMAX_TILES')
+const endpoint = env('NEXT_PUBLIC_PANORAMAX_ENDPOINT')
 
 if (!tilesEnv) {
   throw new Error('NEXT_PUBLIC_PANORAMAX_TILES is not defined in the environment variables')
@@ -31,6 +33,7 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
   const mapContainer = map?.getMap().getContainer()
   const viewerHost = mapContainer?.parentElement
   const isMapMinimized = hasSelection && layout === 'viewer-main'
+  const [hovered, setHovered] = useState<{ id: string, lng: number, lat: number } | null>(null)
 
   const toggleLayout = () => setLayout(layout => (layout === 'viewer-main' ? 'map-main' : 'viewer-main'))
   const closeViewer = () => { setSelection(null); setMarkerPos(null) }
@@ -68,19 +71,38 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
       setSelection({ pictureId: String(id), sequenceId })
       setMarkerPos({ lng: element.lngLat.lng, lat: element.lngLat.lat })
     }
-    const onEnter = () => { map.getCanvas().style.cursor = 'pointer' }
-    const onLeave = () => { map.getCanvas().style.cursor = 'grab' }
+    const onMove = (e: MapLayerMouseEvent) => {
+      const feature = e.features?.[0]
+      const id = feature?.properties?.id
+      if (!feature || !id || feature.geometry.type !== 'Point') return
+
+      map.getCanvas().style.cursor = 'pointer'
+      const [lng, lat] = feature.geometry.coordinates
+      setHovered(prev => (prev?.id === String(id) ? prev : { id: String(id), lng, lat }))
+    }
+    const onLeave = () => {
+      map.getCanvas().style.cursor = 'grab'
+      setHovered(null)
+    }
 
     map.on('click', 'panoramax-pictures', onClick)
-    map.on('mouseenter', 'panoramax-pictures', onEnter)
+    map.on('mouseenter', 'panoramax-pictures', onMove)
     map.on('mouseleave', 'panoramax-pictures', onLeave)
 
     return () => {
       map.off('click', 'panoramax-pictures', onClick)
-      map.off('mouseenter', 'panoramax-pictures', onEnter)
+      map.off('mouseenter', 'panoramax-pictures', onMove)
       map.off('mouseleave', 'panoramax-pictures', onLeave)
     }
   }, [map, isVisible])
+
+  useEffect(() => {
+    if (!isVisible) {
+      setSelection(null)
+      setMarkerPos(null)
+      setHovered(null)
+    }
+  }, [isVisible])
 
   return (
     <>
@@ -109,6 +131,20 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
             'circle-stroke-width': 1,
           }}
         />
+        <Layer
+          id="panoramax-pictures-hover"
+          type="circle"
+          source-layer="pictures"
+          minzoom={15}
+          filter={['==', ['get', 'id'], hovered?.id ?? '']}
+          layout={{ visibility }}
+          paint={{
+            'circle-color': '#0063CB',
+            'circle-radius': ['interpolate', ['linear'], ['zoom'], 15, 5, 19, 10],
+            'circle-stroke-color': '#fff',
+            'circle-stroke-width': 2,
+          }}
+        />
       </Source>
 
       {isVisible && markerPos && (
@@ -124,6 +160,27 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
             }}
           />
         </Marker>
+      )}
+
+      {isVisible && hovered && (
+        <Popup
+          longitude={hovered.lng}
+          latitude={hovered.lat}
+          anchor="bottom"
+          offset={12}
+          closeButton={false}
+          closeOnClick={false}
+          maxWidth="240px"
+          style={{ pointerEvents: 'none' }}
+        >
+          <img
+            key={hovered.id}
+            src={`${endpoint}/pictures/${hovered.id}/thumb.jpg`}
+            alt="Aperçu de la photo Panoramax"
+            style={{ display: 'block', width: '100%', borderRadius: 4 }}
+            onError={e => { e.currentTarget.style.display = 'none' }}
+          />
+        </Popup>
       )}
 
       {isVisible && selection && layout === 'viewer-main' && mapContainer && createPortal(
