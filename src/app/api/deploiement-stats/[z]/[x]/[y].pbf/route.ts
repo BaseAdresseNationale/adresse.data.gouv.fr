@@ -2,13 +2,14 @@ import { computeStats, fetchStatsData } from '@/lib/deploiement-stats'
 import { getCachedData } from '@/utils/cache'
 import { NextRequest, NextResponse } from 'next/server'
 import geojsonVt from 'geojson-vt'
+import type { GeoJSON } from 'geojson'
 import vtpbf from 'vt-pbf'
 
 const computeTiles = async () => {
   const statsData = await getCachedData('stats-data', fetchStatsData)
   const featureCollection = await computeStats(statsData, [])
 
-  return geojsonVt(featureCollection as geojsonVt.Data, { indexMaxZoom: 9 })
+  return new geojsonVt(featureCollection as GeoJSON, { indexMaxZoom: 9 })
 }
 
 export async function GET(

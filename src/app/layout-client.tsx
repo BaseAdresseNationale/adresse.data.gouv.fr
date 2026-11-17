@@ -2,6 +2,7 @@
 
 import { useEffect, type ReactNode } from 'react'
 import Link from 'next/link'
+import { setWorkerUrl } from 'maplibre-gl'
 import { ToastContainer, Slide } from 'react-toastify'
 import { DsfrProviderBase as DsfrProvider } from '@codegouvfr/react-dsfr/next-app-router/DsfrProvider'
 import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router'
@@ -16,9 +17,12 @@ import { BALWidgetProvider } from '@/contexts/BALWidget.context'
 import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
 import theme from '@/theme'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
+import { ImageLightboxProvider } from '@/components/ImageLightbox'
 import GlobalStyle from './global.styles'
 import { StyledLayout, PageWrapper } from './layout.styles'
 import { AlerteRecord } from '@/lib/api-grist'
+
+setWorkerUrl('/maplibre-gl-worker.mjs')
 
 interface LayoutClientProps {
   children: ReactNode
@@ -67,25 +71,27 @@ export default function LayoutClient({ children, lang, alertes }: LayoutClientPr
         <LayoutProvider>
           <ThemeProvider theme={theme}>
             <BALWidgetProvider>
-              <GlobalStyle />
-              <StyledLayout>
-                <Header notices={dataNotices} />
-                <PageWrapper>{children}</PageWrapper>
-                <Footer />
-                <ToastContainer
-                  position="bottom-right"
-                  autoClose={5000}
-                  hideProgressBar
-                  newestOnTop={false}
-                  closeOnClick={false}
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="dark"
-                  transition={Slide}
-                />
-              </StyledLayout>
+              <ImageLightboxProvider>
+                <GlobalStyle />
+                <StyledLayout>
+                  <Header notices={dataNotices} />
+                  <PageWrapper>{children}</PageWrapper>
+                  <Footer />
+                  <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition={Slide}
+                  />
+                </StyledLayout>
+              </ImageLightboxProvider>
             </BALWidgetProvider>
           </ThemeProvider>
         </LayoutProvider>

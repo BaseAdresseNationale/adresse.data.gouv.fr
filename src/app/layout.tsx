@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html data-scroll-behavior="smooth" {...getHtmlAttributes({ lang })}>
       <head>
-        <PublicEnvScript />
+        <PublicEnvScript disableNextScript />
         <DsfrHead
           Link={Link}
           preloadFonts={[

@@ -15,31 +15,13 @@ import TabDeploiementBAL from "./TabDeploiementBAL";
 import { StyledDeploiementBALDashboard } from "./DeploiementBALDashboard.styles";
 import { Tabs } from "@codegouvfr/react-dsfr/Tabs";
 import DeploiementMap, { getStyle } from "./DeploiementMap";
-import {
-  ReadonlyURLSearchParams,
-  usePathname,
-  useRouter,
-  useSearchParams,
-} from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { mapToSearchResult } from "@/lib/deploiement-search";
 import { FullScreenControl } from "../Map/FullScreenControl";
 import { getSuiviBanTilesTemplateUrl } from "@/lib/suivi-ban-api";
 import { useSuiviBan } from "./useSuiviBan";
 import { SuiviBanMapLayers } from "./SuiviBanMapLayers";
 import { SuiviBanOverlay } from "./SuiviBanOverlay";
-
-const getInitalTab = (
-  searchParams: ReadonlyURLSearchParams | null,
-): "source-bal" | "suivi-ban" | null => {
-  const tabId =
-    Array.from(searchParams?.entries() || []).find(
-      ([searchParam]) => searchParam === "tab",
-    )?.[1] || null;
-  if (tabId && ["source-bal", "suivi-ban"].includes(tabId)) {
-    return tabId as "source-bal" | "suivi-ban";
-  }
-  return null;
-};
 
 interface DeploiementBALMapProps {
   initialStats: BANStats;
@@ -66,7 +48,7 @@ export default function DeploiementBALMap({
     geometry,
   } = useStatsDeploiement({ initialStats, initialFilter });
   const [selectedTab, setSelectedTab] = useState<"source-bal" | "suivi-ban">(
-    getInitalTab(searchParams) || "source-bal",
+    "source-bal",
   );
   const [origin, setOrigin] = useState("");
 
@@ -200,7 +182,6 @@ export default function DeploiementBALMap({
             selectedTabId={selectedTab}
             tabs={[
               { tabId: "source-bal", label: "Déploiement BAL" },
-              { tabId: "suivi-ban", label: "Déploiement id BAN" },
             ]}
             onTabChange={handleTabChange}
           >

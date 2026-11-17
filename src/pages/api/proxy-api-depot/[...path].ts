@@ -25,7 +25,7 @@ const proxy = createProxyMiddleware<NextApiRequest, NextApiResponse>({
 })
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  return proxy(req, res, (err: Error) => {
+  return proxy(req, res, (err?: unknown) => {
     if (err) {
       console.log(err)
     }

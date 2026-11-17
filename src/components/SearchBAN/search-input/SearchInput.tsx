@@ -40,10 +40,6 @@ interface TypeItem {
   properties: { name: string }
 }
 
-interface TypeActionAndChanges extends UseComboboxStateChangeOptions<TypeItem> {
-  props: { items: TypeItem[] }
-}
-
 export default function SearchInput({
   children,
   placeholder,
@@ -75,7 +71,7 @@ export default function SearchInput({
           }
         case useCombobox.stateChangeTypes.ItemClick:
         case useCombobox.stateChangeTypes.InputKeyDownEnter:
-          const selectedValue = changes.selectedItem || (actionAndChanges as TypeActionAndChanges)?.props?.items?.[0]
+          const selectedValue = changes.selectedItem || actionAndChanges.props.items[0]
           return {
             ...changes,
             ...(selectedValue

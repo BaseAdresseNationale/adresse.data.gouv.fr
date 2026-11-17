@@ -43,6 +43,7 @@ docker-compose-prod.yml
 /.storybook/static/dsfr/
 
 public/dsfr
+public/maplibre-gl-worker.mjs
 /data/*
 public/communes-index.json
 public/data/communes-index.json

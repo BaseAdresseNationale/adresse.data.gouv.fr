@@ -1,8 +1,9 @@
-FROM node:24.14.0-alpine
+FROM node:26.13.1-alpine3.24
 
 WORKDIR /app
 
 COPY package*.json ./
+COPY .dsfr.yml ./
 
 RUN npm install
 

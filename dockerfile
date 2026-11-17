@@ -1,11 +1,12 @@
 # Étape 1 : Construction de l'image avec les variables d'environnement injectées
-FROM node:24.14.0-alpine AS builder
+FROM node:26.13.1-alpine3.24 AS builder
 
 # Définit le répertoire de travail
 WORKDIR /app
 
 # Copie les fichiers package pour installer les dépendances
 COPY package.json package-lock.json ./
+COPY .dsfr.yml ./
 
 # Installe les dépendances
 RUN npm install
@@ -69,7 +70,7 @@ RUN npm i sharp
 RUN npm run build
 
 # Étape 2 : Image de production
-FROM node:24.14.0-alpine
+FROM node:26.13.1-alpine3.24
 
 # Définit le répertoire de travail
 WORKDIR /app
