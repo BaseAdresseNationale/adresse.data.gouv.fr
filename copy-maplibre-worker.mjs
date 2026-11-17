@@ -4,3 +4,8 @@ await copyFile(
   'node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs',
   'public/maplibre-gl-worker.mjs',
 )
+
+await copyFile(
+  'node_modules/maplibre-gl/dist/maplibre-gl-worker.mjs.map',
+  'public/maplibre-gl-worker.mjs.map',
+)
