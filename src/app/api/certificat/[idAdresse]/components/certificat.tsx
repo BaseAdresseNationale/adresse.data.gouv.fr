@@ -8,7 +8,7 @@ import {
   View,
 } from '@react-pdf/renderer'
 import { stylesDSFR } from './certificat.stylesheet'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import {
   getDefaultAttestationTemplate,
   insertSoftBreaksForPdfWrapping,

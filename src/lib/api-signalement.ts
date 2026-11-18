@@ -1,6 +1,6 @@
 import { PaginatedSignalements, SignalementCommuneStatus, SignalementStatusEnum, SignalementTypeEnum } from '@/types/api-signalement.types'
 import { addSearchParams, customFetch } from './fetch'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const getSignalementApiBaseUrl = (): string | null => {
   return env('NEXT_PUBLIC_API_SIGNALEMENT') || null

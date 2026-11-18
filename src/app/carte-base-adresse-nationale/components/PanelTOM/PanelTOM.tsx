@@ -2,7 +2,7 @@ import territories from '@/data/territories.json'
 import TOMCard from './TOMCard'
 import { Grid, PanelContainer, PanelHeader, PanelContent } from './PanelTOM.styles'
 import { useRouter } from 'next/navigation'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { Territory } from '../ban-map/types'
 
 interface PanelTOMProps {

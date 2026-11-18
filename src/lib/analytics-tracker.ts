@@ -2,7 +2,7 @@
 // https://developer.matomo.org/api-reference/tracking-api
 
 import os from 'node:os'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 const MATOMO_URL = env('NEXT_PUBLIC_MATOMO_URL')

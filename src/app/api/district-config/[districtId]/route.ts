@@ -1,5 +1,5 @@
 import { toPublicDistrictConfig, type BANConfig } from '@/types/api-ban.types'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { NextRequest, NextResponse } from 'next/server'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')

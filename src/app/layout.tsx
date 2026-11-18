@@ -3,7 +3,7 @@ import { DsfrHeadBase as DsfrHead } from '@codegouvfr/react-dsfr/next-app-router
 import { createGetHtmlAttributes } from '@codegouvfr/react-dsfr/next-app-router/getHtmlAttributes'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import type { ReactNode } from 'react'
-import { PublicEnvScript } from 'next-runtime-env'
+import { PublicEnvScript } from '@/components/PublicEnvScript'
 import LayoutClient from './layout-client'
 import { fetchAndProcessAlertesGristData } from '@/lib/api-grist'
 
@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html data-scroll-behavior="smooth" {...getHtmlAttributes({ lang })}>
       <head>
-        <PublicEnvScript disableNextScript />
+        <PublicEnvScript />
         <DsfrHead
           Link={Link}
           preloadFonts={[

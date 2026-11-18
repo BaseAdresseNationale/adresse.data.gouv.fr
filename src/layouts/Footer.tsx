@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect, useMemo, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { Footer as FooterDSFR } from '@codegouvfr/react-dsfr/Footer'
 import { Follow, type FollowProps } from '@codegouvfr/react-dsfr/Follow'
 import { headerFooterDisplayItem } from '@codegouvfr/react-dsfr/Display'

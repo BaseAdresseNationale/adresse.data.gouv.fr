@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect, useCallback, use } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { sortBy, debounce, pick } from 'lodash'
 import { Download } from '@codegouvfr/react-dsfr/Download'
 import { Alert } from '@codegouvfr/react-dsfr/Alert'

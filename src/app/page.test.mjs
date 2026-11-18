@@ -24,12 +24,12 @@ function loadHome(fetch) {
   const fetchModule = load('../lib/fetch.ts', name => { throw new Error('Unexpected import: ' + name) })
   const api = load('../lib/api-ban.ts', name => {
     if (name === './fetch') return fetchModule
-    assert.equal(name, 'next-runtime-env')
+    assert.equal(name, '@/utils/env')
     return environment
   })
   const page = load('page.tsx', name => {
     if (name === 'react/jsx-runtime') return jsxRuntime
-    if (name === 'next-runtime-env') return environment
+    if (name === '@/utils/env') return environment
     if (name === '@/lib/api-ban') return api
     if (name === '@/lib/blog') return { getPosts: async () => ({ posts: [] }) }
     if (name === '@/utils/pageTitle') return title => ({ title })

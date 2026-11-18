@@ -1,6 +1,6 @@
 import { customFetch } from '@/lib/fetch'
 import { NextRequest, NextResponse } from 'next/server'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 export const dynamic = 'force-dynamic'
 

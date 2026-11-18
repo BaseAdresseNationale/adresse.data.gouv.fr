@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 export async function getOrganizationName(siret: string): Promise<string | null> {
   const apiKey = env('INSEE_API_KEY_INTEGRATION')

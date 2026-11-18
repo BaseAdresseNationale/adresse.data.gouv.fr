@@ -31,7 +31,7 @@ import { type ClientDepotRaw, type ChefDeFileDepotRaw } from '@/lib/depot-recap'
 import { getRevisions } from '@/lib/api-depot'
 import type { Revision } from '@/types/api-depot.types'
 import { getDataset } from '@/lib/api-data-gouv'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { CertificateStatsSummary } from './CertificateStatsSummary'
 
 const DEFAULT_CODE_LANGUAGE = 'fra'

@@ -1,5 +1,5 @@
 import { customFetch } from './fetch'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 if (!env('NEXT_PUBLIC_DATAGOUV_URL')) {
   throw new Error('NEXT_PUBLIC_DATAGOUV_URL is not defined')

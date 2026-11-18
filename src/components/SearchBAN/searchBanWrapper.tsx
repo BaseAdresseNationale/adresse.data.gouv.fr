@@ -2,7 +2,7 @@
 
 import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import SearchBAN from '@/components/SearchBAN'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')

@@ -1,5 +1,5 @@
 import dynamicImport from 'next/dynamic'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 import Link from 'next/link'
 

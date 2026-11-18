@@ -31,7 +31,7 @@ function loadGrist(fetch, overrides = {}) {
   runInNewContext(outputText, {
     exports,
     require(name) {
-      assert.equal(name, 'next-runtime-env')
+      assert.equal(name, '@/utils/env')
       return { env: key => ({ ...configuration, ...overrides })[key] }
     },
     fetch,

@@ -7,7 +7,7 @@ import { ToastContainer, Slide } from 'react-toastify'
 import { DsfrProviderBase as DsfrProvider } from '@codegouvfr/react-dsfr/next-app-router/DsfrProvider'
 import { StartDsfrOnHydration } from '@codegouvfr/react-dsfr/next-app-router'
 import { trackAppRouter as matomoInit } from '@socialgouv/matomo-next'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { ThemeProvider } from 'styled-components'
 
 import { LayoutProvider } from '@/layouts/MainLayout'

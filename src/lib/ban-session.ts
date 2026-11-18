@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')

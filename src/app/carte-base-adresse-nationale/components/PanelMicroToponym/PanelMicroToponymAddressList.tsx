@@ -17,7 +17,7 @@ import {
 
 import type { SortAddressesEntry } from '../../tools/sortAddresses'
 import type { TypeMicroToponymExtended, TypeAddress } from '../../types/LegacyBan.types'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 

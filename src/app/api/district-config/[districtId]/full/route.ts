@@ -4,7 +4,7 @@ import {
 } from '@/lib/district-ownership'
 import { type BANConfig } from '@/types/api-ban.types'
 import { cookies } from 'next/headers'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { NextRequest, NextResponse } from 'next/server'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')

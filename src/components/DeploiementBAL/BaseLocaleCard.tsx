@@ -4,7 +4,7 @@ import { getFullDate } from '@/utils/date'
 import styled from 'styled-components'
 import StatusBadge from './StatusBadge'
 import { BaseAdresseLocale } from '@/types/api-mes-adresses.types'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const StyledWrapper = styled.div`
 height: 100%;

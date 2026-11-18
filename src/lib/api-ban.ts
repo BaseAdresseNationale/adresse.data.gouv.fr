@@ -1,6 +1,6 @@
 import { BANAddress, BANCommune, BANConfig, BANStats, BANVoie } from '@/types/api-ban.types'
 import { customFetch } from './fetch'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const API_BAN_SEARCH_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
