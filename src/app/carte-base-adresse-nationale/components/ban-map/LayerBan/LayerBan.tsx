@@ -11,7 +11,7 @@ import {
 
 import type { LayerProps } from 'react-map-gl/maplibre'
 import type { Address } from '../types.d'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 

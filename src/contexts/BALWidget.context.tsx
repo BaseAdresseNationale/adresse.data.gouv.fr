@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useRef, useState, createContext } from 'react'
 import styled, { css } from 'styled-components'
 import { matomoTrackEvent } from '@/lib/matomo'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 export const StyledIFrame = styled.iframe<{ $isOpen: boolean, $isVisible: boolean }>`
   position: fixed;

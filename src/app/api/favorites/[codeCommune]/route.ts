@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { cookies } from 'next/headers'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')

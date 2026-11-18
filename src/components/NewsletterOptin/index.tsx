@@ -2,7 +2,7 @@
 
 import 'altcha'
 import { useCallback, useEffect, useState } from 'react'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const ALTCHA_API_KEY = env('NEXT_PUBLIC_ALTCHA_API_KEY')
 

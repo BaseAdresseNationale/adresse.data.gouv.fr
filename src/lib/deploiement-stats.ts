@@ -1,7 +1,7 @@
 import { customFetch } from './fetch'
 import { keyBy, groupBy } from 'lodash'
 import { getContourCommune } from '../utils/contours-communes'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 if (!env('NEXT_PUBLIC_API_BAN_URL')) {
   throw new Error('NEXT_PUBLIC_API_BAN_URL is not defined in the environment')

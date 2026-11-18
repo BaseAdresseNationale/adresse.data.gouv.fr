@@ -18,7 +18,7 @@ import {
   FormInformation,
   ButtonLink,
 } from './SectionSearchBAN.styles'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const URL_CARTOGRAPHY_BAN = env('NEXT_PUBLIC_URL_CARTOGRAPHY_BAN')
 

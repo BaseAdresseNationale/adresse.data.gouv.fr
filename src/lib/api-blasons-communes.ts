@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const BAL_BLASON_BUCKET_URL
   = `https://${env('NEXT_PUBLIC_BAL_BLASONS_BUCKET_S3') || 'base-adresse-locale-prod-blasons-communes.s3.fr-par.scw.cloud'}`

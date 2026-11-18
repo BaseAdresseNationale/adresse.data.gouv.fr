@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { CommunePrecedente } from '@/types/api-insee.types'
 
 if (!env('NEXT_PUBLIC_API_INSEE_URL')) {

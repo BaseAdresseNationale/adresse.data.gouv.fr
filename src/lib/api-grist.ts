@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { EventAddressRecord, EventRecord, EventTypeTagEnum, EventTypeTypeEnum } from '@/types/events.types'
 
 const BASE_URL = env('NEXT_PUBLIC_GRIST_API_URL') || ''

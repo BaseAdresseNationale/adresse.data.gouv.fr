@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { getProviderConfig, objToUrlParams } from '@/utils/oauth'
 import { cookies } from 'next/headers'
 import * as client from 'openid-client'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { SESSION_EXPIRED_REASON } from '@/utils/sessionExpired'
 
 export const dynamic = 'force-dynamic'
