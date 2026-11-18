@@ -41,6 +41,11 @@ export const MapWrapper = styled.div`
   &.loading {
     animation-play-state: running;
   }
+    
+  /* Panoramax : on masque le panneau d'adresse quand la carte est réduite */
+  .map-minimized .ban-aside {
+    display: none;
+  }
 `
 
 export const MapSearchResultsWrapper = styled.div`
@@ -56,3 +61,4 @@ export const MapSearchResultsWrapper = styled.div`
 
 export const MapSearchResultsHead = styled.div``
 export const MapSearchResultsBody = styled.div``
+

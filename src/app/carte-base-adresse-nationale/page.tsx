@@ -622,6 +622,7 @@ function CartoView() {
               || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
               || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
             }
+            className='ban-aside'
           >
             {mapSearchResults
               ? (
@@ -636,7 +637,6 @@ function CartoView() {
                 )
               : null}
           </Aside>
-
         </Map>
       </MapProvider>
     </MapWrapper>
