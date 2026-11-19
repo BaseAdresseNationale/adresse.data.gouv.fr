@@ -55,6 +55,14 @@ Apres avoir assemblé le code pour la production :
 npm run start
 ```
 
+Les variables d'environnement nécessaires à l'exécution doivent être fournies au
+serveur au démarrage. Le rendu dynamique utilise `connection()` avant les
+lectures effectuées pendant le rendu ; `env()` ne rend pas à lui seul une page
+dynamique et les lectures au niveau des modules ont lieu lors de leur chargement.
+Les variables `NEXT_PUBLIC_*` sont publiques et transmises au navigateur : elles
+ne doivent jamais contenir de secrets. La configuration Next.js peut également
+intégrer certaines valeurs publiques au moment du build.
+
 ### Contrôler la qualité et le formatage du code
 
 La qualité et le formatage du code sont contrôlés via [ESlint](https://eslint.org/)(pour la qualité) et [ESLint Stylistic](https://eslint.style/)(pour le formatage).
