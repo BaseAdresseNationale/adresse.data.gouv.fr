@@ -5,7 +5,7 @@ import LayerBan, { LayerAddressPositions } from './LayerBan'
 import LayerCadastre from './LayerCadastre'
 import LayerRnb from './LayerRnb'
 import Popups, { RnbPopup } from './Popups'
-import { RNB_FILL_LAYER_ID } from './layers'
+import { RNB_FILL_LAYER_ID, RNB_MINZOOM, RNB_SOURCE_ID, RNB_SOURCE_LAYER } from './layers'
 
 import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
@@ -184,11 +184,29 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
       }
     }
 
+    // Survol d'un bâtiment, comme sur la carte du RNB : état `hovered` du bâtiment sous le curseur
+    let hoveredRnbId: string | number | undefined
+    const setHoveredRnb = (rnbId?: string | number) => {
+      if (hoveredRnbId === rnbId) return
+      if (hoveredRnbId !== undefined && currentMap.getSource(RNB_SOURCE_ID)) {
+        currentMap.setFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER, id: hoveredRnbId }, { hovered: false })
+      }
+      hoveredRnbId = rnbId
+      if (rnbId !== undefined) {
+        currentMap.setFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER, id: rnbId }, { hovered: true })
+      }
+    }
+
     const onRnbEnter = () => {
       currentMap.getCanvas().style.cursor = 'pointer'
     }
 
+    const onRnbMove = (evt: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
+      setHoveredRnb(evt.features?.[0]?.id)
+    }
+
     const onRnbLeave = (evt: MapMouseEvent) => {
+      setHoveredRnb(undefined)
       const layers = ITEM_LAYERS.filter(id => currentMap.getLayer(id))
       const isOverItem = layers.length > 0
         && currentMap.queryRenderedFeatures(evt.point, { layers }).length > 0
@@ -196,7 +214,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
     }
 
     const onZoomEnd = () => {
-      if (currentMap.getZoom() < 16) {
+      if (currentMap.getZoom() < RNB_MINZOOM) {
         setRnbPopup(null)
       }
     }
@@ -204,15 +222,39 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
     currentMap.on('click', onMapClick)
     currentMap.on('zoomend', onZoomEnd)
     currentMap.on('mouseenter', RNB_FILL_LAYER_ID, onRnbEnter)
+    currentMap.on('mousemove', RNB_FILL_LAYER_ID, onRnbMove)
     currentMap.on('mouseleave', RNB_FILL_LAYER_ID, onRnbLeave)
 
     return () => {
       currentMap.off('click', onMapClick)
       currentMap.off('zoomend', onZoomEnd)
       currentMap.off('mouseenter', RNB_FILL_LAYER_ID, onRnbEnter)
+      currentMap.off('mousemove', RNB_FILL_LAYER_ID, onRnbMove)
       currentMap.off('mouseleave', RNB_FILL_LAYER_ID, onRnbLeave)
     }
   }, [map])
+
+  // Sélection, comme sur la carte du RNB : seul le bâtiment de la popup a l'état `highlighted`.
+  // Un changement de fond de carte efface les états : on les réapplique à chaque `styledata`.
+  const selectedRnbId = rnbPopup?.rnbId
+  useEffect(() => {
+    const currentMap = map.current
+    if (!currentMap) return
+
+    const applyHighlight = () => {
+      if (!currentMap.getSource(RNB_SOURCE_ID)) return
+      currentMap.removeFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER })
+      if (selectedRnbId) {
+        currentMap.setFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER, id: selectedRnbId }, { highlighted: true })
+      }
+    }
+
+    applyHighlight()
+    currentMap.on('styledata', applyHighlight)
+    return () => {
+      currentMap.off('styledata', applyHighlight)
+    }
+  }, [map, selectedRnbId])
 
   useEffect(() => {
     if (!isRnbLayerShown) {
