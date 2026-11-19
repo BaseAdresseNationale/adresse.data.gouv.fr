@@ -131,7 +131,7 @@ export const MapParamsWrapper = styled.div.attrs({
 })<{ $isHidden?: boolean }>`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   gap: .5em;
   padding: 1rem 0;
   position: relative;
@@ -144,10 +144,6 @@ export const MapParamsWrapper = styled.div.attrs({
     z-index: -1;
     transition: transform 0.5s ease, opacity 0.5s ease, z-index 0s ease 0s;
   `}
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    justify-content: space-between;
-  }
 `
 
 export const RingButtonStyled = styled.button.attrs({
