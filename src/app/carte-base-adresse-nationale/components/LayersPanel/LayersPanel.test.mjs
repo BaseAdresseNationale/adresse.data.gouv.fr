@@ -16,6 +16,12 @@ function loadLayersPanel() {
     'react': react,
     'react/jsx-runtime': jsxRuntime,
     'next/image': { __esModule: true, default: ({ width, height, ...props }) => react.createElement('img', props) },
+    '@codegouvfr/react-dsfr/Tooltip': {
+      Tooltip: ({ title, children }) => react.createElement(react.Fragment, null,
+        children,
+        react.createElement('span', { role: 'tooltip' }, title),
+      ),
+    },
     './LayersPanel.styles': {
       PanelSection: stub('section'),
       PanelHeader: stub('div'),
@@ -27,6 +33,7 @@ function loadLayersPanel() {
       LayerOption: stub('div'),
       LayerThumbnail: stub('span'),
       LayerHint: stub('span'),
+      LayerInfoIcon: stub('span'),
     },
   }
   const exports = {}
@@ -77,7 +84,7 @@ function labelText(html, id) {
 function legendOf(html, inputId) {
   const fieldset = [...html.matchAll(/<fieldset aria-labelledby="([^"]+)">(.*?)<\/fieldset>/g)]
     .find(([, , content]) => content.includes(`id="${inputId}"`))
-  return html.match(new RegExp(`<legend id="${fieldset[1]}">(.*?)</legend>`))[1]
+  return html.match(new RegExp(`<[a-z]+ id="${fieldset[1]}">(.*?)</`))[1]
 }
 
 // Rend le panneau et renvoie son arbre et les props de ses éléments du type demandé,
@@ -138,6 +145,13 @@ test('the other layers are labelled checkboxes "Autres couches" reflecting their
     assert.deepEqual(checkboxes.map(checkbox => checkbox.checked), [displayLandRegister, displayRnbBuildings])
     assert.equal(legendOf(html, checkboxes[0].id), 'Autres couches')
   }
+})
+
+test('"Autres couches" has a focusable info icon explaining the zoom level', () => {
+  const html = render({})
+  const legend = html.match(/<legend>(.*?)<\/legend>/g).find(elt => elt.includes('Autres couches'))
+  assert.match(legend, /<span class="ri-information-line" tabindex="0" aria-label="[^"]+"><\/span>/)
+  assert.match(legend, /<span role="tooltip">[^<]*niveau de zoom[^<]*<\/span>/)
 })
 
 test('every layer shows a decorative thumbnail', () => {

@@ -48,6 +48,15 @@ export const LayerLegend = styled.legend`
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+`
+
+export const LayerInfoIcon = styled.span`
+  color: var(--text-action-high-blue-france);
+  cursor: help;
+  border-radius: 50%;
 `
 
 export const LayerGrid = styled.div`

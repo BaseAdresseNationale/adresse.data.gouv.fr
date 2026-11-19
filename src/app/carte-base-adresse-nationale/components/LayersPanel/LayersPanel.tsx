@@ -1,5 +1,6 @@
 import { useId } from 'react'
 import Image from 'next/image'
+import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'
 
 import {
   PanelSection,
@@ -12,6 +13,7 @@ import {
   LayerOption,
   LayerThumbnail,
   LayerHint,
+  LayerInfoIcon,
 } from './LayersPanel.styles'
 
 export const BASE_MAP_OPTIONS = [
@@ -121,7 +123,21 @@ function LayersPanel({
         </LayerFieldset>
 
         <LayerFieldset aria-labelledby={`${uid}-overlays`}>
-          <LayerLegend id={`${uid}-overlays`}>Autres couches</LayerLegend>
+          <LayerLegend>
+            <span id={`${uid}-overlays`}>Autres couches</span>
+            <Tooltip
+              kind="hover"
+              // Largeur limitée : centrée sur l'icône, l'info-bulle déborderait à gauche de l'écran
+              style={{ maxWidth: '14rem' }}
+              title="Les couches de données ne s'affichent qu'à partir d'un certain niveau de zoom : zoomez sur la carte pour les voir apparaître."
+            >
+              <LayerInfoIcon
+                className="ri-information-line"
+                tabIndex={0}
+                aria-label="Information sur l'affichage des couches"
+              />
+            </Tooltip>
+          </LayerLegend>
           <LayerGrid>
             {overlays.map(({ key, label, img, checked, onChange }) => {
               const inputId = `${uid}-${key}`
