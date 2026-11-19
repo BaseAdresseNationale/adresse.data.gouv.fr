@@ -34,9 +34,11 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
   const viewerHost = mapContainer?.parentElement
   const isMapMinimized = hasSelection && layout === 'viewer-main'
   const [hovered, setHovered] = useState<{ id: string, lng: number, lat: number } | null>(null)
-
+  const [isReduced, setIsReduced] = useState(false)
+  
+  const toggleReduce = () => setIsReduced(reduce => !reduce)
   const toggleLayout = () => setLayout(layout => (layout === 'viewer-main' ? 'map-main' : 'viewer-main'))
-  const closeViewer = () => { setSelection(null); setMarkerPos(null) }
+  const closeViewer = () => { setSelection(null); setMarkerPos(null); setIsReduced(false) }
 
   useEffect(() => {
     if (!mapContainer || !isMapMinimized) return
@@ -47,8 +49,18 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
   }, [mapContainer, isMapMinimized])
 
   useEffect(() => {
+    if (!mapContainer || !isMapMinimized || !isReduced) return
+    mapContainer.classList.add('map-minimized--reduced')
+    return () => {
+      mapContainer.classList.remove('map-minimized--reduced')
+      map?.resize()
+    }
+  }, [mapContainer, isMapMinimized, isReduced, map])
+
+  useEffect(() => {
     if (!selection) {
       setLayout('viewer-main')
+      setIsReduced(false)
     }
   }, [selection])
 
@@ -187,8 +199,10 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
       {isVisible && selection && layout === 'viewer-main' && mapContainer && createPortal(
         <PanoramaxControls
           mode={layout}
+          isReduced={isReduced}
           onToggleMode={toggleLayout}
           onClose={closeViewer}
+          onToggleReduce={toggleReduce}
         />,
         mapContainer,
       )}
@@ -197,8 +211,10 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
         <PanoramaxViewer
           selection={selection}
           mode={layout}
+          isReduced={isReduced}
           onToggleMode={toggleLayout}
           onClose={closeViewer}
+          onToggleReduce={toggleReduce}
           onPictureChange={pos => {
             setMarkerPos(pos)
             if (map?.getMap() && !map?.getMap().getBounds().contains([pos.lng, pos.lat])) {

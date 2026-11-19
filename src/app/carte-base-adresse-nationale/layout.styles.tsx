@@ -94,6 +94,12 @@ export const CartoWrapper = styled.div`
     .map-minimized .maplibregl-ctrl {
       display: none;
     }
+
+    .map-minimized.map-minimized--reduced {
+      width: min(140px, calc(100% - 32px)) !important;
+      height: 50px !important;
+    }
+
 `
 
 export const CartoMenu = styled.div`

@@ -13,12 +13,14 @@ export interface PanoramaxSelection {
 interface PanoramaxViewerProps {
   selection: PanoramaxSelection
   mode?: 'viewer-main' | 'map-main'
+  isReduced?: boolean
   onToggleMode?: () => void
   onClose: () => void
+  onToggleReduce?: () => void
   onPictureChange?: (pos: { lng: number, lat: number }) => void
 }
 
-export default function PanoramaxViewer({ selection, mode = 'viewer-main', onToggleMode, onClose, onPictureChange }: PanoramaxViewerProps) {
+export default function PanoramaxViewer({ selection, mode = 'viewer-main', isReduced = false, onToggleMode, onClose, onPictureChange, onToggleReduce }: PanoramaxViewerProps) {
   const hostRef = useRef<HTMLDivElement>(null)
   const onChangeRef = useRef(onPictureChange)
   const endpoint = env('NEXT_PUBLIC_PANORAMAX_ENDPOINT') 
@@ -35,8 +37,8 @@ export default function PanoramaxViewer({ selection, mode = 'viewer-main', onTog
         position: 'absolute',
         top: 16,
         right: 16,
-        width: 'min(480px, calc(100% - 32px))',
-        height: 320,
+        width: isReduced ? 'min(140px, calc(100% - 32px))' : 'min(480px, calc(100% - 32px))',
+        height: isReduced ? 50 : 320,
         zIndex: 10,
         background: '#000',
         borderRadius: 8,
@@ -90,7 +92,13 @@ export default function PanoramaxViewer({ selection, mode = 'viewer-main', onTog
     <div style={containerStyle}>
       <Script id="panoramax-viewer-script" src='https://cdn.jsdelivr.net/npm/@panoramax/web-viewer@5.2.0/build/cjs/index_photoviewer.js' strategy="afterInteractive" />
       {!isMain && onToggleMode && (
-        <PanoramaxControls mode={mode} onToggleMode={onToggleMode} onClose={onClose} />
+        <PanoramaxControls 
+          mode={mode} 
+          isReduced={isReduced}
+          onToggleMode={onToggleMode} 
+          onClose={onClose}
+          onToggleReduce={onToggleReduce}
+        />
       )}
       <div ref={hostRef} style={{ width: '100%', height: '100%' }} />
     </div>
