@@ -29,6 +29,7 @@ export function PanoramaxControls({ mode, onToggleMode, onClose }: PanoramaxCont
             <button
                 type="button"
                 onClick={onClose}
+                title="Fermer la vue Panoramax"
                 aria-label="Fermer la vue Panoramax"
                 className="fr-btn fr-btn--sm fr-btn--secondary fr-icon-close-line"
             />

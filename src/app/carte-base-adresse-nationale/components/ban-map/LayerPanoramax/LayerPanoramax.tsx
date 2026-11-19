@@ -111,11 +111,12 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
           id="panoramax-sequences"
           type="line"
           source-layer="sequences"
+          minzoom={11}
           layout={{ visibility, 'line-cap': 'round', 'line-join': 'round' }}
           paint={{
             'line-color': '#FF6F00',
             'line-opacity': 0.8,
-            'line-width': ['interpolate', ['linear'], ['zoom'], 10, 1, 16, 4],
+            'line-width': ['interpolate', ['linear'], ['zoom'], 10, 1, 16, 2],
           }}
         />
         <Layer
@@ -126,7 +127,7 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
           layout={{ visibility }}
           paint={{
             'circle-color': '#FF6F00',
-            'circle-radius': ['interpolate', ['linear'], ['zoom'], 15, 4, 19, 8],
+            'circle-radius': ['interpolate', ['linear'], ['zoom'], 15, 2, 19, 5],
             'circle-stroke-color': '#fff',
             'circle-stroke-width': 1,
           }}
@@ -140,7 +141,7 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
           layout={{ visibility }}
           paint={{
             'circle-color': '#0063CB',
-            'circle-radius': ['interpolate', ['linear'], ['zoom'], 15, 5, 19, 10],
+            'circle-radius': ['interpolate', ['linear'], ['zoom'], 15, 3, 19, 7],
             'circle-stroke-color': '#fff',
             'circle-stroke-width': 2,
           }}
@@ -162,7 +163,7 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
         </Marker>
       )}
 
-      {isVisible && hovered && (
+      {isVisible && hovered && !isMapMinimized &&(
         <Popup
           longitude={hovered.lng}
           latitude={hovered.lat}
