@@ -1,4 +1,5 @@
 import ProConnectRedirectClient from '@/components/ProConnectRedirectClient'
+import { connection } from 'next/server'
 import { Card } from '@codegouvfr/react-dsfr/Card'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import Section from '@/components/Section'
@@ -26,6 +27,7 @@ import pageTitle from '@/utils/pageTitle'
 export const metadata = pageTitle('Accueil')
 
 export default async function Home() {
+  await connection()
   const stats = await getStats(AbortSignal.timeout(3000)).catch((error) => {
     console.warn('Statistiques BAN indisponibles pour l’accueil.', error)
     return null
