@@ -46,7 +46,7 @@ function Carto({ children }: { children: ReactNode }) {
   const layersButtonRef = useRef<HTMLButtonElement>(null)
   const banMapConfigState = useBanMapConfig()
   const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
-  const { mapStyle, buttonMapStyle, isIGNMapStyleAccessible, displayLandRegister, displayRnbBuildings, displayMenuConfig } = banMapConfig
+  const { mapStyle, buttonMapStyle, isIGNMapStyleAccessible, isRnbLayerAccessible, displayLandRegister, displayRnbBuildings, displayMenuConfig } = banMapConfig
 
   useEffect(() => {
     setTypeLayout('full-screen')
@@ -115,6 +115,7 @@ function Carto({ children }: { children: ReactNode }) {
             mapStyle={mapStyle}
             buttonMapStyle={buttonMapStyle}
             isIGNMapStyleAccessible={isIGNMapStyleAccessible}
+            isRnbLayerAccessible={isRnbLayerAccessible}
             displayLandRegister={displayLandRegister}
             displayRnbBuildings={displayRnbBuildings}
             onMapStyleChange={handleMapStyleChange}

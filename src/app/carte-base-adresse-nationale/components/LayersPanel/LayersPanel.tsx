@@ -27,6 +27,7 @@ interface LayersPanelProps {
   mapStyle: string
   buttonMapStyle?: string
   isIGNMapStyleAccessible: boolean
+  isRnbLayerAccessible?: boolean
   displayLandRegister: boolean
   displayRnbBuildings: boolean
   onMapStyleChange: (style: string) => void
@@ -40,6 +41,7 @@ function LayersPanel({
   mapStyle,
   buttonMapStyle,
   isIGNMapStyleAccessible,
+  isRnbLayerAccessible = true,
   displayLandRegister,
   displayRnbBuildings,
   onMapStyleChange,
@@ -55,13 +57,16 @@ function LayersPanel({
       label: 'Parcelles cadastrales',
       img: '/img/map/layer-parcelles-cadastrales.jpg',
       checked: displayLandRegister,
+      isDisabled: false,
       onChange: onLandRegisterChange,
     },
     {
       key: 'rnb-buildings',
       label: 'Bâtiments (RNB)',
       img: '/img/map/layer-batiments-rnb.png',
-      checked: displayRnbBuildings,
+      // Hors couverture RNB, la case est grisée et décochée ; le choix est conservé pour le retour
+      checked: displayRnbBuildings && isRnbLayerAccessible,
+      isDisabled: !isRnbLayerAccessible,
       onChange: onRnbBuildingsChange,
     },
   ]
@@ -139,7 +144,7 @@ function LayersPanel({
             </Tooltip>
           </LayerLegend>
           <LayerGrid>
-            {overlays.map(({ key, label, img, checked, onChange }) => {
+            {overlays.map(({ key, label, img, checked, isDisabled, onChange }) => {
               const inputId = `${uid}-${key}`
               return (
                 <LayerOption key={key}>
@@ -148,6 +153,7 @@ function LayersPanel({
                     id={inputId}
                     name={key}
                     checked={checked}
+                    disabled={isDisabled}
                     onChange={evt => onChange(evt.target.checked)}
                   />
                   <label htmlFor={inputId}>
@@ -155,6 +161,7 @@ function LayersPanel({
                       <Image src={img} alt="" width={96} height={96} />
                     </LayerThumbnail>
                     <span>{label}</span>
+                    {isDisabled && <LayerHint>Non disponible sur ce territoire</LayerHint>}
                   </label>
                 </LayerOption>
               )

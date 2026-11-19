@@ -147,6 +147,19 @@ test('the other layers are labelled checkboxes "Autres couches" reflecting their
   }
 })
 
+test('the RNB layer is disabled and unchecked with an explanation outside its coverage', () => {
+  const available = inputs(render({ displayRnbBuildings: true })).find(input => input.name === 'rnb-buildings')
+  assert.equal(available.disabled, false)
+  assert.equal(available.checked, true)
+
+  const html = render({ displayRnbBuildings: true, isRnbLayerAccessible: false })
+  const checkboxes = inputs(html).filter(input => input.type === 'checkbox')
+  const rnb = checkboxes.find(checkbox => checkbox.name === 'rnb-buildings')
+  assert.equal(labelText(html, rnb.id), 'Bâtiments (RNB) Non disponible sur ce territoire')
+  assert.equal(rnb.checked, false)
+  assert.deepEqual(checkboxes.filter(checkbox => checkbox.disabled).map(checkbox => checkbox.name), ['rnb-buildings'])
+})
+
 test('"Autres couches" has a focusable info icon explaining the zoom level', () => {
   const html = render({})
   const legend = html.match(/<legend>(.*?)<\/legend>/g).find(elt => elt.includes('Autres couches'))
