@@ -1,23 +1,31 @@
+import { useMemo } from 'react'
 import { Layer, Source } from 'react-map-gl/maplibre'
 
-import { rnbLayers, RNB_MINZOOM, RNB_SOURCE_ID } from '../layers'
+import { getRnbLayers, RNB_MINZOOM } from '../layers'
 
 import type { FillLayerSpecification } from 'react-map-gl/maplibre'
 
 interface PropsLayerRnb {
   isVisible?: boolean
+  selectedRnbId?: string | null
+  hoveredRnbId?: string | null
 }
 
-function LayerRnb({ isVisible }: PropsLayerRnb) {
+function LayerRnb({ isVisible, selectedRnbId, hoveredRnbId }: PropsLayerRnb) {
+  // Les couleurs de sélection et de survol sont dans le style : react-map-gl les
+  // réapplique d'elle-même, y compris après un changement de fond de carte.
+  const rnbLayers = useMemo(
+    () => getRnbLayers({ selectedRnbId, hoveredRnbId }),
+    [selectedRnbId, hoveredRnbId],
+  )
+
   return (
     <Source
-      id={RNB_SOURCE_ID}
+      id="rnb"
       type="vector"
       tiles={['https://rnb-api.beta.gouv.fr/api/alpha/tiles/shapes/{x}/{y}/{z}.pbf']}
       minzoom={RNB_MINZOOM}
       maxzoom={RNB_MINZOOM}
-      // Identifiant des features = rnb_id, pour les états survolé et sélectionné
-      promoteId="rnb_id"
     >
       {rnbLayers.map((rnbLayerElt: any) => (
         <Layer

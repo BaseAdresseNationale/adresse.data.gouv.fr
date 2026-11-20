@@ -5,7 +5,7 @@ import LayerBan, { LayerAddressPositions } from './LayerBan'
 import LayerCadastre from './LayerCadastre'
 import LayerRnb from './LayerRnb'
 import Popups, { RnbPopup } from './Popups'
-import { RNB_FILL_LAYER_ID, RNB_MINZOOM, RNB_SOURCE_ID, RNB_SOURCE_LAYER } from './layers'
+import { RNB_FILL_LAYER_ID, RNB_MINZOOM } from './layers'
 
 import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
@@ -47,6 +47,18 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
   const map = useMap()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
   const [rnbPopup, setRnbPopup] = useState<RnbPopupInfo | null>(null)
+  const [hoveredRnbId, setHoveredRnbId] = useState<string | null>(null)
+
+  // Calque masqué : on oublie la popup et le survol pendant le rendu, sans effet
+  // (https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
+  const [wasRnbLayerShown, setWasRnbLayerShown] = useState(isRnbLayerShown)
+  if (wasRnbLayerShown !== isRnbLayerShown) {
+    setWasRnbLayerShown(isRnbLayerShown)
+    if (!isRnbLayerShown) {
+      setRnbPopup(null)
+      setHoveredRnbId(null)
+    }
+  }
 
   useEffect(() => {
     const currentMap = map.current
@@ -184,29 +196,18 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
       }
     }
 
-    // Survol d'un bâtiment, comme sur la carte du RNB : état `hovered` du bâtiment sous le curseur
-    let hoveredRnbId: string | number | undefined
-    const setHoveredRnb = (rnbId?: string | number) => {
-      if (hoveredRnbId === rnbId) return
-      if (hoveredRnbId !== undefined && currentMap.getSource(RNB_SOURCE_ID)) {
-        currentMap.setFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER, id: hoveredRnbId }, { hovered: false })
-      }
-      hoveredRnbId = rnbId
-      if (rnbId !== undefined) {
-        currentMap.setFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER, id: rnbId }, { hovered: true })
-      }
-    }
-
     const onRnbEnter = () => {
       currentMap.getCanvas().style.cursor = 'pointer'
     }
 
     const onRnbMove = (evt: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
-      setHoveredRnb(evt.features?.[0]?.id)
+      // React ignore la mise à jour si le bâtiment survolé n'a pas changé
+      const rnbId = evt.features?.[0]?.properties?.rnb_id
+      setHoveredRnbId(rnbId ? String(rnbId) : null)
     }
 
     const onRnbLeave = (evt: MapMouseEvent) => {
-      setHoveredRnb(undefined)
+      setHoveredRnbId(null)
       const layers = ITEM_LAYERS.filter(id => currentMap.getLayer(id))
       const isOverItem = layers.length > 0
         && currentMap.queryRenderedFeatures(evt.point, { layers }).length > 0
@@ -234,34 +235,6 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
     }
   }, [map])
 
-  // Sélection, comme sur la carte du RNB : seul le bâtiment de la popup a l'état `highlighted`.
-  // Un changement de fond de carte efface les états : on les réapplique à chaque `styledata`.
-  const selectedRnbId = rnbPopup?.rnbId
-  useEffect(() => {
-    const currentMap = map.current
-    if (!currentMap) return
-
-    const applyHighlight = () => {
-      if (!currentMap.getSource(RNB_SOURCE_ID)) return
-      currentMap.removeFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER })
-      if (selectedRnbId) {
-        currentMap.setFeatureState({ source: RNB_SOURCE_ID, sourceLayer: RNB_SOURCE_LAYER, id: selectedRnbId }, { highlighted: true })
-      }
-    }
-
-    applyHighlight()
-    currentMap.on('styledata', applyHighlight)
-    return () => {
-      currentMap.off('styledata', applyHighlight)
-    }
-  }, [map, selectedRnbId])
-
-  useEffect(() => {
-    if (!isRnbLayerShown) {
-      setRnbPopup(null)
-    }
-  }, [isRnbLayerShown])
-
   return (
     <>
       { infoPopup?.features && (
@@ -274,7 +247,7 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isRnbLayerShown, hig
           <RnbPopup rnbId={rnbPopup.rnbId} />
         </Popup>
       )}
-      <LayerRnb isVisible={isRnbLayerShown} />
+      <LayerRnb isVisible={isRnbLayerShown} selectedRnbId={rnbPopup?.rnbId} hoveredRnbId={hoveredRnbId} />
       <LayerBan address={address} />
       <LayerAddressPositions address={address} />
       <LayerCadastre address={address} isVisible={isCadastreLayersShown} />
