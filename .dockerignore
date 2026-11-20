@@ -5,3 +5,7 @@ node_modules
 .env.*
 !.env.default
 *.tsbuildinfo
+test-results
+playwright-report
+blob-report
+playwright/.cache
