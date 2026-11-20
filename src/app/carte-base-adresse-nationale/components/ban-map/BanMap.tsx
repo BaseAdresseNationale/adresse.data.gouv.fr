@@ -3,7 +3,9 @@ import { useMap, Popup } from 'react-map-gl/maplibre'
 
 import LayerBan, { LayerAddressPositions } from './LayerBan'
 import LayerCadastre from './LayerCadastre'
-import Popups from './Popups'
+import LayerRnb from './LayerRnb'
+import Popups, { RnbPopup } from './Popups'
+import { RNB_FILL_LAYER_ID, RNB_MINZOOM } from './layers'
 
 import type { MapMouseEvent, MapGeoJSONFeature } from 'react-map-gl/maplibre'
 import type { PopupFeature } from './Popups'
@@ -11,11 +13,17 @@ import type { Address, PopupInfo } from './types'
 import { TypeMicroToponymExtended } from '../../types/LegacyBan.types'
 import LayerPanoramax from './LayerPanoramax/LayerPanoramax'
 
+interface RnbPopupInfo {
+  rnbId: string
+  lngLat: { lng: number, lat: number }
+}
+
 interface BanMapProps {
   address: Address
   onSelect: (properties: any) => void
   isCadastreLayersShown?: boolean
   isPanoramaxLayerShown?: boolean
+  isRnbLayerShown?: boolean
   hightLightAdressesByItem: (
     banItem: TypeMicroToponymExtended,
     isSelected: boolean
@@ -33,11 +41,26 @@ interface HighLightAdressesByProperties {
 }
 
 const SOURCES = ['adresses', 'toponymes']
+const ITEM_LAYERS = ['adresse', 'adresse-label', 'voie', 'toponyme']
+const PRIORITY_LAYERS = [...ITEM_LAYERS, 'adresse-complet-label', 'positions', 'positions-label']
 
-function BanMap({ address, onSelect, isCadastreLayersShown, isPanoramaxLayerShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
+function BanMap({ address, onSelect, isCadastreLayersShown, isPanoramaxLayerShown, isRnbLayerShown, hightLightAdressesByItem, banItemSelected }: BanMapProps) {
   const hoveredFeature = useRef<PopupFeature | null>(null)
   const map = useMap()
   const [infoPopup, setInfoPopup] = useState<PopupInfo | null>(null)
+  const [rnbPopup, setRnbPopup] = useState<RnbPopupInfo | null>(null)
+  const [hoveredRnbId, setHoveredRnbId] = useState<string | null>(null)
+
+  // Calque masqué : on oublie la popup et le survol pendant le rendu, sans effet
+  // (https://react.dev/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes)
+  const [wasRnbLayerShown, setWasRnbLayerShown] = useState(isRnbLayerShown)
+  if (wasRnbLayerShown !== isRnbLayerShown) {
+    setWasRnbLayerShown(isRnbLayerShown)
+    if (!isRnbLayerShown) {
+      setRnbPopup(null)
+      setHoveredRnbId(null)
+    }
+  }
 
   useEffect(() => {
     const currentMap = map.current
@@ -103,14 +126,16 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isPanoramaxLayerShow
       }
     }
 
-    const onLeave = () => {
+    const onLeave = (evt: MapMouseEvent) => {
       if (currentMap) {
         if (hoveredFeature.current) {
           highLightAdressesByProperties(false, hoveredFeature.current)
         }
 
         setInfoPopup(null)
-        currentMap.getCanvas().style.cursor = 'grab'
+        const isOverRnb = currentMap.getLayer(RNB_FILL_LAYER_ID)
+          && currentMap.queryRenderedFeatures(evt.point, { layers: [RNB_FILL_LAYER_ID] }).length > 0
+        currentMap.getCanvas().style.cursor = isOverRnb ? 'pointer' : 'grab'
         hoveredFeature.current = null
       }
     }
@@ -154,6 +179,64 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isPanoramaxLayerShow
     }
   }, [map, banItemSelected, onSelect, hightLightAdressesByItem])
 
+  useEffect(() => {
+    const currentMap = map.current
+    if (!currentMap) return
+
+    const onMapClick = (evt: MapMouseEvent) => {
+      if ((evt.originalEvent?.target as HTMLElement | null)?.closest('.maplibregl-marker')) return
+
+      const layers = [RNB_FILL_LAYER_ID, ...PRIORITY_LAYERS]
+        .filter(id => currentMap.getLayer(id))
+      const [topFeature] = currentMap.queryRenderedFeatures(evt.point, { layers })
+
+      if (topFeature?.layer.id === RNB_FILL_LAYER_ID && topFeature.properties?.rnb_id) {
+        setRnbPopup({ rnbId: String(topFeature.properties.rnb_id), lngLat: evt.lngLat })
+      }
+      else {
+        setRnbPopup(null)
+      }
+    }
+
+    const onRnbEnter = () => {
+      currentMap.getCanvas().style.cursor = 'pointer'
+    }
+
+    const onRnbMove = (evt: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
+      // React ignore la mise à jour si le bâtiment survolé n'a pas changé
+      const rnbId = evt.features?.[0]?.properties?.rnb_id
+      setHoveredRnbId(rnbId ? String(rnbId) : null)
+    }
+
+    const onRnbLeave = (evt: MapMouseEvent) => {
+      setHoveredRnbId(null)
+      const layers = ITEM_LAYERS.filter(id => currentMap.getLayer(id))
+      const isOverItem = layers.length > 0
+        && currentMap.queryRenderedFeatures(evt.point, { layers }).length > 0
+      currentMap.getCanvas().style.cursor = isOverItem ? 'pointer' : 'grab'
+    }
+
+    const onZoomEnd = () => {
+      if (currentMap.getZoom() < RNB_MINZOOM) {
+        setRnbPopup(null)
+      }
+    }
+
+    currentMap.on('click', onMapClick)
+    currentMap.on('zoomend', onZoomEnd)
+    currentMap.on('mouseenter', RNB_FILL_LAYER_ID, onRnbEnter)
+    currentMap.on('mousemove', RNB_FILL_LAYER_ID, onRnbMove)
+    currentMap.on('mouseleave', RNB_FILL_LAYER_ID, onRnbLeave)
+
+    return () => {
+      currentMap.off('click', onMapClick)
+      currentMap.off('zoomend', onZoomEnd)
+      currentMap.off('mouseenter', RNB_FILL_LAYER_ID, onRnbEnter)
+      currentMap.off('mousemove', RNB_FILL_LAYER_ID, onRnbMove)
+      currentMap.off('mouseleave', RNB_FILL_LAYER_ID, onRnbLeave)
+    }
+  }, [map])
+
   return (
     <>
       { infoPopup?.features && (
@@ -161,6 +244,12 @@ function BanMap({ address, onSelect, isCadastreLayersShown, isPanoramaxLayerShow
           <Popups features={infoPopup?.features as unknown as PopupFeature[] || []} />
         </Popup>
       )}
+      { rnbPopup && (
+        <Popup className="rnb-popup" closeButton closeOnClick={false} onClose={() => setRnbPopup(null)} latitude={rnbPopup.lngLat.lat} longitude={rnbPopup.lngLat.lng}>
+          <RnbPopup rnbId={rnbPopup.rnbId} />
+        </Popup>
+      )}
+      <LayerRnb isVisible={isRnbLayerShown} selectedRnbId={rnbPopup?.rnbId} hoveredRnbId={hoveredRnbId} />
       <LayerBan address={address} />
       <LayerAddressPositions address={address} />
       <LayerCadastre address={address} isVisible={isCadastreLayersShown} />

@@ -11,7 +11,7 @@ import {
   listObjectsRecursively,
   autorizedPathS3,
 } from '@/views/data/utils'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const S3_CONFIG_ACCESS_KEY_ID = env('S3_CONFIG_ACCESS_KEY_ID')
 const S3_CONFIG_SECRET_ACCESS_KEY = env('S3_CONFIG_SECRET_ACCESS_KEY')

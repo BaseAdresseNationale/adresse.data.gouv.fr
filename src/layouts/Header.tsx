@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { Header as HeaderDSFR } from '@codegouvfr/react-dsfr/Header'
 import { MainNavigationProps } from '@codegouvfr/react-dsfr/MainNavigation'
 import { Tooltip } from '@codegouvfr/react-dsfr/Tooltip'

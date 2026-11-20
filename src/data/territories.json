@@ -90,7 +90,8 @@
         "bbox": [-179.7, -15.2, -174.7, -12.25],
         "thumbnail": "https://data.geopf.fr/annexes/cartes.gouv.fr-config/public/resources/territories/thumbnails/wlf.png",
         "icon": "https://data.geopf.fr/annexes/cartes.gouv.fr-config/public/resources/territories/wlf.svg",
-        "mapStyle": "osm-vector"
+        "mapStyle": "osm-vector",
+        "rnb": false
     },
     {
         "id": "PYF",
@@ -100,7 +101,8 @@
         "bbox": [-154.83, -27.60, -134.32, -7.25],
         "thumbnail": "https://data.geopf.fr/annexes/cartes.gouv.fr-config/public/resources/territories/thumbnails/pyf.png",
         "icon": "https://data.geopf.fr/annexes/cartes.gouv.fr-config/public/resources/territories/pyf.svg",
-        "mapStyle": "osm-vector"
+        "mapStyle": "osm-vector",
+        "rnb": false
     },
     {
         "id": "NCL",
@@ -110,7 +112,8 @@
         "bbox": [163.02,-23.08, 167.86,-19.50],
         "thumbnail": "https://data.geopf.fr/annexes/cartes.gouv.fr-config/public/resources/territories/thumbnails/ncl.png",
         "icon": "https://data.geopf.fr/annexes/cartes.gouv.fr-config/public/resources/territories/ncl.svg",
-        "mapStyle": "osm-vector"
+        "mapStyle": "osm-vector",
+        "rnb": false
     }
   ]
 }

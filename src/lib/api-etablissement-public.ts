@@ -1,6 +1,6 @@
 import { APIEtablissementPublicMairie } from '@/types/api-etablissement-public.types'
 import { customFetch } from './fetch'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 if (!env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')) {
   throw new Error('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC is not defined')
 }

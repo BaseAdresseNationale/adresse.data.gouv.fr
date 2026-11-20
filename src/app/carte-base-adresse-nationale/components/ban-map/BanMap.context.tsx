@@ -26,8 +26,10 @@ const initBanMapConfig = {
   buttonMapStyle: 'ign-vector',
   displayLandRegister: false,
   displayPanoramax: false,
+  displayRnbBuildings: false,
   displayMenuConfig: true,
   isIGNMapStyleAccessible: true,
+  isRnbLayerAccessible: true,
 }
 
 const BanMapContext = createContext<[BanMapConfig, React.Dispatch<BanMapAction>] | null>(null)
@@ -56,6 +58,12 @@ function banMapReducer(
         isIGNMapStyleAccessible: action.payload as boolean,
       }
     }
+    case 'SET_RNB_LAYER_ACCESSIBLE': {
+      return {
+        ...banMapConfig,
+        isRnbLayerAccessible: action.payload as boolean,
+      }
+    }
     case 'TOGGLE_CADASTER_LAYER': {
       return {
         ...banMapConfig,
@@ -66,6 +74,12 @@ function banMapReducer(
       return {
         ...banMapConfig,
         displayPanoramax: action.payload as boolean
+      }
+    }
+    case 'TOGGLE_RNB_LAYER': {
+      return {
+        ...banMapConfig,
+        displayRnbBuildings: action.payload as boolean,
       }
     }
     case 'TOOGLE_MENU_CONFIG': {

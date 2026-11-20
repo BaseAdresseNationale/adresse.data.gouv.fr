@@ -1,6 +1,6 @@
 import { BaseAdresseLocale } from '@/types/api-mes-adresses.types'
 import { customFetch } from './fetch'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 if (!env('NEXT_PUBLIC_BAL_API_URL')) {
   throw new Error('NEXT_PUBLIC_BAL_API_URL is not defined')

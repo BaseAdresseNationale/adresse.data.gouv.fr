@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 interface ExtendedError extends Error {
   code?: number

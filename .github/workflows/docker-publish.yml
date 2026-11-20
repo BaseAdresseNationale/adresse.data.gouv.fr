@@ -95,7 +95,6 @@ jobs:
             NEXT_PUBLIC_GRIST_DOC_ID=${{ vars.NEXT_PUBLIC_GRIST_DOC_ID }}
             NEXT_PUBLIC_GRIST_DOC_BANDEAU_ID=${{vars.NEXT_PUBLIC_GRIST_DOC_BANDEAU_ID}}
             NEXT_PUBLIC_GRIST_TABLE_ID=${{ vars.NEXT_PUBLIC_GRIST_TABLE_ID }}
-            GRIST_API_TOKEN=${{ vars.GRIST_API_TOKEN }}
 
       # Debug: Afficher les informations de débogage
       - name: Print Debug Info

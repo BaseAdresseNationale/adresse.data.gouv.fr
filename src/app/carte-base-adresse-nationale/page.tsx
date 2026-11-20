@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
 import { customFetch } from '@/lib/fetch'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
 import { LngLatBounds } from 'maplibre-gl'
@@ -235,7 +235,7 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, buttonMapStyle, displayLandRegister, displayPanoramax, isIGNMapStyleAccessible }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, displayRnbBuildings, displayPanoramax, isIGNMapStyleAccessible, isRnbLayerAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
@@ -301,11 +301,13 @@ function CartoView() {
     const bounds = banMapGL.getBounds()
     const zoom = banMapGL.getZoom()
 
-    const territoryWithoutIGNMapStyle = zoom >= 7
-      ? territories.territories.find(t =>
-        t.mapStyle && isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
+    const visibleTerritories = zoom >= 7
+      ? territories.territories.filter(t =>
+        isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
       )
-      : undefined
+      : []
+    const territoryWithoutIGNMapStyle = visibleTerritories.find(t => t.mapStyle)
+    const isRnbLayerNotAccessible = visibleTerritories.some(t => t.rnb === false)
 
     const isIGNMapStyleNotAccessible = Boolean(territoryWithoutIGNMapStyle)
     const territory = buttonMapStyle == 'ign-vector' ? territoryWithoutIGNMapStyle : undefined
@@ -318,6 +320,13 @@ function CartoView() {
       })
     }
 
+    if (isRnbLayerNotAccessible == isRnbLayerAccessible) {
+      banMapConfigState[1]({
+        type: 'SET_RNB_LAYER_ACCESSIBLE',
+        payload: !isRnbLayerNotAccessible,
+      })
+    }
+
     if (targetStyle && targetStyle !== mapStyle) {
       banMapConfigState[1]({
         type: 'SET_MAP_STYLE',
@@ -326,7 +335,7 @@ function CartoView() {
     }
     const hash = getMapHash(banMapGL)
     updateHashPosition(hash || '')
-  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle, isIGNMapStyleAccessible])
+  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle, isIGNMapStyleAccessible, isRnbLayerAccessible])
 
   const [banItemSelected, setBanItemSelected] = useState<TypeMicroToponymExtended | null>(null)
 
@@ -602,6 +611,7 @@ function CartoView() {
             onSelect={selectBanItem}
             isCadastreLayersShown={displayLandRegister}
             isPanoramaxLayerShown={displayPanoramax}
+            isRnbLayerShown={displayRnbBuildings && isRnbLayerAccessible}
             hightLightAdressesByItem={hightLightAdressesByItem}
             banItemSelected={banItemSelected as TypeMicroToponymExtended}
           />

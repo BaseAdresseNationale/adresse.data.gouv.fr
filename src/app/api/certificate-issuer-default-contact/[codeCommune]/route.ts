@@ -6,7 +6,7 @@ import {
   sanitizeCertificateIssuerDetails,
 } from '@/lib/certificate-issuer-config'
 import { cookies } from 'next/headers'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { NextRequest, NextResponse } from 'next/server'
 import { codeCommuneRegex } from '@/utils/string'
 

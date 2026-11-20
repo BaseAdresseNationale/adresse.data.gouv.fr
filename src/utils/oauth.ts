@@ -4,7 +4,7 @@ import { cookies } from 'next/headers'
 import { isObject, mapValues, omitBy } from 'lodash'
 
 import secureSetup from '@/utils/secure'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export const objToUrlParams = (obj: any) => {

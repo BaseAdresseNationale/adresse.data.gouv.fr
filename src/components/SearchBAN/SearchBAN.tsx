@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { groupBy } from 'lodash'
 
 import { search, isFirstCharValid } from '@/lib/api-adresse'

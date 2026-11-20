@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { existsSync, mkdirSync, rmSync, writeFileSync } from 'fs'
 import { customFetch } from '@/lib/fetch'
 import { getRootPath } from './path'
