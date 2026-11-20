@@ -25,6 +25,7 @@ interface AsideDefaultProps {
   onClickToggler?: (args: { isOpen: boolean, togglerButtonType: 'horizontal' | 'vertical' }) => void
   isOpen?: boolean
   isInfo?: boolean
+  className?: string
 }
 
 interface AsideProps extends AsideDefaultProps {
@@ -47,6 +48,7 @@ function Aside({
   onClickToggler: onClickTogglerProps,
   isOpen = true,
   isInfo,
+  className
 }: AsideProps | AsideInfoProps, ref: React.Ref<HTMLDivElement>) {
   const debounceDelay = 10
   const asideBodyRef = useRef<HTMLDivElement>(null)
@@ -111,6 +113,7 @@ function Aside({
   return (
     <AsideWrapper
       ref={asideWrapperRef}
+      className={className}
       $withTogglerButton={withTogglerButton}
       $withConfigMenuVisible={displayMenuConfig}
       $isOpen={isOpen}

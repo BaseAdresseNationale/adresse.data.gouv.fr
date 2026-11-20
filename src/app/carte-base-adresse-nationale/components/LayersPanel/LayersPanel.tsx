@@ -30,9 +30,11 @@ interface LayersPanelProps {
   isRnbLayerAccessible?: boolean
   displayLandRegister: boolean
   displayRnbBuildings: boolean
+  displayPanoramax: boolean
   onMapStyleChange: (style: string) => void
   onLandRegisterChange: (isDisplayed: boolean) => void
   onRnbBuildingsChange: (isDisplayed: boolean) => void
+  onPanoramaxChange: (isDisplayed: boolean) => void
   onClose: () => void
 }
 
@@ -44,9 +46,11 @@ function LayersPanel({
   isRnbLayerAccessible = true,
   displayLandRegister,
   displayRnbBuildings,
+  displayPanoramax,
   onMapStyleChange,
   onLandRegisterChange,
   onRnbBuildingsChange,
+  onPanoramaxChange,
   onClose,
 }: LayersPanelProps) {
   const uid = useId()
@@ -68,6 +72,14 @@ function LayersPanel({
       checked: displayRnbBuildings && isRnbLayerAccessible,
       isDisabled: !isRnbLayerAccessible,
       onChange: onRnbBuildingsChange,
+    },
+    {
+      key: 'panoramax',
+      label: 'Couche Panoramax',
+      img: '/img/map/layer-batiments-rnb.png',
+      checked: displayPanoramax,
+      isDisabled: false,
+      onChange: onPanoramaxChange,
     },
   ]
 

@@ -235,7 +235,7 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, buttonMapStyle, displayLandRegister, displayRnbBuildings, isIGNMapStyleAccessible, isRnbLayerAccessible }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, displayRnbBuildings, displayPanoramax, isIGNMapStyleAccessible, isRnbLayerAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
@@ -610,6 +610,7 @@ function CartoView() {
             address={mapSearchResults as unknown as Address}
             onSelect={selectBanItem}
             isCadastreLayersShown={displayLandRegister}
+            isPanoramaxLayerShown={displayPanoramax}
             isRnbLayerShown={displayRnbBuildings && isRnbLayerAccessible}
             hightLightAdressesByItem={hightLightAdressesByItem}
             banItemSelected={banItemSelected as TypeMicroToponymExtended}
@@ -631,6 +632,7 @@ function CartoView() {
               || ((typeView === 'micro-toponym') && (<PanelMicroToponymFooter banItem={mapSearchResults as TypeMicroToponymExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
               || ((typeView === 'address') && (<PanelAddressFooter banItem={mapSearchResults as TypeAddressExtended} withCertificate={withCertificate} onClickAction={onTargetClick} />))
             }
+            className='ban-aside'
           >
             {mapSearchResults
               ? (
@@ -645,7 +647,6 @@ function CartoView() {
                 )
               : null}
           </Aside>
-
         </Map>
       </MapProvider>
     </MapWrapper>

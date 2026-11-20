@@ -74,6 +74,32 @@ export const CartoWrapper = styled.div`
       border-left-color: var(--background-default-grey);
   }
 
+  // ---------------------------------
+  // --- Panoramax : carte réduite ---
+  // ---------------------------------
+
+    .map-minimized {
+      position: absolute !important;
+      top: 16px;
+      right: 16px;
+      left: auto !important;
+      width: min(480px, calc(100% - 32px)) !important;
+      height: 320px !important;
+      z-index: 20;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .map-minimized .maplibregl-ctrl {
+      display: none;
+    }
+
+    .map-minimized.map-minimized--reduced {
+      width: min(140px, calc(100% - 32px)) !important;
+      height: 50px !important;
+    }
+
   .rnb-popup .maplibregl-popup-close-button {
     top: 0.5rem;
     right: 0.5rem;
