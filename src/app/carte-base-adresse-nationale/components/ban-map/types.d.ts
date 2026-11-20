@@ -30,12 +30,14 @@ export interface BanMapConfig {
   mapStyle: string
   buttonMapStyle?: string
   displayLandRegister: boolean
+  displayRnbBuildings: boolean
   displayMenuConfig: boolean
   isIGNMapStyleAccessible: boolean
+  isRnbLayerAccessible: boolean
 }
 
 interface SetMapStyleAction {
-  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER' | 'TOOGLE_MENU_CONFIG' | 'SET_BUTTON_MAP_STYLE' | 'SET_IGN_MAP_STYLE_ACCESSIBLE'
+  type: 'SET_MAP_STYLE' | 'TOGGLE_CADASTER_LAYER' | 'TOGGLE_RNB_LAYER' | 'TOOGLE_MENU_CONFIG' | 'SET_BUTTON_MAP_STYLE' | 'SET_IGN_MAP_STYLE_ACCESSIBLE' | 'SET_RNB_LAYER_ACCESSIBLE'
   payload: string | boolean
 }
 

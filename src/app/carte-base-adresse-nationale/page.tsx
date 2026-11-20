@@ -235,7 +235,7 @@ function CartoView() {
   const router = useRouter()
   const banMapConfigState = useBanMapConfig()
 
-  const [{ mapStyle, buttonMapStyle, displayLandRegister, isIGNMapStyleAccessible }] = banMapConfigState
+  const [{ mapStyle, buttonMapStyle, displayLandRegister, displayRnbBuildings, isIGNMapStyleAccessible, isRnbLayerAccessible }] = banMapConfigState
   const banItemId = searchParams?.get('id')
   const tomId = searchParams?.get('tom')
   const typeView = getBanItemTypes(mapSearchResults)
@@ -301,11 +301,13 @@ function CartoView() {
     const bounds = banMapGL.getBounds()
     const zoom = banMapGL.getZoom()
 
-    const territoryWithoutIGNMapStyle = zoom >= 7
-      ? territories.territories.find(t =>
-        t.mapStyle && isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
+    const visibleTerritories = zoom >= 7
+      ? territories.territories.filter(t =>
+        isBboxIntersect(bounds, new LngLatBounds([t.bbox[0], t.bbox[1]], [t.bbox[2], t.bbox[3]]))
       )
-      : undefined
+      : []
+    const territoryWithoutIGNMapStyle = visibleTerritories.find(t => t.mapStyle)
+    const isRnbLayerNotAccessible = visibleTerritories.some(t => t.rnb === false)
 
     const isIGNMapStyleNotAccessible = Boolean(territoryWithoutIGNMapStyle)
     const territory = buttonMapStyle == 'ign-vector' ? territoryWithoutIGNMapStyle : undefined
@@ -318,6 +320,13 @@ function CartoView() {
       })
     }
 
+    if (isRnbLayerNotAccessible == isRnbLayerAccessible) {
+      banMapConfigState[1]({
+        type: 'SET_RNB_LAYER_ACCESSIBLE',
+        payload: !isRnbLayerNotAccessible,
+      })
+    }
+
     if (targetStyle && targetStyle !== mapStyle) {
       banMapConfigState[1]({
         type: 'SET_MAP_STYLE',
@@ -326,7 +335,7 @@ function CartoView() {
     }
     const hash = getMapHash(banMapGL)
     updateHashPosition(hash || '')
-  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle, isIGNMapStyleAccessible])
+  }, [updateHashPosition, banMapConfigState, mapStyle, buttonMapStyle, isIGNMapStyleAccessible, isRnbLayerAccessible])
 
   const [banItemSelected, setBanItemSelected] = useState<TypeMicroToponymExtended | null>(null)
 
@@ -601,6 +610,7 @@ function CartoView() {
             address={mapSearchResults as unknown as Address}
             onSelect={selectBanItem}
             isCadastreLayersShown={displayLandRegister}
+            isRnbLayerShown={displayRnbBuildings && isRnbLayerAccessible}
             hightLightAdressesByItem={hightLightAdressesByItem}
             banItemSelected={banItemSelected as TypeMicroToponymExtended}
           />

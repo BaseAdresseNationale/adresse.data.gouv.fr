@@ -73,6 +73,22 @@ export const CartoWrapper = styled.div`
   .maplibregl-popup-anchor-right .maplibregl-popup-tip {
       border-left-color: var(--background-default-grey);
   }
+
+  .rnb-popup .maplibregl-popup-close-button {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  .rnb-popup .heading {
+    padding-right: 2rem;
+  }
 `
 
 export const CartoMenu = styled.div`
@@ -115,7 +131,7 @@ export const MapParamsWrapper = styled.div.attrs({
 })<{ $isHidden?: boolean }>`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   gap: .5em;
   padding: 1rem 0;
   position: relative;
@@ -128,10 +144,6 @@ export const MapParamsWrapper = styled.div.attrs({
     z-index: -1;
     transition: transform 0.5s ease, opacity 0.5s ease, z-index 0s ease 0s;
   `}
-
-  @media (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    justify-content: space-between;
-  }
 `
 
 export const RingButtonStyled = styled.button.attrs({

@@ -495,3 +495,54 @@ export const positionsLabelLayer = {
     ],
   },
 }
+
+export const RNB_FILL_LAYER_ID = 'rnb-batiments-fill'
+export const RNB_MINZOOM = 16
+
+// Couleurs et règles de la carte du RNB (rnb.beta.gouv.fr/carte) : le bâtiment
+// sélectionné passe en vert, le bâtiment survolé change de teinte.
+const RNB_COLOR = '#1452e3'
+const RNB_SELECTED_COLOR = '#31e060'
+const RNB_HOVERED_FILL_COLOR = '#132353'
+const RNB_HOVERED_LINE_COLOR = '#87d443'
+
+interface RnbLayersState {
+  selectedRnbId?: string | null
+  hoveredRnbId?: string | null
+}
+
+const rnbColor = (hoveredColor: string, { selectedRnbId, hoveredRnbId }: RnbLayersState) => [
+  'case',
+  ['==', ['get', 'rnb_id'], selectedRnbId ?? ''], RNB_SELECTED_COLOR,
+  ['==', ['get', 'rnb_id'], hoveredRnbId ?? ''], hoveredColor,
+  RNB_COLOR,
+]
+
+export const getRnbLayers = (state: RnbLayersState = {}) => [{
+  'id': RNB_FILL_LAYER_ID,
+  'type': 'fill',
+  'source': 'rnb',
+  'source-layer': 'default',
+  'minzoom': RNB_MINZOOM,
+  'paint': {
+    'fill-color': rnbColor(RNB_HOVERED_FILL_COLOR, state),
+    'fill-opacity': 0.08,
+  },
+  'layout': {
+    visibility: 'none',
+  },
+},
+{
+  'id': 'rnb-batiments-line',
+  'type': 'line',
+  'source': 'rnb',
+  'source-layer': 'default',
+  'minzoom': RNB_MINZOOM,
+  'paint': {
+    'line-color': rnbColor(RNB_HOVERED_LINE_COLOR, state),
+    'line-width': 2.1,
+  },
+  'layout': {
+    visibility: 'none',
+  },
+}]
