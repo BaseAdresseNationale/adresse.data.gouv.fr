@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Script from 'next/script'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { PanoramaxControls } from './PanoramaxControls'
 
 export interface PanoramaxSelection {

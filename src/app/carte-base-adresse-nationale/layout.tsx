@@ -75,9 +75,9 @@ function Carto({ children }: { children: ReactNode }) {
     dispatchToBanMapConfig({ type: 'TOGGLE_RNB_LAYER', payload: isDisplayed })
   }, [dispatchToBanMapConfig])
 
-  const togglePanoramaxLayer = useCallback(() => {
-    dispatchToBanMapConfig({ type: 'TOGGLE_PANORAMAX_LAYER', payload: !displayPanoramax})
-  }, [dispatchToBanMapConfig, displayPanoramax])
+  const handlePanoramaxLayerChange = useCallback((isDisabled: boolean) => {
+    dispatchToBanMapConfig({ type: 'TOGGLE_PANORAMAX_LAYER', payload: isDisabled})
+  }, [dispatchToBanMapConfig])
 
   return (
     <CartoWrapper>
@@ -122,9 +122,11 @@ function Carto({ children }: { children: ReactNode }) {
             isRnbLayerAccessible={isRnbLayerAccessible}
             displayLandRegister={displayLandRegister}
             displayRnbBuildings={displayRnbBuildings}
+            displayPanoramax={displayPanoramax}
             onMapStyleChange={handleMapStyleChange}
             onLandRegisterChange={handleLandRegisterChange}
             onRnbBuildingsChange={handleRnbBuildingsChange}
+            onPanoramaxChange={handlePanoramaxLayerChange}
             onClose={closeLayersPanel}
           />
         )}

@@ -1,7 +1,7 @@
 import { Source, Layer, Marker, Popup, useMap, MapMouseEvent } from 'react-map-gl/maplibre'
 import type { MapLayerMouseEvent } from 'react-map-gl/maplibre'
 import type { Address } from '../types'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import PanoramaxViewer, { PanoramaxSelection } from './PanoramaxViewer'
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'

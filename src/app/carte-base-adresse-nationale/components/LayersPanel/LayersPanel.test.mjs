@@ -55,9 +55,11 @@ const defaultProps = {
   isIGNMapStyleAccessible: true,
   displayLandRegister: false,
   displayRnbBuildings: false,
+  displayPanoramax: false,
   onMapStyleChange: () => {},
   onLandRegisterChange: () => {},
   onRnbBuildingsChange: () => {},
+  onPanoramaxChange: () => {},
   onClose: () => {},
 }
 
@@ -138,11 +140,16 @@ test('the IGN base map is disabled with an explanation outside its coverage', ()
 })
 
 test('the other layers are labelled checkboxes "Autres couches" reflecting their display state', () => {
-  for (const [displayLandRegister, displayRnbBuildings] of [[false, false], [true, false], [false, true], [true, true]]) {
-    const html = render({ displayLandRegister, displayRnbBuildings })
+  for (const [displayLandRegister, displayRnbBuildings, displayPanoramax] of [
+    [false, false, false],
+    [true, false, true],
+    [false, true, false],
+    [true, true, true],
+  ]) {
+    const html = render({ displayLandRegister, displayRnbBuildings, displayPanoramax })
     const checkboxes = inputs(html).filter(input => input.type === 'checkbox')
-    assert.deepEqual(checkboxes.map(checkbox => labelText(html, checkbox.id)), ['Parcelles cadastrales', 'Bâtiments (RNB)'])
-    assert.deepEqual(checkboxes.map(checkbox => checkbox.checked), [displayLandRegister, displayRnbBuildings])
+    assert.deepEqual(checkboxes.map(checkbox => labelText(html, checkbox.id)), ['Parcelles cadastrales', 'Bâtiments (RNB)', 'Couche Panoramax'])
+    assert.deepEqual(checkboxes.map(checkbox => checkbox.checked), [displayLandRegister, displayRnbBuildings, displayPanoramax])
     assert.equal(legendOf(html, checkboxes[0].id), 'Autres couches')
   }
 })
@@ -173,7 +180,7 @@ test('every layer shows a decorative thumbnail', () => {
     src: attrs.match(/src="([^"]+)"/)?.[1],
     alt: attrs.match(/alt="([^"]*)"/)?.[1],
   }))
-  assert.equal(images.length, 5)
+  assert.equal(images.length, 6)
   assert.ok(images.every(image => image.src?.startsWith('/img/map/') && image.alt === ''))
 })
 
@@ -183,11 +190,13 @@ test('choosing a base map or toggling a layer reports the new value', () => {
     onMapStyleChange: style => calls.push(['style', style]),
     onLandRegisterChange: checked => calls.push(['cadastre', checked]),
     onRnbBuildingsChange: checked => calls.push(['rnb', checked]),
+    onPanoramaxChange: checked => calls.push(['panoramax', checked]),
   })
   found.find(props => props.value === 'ign-ortho').onChange()
   found.find(props => props.name === 'land-register').onChange({ target: { checked: true } })
   found.find(props => props.name === 'rnb-buildings').onChange({ target: { checked: true } })
-  assert.deepEqual(calls, [['style', 'ign-ortho'], ['cadastre', true], ['rnb', true]])
+  found.find(props => props.name === 'panoramax').onChange({ target: { checked: true } })
+  assert.deepEqual(calls, [['style', 'ign-ortho'], ['cadastre', true], ['rnb', true], ['panoramax', true]])
 })
 
 test('re-selecting the displayed base map records it when it differs from the saved choice', () => {
