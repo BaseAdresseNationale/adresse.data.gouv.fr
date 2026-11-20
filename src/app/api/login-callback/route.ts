@@ -8,7 +8,7 @@ import { createBanSession } from '@/lib/ban-session'
 export const dynamic = 'force-dynamic'
 
 import secureSetup from '@/utils/secure'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(req: NextRequest) {

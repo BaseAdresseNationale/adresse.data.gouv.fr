@@ -2,7 +2,7 @@ import { customFetch } from '@/lib/fetch'
 import { ClientApiDepotWithChefDeFileType, Habilitation, Revision } from '@/types/api-depot.types'
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import Link from 'next/link'
 import { AlertBadge } from './AlertBadge'
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {

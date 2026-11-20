@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAddress, getDistrictConfigByCodeCommune } from '@/lib/api-ban'
 import { getCommune } from '@/lib/api-geo'
 import { isAddressCertifiable } from '@/lib/ban'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { CertificateTypeEnum } from '@/types/api-ban.types'
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')

@@ -12,7 +12,7 @@ const compiled = Object.fromEntries(files.map(file => [file, ts.transpileModule(
   { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } },
 ).outputText]))
 
-function loadHome(fetch) {
+function loadHome(fetch, connection = async () => {}) {
   const warnings = []
   const components = new Map()
   const environment = { env: key => key === 'NEXT_PUBLIC_API_BAN_URL' ? 'https://ban.example.invalid' : 'true' }
@@ -24,12 +24,13 @@ function loadHome(fetch) {
   const fetchModule = load('../lib/fetch.ts', name => { throw new Error('Unexpected import: ' + name) })
   const api = load('../lib/api-ban.ts', name => {
     if (name === './fetch') return fetchModule
-    assert.equal(name, 'next-runtime-env')
+    assert.equal(name, '@/utils/env')
     return environment
   })
   const page = load('page.tsx', name => {
     if (name === 'react/jsx-runtime') return jsxRuntime
-    if (name === 'next-runtime-env') return environment
+    if (name === 'next/server') return { connection }
+    if (name === '@/utils/env') return environment
     if (name === '@/lib/api-ban') return api
     if (name === '@/lib/blog') return { getPosts: async () => ({ posts: [] }) }
     if (name === '@/utils/pageTitle') return title => ({ title })
@@ -55,6 +56,21 @@ function loadHome(fetch) {
   }
   return { Home: page.default, api, contains, warnings }
 }
+
+test('the home page waits for a request before fetching data', async () => {
+  let release
+  let fetched = false
+  const connection = () => new Promise(resolve => { release = resolve })
+  const loaded = loadHome(async () => {
+    fetched = true
+    return Response.json({ bal: { nbCommunesCouvertes: 1 } })
+  }, connection)
+  const rendering = loaded.Home()
+  assert.equal(fetched, false)
+  release()
+  await rendering
+  assert.equal(fetched, true)
+})
 
 async function assertHomeWithoutStatistics(loaded) {
   const tree = await loaded.Home()

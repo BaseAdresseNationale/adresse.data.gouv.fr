@@ -5,7 +5,7 @@ import remarkHeadingId from 'remark-heading-id'
 
 import html from 'remark-html'
 import matter from 'gray-matter'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 const NODE_ENV = process.env.NODE_ENV
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 // fix unknown property on matter.GrayMatterFile

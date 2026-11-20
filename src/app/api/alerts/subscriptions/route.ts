@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 interface CreateSubscriptionBody {
   userID: string

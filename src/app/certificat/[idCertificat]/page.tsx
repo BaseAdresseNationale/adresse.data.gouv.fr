@@ -7,7 +7,7 @@ import {
   FieldLabel,
   FieldValue,
 } from './page.styles'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { isUUIDv4 } from '@/utils/validate'
 import { Metadata } from 'next'
 import Breadcrumb from '@/layouts/Breadcrumb'

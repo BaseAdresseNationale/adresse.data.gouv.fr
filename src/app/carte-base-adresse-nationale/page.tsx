@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, Suspense, useCallback } from 'react'
 import { customFetch } from '@/lib/fetch'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { AttributionControl, MapProvider, Map, NavigationControl, ScaleControl } from 'react-map-gl/maplibre'
 import { LngLatBounds } from 'maplibre-gl'

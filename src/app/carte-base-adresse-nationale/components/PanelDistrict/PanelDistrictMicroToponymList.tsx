@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { ToggleSwitch } from '@codegouvfr/react-dsfr/ToggleSwitch'
 import { Table } from '@codegouvfr/react-dsfr/Table'
 import { Input } from '@codegouvfr/react-dsfr/Input'

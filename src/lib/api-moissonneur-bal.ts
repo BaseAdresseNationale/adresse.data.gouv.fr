@@ -1,6 +1,6 @@
 import { customFetch } from '@/lib/fetch'
 import { ExtendedSourceMoissoneurType, HarvestMoissonneurType, OrganizationMoissoneurType, RevisionMoissoneurType } from '@/types/api-moissonneur-bal.types'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 if (!env('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL')) {
   throw new Error('NEXT_PUBLIC_MOISSONNEUR_BAL_API_URL is not defined in the environment')

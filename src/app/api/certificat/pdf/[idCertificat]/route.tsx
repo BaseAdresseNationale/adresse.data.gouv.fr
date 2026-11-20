@@ -13,7 +13,7 @@ import {
   normalizedIssuerDetailsForPdf,
   sanitizeCertificateAttestationText,
 } from '@/lib/certificate-issuer-config'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 import { isUUIDv4 } from '@/utils/validate'
 
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')

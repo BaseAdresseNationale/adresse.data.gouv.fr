@@ -1,4 +1,4 @@
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const URL = env('NEXT_PUBLIC_GHOST_URL')
 const KEY = env('NEXT_PUBLIC_GHOST_KEY')

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { getPosts } from '@/lib/blog'
 
 import { AsideLinkList, AsideFollowList } from './AsideContent.styled'
-import { env } from 'next-runtime-env'
+import { env } from '@/utils/env'
 
 const SOCIAL_NETWORKS_URL_BLUESKY = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_BLUESKY')
 const SOCIAL_NETWORKS_URL_MASTODON = env('NEXT_PUBLIC_SOCIAL_NETWORKS_URL_MASTODON')
