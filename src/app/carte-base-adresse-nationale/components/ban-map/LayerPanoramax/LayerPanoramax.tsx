@@ -23,7 +23,7 @@ if (!tilesEnv) {
 
 const PANORAMAX_TILES: string = tilesEnv
 
-function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
+export default function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
   const { current: map } = useMap()
   const visibility = isVisible ? 'visible' : 'none'
   const [selection, setSelection] = useState<PanoramaxSelection | null>(null)
@@ -227,5 +227,3 @@ function LayerPanoramax({ isVisible = false }: LayerPanoramaxProps) {
     </>
   )
 }
-
-export default LayerPanoramax

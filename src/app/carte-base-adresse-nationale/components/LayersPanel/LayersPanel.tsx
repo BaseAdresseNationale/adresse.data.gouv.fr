@@ -76,7 +76,7 @@ function LayersPanel({
     {
       key: 'panoramax',
       label: 'Couche Panoramax',
-      img: '/img/map/layer-batiments-rnb.png',
+      img: '/img/map/layer-panoramax.jpg',
       checked: displayPanoramax,
       isDisabled: false,
       onChange: onPanoramaxChange,
