@@ -50,3 +50,9 @@ public/data/communes-index.json
 public/newsletters
 
 .vscode/
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
