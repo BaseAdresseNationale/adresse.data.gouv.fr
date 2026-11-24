@@ -46,7 +46,7 @@ function Carto({ children }: { children: ReactNode }) {
   const layersButtonRef = useRef<HTMLButtonElement>(null)
   const banMapConfigState = useBanMapConfig()
   const [banMapConfig, dispatchToBanMapConfig] = banMapConfigState
-  const { mapStyle, buttonMapStyle, isIGNMapStyleAccessible, isRnbLayerAccessible, displayLandRegister, displayRnbBuildings, displayMenuConfig } = banMapConfig
+  const { mapStyle, buttonMapStyle, isIGNMapStyleAccessible, isRnbLayerAccessible, displayLandRegister, displayRnbBuildings, displayPanoramax, displayMenuConfig } = banMapConfig
 
   useEffect(() => {
     setTypeLayout('full-screen')
@@ -73,6 +73,10 @@ function Carto({ children }: { children: ReactNode }) {
 
   const handleRnbBuildingsChange = useCallback((isDisplayed: boolean) => {
     dispatchToBanMapConfig({ type: 'TOGGLE_RNB_LAYER', payload: isDisplayed })
+  }, [dispatchToBanMapConfig])
+
+  const handlePanoramaxLayerChange = useCallback((isDisabled: boolean) => {
+    dispatchToBanMapConfig({ type: 'TOGGLE_PANORAMAX_LAYER', payload: isDisabled})
   }, [dispatchToBanMapConfig])
 
   return (
@@ -118,9 +122,11 @@ function Carto({ children }: { children: ReactNode }) {
             isRnbLayerAccessible={isRnbLayerAccessible}
             displayLandRegister={displayLandRegister}
             displayRnbBuildings={displayRnbBuildings}
+            displayPanoramax={displayPanoramax}
             onMapStyleChange={handleMapStyleChange}
             onLandRegisterChange={handleLandRegisterChange}
             onRnbBuildingsChange={handleRnbBuildingsChange}
+            onPanoramaxChange={handlePanoramaxLayerChange}
             onClose={closeLayersPanel}
           />
         )}

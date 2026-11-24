@@ -19,7 +19,7 @@ import {
 export const BASE_MAP_OPTIONS = [
   { value: 'ign-vector', label: 'Plan (IGN)', img: '/img/map/bg-button-map-style-ign-vector.png' },
   { value: 'osm-vector', label: 'Plan (OSM)', img: '/img/map/bg-button-map-style-osm-vector.png' },
-  { value: 'ign-ortho', label: 'Vue satellite (IGN)', img: '/img/map/bg-button-map-style-ign-ortho.png' },
+  { value: 'ign-ortho', label: 'Vue aérienne (IGN)', img: '/img/map/bg-button-map-style-ign-ortho.png' },
 ]
 
 interface LayersPanelProps {
@@ -30,9 +30,11 @@ interface LayersPanelProps {
   isRnbLayerAccessible?: boolean
   displayLandRegister: boolean
   displayRnbBuildings: boolean
+  displayPanoramax: boolean
   onMapStyleChange: (style: string) => void
   onLandRegisterChange: (isDisplayed: boolean) => void
   onRnbBuildingsChange: (isDisplayed: boolean) => void
+  onPanoramaxChange: (isDisplayed: boolean) => void
   onClose: () => void
 }
 
@@ -44,9 +46,11 @@ function LayersPanel({
   isRnbLayerAccessible = true,
   displayLandRegister,
   displayRnbBuildings,
+  displayPanoramax,
   onMapStyleChange,
   onLandRegisterChange,
   onRnbBuildingsChange,
+  onPanoramaxChange,
   onClose,
 }: LayersPanelProps) {
   const uid = useId()
@@ -68,6 +72,14 @@ function LayersPanel({
       checked: displayRnbBuildings && isRnbLayerAccessible,
       isDisabled: !isRnbLayerAccessible,
       onChange: onRnbBuildingsChange,
+    },
+    {
+      key: 'panoramax',
+      label: 'Panoramax',
+      img: '/img/map/layer-panoramax.png',
+      checked: displayPanoramax,
+      isDisabled: false,
+      onChange: onPanoramaxChange,
     },
   ]
 
