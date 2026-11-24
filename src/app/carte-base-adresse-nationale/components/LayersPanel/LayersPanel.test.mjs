@@ -148,7 +148,7 @@ test('the other layers are labelled checkboxes "Autres couches" reflecting their
   ]) {
     const html = render({ displayLandRegister, displayRnbBuildings, displayPanoramax })
     const checkboxes = inputs(html).filter(input => input.type === 'checkbox')
-    assert.deepEqual(checkboxes.map(checkbox => labelText(html, checkbox.id)), ['Parcelles cadastrales', 'Bâtiments (RNB)', 'Couche Panoramax'])
+    assert.deepEqual(checkboxes.map(checkbox => labelText(html, checkbox.id)), ['Parcelles cadastrales', 'Bâtiments (RNB)', 'Panoramax'])
     assert.deepEqual(checkboxes.map(checkbox => checkbox.checked), [displayLandRegister, displayRnbBuildings, displayPanoramax])
     assert.equal(legendOf(html, checkboxes[0].id), 'Autres couches')
   }

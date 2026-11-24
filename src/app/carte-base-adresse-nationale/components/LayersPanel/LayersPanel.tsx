@@ -75,8 +75,8 @@ function LayersPanel({
     },
     {
       key: 'panoramax',
-      label: 'Couche Panoramax',
-      img: '/img/map/layer-panoramax.jpg',
+      label: 'Panoramax',
+      img: '/img/map/layer-panoramax.png',
       checked: displayPanoramax,
       isDisabled: false,
       onChange: onPanoramaxChange,
