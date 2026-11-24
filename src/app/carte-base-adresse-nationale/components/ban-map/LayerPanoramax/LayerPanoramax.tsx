@@ -6,6 +6,7 @@ import PanoramaxViewer, { PanoramaxSelection } from './PanoramaxViewer'
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { PanoramaxControls } from './PanoramaxControls'
+import Image from 'next/image'
 
 interface LayerPanoramaxProps {
   address: Address
@@ -186,13 +187,16 @@ export default function LayerPanoramax({ isVisible = false }: LayerPanoramaxProp
           maxWidth="240px"
           style={{ pointerEvents: 'none' }}
         >
-          <img
+          <Image
             key={hovered.id}
             src={`${endpoint}/pictures/${hovered.id}/thumb.jpg`}
             alt="Aperçu de la photo Panoramax"
-            style={{ display: 'block', width: '100%', borderRadius: 4 }}
+            width={240}
+            height={160}
+            unoptimized
+            style={{ display: 'block', width: '100%', height: 'auto', borderRadius: 4 }}
             onError={e => { e.currentTarget.style.display = 'none' }}
-          />
+        />
         </Popup>
       )}
 
