@@ -4,6 +4,7 @@ import { isObject, mapValues, omitBy } from 'lodash'
 
 import { appendCookie } from '@/lib/auth-cookies'
 import { SessionSecretError, getSessionKey } from '@/lib/identity'
+import { toInternalPath } from '@/utils/url'
 
 export const objToUrlParams = (obj: any) => {
   const processedObj = mapValues(
@@ -81,7 +82,7 @@ export const getAuthorizationControllerFactory = async (req: NextRequest) => {
     const loginCookies = [
       { name: 'nonce', value: nonce },
       { name: 'state', value: state },
-      ...(returnTo ? [{ name: 'auth_return_to', value: returnTo, maxAge: 600 }] : []),
+      ...(returnTo ? [{ name: 'auth_return_to', value: toInternalPath(returnTo), maxAge: 600 }] : []),
     ]
     for (const cookie of loginCookies) {
       appendCookie({ response, ...cookie, httpOnly: true })

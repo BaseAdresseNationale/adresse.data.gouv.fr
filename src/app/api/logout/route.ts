@@ -4,6 +4,7 @@ import { cookies } from 'next/headers'
 import * as client from 'openid-client'
 import { env } from '@/utils/env'
 import { SESSION_EXPIRED_REASON } from '@/utils/sessionExpired'
+import { toInternalPath } from '@/utils/url'
 import { IDENTITY_COOKIE_NAME } from '@/lib/identity'
 import { LEGACY_IDENTITY_COOKIES, appendCookie, appendCookieDeletions } from '@/lib/auth-cookies'
 
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
     const isLogoutInitiated = cookieStore.get('logout_initiated')
     const isCallback = !returnUrlParam && hasPostLogoutCookie && isLogoutInitiated
 
-    let returnUrl = hasPostLogoutCookie?.value || returnUrlParam || '/'
+    let returnUrl = toInternalPath(hasPostLogoutCookie?.value || returnUrlParam)
     if (reason === SESSION_EXPIRED_REASON && !returnUrl.includes('reason=')) {
       const separator = returnUrl.includes('?') ? '&' : '?'
       returnUrl = `${returnUrl}${separator}reason=${SESSION_EXPIRED_REASON}`
@@ -31,7 +32,7 @@ export async function GET(request: Request) {
 
     if (isCallback) {
       // Rediriger vers l'URL de retour avec suppression des cookies
-      const response = NextResponse.redirect(`${env('HOST')}${returnUrl}`)
+      const response = NextResponse.redirect(new URL(returnUrl, env('HOST')))
       appendCookieDeletions({ response, names: LOGOUT_RETURN_COOKIES })
       return response
     }
@@ -68,8 +69,7 @@ export async function GET(request: Request) {
   catch (error) {
     console.error('Logout failed', error)
     const { searchParams } = new URL(request.url)
-    const fallbackUrl: string = searchParams.get('returnUrl') || '/'
-    const response = NextResponse.redirect(`${env('HOST')}${fallbackUrl}`)
+    const response = NextResponse.redirect(new URL(toInternalPath(searchParams.get('returnUrl')), env('HOST')))
     appendCookieDeletions({ response, names: IDENTITY_COOKIES })
     return response
   }

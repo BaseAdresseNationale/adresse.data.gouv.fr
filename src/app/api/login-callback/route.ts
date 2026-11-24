@@ -9,6 +9,7 @@ import { LEGACY_IDENTITY_COOKIES, appendCookie, appendCookieDeletions } from '@/
 export const dynamic = 'force-dynamic'
 
 import { env } from '@/utils/env'
+import { toInternalPath } from '@/utils/url'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(req: NextRequest) {
@@ -62,7 +63,7 @@ export async function GET(req: NextRequest) {
 
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
     const returnTo = req.cookies.get('auth_return_to')?.value
-    const url = new URL(returnTo || '', NEXT_PUBLIC_ADRESSE_URL)
+    const url = new URL(returnTo ? toInternalPath(returnTo) : '', NEXT_PUBLIC_ADRESSE_URL)
     if (!returnTo) {
       url.search = req.nextUrl.search.toString()
     }
