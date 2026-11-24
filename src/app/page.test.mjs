@@ -6,7 +6,7 @@ import { Children, isValidElement } from 'react'
 import * as jsxRuntime from 'react/jsx-runtime'
 import ts from 'typescript'
 
-const files = ['page.tsx', '../lib/api-ban.ts', '../lib/fetch.ts']
+const files = ['page.tsx', '../lib/api-ban.ts', '../lib/fetch.ts', '../utils/url.ts']
 const compiled = Object.fromEntries(files.map(file => [file, ts.transpileModule(
   readFileSync(new URL(file, import.meta.url), 'utf8'),
   { compilerOptions: { module: ts.ModuleKind.CommonJS, jsx: ts.JsxEmit.ReactJSX, esModuleInterop: true } },
@@ -22,8 +22,10 @@ function loadHome(fetch, connection = async () => {}) {
     return exports
   }
   const fetchModule = load('../lib/fetch.ts', name => { throw new Error('Unexpected import: ' + name) })
+  const urlModule = load('../utils/url.ts', name => { throw new Error('Unexpected import: ' + name) })
   const api = load('../lib/api-ban.ts', name => {
     if (name === './fetch') return fetchModule
+    if (name === '@/utils/url') return urlModule
     assert.equal(name, '@/utils/env')
     return environment
   })

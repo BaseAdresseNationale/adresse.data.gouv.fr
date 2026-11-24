@@ -8,7 +8,7 @@ function resolveDocId(source: string): string {
     actus: env('NEXT_PUBLIC_GRIST_DOC_BANDEAU_ID') || '',
     applications: env('NEXT_PUBLIC_GRIST_DOC_ID') || '',
   }
-  return map[source] ?? ''
+  return Object.hasOwn(map, source) ? map[source] : ''
 }
 
 export async function GET(

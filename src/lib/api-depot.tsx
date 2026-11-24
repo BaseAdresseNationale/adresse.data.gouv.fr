@@ -3,6 +3,7 @@ import { ClientApiDepotWithChefDeFileType, Habilitation, Revision } from '@/type
 import { getDataset } from './api-data-gouv'
 import { BANCommune } from '@/types/api-ban.types'
 import { env } from '@/utils/env'
+import { encodePathSegment } from '@/utils/url'
 import Link from 'next/link'
 import { AlertBadge } from './AlertBadge'
 if (!env('NEXT_PUBLIC_API_DEPOT_URL')) {
@@ -29,7 +30,7 @@ export async function getHabilitation(habilitationId: string, opts = { useProxy:
   const baseUrl = opts.useProxy ? '/api/proxy-api-depot' : `${env('NEXT_PUBLIC_API_DEPOT_URL')}`
   const fetchOptions = opts.useProxy ? {} : { headers: { Authorization: `Token ${env('API_DEPOT_TOKEN')}` } }
 
-  return customFetch(`${baseUrl}/habilitations/${habilitationId}`, fetchOptions)
+  return customFetch(`${baseUrl}/habilitations/${encodePathSegment(habilitationId)}`, fetchOptions)
 }
 
 export function createHabilitation(codeCommune: string): Promise<Habilitation> {
@@ -53,11 +54,11 @@ export function validateHabilitationPinCode(habilitationId: string, code: string
 }
 
 export async function getRevision(revisionId: string): Promise<Revision> {
-  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${revisionId}`, { cache: 'force-cache' })
+  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${encodePathSegment(revisionId)}`, { cache: 'force-cache' })
 }
 
 export async function getCurrentRevision(codeCommune: string): Promise<Revision | undefined> {
-  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision`, { cache: 'force-cache' })
+  return customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${encodePathSegment(codeCommune)}/current-revision`, { cache: 'force-cache' })
 }
 
 export async function getCurrentRevisionFile(codeCommune: string): Promise<any> {
@@ -67,11 +68,11 @@ export async function getCurrentRevisionFile(codeCommune: string): Promise<any> 
     cache: 'force-cache',
   }
 
-  return fetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`, options)
+  return fetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${encodePathSegment(codeCommune)}/current-revision/files/bal/download`, options)
 }
 
 export async function getRevisions(codeCommune: string): Promise<Revision[]> {
-  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/revisions`, { cache: 'no-store' })
+  const revisions = await customFetch(`${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${encodePathSegment(codeCommune)}/revisions`, { cache: 'no-store' })
 
   return revisions.sort((a: Revision, b: Revision) => {
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -125,11 +126,11 @@ export function publishRevision(revisionId: string, body: string) {
 }
 
 export const getRevisionDownloadUrl = (revisionId: string) => {
-  return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${revisionId}/files/bal/download`
+  return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/revisions/${encodePathSegment(revisionId)}/files/bal/download`
 }
 
 export const getCurrentRevisionDownloadUrl = (codeCommune: string) => {
-  return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${codeCommune}/current-revision/files/bal/download`
+  return `${env('NEXT_PUBLIC_API_DEPOT_URL')}/communes/${encodePathSegment(codeCommune)}/current-revision/files/bal/download`
 }
 
 export const getRevisionDetails = async (revision: Revision, commune: BANCommune, allRevisions: Revision[]) => {

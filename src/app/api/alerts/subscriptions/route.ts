@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from '@/utils/env'
+import { encodePathSegment } from '@/utils/url'
+import { isUUIDv4 } from '@/utils/validate'
 
 interface CreateSubscriptionBody {
   userID: string
@@ -139,9 +141,9 @@ export async function PATCH(request: NextRequest) {
       )
     }
 
-    if (!body.id) {
+    if (typeof body.id !== 'string' || !isUUIDv4(body.id)) {
       return NextResponse.json(
-        { error: 'ID de l\'abonnement requis' },
+        { error: 'ID de l\'abonnement invalide' },
         { status: 400 }
       )
     }
@@ -154,7 +156,7 @@ export async function PATCH(request: NextRequest) {
     const updateData = buildUpdateData(body)
     updateData.createdBy = userID
 
-    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${body.id}`, {
+    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${encodePathSegment(body.id)}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -201,14 +203,14 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    if (!body.id) {
+    if (typeof body.id !== 'string' || !isUUIDv4(body.id)) {
       return NextResponse.json(
-        { error: 'ID de l\'abonnement requis' },
+        { error: 'ID de l\'abonnement invalide' },
         { status: 400 }
       )
     }
 
-    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${body.id}`, {
+    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${encodePathSegment(body.id)}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

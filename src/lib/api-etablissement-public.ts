@@ -8,7 +8,11 @@ if (!env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')) {
 export async function getMairiePageURL(codeCommune: string) {
   // Documentation : https://api-lannuaire.service-public.fr/explore/dataset/api-lannuaire-administration/information/
   const route = 'catalog/datasets/api-lannuaire-administration/records'
-  const query = `select=nom,url_service_public&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"&limit=-1`
+  const query = new URLSearchParams({
+    select: 'nom,url_service_public',
+    where: `code_insee_commune="${codeCommune}" and pivot LIKE "mairie"`,
+    limit: '-1',
+  })
   const url = `${env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')}/${route}?${query}`
 
   const response: { results: APIEtablissementPublicMairie[] } = await customFetch(url, { next: { revalidate: 1800 } })
@@ -86,7 +90,10 @@ const formatOpeningHourRange = (openingRange: any): OpeningHourRange[] => {
 export async function getMairie(codeCommune: string): Promise<FormattedMairie | null> {
   // Documentation : https://api-lannuaire.service-public.fr/explore/dataset/api-lannuaire-administration/information/
   const route = 'catalog/datasets/api-lannuaire-administration/records'
-  const query = `select=plage_ouverture,nom,telephone,adresse_courriel&where=code_insee_commune="${codeCommune}" and pivot LIKE "mairie"`
+  const query = new URLSearchParams({
+    select: 'plage_ouverture,nom,telephone,adresse_courriel',
+    where: `code_insee_commune="${codeCommune}" and pivot LIKE "mairie"`,
+  })
   const url = `${env('NEXT_PUBLIC_API_ETABLISSEMENTS_PUBLIC')}/${route}?${query}`
 
   const response: { results: MairieResponse[] } = await customFetch(url, { cache: 'force-cache' })

@@ -1,11 +1,12 @@
 import { env } from '@/utils/env'
+import { encodePathSegment } from '@/utils/url'
 import { CommunePrecedente } from '@/types/api-insee.types'
 
 if (!env('NEXT_PUBLIC_API_INSEE_URL')) {
   throw new Error('NEXT_PUBLIC_API_INSEE_URL is not defined')
 }
 export const getCommunesPrecedentes = async (code: string): Promise<CommunePrecedente[]> => {
-  const url = new URL(`${env('NEXT_PUBLIC_API_INSEE_URL')}/metadonnees/geo/commune/${code}/precedents`)
+  const url = new URL(`${env('NEXT_PUBLIC_API_INSEE_URL')}/metadonnees/geo/commune/${encodePathSegment(code)}/precedents`)
 
   const response = await fetch(url, {
     headers: {
