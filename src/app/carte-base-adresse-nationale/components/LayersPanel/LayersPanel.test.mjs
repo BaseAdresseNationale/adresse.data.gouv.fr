@@ -122,7 +122,7 @@ test('the base maps are one radio group "Fonds de cartes" with the current style
   const html = render({ mapStyle: 'osm-vector' })
   const radios = inputs(html).filter(input => input.type === 'radio')
   assert.deepEqual(radios.map(radio => radio.value), ['ign-vector', 'osm-vector', 'ign-ortho'])
-  assert.deepEqual(radios.map(radio => labelText(html, radio.id)), ['Plan (IGN)', 'Plan (OSM)', 'Vue satellite (IGN)'])
+  assert.deepEqual(radios.map(radio => labelText(html, radio.id)), ['Plan (IGN)', 'Plan (OSM)', 'Vue aérienne (IGN)'])
   assert.equal(new Set(radios.map(radio => radio.name)).size, 1)
   assert.deepEqual(radios.filter(radio => radio.checked).map(radio => radio.value), ['osm-vector'])
   assert.equal(legendOf(html, radios[0].id), 'Fonds de cartes')

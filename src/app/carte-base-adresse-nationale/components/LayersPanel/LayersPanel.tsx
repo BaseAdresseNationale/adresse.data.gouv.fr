@@ -19,7 +19,7 @@ import {
 export const BASE_MAP_OPTIONS = [
   { value: 'ign-vector', label: 'Plan (IGN)', img: '/img/map/bg-button-map-style-ign-vector.png' },
   { value: 'osm-vector', label: 'Plan (OSM)', img: '/img/map/bg-button-map-style-osm-vector.png' },
-  { value: 'ign-ortho', label: 'Vue satellite (IGN)', img: '/img/map/bg-button-map-style-ign-ortho.png' },
+  { value: 'ign-ortho', label: 'Vue aérienne (IGN)', img: '/img/map/bg-button-map-style-ign-ortho.png' },
 ]
 
 interface LayersPanelProps {
