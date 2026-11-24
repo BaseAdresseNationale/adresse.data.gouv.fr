@@ -1,3 +1,5 @@
+import type { Identity } from '@/lib/identity'
+
 /**
  * Résolution du SIREN de la commune associée à un district BAN (cache + API Geo).
  * Utilisé pour vérifier qu’un utilisateur authentifié agit pour la bonne commune.
@@ -80,23 +82,9 @@ export async function resolveCommuneSirenForDistrictId(
   return { status: 'ok', siren }
 }
 
-type CookieStore = { get: (name: string) => { value: string } | undefined }
-
-/** SIREN des 9 premiers caractères du SIRET utilisateur (session `userinfo`). */
-export function readUserSirenFromCookies(cookieStore: CookieStore): string | null {
-  const userinfo = cookieStore.get('userinfo')
-  if (!userinfo) return null
-
-  let user: Record<string, unknown>
-  try {
-    user = JSON.parse(userinfo.value)
-  }
-  catch {
-    return null
-  }
-
-  const siret = typeof user.siret === 'string' ? user.siret : ''
-  const siren = siret.length >= 9 ? siret.slice(0, 9) : ''
-  if (!user.sub || siren.length !== 9) return null
-  return siren
+/** SIREN des 9 premiers caractères du SIRET de l'agent connecté. */
+export function getSirenFromIdentity(identity: Identity | null): string | null {
+  const siret = identity?.siret ?? ''
+  const siren = siret.slice(0, 9)
+  return siren.length === 9 ? siren : null
 }

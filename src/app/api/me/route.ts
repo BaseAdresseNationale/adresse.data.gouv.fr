@@ -1,31 +1,17 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
+import { getCurrentIdentity } from '@/lib/identity'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
-    const cookieStore = await cookies()
-    const userinfo = cookieStore.get('userinfo')
+    const identity = await getCurrentIdentity()
 
-    if (!userinfo) {
+    if (!identity) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
-    let parsedUser
-    try {
-      parsedUser = typeof userinfo.value === 'string' ? JSON.parse(userinfo.value) : userinfo.value
-    }
-    catch (error) {
-      console.error('Invalid userinfo cookie format:', error)
-      return NextResponse.json({ error: 'Invalid session data' }, { status: 401 })
-    }
-
-    if (!parsedUser || (!parsedUser.sub && !parsedUser.id)) {
-      return NextResponse.json({ error: 'Invalid user data' }, { status: 401 })
-    }
-
-    return NextResponse.json(parsedUser, { status: 200 })
+    return NextResponse.json(identity, { status: 200 })
   }
   catch (error) {
     console.error('Error in GET /api/me:', error)

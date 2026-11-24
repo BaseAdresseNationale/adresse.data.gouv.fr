@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from '@/utils/env'
+import { getCurrentIdentity } from '@/lib/identity'
 import { encodePathSegment } from '@/utils/url'
 import { isUUIDv4 } from '@/utils/validate'
 
@@ -24,24 +25,18 @@ interface DeleteSubscriptionBody {
   id: string
 }
 
-interface UserData {
-  sub: string
-  email: string
-  [key: string]: any
-}
-
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const userID = await getUserFromRequest(request)
+    const identity = await getCurrentIdentity()
 
-    if (!userID) {
+    if (!identity) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
       )
     }
 
-    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers?createdBy=${userID}`, {
+    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers?createdBy=${encodeURIComponent(identity.sub)}`, {
       headers: {
         Authorization: `Token ${env('BAN_API_TOKEN')}`,
       },
@@ -71,9 +66,9 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body: CreateSubscriptionBody = await request.json()
-    const userData = await getUserDataFromRequest(request)
+    const identity = await getCurrentIdentity()
 
-    if (!userData) {
+    if (!identity) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
@@ -90,8 +85,8 @@ export async function POST(request: NextRequest) {
       webhookUrl: body.webhookURL,
       statusesToFollow: body.statusesToFollow,
       districtsToFollow: body.allDistricts ? [] : body.districtsToFollow,
-      createdBy: userData.sub,
-      createdByEmail: userData.email,
+      createdBy: identity.sub,
+      createdByEmail: identity.email,
     }
 
     const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers`, {
@@ -132,9 +127,9 @@ export async function POST(request: NextRequest) {
 export async function PATCH(request: NextRequest) {
   try {
     const body: PatchSubscriptionBody = await request.json()
-    const userID = await getUserFromRequest(request)
+    const identity = await getCurrentIdentity()
 
-    if (!userID) {
+    if (!identity) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
@@ -154,7 +149,7 @@ export async function PATCH(request: NextRequest) {
     }
 
     const updateData = buildUpdateData(body)
-    updateData.createdBy = userID
+    updateData.createdBy = identity.sub
 
     const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${encodePathSegment(body.id)}`, {
       method: 'PATCH',
@@ -194,9 +189,9 @@ export async function PATCH(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     const body: DeleteSubscriptionBody = await request.json()
-    const userID = await getUserFromRequest(request)
+    const identity = await getCurrentIdentity()
 
-    if (!userID) {
+    if (!identity) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
@@ -217,7 +212,7 @@ export async function DELETE(request: NextRequest) {
         'Authorization': `Token ${env('BAN_API_TOKEN')}`,
       },
       // Passer l'userId dans le body pour l'authentification
-      body: JSON.stringify({ createdBy: userID }),
+      body: JSON.stringify({ createdBy: identity.sub }),
     })
 
     if (!response.ok) {
@@ -241,56 +236,6 @@ export async function DELETE(request: NextRequest) {
       { status: 500 }
     )
   }
-}
-
-function parseUserData(userData: any): UserData | null {
-  try {
-    let parsedData = userData
-    if (typeof userData === 'string') {
-      parsedData = JSON.parse(userData)
-    }
-
-    if (parsedData && (parsedData.sub || parsedData.id)) {
-      return {
-        sub: parsedData.sub || parsedData.id,
-        email: parsedData.email || null,
-        ...parsedData,
-      }
-    }
-
-    return null
-  }
-  catch (error) {
-    console.error('Erreur parsing userData:', error)
-    return null
-  }
-}
-
-async function getUserDataFromRequest(request: NextRequest): Promise<UserData | null> {
-  try {
-    const meResponse = await fetch(`${env('NEXT_PUBLIC_ADRESSE_URL')}/api/me`, {
-      headers: {
-        Cookie: request.headers.get('cookie') || '',
-        Authorization: request.headers.get('authorization') || '',
-      },
-    })
-
-    if (meResponse.ok) {
-      const userData = await meResponse.json()
-      return parseUserData(userData)
-    }
-
-    return null
-  }
-  catch (error) {
-    console.error('Erreur getUserDataFromRequest:', error)
-    return null
-  }
-}
-
-async function getUserFromRequest(request: NextRequest): Promise<string | null> {
-  const userData = await getUserDataFromRequest(request)
-  return userData?.sub || null
 }
 
 function normalizeAPIResponse(data: any): { subscriptions: any[], total: number } {

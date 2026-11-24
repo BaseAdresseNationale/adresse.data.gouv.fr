@@ -1,11 +1,11 @@
-import { readUserSirenFromCookies } from '@/lib/district-ownership'
+import { getSirenFromIdentity } from '@/lib/district-ownership'
+import { getCurrentIdentity } from '@/lib/identity'
 import { getMairie } from '@/lib/api-etablissement-public'
 import {
   defaultCertificateIssuerDetailsLines,
   isVilleParPopulation,
   sanitizeCertificateIssuerDetails,
 } from '@/lib/certificate-issuer-config'
-import { cookies } from 'next/headers'
 import { env } from '@/utils/env'
 import { NextRequest, NextResponse } from 'next/server'
 import { codeCommuneRegex } from '@/utils/string'
@@ -21,7 +21,7 @@ export async function GET(
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const userSiren = readUserSirenFromCookies(await cookies())
+    const userSiren = getSirenFromIdentity(await getCurrentIdentity())
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }

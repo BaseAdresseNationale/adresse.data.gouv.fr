@@ -4,14 +4,14 @@ import { getCommune } from '@/lib/api-geo'
 import { isAddressCertifiable } from '@/lib/ban'
 import { env } from '@/utils/env'
 import { CertificateTypeEnum } from '@/types/api-ban.types'
+import { getCurrentIdentity } from '@/lib/identity'
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
-export async function GET(request: NextRequest, props: { params: Promise<{ idAdresse: string }> }) {
+export async function GET(_request: NextRequest, props: { params: Promise<{ idAdresse: string }> }) {
   const params = await props.params
   let address
-  let connexion = null
   let habilitation = false
   try {
     address = await getAddress(params.idAdresse)
@@ -24,24 +24,16 @@ export async function GET(request: NextRequest, props: { params: Promise<{ idAdr
   }
 
   try {
-    connexion = await fetch(`${env('NEXT_PUBLIC_ADRESSE_URL')}/api/me`, {
-      headers: {
-        Cookie: request.headers.get('cookie') || '',
-        Authorization: request.headers.get('authorization') || '',
-      },
-    })
-    if (connexion && connexion.ok) {
-      const userInfo = await connexion.json()
+    const identity = await getCurrentIdentity()
+    if (identity?.siret) {
       const commune = await getCommune(address?.commune?.code)
-      if (userInfo?.siret && commune?.siren && commune.siren === userInfo.siret.slice(0, 9)) {
+      if (commune?.siren && commune.siren === identity.siret.slice(0, 9)) {
         habilitation = true
       }
     }
   }
-  catch (error: unknown) {
-    if (error && typeof error === 'object' && 'status' in error && (error as { status?: number }).status === 401) {
-      habilitation = false
-    }
+  catch (error) {
+    console.error('Vérification de l\'habilitation impossible', error)
   }
 
   const codeCommune = address?.codeCommune ?? address?.commune?.code

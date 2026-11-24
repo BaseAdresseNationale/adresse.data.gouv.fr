@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from '@/utils/env'
-import { cookies } from 'next/headers'
+import { getCurrentIdentity } from '@/lib/identity'
 import { codeCommuneRegex } from '@/utils/string'
 
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
@@ -8,24 +8,9 @@ const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const userinfo = cookieStore.get('userinfo')
-
-    if (!userinfo) {
+    const user = await getCurrentIdentity()
+    if (!user) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
-    }
-
-    let user
-    try {
-      user = JSON.parse(userinfo.value)
-    }
-    catch (error) {
-      console.error('Invalid userinfo cookie format:', error)
-      return NextResponse.json({ error: 'Invalid session data' }, { status: 401 })
-    }
-
-    if (!user?.sub) {
-      return NextResponse.json({ error: 'Invalid user data' }, { status: 401 })
     }
 
     const sessionData = {
@@ -75,24 +60,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const userinfo = cookieStore.get('userinfo')
-
-    if (!userinfo) {
+    const user = await getCurrentIdentity()
+    if (!user) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
-    }
-
-    let user
-    try {
-      user = JSON.parse(userinfo.value)
-    }
-    catch (error) {
-      console.error('Invalid userinfo cookie format:', error)
-      return NextResponse.json({ error: 'Invalid session data' }, { status: 401 })
-    }
-
-    if (!user?.sub) {
-      return NextResponse.json({ error: 'Invalid user data' }, { status: 401 })
     }
     const body = await request.json()
 

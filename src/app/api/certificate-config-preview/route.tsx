@@ -1,7 +1,7 @@
-import { readUserSirenFromCookies } from '@/lib/district-ownership'
+import { getSirenFromIdentity } from '@/lib/district-ownership'
+import { getCurrentIdentity } from '@/lib/identity'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
 import { getMairie } from '@/lib/api-etablissement-public'
-import { cookies } from 'next/headers'
 import { env } from '@/utils/env'
 import { NextResponse } from 'next/server'
 import QRCode from 'qrcode'
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const userSiren = readUserSirenFromCookies(await cookies())
+    const userSiren = getSirenFromIdentity(await getCurrentIdentity())
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }

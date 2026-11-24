@@ -4,14 +4,15 @@ import { cookies } from 'next/headers'
 import * as client from 'openid-client'
 import { env } from '@/utils/env'
 import { SESSION_EXPIRED_REASON } from '@/utils/sessionExpired'
+import { IDENTITY_COOKIE_NAME } from '@/lib/identity'
+import { LEGACY_IDENTITY_COOKIES, appendCookie, appendCookieDeletions } from '@/lib/auth-cookies'
 
 export const dynamic = 'force-dynamic'
 
-const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+const IDENTITY_COOKIES = [IDENTITY_COOKIE_NAME, 'id_token_hint', 'ban_connected', ...LEGACY_IDENTITY_COOKIES]
+const LOGOUT_RETURN_COOKIES = ['post_logout_return_url', 'logout_initiated']
 
 export async function GET(request: Request) {
-  const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
-  const isProd = process.env.NODE_ENV === 'production'
   try {
     const cookieStore = await cookies()
     const { searchParams } = new URL(request.url)
@@ -31,24 +32,7 @@ export async function GET(request: Request) {
     if (isCallback) {
       // Rediriger vers l'URL de retour avec suppression des cookies
       const response = NextResponse.redirect(`${env('HOST')}${returnUrl}`)
-
-      response.cookies.set('post_logout_return_url', '', {
-        path: '/',
-        expires: new Date(0),
-        domain: hostname,
-        httpOnly: true,
-        secure: isProd,
-        sameSite: 'lax',
-      })
-      response.cookies.set('logout_initiated', '', {
-        path: '/',
-        expires: new Date(0),
-        domain: hostname,
-        httpOnly: true,
-        secure: isProd,
-        sameSite: 'lax',
-      })
-
+      appendCookieDeletions({ response, names: LOGOUT_RETURN_COOKIES })
       return response
     }
 
@@ -70,51 +54,23 @@ export async function GET(request: Request) {
     const response = NextResponse.redirect(redirectUrl, 302)
 
     // Stocker les cookies utiles pour callback
-    response.cookies.set('post_logout_return_url', returnUrl, {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: 'lax',
-      maxAge: 300,
-      path: '/',
-      domain: hostname,
-    })
-    response.cookies.set('logout_initiated', 'true', {
-      httpOnly: true,
-      secure: isProd,
-      sameSite: 'lax',
-      maxAge: 300,
-      path: '/',
-      domain: hostname,
-    })
+    const returnCookies = [
+      { name: 'post_logout_return_url', value: returnUrl },
+      { name: 'logout_initiated', value: 'true' },
+    ]
+    for (const cookie of returnCookies) {
+      appendCookie({ response, ...cookie, maxAge: 300, httpOnly: true })
+    }
 
-    // Supprimer les cookies liés à l'identité avec la bonne config
-    const cookiesToDelete = ['userinfo', 'idtoken', 'id_token_hint', 'oauth2token']
-    cookiesToDelete.forEach((name) => {
-      response.cookies.set(name, '', {
-        path: '/',
-        domain: hostname,
-        httpOnly: true,
-        secure: isProd,
-        sameSite: 'lax',
-        expires: new Date(0),
-      })
-    })
-
-    // Suppression du cookie public de statut de connexion
-    response.cookies.set('ban_connected', '', {
-      path: '/',
-      domain: hostname,
-      httpOnly: false,
-      secure: isProd,
-      sameSite: 'lax',
-      expires: new Date(0),
-    })
-
+    appendCookieDeletions({ response, names: IDENTITY_COOKIES })
     return response
   }
   catch (error) {
+    console.error('Logout failed', error)
     const { searchParams } = new URL(request.url)
     const fallbackUrl: string = searchParams.get('returnUrl') || '/'
-    return NextResponse.redirect(`${env('HOST')}${fallbackUrl}`)
+    const response = NextResponse.redirect(`${env('HOST')}${fallbackUrl}`)
+    appendCookieDeletions({ response, names: IDENTITY_COOKIES })
+    return response
   }
 }
