@@ -107,6 +107,20 @@ export const PanelDistrictLabel = styled.span.attrs<{ $cog?: string }>(({ $cog, 
 // BODY DETAILS -----
 // ------------------
 
+export const DiffWrapper = styled.div`
+    position: absolute;
+    background: #fff;
+    top: 0;
+    left: 0;
+    right: 2rem;
+    bottom: 0;
+    width: calc(100% - 2rem);
+    padding: 9rem 1.5rem 12rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+`
+
 export const PanelDetailsWrapper = styled.ul`
   padding: 0;
   margin: 0 0 2rem;
