@@ -1,4 +1,5 @@
 import { env } from '@/utils/env'
+import { encodePathSegment } from '@/utils/url'
 
 const URL = env('NEXT_PUBLIC_GHOST_URL')
 const KEY = env('NEXT_PUBLIC_GHOST_KEY')
@@ -78,7 +79,7 @@ export async function getPosts(options: PostOptions = {}, fetchInit?: RequestIni
 
 export async function getSinglePost(slug: string) {
   try {
-    const res = await fetch(`${API_URL}/posts/slug/${slug}/?key=${KEY}&include=authors,tags`, { cache: 'no-store' })
+    const res = await fetch(`${API_URL}/posts/slug/${encodePathSegment(slug)}/?key=${KEY}&include=authors,tags`, { cache: 'no-store' })
 
     if (res.ok) {
       const data = await res.json()

@@ -1,36 +1,31 @@
 import * as client from 'openid-client'
 import { NextRequest, NextResponse } from 'next/server'
 import { configOptions, getProviderConfig, getCurrentUrl } from '@/utils/oauth'
-import { cookies } from 'next/headers'
 import { getOrganizationName } from '@/lib/api-insee-sirene'
 import { createBanSession } from '@/lib/ban-session'
+import { IDENTITY_COOKIE_NAME, identityExpiresAt, pickIdentity, sealIdentity } from '@/lib/identity'
+import { LEGACY_IDENTITY_COOKIES, appendCookie, appendCookieDeletions } from '@/lib/auth-cookies'
 
 export const dynamic = 'force-dynamic'
 
-import secureSetup from '@/utils/secure'
 import { env } from '@/utils/env'
+import { toInternalPath } from '@/utils/url'
 const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
 
 export async function GET(req: NextRequest) {
-  const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
   try {
     const config = await getProviderConfig()
     const currentUrl = getCurrentUrl(req)
-    const cookieStore = await cookies()
-    const nonce = cookieStore.get('nonce')
-    const state = cookieStore.get('state')
     const tokens = await client.authorizationCodeGrant(
       config,
       currentUrl,
       {
-        expectedNonce: nonce?.value,
-        expectedState: state?.value,
+        expectedNonce: req.cookies.get('nonce')?.value,
+        expectedState: req.cookies.get('state')?.value,
       },
       undefined,
       configOptions as client.AuthorizationCodeGrantOptions
     )
-    cookieStore.delete('nonce')
-    cookieStore.delete('state')
     const claims = tokens.claims()
 
     if (!claims) throw new Error('Claims are undefined')
@@ -58,24 +53,33 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    cookieStore.set('userinfo', JSON.stringify(enrichedUserinfo), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
-    cookieStore.set('idtoken', JSON.stringify(claims), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
-    cookieStore.set('id_token_hint', JSON.stringify(tokens.id_token), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
-    cookieStore.set('oauth2token', JSON.stringify(tokens), { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
-    cookieStore.set('ban_connected', 'true', { httpOnly: false, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
+    const identity = pickIdentity(enrichedUserinfo)
+    const expiresAt = identityExpiresAt({ userinfoExp: userinfo.exp, idTokenExp: claims.exp })
+    const identityMaxAge = expiresAt - Math.floor(Date.now() / 1000)
+    if (identityMaxAge <= 0) throw new Error('Identité déjà expirée')
+    const sealedIdentity = await sealIdentity({ identity, expiresAt })
+
+    createBanSession(identity).catch(() => {})
+
     // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
-
-    createBanSession(enrichedUserinfo as Parameters<typeof createBanSession>[0]).catch(() => {})
-
-    const returnToCookie = cookieStore.get('auth_return_to')
-    if (returnToCookie) {
-      cookieStore.delete('auth_return_to')
-      const url = new URL(returnToCookie.value, NEXT_PUBLIC_ADRESSE_URL)
-      return NextResponse.redirect(url)
+    const returnTo = req.cookies.get('auth_return_to')?.value
+    const url = new URL(returnTo ? toInternalPath(returnTo) : '', NEXT_PUBLIC_ADRESSE_URL)
+    if (!returnTo) {
+      url.search = req.nextUrl.search.toString()
     }
-    const url = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`)
-    url.search = req.nextUrl.search.toString()
-    return NextResponse.redirect(url)
+    const response = NextResponse.redirect(url)
+
+    appendCookieDeletions({ response, names: ['nonce', 'state', 'auth_return_to', ...LEGACY_IDENTITY_COOKIES] })
+    const sessionCookies = [
+      { name: IDENTITY_COOKIE_NAME, value: sealedIdentity, maxAge: identityMaxAge, httpOnly: true },
+      { name: 'id_token_hint', value: JSON.stringify(tokens.id_token), httpOnly: true },
+      { name: 'ban_connected', value: 'true', httpOnly: false },
+    ]
+    for (const cookie of sessionCookies) {
+      appendCookie({ response, ...cookie })
+    }
+
+    return response
   }
   catch (error) {
     console.error('Login callback failed', error)

@@ -1,12 +1,12 @@
 import { env } from '@/utils/env'
-import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { type BANConfig, CertificateTypeEnum } from '@/types/api-ban.types'
 import {
   getCachedCommuneSirenForDistrict,
-  readUserSirenFromCookies,
+  getSirenFromIdentity,
   resolveCommuneSirenForDistrictId,
 } from '@/lib/district-ownership'
+import { getCurrentIdentity } from '@/lib/identity'
 import {
   getCertificateAttestationPlaceholderError,
   sanitizeCertificateAttestationText,
@@ -25,25 +25,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const cookieStore = await cookies()
-    const userinfo = cookieStore.get('userinfo')
-    if (!userinfo) {
+    const user = await getCurrentIdentity()
+    if (!user) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
-    let user
-    try {
-      user = JSON.parse(userinfo.value)
-    }
-    catch {
-      return NextResponse.json({ error: 'Invalid session data' }, { status: 401 })
-    }
-
-    if (!user?.sub) {
-      return NextResponse.json({ error: 'Invalid user data' }, { status: 401 })
-    }
-
-    const userSiren = readUserSirenFromCookies(cookieStore)
+    const userSiren = getSirenFromIdentity(user)
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }

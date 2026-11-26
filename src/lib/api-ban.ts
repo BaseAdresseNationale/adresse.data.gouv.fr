@@ -1,6 +1,7 @@
 import { BANAddress, BANCommune, BANConfig, BANStats, BANVoie } from '@/types/api-ban.types'
 import { customFetch } from './fetch'
 import { env } from '@/utils/env'
+import { encodePathSegment } from '@/utils/url'
 
 const API_BAN_SEARCH_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
@@ -9,12 +10,12 @@ if (!API_BAN_SEARCH_URL) {
 }
 
 export function getAddress(idAddress: string) {
-  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(idAddress)}`, { cache: 'force-cache' })
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${encodePathSegment(idAddress)}`, { cache: 'force-cache' })
 }
 
 export function getBanItem(idBanItem: string, signal?: AbortSignal): Promise<BANCommune | BANVoie | BANAddress> {
   return customFetch(
-    `${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(idBanItem)}`,
+    `${API_BAN_SEARCH_URL}/lookup/${encodePathSegment(idBanItem)}`,
     signal ? { signal, cache: 'force-cache' } : { cache: 'force-cache' }
   )
 }
@@ -28,28 +29,28 @@ export function getStats(signal?: AbortSignal): Promise<BANStats> {
 
 export function getCommune(codeCommune: string, signal?: AbortSignal): Promise<BANCommune> {
   return customFetch(
-    `${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(codeCommune)}`,
+    `${API_BAN_SEARCH_URL}/lookup/${encodePathSegment(codeCommune)}`,
     signal ? { signal, cache: 'force-cache' } : { cache: 'force-cache' }
   )
 }
 
 export function getCommuneWithoutCache(codeCommune: string, signal?: AbortSignal): Promise<BANCommune> {
-  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${encodeURIComponent(codeCommune)}`, {
+  return customFetch(`${API_BAN_SEARCH_URL}/lookup/${encodePathSegment(codeCommune)}`, {
     ...(signal && { signal }),
     cache: 'no-store',
   })
 }
 
 export function getAddressCSVLegacy(codeCommune: string) {
-  return `${API_BAN_SEARCH_URL}/ban/communes/${codeCommune}/download/csv-legacy/adresses`
+  return `${API_BAN_SEARCH_URL}/ban/communes/${encodePathSegment(codeCommune)}/download/csv-legacy/adresses`
 }
 
 export function getLieuxDitsCSVLegacy(codeCommune: string) {
-  return `${API_BAN_SEARCH_URL}/ban/communes/${codeCommune}/download/csv-legacy/lieux-dits`
+  return `${API_BAN_SEARCH_URL}/ban/communes/${encodePathSegment(codeCommune)}/download/csv-legacy/lieux-dits`
 }
 
 export function getAdressesCsvBal(codeCommune: string, version = '1.3') {
-  return `${API_BAN_SEARCH_URL}/ban/communes/${codeCommune}/download/csv-bal/adresses?version=${version}`
+  return `${API_BAN_SEARCH_URL}/ban/communes/${encodePathSegment(codeCommune)}/download/csv-bal/adresses?version=${version}`
 }
 
 export function assemblageSources(voies: BANVoie[]) {
@@ -97,7 +98,7 @@ export function getVoieFantoir(voieCode: string) {
 }
 
 export async function getIdDistrictByCodeCommune(codeCommune: string) {
-  const response = await customFetch(`${API_BAN_SEARCH_URL}/api/district/cog/${codeCommune}`, { cache: 'force-cache' })
+  const response = await customFetch(`${API_BAN_SEARCH_URL}/api/district/cog/${encodePathSegment(codeCommune)}`, { cache: 'force-cache' })
   const mainDistrict = response.response?.find((d: any) => d.meta?.insee?.isMain === true)
   return mainDistrict?.meta?.insee?.mainId || null
 }
@@ -111,7 +112,7 @@ export async function getDistrictConfigByCodeCommune(codeCommune: string): Promi
     const token = isServer ? env('BAN_API_TOKEN') : null
 
     if (token) {
-      const res = await fetch(`${API_BAN_SEARCH_URL}/api/district-config/${districtId}`, {
+      const res = await fetch(`${API_BAN_SEARCH_URL}/api/district-config/${encodePathSegment(districtId)}`, {
         headers: { Authorization: `Token ${token}` },
         cache: 'no-store',
       })

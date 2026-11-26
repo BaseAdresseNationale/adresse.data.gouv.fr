@@ -1,6 +1,7 @@
 import { Commune, Departement, EPCI } from '@/types/api-geo.types'
 import { customFetch } from './fetch'
 import { env } from '@/utils/env'
+import { encodePathSegment } from '@/utils/url'
 
 if (!env('NEXT_PUBLIC_API_GEO_URL')) {
   throw new Error('NEXT_PUBLIC_API_GEO_URL is not defined')
@@ -23,11 +24,11 @@ export function isCodeDepNaive(token: string) {
 }
 
 export function getCommune(code: string): Promise<Commune> {
-  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/communes/${code}`, { cache: 'force-cache' })
+  return customFetch(`${env('NEXT_PUBLIC_API_GEO_URL')}/communes/${encodePathSegment(code)}`, { cache: 'force-cache' })
 }
 
 export function getEPCI(code: string, fields?: string[]): Promise<EPCI> {
-  const url = new URL(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis/${code}`)
+  const url = new URL(`${env('NEXT_PUBLIC_API_GEO_URL')}/epcis/${encodePathSegment(code)}`)
 
   if (fields) {
     url.searchParams.append('fields', fields.toString())

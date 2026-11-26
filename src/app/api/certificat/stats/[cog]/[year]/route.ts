@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from '@/utils/env'
+import { codeCommuneRegex } from '@/utils/string'
+import { encodePathSegment } from '@/utils/url'
+import { isYear } from '@/utils/validate'
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
-const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
 export async function GET(
   request: NextRequest,
@@ -10,18 +12,16 @@ export async function GET(
 ) {
   const { cog, year } = await props.params
 
+  if (!codeCommuneRegex.test(cog) || !isYear(year)) {
+    return NextResponse.json({ message: 'Paramètres invalides' }, { status: 400 })
+  }
+
+  const statsUrl = `${NEXT_PUBLIC_API_BAN_URL}/api/certificate/stats/${encodePathSegment(cog)}`
+
   try {
     const [totalRes, byMonthRes] = await Promise.all([
-      fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/stats/${cog}`, {
-        headers: {
-            'Authorization': `Token ${BAN_API_TOKEN}`,
-        },
-      }),
-      fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/certificate/stats/${cog}/${year}`, {
-        headers: {
-            'Authorization': `Token ${BAN_API_TOKEN}`,
-        },
-      }),
+      fetch(statsUrl),
+      fetch(`${statsUrl}/${encodePathSegment(year)}`),
     ])
 
     if (!totalRes.ok || !byMonthRes.ok) {

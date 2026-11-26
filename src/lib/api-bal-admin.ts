@@ -2,13 +2,14 @@ import { CandidatePartenaireDeLaCharteType, PartenaireDeLaCharteTypeEnum, Parten
 import { EventRecord, ParticipantType } from '@/types/events.types'
 import { addSearchParams, customFetch } from './fetch'
 import { env } from '@/utils/env'
+import { encodePathSegment } from '@/utils/url'
 
 if (!env('NEXT_PUBLIC_BAL_ADMIN_API_URL')) {
   throw new Error('NEXT_PUBLIC_BAL_ADMIN_API_URL is not defined in the environment')
 }
 
 export async function getOnePartenairesDeLaCharte(id: string): Promise<PartenaireDeLaChartType> {
-  const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${id}`)
+  const url = new URL(`${env('NEXT_PUBLIC_BAL_ADMIN_API_URL')}/partenaires-de-la-charte/${encodePathSegment(id)}`)
 
   return customFetch(url, { cache: 'force-cache' })
 }

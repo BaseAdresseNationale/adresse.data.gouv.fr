@@ -1,11 +1,10 @@
 import * as client from 'openid-client'
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import { isObject, mapValues, omitBy } from 'lodash'
 
-import secureSetup from '@/utils/secure'
-import { env } from '@/utils/env'
-const NEXT_PUBLIC_ADRESSE_URL = env('NEXT_PUBLIC_ADRESSE_URL')
+import { appendCookie } from '@/lib/auth-cookies'
+import { SessionSecretError, getSessionKey } from '@/lib/identity'
+import { toInternalPath } from '@/utils/url'
 
 export const objToUrlParams = (obj: any) => {
   const processedObj = mapValues(
@@ -54,27 +53,21 @@ export const AUTHORIZATION_DEFAULT_PARAMS = {
   },
 }
 
-export const getAuthorizationControllerFactory = async (req: NextRequest, extraParams?: any) => {
-  const hostname = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`).hostname
+export const getAuthorizationControllerFactory = async (req: NextRequest) => {
+  try {
+    getSessionKey()
+  }
+  catch (error) {
+    if (!(error instanceof SessionSecretError)) throw error
+    console.error(error.message)
+    return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
   try {
     const config = await getProviderConfig()
     const nonce = client.randomNonce()
     const state = client.randomState()
-
-    const cookieStore = await cookies()
-    cookieStore.set('nonce', nonce, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
-    cookieStore.set('state', state, { httpOnly: true, secure: secureSetup, domain: hostname, path: '/', sameSite: 'lax' })
     const returnTo = req.nextUrl.searchParams.get('return_to')
-    if (returnTo) {
-      cookieStore.set('auth_return_to', returnTo, {
-        httpOnly: true,
-        secure: secureSetup,
-        domain: hostname,
-        path: '/',
-        sameSite: 'lax',
-        maxAge: 600,
-      })
-    }
 
     const redirectUrl = client.buildAuthorizationUrl(
       config,
@@ -82,16 +75,19 @@ export const getAuthorizationControllerFactory = async (req: NextRequest, extraP
         nonce,
         state,
         ...AUTHORIZATION_DEFAULT_PARAMS,
-        ...extraParams,
       })
     )
 
-    // avoid relative path, https://nextjs.org/docs/messages/middleware-relative-urls
-    // const url = req.nextUrl.clone()
-    // url.pathname = redirectUrl.pathname
-    const url = new URL(`${NEXT_PUBLIC_ADRESSE_URL}`)
-    url.search = req.nextUrl.search.toString()
-    return NextResponse.redirect(redirectUrl)
+    const response = NextResponse.redirect(redirectUrl)
+    const loginCookies = [
+      { name: 'nonce', value: nonce },
+      { name: 'state', value: state },
+      ...(returnTo ? [{ name: 'auth_return_to', value: toInternalPath(returnTo), maxAge: 600 }] : []),
+    ]
+    for (const cookie of loginCookies) {
+      appendCookie({ response, ...cookie, httpOnly: true })
+    }
+    return response
   }
   catch (e) {
     return NextResponse.json(e)
