@@ -115,6 +115,7 @@ test('when the API refuses the session, the agent lands on the error page withou
     ['401', () => Response.json({ message: 'refusé' }, { status: 401 })],
     ['500', () => new Response(null, { status: 500 })],
     ['malformed expiresAt', created('demain')],
+    ['network failure', () => { throw new TypeError('fetch failed') }],
   ]
   for (const [label, apiAnswer] of refusals) {
     const { response, apiCalls } = await callback({ returnTo: '/commune/60636', apiAnswer })
