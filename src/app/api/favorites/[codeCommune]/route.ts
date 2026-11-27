@@ -1,17 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from '@/utils/env'
-import { getCurrentIdentity } from '@/lib/identity'
+import { getCurrentAgent } from '@/lib/identity'
+import { banAgentHeaders } from '@/lib/ban-session'
+import { rejectCrossSiteRequest } from '@/lib/request-guard'
 
-const BAN_API_TOKEN = env('BAN_API_TOKEN')
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ codeCommune: string }> }
 ) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   try {
-    const user = await getCurrentIdentity()
-    if (!user) {
+    const agent = await getCurrentAgent()
+    if (!agent) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
@@ -25,30 +29,15 @@ export async function DELETE(
       )
     }
 
-    const requestBody = {
-      sub: user.sub,
-      name: user.name || user.usual_name || user.email,
-      givenName: user.given_name,
-      familyName: user.family_name,
-      usualName: user.usual_name,
-      email: user.email,
-      siret: user.siret,
-      aud: user.aud,
-      exp: user.exp,
-      iat: user.iat,
-      iss: user.iss,
-      districtID,
-    }
-
     const response = await fetch(
       `${NEXT_PUBLIC_API_BAN_URL}/api/user-preferences/favorites/delete`,
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Token ${BAN_API_TOKEN}`,
+          ...banAgentHeaders(agent),
         },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify({ districtID }),
       }
     )
 

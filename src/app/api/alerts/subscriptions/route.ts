@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from '@/utils/env'
-import { getCurrentIdentity } from '@/lib/identity'
+import { getCurrentAgent } from '@/lib/identity'
+import { banAgentHeaders } from '@/lib/ban-session'
+import { rejectCrossSiteRequest } from '@/lib/request-guard'
 import { encodePathSegment } from '@/utils/url'
 import { isUUIDv4 } from '@/utils/validate'
 
@@ -27,19 +29,17 @@ interface DeleteSubscriptionBody {
 
 export async function GET() {
   try {
-    const identity = await getCurrentIdentity()
+    const agent = await getCurrentAgent()
 
-    if (!identity) {
+    if (!agent) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
       )
     }
 
-    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers?createdBy=${encodeURIComponent(identity.sub)}`, {
-      headers: {
-        Authorization: `Token ${env('BAN_API_TOKEN')}`,
-      },
+    const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers`, {
+      headers: banAgentHeaders(agent),
     })
 
     if (!response.ok) {
@@ -64,11 +64,14 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   try {
     const body: CreateSubscriptionBody = await request.json()
-    const identity = await getCurrentIdentity()
+    const agent = await getCurrentAgent()
 
-    if (!identity) {
+    if (!agent) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
@@ -85,15 +88,13 @@ export async function POST(request: NextRequest) {
       webhookUrl: body.webhookURL,
       statusesToFollow: body.statusesToFollow,
       districtsToFollow: body.allDistricts ? [] : body.districtsToFollow,
-      createdBy: identity.sub,
-      createdByEmail: identity.email,
     }
 
     const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscribers`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token ${env('BAN_API_TOKEN')}`,
+        ...banAgentHeaders(agent),
       },
       body: JSON.stringify(payload),
     })
@@ -125,11 +126,14 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   try {
     const body: PatchSubscriptionBody = await request.json()
-    const identity = await getCurrentIdentity()
+    const agent = await getCurrentAgent()
 
-    if (!identity) {
+    if (!agent) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
@@ -149,13 +153,12 @@ export async function PATCH(request: NextRequest) {
     }
 
     const updateData = buildUpdateData(body)
-    updateData.createdBy = identity.sub
 
     const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${encodePathSegment(body.id)}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token ${env('BAN_API_TOKEN')}`,
+        ...banAgentHeaders(agent),
       },
       body: JSON.stringify(updateData),
     })
@@ -187,11 +190,14 @@ export async function PATCH(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   try {
     const body: DeleteSubscriptionBody = await request.json()
-    const identity = await getCurrentIdentity()
+    const agent = await getCurrentAgent()
 
-    if (!identity) {
+    if (!agent) {
       return NextResponse.json(
         { error: 'Non autorisé - utilisateur non trouvé' },
         { status: 401 }
@@ -207,12 +213,7 @@ export async function DELETE(request: NextRequest) {
 
     const response = await fetch(`${env('NEXT_PUBLIC_API_BAN_URL')}/api/alerts/subscription/${encodePathSegment(body.id)}`, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Token ${env('BAN_API_TOKEN')}`,
-      },
-      // Passer l'userId dans le body pour l'authentification
-      body: JSON.stringify({ createdBy: identity.sub }),
+      headers: banAgentHeaders(agent),
     })
 
     if (!response.ok) {

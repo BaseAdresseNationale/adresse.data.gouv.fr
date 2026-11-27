@@ -36,7 +36,9 @@ export function serializeCookie({ name, value, maxAge, expires, httpOnly, domain
 type AppendCookieOptions = { response: Response, name: string, value: string, maxAge?: number, httpOnly: boolean }
 
 // Variante posée par les versions précédentes du site, avec `Domain` : une suppression sans `Domain` ne la retire pas.
+// Un cookie `__Host-` n'a jamais eu cette variante : le navigateur refuse `Domain` sur ce préfixe.
 function appendLegacyDomainDeletion({ response, name }: { response: Response, name: string }) {
+  if (name.startsWith('__Host-')) return
   const domain = new URL(`${env('NEXT_PUBLIC_ADRESSE_URL')}`).hostname
   response.headers.append('Set-Cookie', serializeCookie({ name, value: '', maxAge: 0, expires: EXPIRED, httpOnly: true, domain }))
 }
