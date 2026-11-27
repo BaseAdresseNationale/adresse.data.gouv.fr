@@ -2,7 +2,7 @@ import {
   getSirenFromIdentity,
   resolveCommuneSirenForDistrictId,
 } from '@/lib/district-ownership'
-import { getCurrentIdentity } from '@/lib/identity'
+import { getCurrentAgent } from '@/lib/identity'
 import { type BANConfig } from '@/types/api-ban.types'
 import { env } from '@/utils/env'
 import { NextRequest, NextResponse } from 'next/server'
@@ -22,7 +22,7 @@ export async function GET(
   const { districtId } = await params
   if (!UUID_REGEX.test(districtId)) return NextResponse.json({ error: 'Invalid districtId' }, { status: 400 })
 
-  const userSiren = getSirenFromIdentity(await getCurrentIdentity())
+  const userSiren = getSirenFromIdentity((await getCurrentAgent())?.identity ?? null)
   if (!userSiren || !GEO_URL) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }

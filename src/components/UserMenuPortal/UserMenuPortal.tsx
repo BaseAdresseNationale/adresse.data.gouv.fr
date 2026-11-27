@@ -11,7 +11,7 @@ interface UserMenuPortalProps {
   userEmail?: string
   organization?: string
   accountUrl: string
-  logoutUrl: string
+  logoutReturnUrl: string
 }
 
 const MenuItem = styled.li`
@@ -50,7 +50,7 @@ export default function UserMenuPortal({
   userEmail,
   organization,
   accountUrl,
-  logoutUrl,
+  logoutReturnUrl,
 }: UserMenuPortalProps) {
   const [container, setContainer] = useState<Element | null>(null)
   const [open, setOpen] = useState(false)
@@ -82,11 +82,11 @@ export default function UserMenuPortal({
           userEmail={userEmail}
           organization={organization}
           accountUrl={accountUrl}
-          logoutUrl={logoutUrl}
+          logoutReturnUrl={logoutReturnUrl}
         />
       </MenuItem>
     )
-  }, [accountUrl, container, displayName, logoutUrl, open, userEmail, organization])
+  }, [accountUrl, container, displayName, logoutReturnUrl, open, userEmail, organization])
 
   if (!container) return null
   return createPortal(content, container)

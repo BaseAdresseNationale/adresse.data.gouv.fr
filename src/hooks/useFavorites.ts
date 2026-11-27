@@ -101,6 +101,7 @@ export function useFavorites(userId?: string, options?: UseFavoritesOptions) {
     try {
       const response = await fetch(`/api/favorites/${districtID}`, {
         method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
       })
 
       if (!response.ok) {

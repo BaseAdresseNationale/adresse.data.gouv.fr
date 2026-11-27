@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, type ReactNode } from 'react'
+import { Suspense, useEffect, type ReactNode } from 'react'
 import Link from 'next/link'
 import { setWorkerUrl } from 'maplibre-gl'
 import { ToastContainer, Slide } from 'react-toastify'
@@ -18,6 +18,8 @@ import StyledComponentsRegistry from '@/providers/StyledComponentsRegistry'
 import theme from '@/theme'
 import { defaultColorScheme } from '@/theme/defaultColorScheme'
 import { ImageLightboxProvider } from '@/components/ImageLightbox'
+import SessionExpiredBanner from '@/components/SessionExpiredBanner/SessionExpiredBanner'
+import LogoutFailedAlert from '@/components/LogoutFailedAlert/LogoutFailedAlert'
 import GlobalStyle from './global.styles'
 import { StyledLayout, PageWrapper } from './layout.styles'
 import { AlerteRecord } from '@/lib/api-grist'
@@ -75,7 +77,14 @@ export default function LayoutClient({ children, lang, alertes }: LayoutClientPr
                 <GlobalStyle />
                 <StyledLayout>
                   <Header notices={dataNotices} />
-                  <PageWrapper>{children}</PageWrapper>
+                  <PageWrapper>
+                    {/* useSearchParams exige une frontière Suspense pour ne pas désactiver le prérendu des pages. */}
+                    <Suspense fallback={null}>
+                      <SessionExpiredBanner />
+                    </Suspense>
+                    <LogoutFailedAlert />
+                    {children}
+                  </PageWrapper>
                   <Footer />
                   <ToastContainer
                     position="bottom-right"

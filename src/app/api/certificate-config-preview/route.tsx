@@ -1,5 +1,6 @@
 import { getSirenFromIdentity } from '@/lib/district-ownership'
-import { getCurrentIdentity } from '@/lib/identity'
+import { getCurrentAgent } from '@/lib/identity'
+import { rejectCrossSiteRequest } from '@/lib/request-guard'
 import { CertificatNumerotation } from '@/app/api/certificat/[idAdresse]/components/certificat'
 import { getMairie } from '@/lib/api-etablissement-public'
 import { env } from '@/utils/env'
@@ -26,12 +27,15 @@ const createCertificatElement = (props: ComponentProps<typeof CertificatNumerota
 )
 
 export async function POST(request: Request) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   try {
     if (!NEXT_PUBLIC_ADRESSE_URL || !NEXT_PUBLIC_API_GEO_URL) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const userSiren = getSirenFromIdentity(await getCurrentIdentity())
+    const userSiren = getSirenFromIdentity((await getCurrentAgent())?.identity ?? null)
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }

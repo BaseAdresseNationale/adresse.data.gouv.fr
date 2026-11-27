@@ -1,11 +1,15 @@
 import { customFetch } from '@/lib/fetch'
 import { NextRequest, NextResponse } from 'next/server'
 import { env } from '@/utils/env'
+import { rejectCrossSiteRequest } from '@/lib/request-guard'
 
 export const dynamic = 'force-dynamic'
 
 // Optin to the newsletter
 export async function POST(request: NextRequest) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   if (!env('BREVO_API_KEY') || !env('NEXT_PUBLIC_BREVO_API_URL')) {
     return NextResponse.json(
       { error: 'BREVO_API_KEY or NEXT_PUBLIC_BREVO_API_URL is not defined in the environment' },

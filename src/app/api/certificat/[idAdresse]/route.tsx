@@ -4,12 +4,18 @@ import { getCommune } from '@/lib/api-geo'
 import { isAddressCertifiable } from '@/lib/ban'
 import { env } from '@/utils/env'
 import { CertificateTypeEnum } from '@/types/api-ban.types'
-import { getCurrentIdentity } from '@/lib/identity'
+import { getCurrentAgent } from '@/lib/identity'
+import { banAgentHeaders } from '@/lib/ban-session'
+import { rejectCrossSiteRequest } from '@/lib/request-guard'
 
 const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
 const BAN_API_TOKEN = env('BAN_API_TOKEN')
 
-export async function GET(_request: NextRequest, props: { params: Promise<{ idAdresse: string }> }) {
+// POST : la création d'un certificat ne doit jamais partir d'un simple lien ou d'une image.
+export async function POST(request: NextRequest, props: { params: Promise<{ idAdresse: string }> }) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   const params = await props.params
   let address
   let habilitation = false
@@ -23,11 +29,12 @@ export async function GET(_request: NextRequest, props: { params: Promise<{ idAd
     return new NextResponse(null, { status: 404 })
   }
 
+  const agent = await getCurrentAgent()
   try {
-    const identity = await getCurrentIdentity()
-    if (identity?.siret) {
+    const siret = agent?.identity.siret
+    if (siret) {
       const commune = await getCommune(address?.commune?.code)
-      if (commune?.siren && commune.siren === identity.siret.slice(0, 9)) {
+      if (commune?.siren && commune.siren === siret.slice(0, 9)) {
         habilitation = true
       }
     }
@@ -49,7 +56,7 @@ export async function GET(_request: NextRequest, props: { params: Promise<{ idAd
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Token ${BAN_API_TOKEN}`,
+      ...(agent ? banAgentHeaders(agent) : { Authorization: `Token ${BAN_API_TOKEN}` }),
     },
     body: JSON.stringify({ addressID }),
   })

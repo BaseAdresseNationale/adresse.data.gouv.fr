@@ -62,3 +62,16 @@ test('values are URL-encoded', () => {
   const api = loadCookies()
   assert.equal(api.serializeCookie({ name: 'auth_return_to', value: '/admin?x=1', httpOnly: true }), 'auth_return_to=%2Fadmin%3Fx%3D1; Path=/; HttpOnly; SameSite=Lax')
 })
+
+test('a __Host- cookie has no Domain variant, its deletion keeps the write attributes', () => {
+  const api = loadCookies({ secure: true })
+  const written = new Response(null)
+  api.appendCookie({ response: written, name: '__Host-ban_identity', value: 'sealed', maxAge: 600, httpOnly: true })
+  assert.deepEqual(setCookies(written, '__Host-ban_identity'), ['__Host-ban_identity=sealed; Path=/; Max-Age=600; Secure; HttpOnly; SameSite=Lax'])
+
+  const erased = new Response(null)
+  api.appendCookieDeletions({ response: erased, names: ['__Host-ban_identity'] })
+  const [deletion, ...rest] = setCookies(erased, '__Host-ban_identity')
+  assert.equal(rest.length, 0)
+  assert.equal(deletion, '__Host-ban_identity=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly; SameSite=Lax')
+})

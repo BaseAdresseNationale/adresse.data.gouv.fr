@@ -6,7 +6,9 @@ import {
   getSirenFromIdentity,
   resolveCommuneSirenForDistrictId,
 } from '@/lib/district-ownership'
-import { getCurrentIdentity } from '@/lib/identity'
+import { getCurrentAgent } from '@/lib/identity'
+import { banAgentHeaders } from '@/lib/ban-session'
+import { rejectCrossSiteRequest } from '@/lib/request-guard'
 import {
   getCertificateAttestationPlaceholderError,
   sanitizeCertificateAttestationText,
@@ -20,17 +22,21 @@ const NEXT_PUBLIC_API_GEO_URL = env('NEXT_PUBLIC_API_GEO_URL')
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export async function POST(request: NextRequest) {
+  const rejection = rejectCrossSiteRequest(request)
+  if (rejection) return rejection
+
   try {
     if (!BAN_API_TOKEN || !NEXT_PUBLIC_API_BAN_URL || !NEXT_PUBLIC_API_GEO_URL) {
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const user = await getCurrentIdentity()
-    if (!user) {
+    const agent = await getCurrentAgent()
+    if (!agent) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
 
-    const userSiren = getSirenFromIdentity(user)
+    // Contrôle d'interface : l'API refait la vérification à partir de la session.
+    const userSiren = getSirenFromIdentity(agent.identity)
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
@@ -91,27 +97,13 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const sessionData = {
-      sub: user.sub,
-      name: user.name || user.usual_name || user.email,
-      givenName: user.given_name,
-      familyName: user.family_name,
-      usualName: user.usual_name,
-      email: user.email,
-      siret: user.siret,
-      aud: user.aud,
-      exp: user.exp,
-      iat: user.iat,
-      iss: user.iss,
-    }
-
     const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/district/addressing-certification/enable`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Token ${BAN_API_TOKEN}`,
+        ...banAgentHeaders(agent),
       },
-      body: JSON.stringify({ districtID, config: sanitizedConfig, siren: userSiren, ...sessionData }),
+      body: JSON.stringify({ districtID, config: sanitizedConfig }),
     })
 
     const data = await response.json().catch(() => ({}))

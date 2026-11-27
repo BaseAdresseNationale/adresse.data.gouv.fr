@@ -3,6 +3,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+import { logout } from '@/utils/logout'
+
 interface UserMenuPopoverProps {
   open: boolean
   anchorRef: React.RefObject<HTMLElement>
@@ -11,7 +13,7 @@ interface UserMenuPopoverProps {
   userEmail?: string
   organization?: string
   accountUrl: string
-  logoutUrl: string
+  logoutReturnUrl: string
 }
 
 const Popover = styled.div`
@@ -90,6 +92,21 @@ const MenuLink = styled.a`
   }
 `
 
+const MenuButton = styled.button`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  color: inherit;
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--background-action-low-blue-france-hover);
+  }
+`
+
 export default function UserMenuPopover({
   open,
   anchorRef,
@@ -98,7 +115,7 @@ export default function UserMenuPopover({
   userEmail,
   organization,
   accountUrl,
-  logoutUrl,
+  logoutReturnUrl,
 }: UserMenuPopoverProps) {
   const [position, setPosition] = useState<{ top: number, left: number } | null>(null)
   const popoverRef = useRef<HTMLDivElement | null>(null)
@@ -184,13 +201,17 @@ export default function UserMenuPopover({
           </MenuLink>
         </MenuItem>
         <MenuItem>
-          <MenuLink
-            href={logoutUrl}
-            onClick={onClose}
+          {/* Classes `fr-link` posées à la main : le DSFR n'a pas de composant lien-bouton, son `Button` rend un `fr-btn`. */}
+          <MenuButton
+            type="button"
+            onClick={() => {
+              onClose()
+              void logout({ returnUrl: logoutReturnUrl })
+            }}
             className="fr-link fr-link--icon-left fr-icon-arrow-right-line"
           >
             Se déconnecter
-          </MenuLink>
+          </MenuButton>
         </MenuItem>
       </MenuList>
     </Popover>

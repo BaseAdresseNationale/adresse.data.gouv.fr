@@ -1,69 +1,77 @@
 import { env } from '@/utils/env'
+import type { Agent } from '@/lib/identity'
 
-const BAN_API_TOKEN = env('BAN_API_TOKEN')
-const NEXT_PUBLIC_API_BAN_URL = env('NEXT_PUBLIC_API_BAN_URL')
+const BAN_SESSION_HEADER = 'X-Ban-Session'
 
-export type UserInfoSession = {
-  sub: string
-  name?: string
-  usual_name?: string
-  email?: string
-  given_name?: string
-  family_name?: string
-  siret?: string
-  aud?: string
-  exp?: number
-  iat?: number
-  iss?: string
-  [key: string]: unknown
+type BanSession = {
+  sessionId: string
+  expiresAt: Date
 }
 
-export type CreateBanSessionResult =
-  | { ok: true, status: number, data?: unknown }
-  | { ok: false, status: number, data?: unknown }
+class BanSessionError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'BanSessionError'
+  }
+}
 
-/**
- * Crée ou réutilise la session BAN pour un utilisateur (côté serveur).
- * À appeler une fois au login pour éviter de recréer une session à chaque chargement de page.
- */
-export async function createBanSession(userInfo: UserInfoSession): Promise<CreateBanSessionResult> {
-  if (!userInfo.sub) {
-    return { ok: false, status: 400, data: { error: 'Missing required field: sub' } }
+const sessionUrl = () => `${env('NEXT_PUBLIC_API_BAN_URL')}/api/session`
+
+const serviceAuthorization = () => `Token ${env('BAN_API_TOKEN')}`
+
+// Sans délai, une API qui ne répond pas bloque la connexion ou la déconnexion jusqu'à 300 s.
+const API_TIMEOUT_MS = 5000
+
+function sessionHeaders(sessionId: string): Record<string, string> {
+  return { 'Authorization': serviceAuthorization(), [BAN_SESSION_HEADER]: sessionId }
+}
+
+// En-têtes de toute route de l'API qui agit pour l'agent : l'API tire son identité de la session.
+export function banAgentHeaders(agent: Agent): Record<string, string> {
+  return sessionHeaders(agent.sessionId)
+}
+
+function parseBanSession(body: unknown): BanSession {
+  const { sessionId, expiresAt } = (body as { response?: { sessionId?: unknown, expiresAt?: unknown } } | null)?.response ?? {}
+  if (typeof sessionId !== 'string' || !sessionId) {
+    throw new BanSessionError('Session BAN sans identifiant')
   }
 
-  const sessionPayload = {
-    sub: userInfo.sub,
-    name: userInfo.name ?? userInfo.usual_name ?? userInfo.email,
-    givenName: userInfo.given_name,
-    familyName: userInfo.family_name,
-    usualName: userInfo.usual_name,
-    email: userInfo.email,
-    siret: userInfo.siret,
-    aud: userInfo.aud,
-    exp: userInfo.exp,
-    iat: userInfo.iat,
-    iss: userInfo.iss,
+  const expiry = new Date(typeof expiresAt === 'string' ? expiresAt : Number.NaN)
+  if (Number.isNaN(expiry.getTime()) || expiry.getTime() <= Date.now()) {
+    throw new BanSessionError('Session BAN sans échéance valide')
   }
+  return { sessionId, expiresAt: expiry }
+}
 
-  const response = await fetch(`${NEXT_PUBLIC_API_BAN_URL}/api/session`, {
+// L'API vérifie elle-même les deux jetons ProConnect bruts avant d'ouvrir la session.
+export async function createBanSession({ idToken, userinfo }: { idToken: string, userinfo: string }): Promise<BanSession> {
+  const response = await fetch(sessionUrl(), {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Token ${BAN_API_TOKEN}`,
-    },
-    body: JSON.stringify(sessionPayload),
+    headers: { 'Content-Type': 'application/json', 'Authorization': serviceAuthorization() },
+    body: JSON.stringify({ idToken, userinfo }),
+    signal: AbortSignal.timeout(API_TIMEOUT_MS),
   })
 
-  const data = await response.json().catch(() => ({}))
-
-  if (!response.ok && (data as { message?: string }).message === 'Session already exists') {
-    return { ok: true, status: 200, data: { message: 'Session already exists' } }
-  }
-
   if (!response.ok) {
-    console.error('[ban-session] BAN API error', response.status, data)
-    return { ok: false, status: response.status, data }
+    throw new BanSessionError(`Session BAN refusée (${response.status})`)
   }
+  return parseBanSession(await response.json().catch(() => null))
+}
 
-  return { ok: true, status: response.status, data }
+// Ne rejette jamais : la déconnexion locale doit aboutir même si l'API ne répond pas.
+export async function revokeBanSession(sessionId: string): Promise<void> {
+  try {
+    const response = await fetch(sessionUrl(), {
+      method: 'DELETE',
+      headers: sessionHeaders(sessionId),
+      signal: AbortSignal.timeout(API_TIMEOUT_MS),
+    })
+    if (!response.ok && response.status !== 401 && response.status !== 404) {
+      console.error('[ban-session] Révocation refusée', response.status)
+    }
+  }
+  catch (error) {
+    console.error('[ban-session] Révocation impossible', error)
+  }
 }

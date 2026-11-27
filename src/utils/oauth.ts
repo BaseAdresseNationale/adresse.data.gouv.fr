@@ -39,6 +39,36 @@ export const getProviderConfig = async () => {
   return config
 }
 
+const USERINFO_ALG_MISSING = 'PC_USERINFO_SIGNED_RESPONSE_ALG manquante : l\'API BAN exige une réponse userinfo signée'
+
+const JWT_MEDIA_TYPE = 'application/jwt'
+
+// Garde le JWT userinfo brut pour que l'API BAN le vérifie ; `fetchUserInfo` contrôle toujours `sub`, `iss` et `aud`.
+export const fetchSignedUserinfo = async ({ config, accessToken, expectedSub }: {
+  config: client.Configuration
+  accessToken: string
+  expectedSub: string
+}): Promise<{ userinfo: client.UserInfoResponse, jwt: string }> => {
+  const { userinfo_endpoint: userinfoEndpoint } = config.serverMetadata()
+  let signedUserinfo: string | undefined
+
+  config[client.customFetch] = async (url, options) => {
+    // Le type `FetchBody` d'openid-client accepte un `Uint8Array` plus large que celui du `fetch` de Node.
+    const response = await fetch(url, options as RequestInit)
+    const mediaType = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()
+    if (userinfoEndpoint && new URL(url).href === new URL(userinfoEndpoint).href && mediaType === JWT_MEDIA_TYPE) {
+      signedUserinfo = await response.clone().text()
+    }
+    return response
+  }
+
+  const userinfo = await client.fetchUserInfo(config, accessToken, expectedSub)
+  if (!signedUserinfo) {
+    throw new Error('Réponse userinfo non signée')
+  }
+  return { userinfo, jwt: signedUserinfo }
+}
+
 export const AUTHORIZATION_DEFAULT_PARAMS = {
   redirect_uri: `${process.env.HOST}${process.env.CALLBACK_URL}`,
   scope: process.env.PC_SCOPES,
@@ -61,6 +91,11 @@ export const getAuthorizationControllerFactory = async (req: NextRequest) => {
     if (!(error instanceof SessionSecretError)) throw error
     console.error(error.message)
     return NextResponse.json({ error: error.message }, { status: 500 })
+  }
+
+  if (!process.env.PC_USERINFO_SIGNED_RESPONSE_ALG) {
+    console.error(USERINFO_ALG_MISSING)
+    return NextResponse.json({ error: USERINFO_ALG_MISSING }, { status: 500 })
   }
 
   try {

@@ -1,5 +1,5 @@
 import { getSirenFromIdentity } from '@/lib/district-ownership'
-import { getCurrentIdentity } from '@/lib/identity'
+import { getCurrentAgent } from '@/lib/identity'
 import { getMairie } from '@/lib/api-etablissement-public'
 import {
   defaultCertificateIssuerDetailsLines,
@@ -21,7 +21,7 @@ export async function GET(
       return NextResponse.json({ error: 'Server misconfigured' }, { status: 500 })
     }
 
-    const userSiren = getSirenFromIdentity(await getCurrentIdentity())
+    const userSiren = getSirenFromIdentity((await getCurrentAgent())?.identity ?? null)
     if (!userSiren) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }

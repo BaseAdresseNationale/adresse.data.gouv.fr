@@ -2,15 +2,16 @@ import { createHash } from 'node:crypto'
 import { EncryptJWT, jwtDecrypt } from 'jose'
 import { cookies } from 'next/headers'
 import { env } from '@/utils/env'
+import secureSetup from '@/utils/secure'
 
-export const IDENTITY_COOKIE_NAME = 'ban_identity'
+// Le préfixe `__Host-` impose au navigateur `Secure`, `Path=/` et l'absence de `Domain` : réservé à HTTPS.
+export const IDENTITY_COOKIE_NAME = secureSetup ? '__Host-ban_identity' : 'ban_identity'
 
-// Même échéance que le contrôle de session de l'API : `exp` de userinfo plus 6 h.
-const API_SESSION_GRACE_SECONDS = 6 * 60 * 60
 const DISPLAY_FIELD_MAX_LENGTH = 128
 const MAX_COOKIE_BYTES = 4096
 const MIN_SECRET_LENGTH = 32
 
+// Affichage et contrôles locaux de l'interface : l'API tire l'identité de la session, jamais de ces champs.
 export type Identity = {
   sub: string
   email?: string
@@ -19,17 +20,17 @@ export type Identity = {
   family_name?: string
   name?: string
   siret?: string
-  aud?: string
-  exp?: number
-  iat?: number
-  iss?: string
   nom_structure?: string
   organization?: { name?: string }
 }
 
+export type Agent = {
+  sessionId: string
+  identity: Identity
+}
+
 const DISPLAY_FIELDS = ['given_name', 'usual_name', 'family_name', 'name', 'nom_structure'] as const
-const IDENTIFIER_FIELDS = ['email', 'siret', 'aud', 'iss'] as const
-const TIMESTAMP_FIELDS = ['exp', 'iat'] as const
+const IDENTIFIER_FIELDS = ['email', 'siret'] as const
 
 export class SessionSecretError extends Error {
   constructor() {
@@ -39,6 +40,8 @@ export class SessionSecretError extends Error {
 }
 
 const truncate = (value: string) => value.slice(0, DISPLAY_FIELD_MAX_LENGTH)
+
+const isNonEmptyString = (value: unknown): value is string => typeof value === 'string' && value.length > 0
 
 export function pickIdentity(userinfo: Record<string, unknown>): Identity {
   const identity: Identity = { sub: typeof userinfo.sub === 'string' ? userinfo.sub : '' }
@@ -50,10 +53,6 @@ export function pickIdentity(userinfo: Record<string, unknown>): Identity {
   for (const field of IDENTIFIER_FIELDS) {
     const value = userinfo[field]
     if (typeof value === 'string') identity[field] = value
-  }
-  for (const field of TIMESTAMP_FIELDS) {
-    const value = userinfo[field]
-    if (typeof value === 'number') identity[field] = value
   }
 
   const organization = userinfo.organization
@@ -74,17 +73,12 @@ export function getSessionKey(): Uint8Array {
   return createHash('sha256').update(secret).digest()
 }
 
-export function identityExpiresAt({ userinfoExp, idTokenExp }: { userinfoExp?: unknown, idTokenExp: number }): number {
-  const exp = typeof userinfoExp === 'number' ? userinfoExp : idTokenExp
-  return exp + API_SESSION_GRACE_SECONDS
-}
-
-// L'identité est imbriquée : l'`exp` du JWT n'écrase jamais l'`exp` de userinfo, comparé par la session de l'API.
-export async function sealIdentity({ identity, expiresAt }: { identity: Identity, expiresAt: number }): Promise<string> {
-  const token = await new EncryptJWT({ identity })
+// Le cookie expire avec la session de l'API (`expiresAt`), jamais après.
+export async function sealSession({ sessionId, identity, expiresAt }: Agent & { expiresAt: Date }): Promise<string> {
+  const token = await new EncryptJWT({ sessionId, identity })
     .setProtectedHeader({ alg: 'dir', enc: 'A256GCM' })
     .setIssuedAt()
-    .setExpirationTime(expiresAt)
+    .setExpirationTime(Math.floor(expiresAt.getTime() / 1000))
     .encrypt(getSessionKey())
 
   if (IDENTITY_COOKIE_NAME.length + 1 + encodeURIComponent(token).length > MAX_COOKIE_BYTES) {
@@ -93,7 +87,7 @@ export async function sealIdentity({ identity, expiresAt }: { identity: Identity
   return token
 }
 
-export async function readIdentity(value: string | undefined): Promise<Identity | null> {
+export async function readSession(value: string | undefined): Promise<Agent | null> {
   if (!value) return null
 
   try {
@@ -101,11 +95,11 @@ export async function readIdentity(value: string | undefined): Promise<Identity 
       keyManagementAlgorithms: ['dir'],
       contentEncryptionAlgorithms: ['A256GCM'],
     })
-    const identity = payload.identity as Identity | undefined
-    if (typeof identity !== 'object' || identity === null || typeof identity.sub !== 'string' || !identity.sub) {
+    const { sessionId, identity } = payload as { sessionId?: unknown, identity?: Identity }
+    if (!isNonEmptyString(sessionId) || typeof identity !== 'object' || identity === null || !isNonEmptyString(identity.sub)) {
       return null
     }
-    return identity
+    return { sessionId, identity }
   }
   catch (error) {
     if (error instanceof SessionSecretError) {
@@ -115,6 +109,6 @@ export async function readIdentity(value: string | undefined): Promise<Identity 
   }
 }
 
-export async function getCurrentIdentity(): Promise<Identity | null> {
-  return readIdentity((await cookies()).get(IDENTITY_COOKIE_NAME)?.value)
+export async function getCurrentAgent(): Promise<Agent | null> {
+  return readSession((await cookies()).get(IDENTITY_COOKIE_NAME)?.value)
 }
