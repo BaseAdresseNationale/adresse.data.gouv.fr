@@ -3,30 +3,55 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
+import ts from 'typescript'
 
 const API_DIR = fileURLToPath(new URL('.', import.meta.url))
-const MUTATING_HANDLER = /export\s+(?:async\s+function|const)\s+(POST|PUT|PATCH|DELETE)\b/g
-const BODY_START = /\)\s*(?:=>\s*)?\{/g
-const GUARD_FIRST = /\s*const rejection = rejectCrossSiteRequest\(request\)\s+if \(rejection\) return rejection\b/y
+const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE'])
+const GUARD_STATEMENTS = ['const rejection = rejectCrossSiteRequest(request)', 'if (rejection) return rejection']
 
 const routeFiles = readdirSync(API_DIR, { recursive: true })
   .filter(path => /(^|[\\/])route\.tsx?$/.test(path))
 
-function startsWithGuard({ source, handlerIndex }) {
-  BODY_START.lastIndex = handlerIndex
-  const bodyStart = BODY_START.exec(source)
-  if (!bodyStart) return false
-  GUARD_FIRST.lastIndex = bodyStart.index + bodyStart[0].length
-  return GUARD_FIRST.test(source)
+const isExported = statement => ts.canHaveModifiers(statement)
+  && (ts.getModifiers(statement) ?? []).some(modifier => modifier.kind === ts.SyntaxKind.ExportKeyword)
+
+const functionBody = node => node && (ts.isArrowFunction(node) || ts.isFunctionExpression(node)) ? node.body : undefined
+
+// Un handler réexporté (`export { handler as POST }`) n'a pas de corps ici : il échoue, le garde n'y est pas vérifiable.
+function findMutatingHandlers(sourceFile) {
+  const handlers = []
+  for (const statement of sourceFile.statements) {
+    if (ts.isFunctionDeclaration(statement) && isExported(statement) && MUTATING_METHODS.has(statement.name?.text)) {
+      handlers.push({ name: statement.name.text, body: statement.body })
+    }
+    if (ts.isVariableStatement(statement) && isExported(statement)) {
+      for (const declaration of statement.declarationList.declarations) {
+        if (ts.isIdentifier(declaration.name) && MUTATING_METHODS.has(declaration.name.text)) {
+          handlers.push({ name: declaration.name.text, body: functionBody(declaration.initializer) })
+        }
+      }
+    }
+    if (ts.isExportDeclaration(statement) && statement.exportClause && ts.isNamedExports(statement.exportClause)) {
+      for (const element of statement.exportClause.elements) {
+        if (MUTATING_METHODS.has(element.name.text)) handlers.push({ name: element.name.text, body: undefined })
+      }
+    }
+  }
+  return handlers
+}
+
+function startsWithGuard({ body, sourceFile }) {
+  if (!body || !ts.isBlock(body)) return false
+  return GUARD_STATEMENTS.every((text, index) => body.statements[index]?.getText(sourceFile) === text)
 }
 
 test('every mutating route handler starts with the cross-site guard', () => {
   assert.ok(routeFiles.length > 10, `routes trouvées : ${routeFiles.length}`)
 
   for (const path of routeFiles) {
-    const source = readFileSync(join(API_DIR, path), 'utf8')
-    for (const handler of source.matchAll(MUTATING_HANDLER)) {
-      assert.ok(startsWithGuard({ source, handlerIndex: handler.index }), `${path} : ${handler[1]} ne commence pas par rejectCrossSiteRequest`)
+    const sourceFile = ts.createSourceFile(path, readFileSync(join(API_DIR, path), 'utf8'), ts.ScriptTarget.Latest, true)
+    for (const { name, body } of findMutatingHandlers(sourceFile)) {
+      assert.ok(startsWithGuard({ body, sourceFile }), `${path} : ${name} ne commence pas par rejectCrossSiteRequest`)
     }
   }
 })
