@@ -28,11 +28,14 @@ export default function SessionExpiredBanner() {
     const query = nextParams.toString()
     const url = pathname + (query ? `?${query}` : '')
     router.replace(url, { scroll: false })
+  }, [hasReason, pathname, router, searchParams])
+
+  // Minuteur séparé : `router.replace` retire `reason`, ce qui relance l'effet ci-dessus et annulerait le minuteur s'il y vivait.
+  useEffect(() => {
+    if (!showBanner) return
     const timer = setTimeout(closeBanner, BANNER_DURATION_MS)
     return () => clearTimeout(timer)
-    // pathname + searchParams pour construire l'URL de remplacement ; on évite searchParams en dépendance pour ne pas relancer l'effet après replace
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasReason, pathname, router])
+  }, [showBanner, closeBanner])
 
   if (!showBanner) return null
 

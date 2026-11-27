@@ -12,7 +12,7 @@ export default async function LogoutPage() {
         height: 310,
       }}
     >
-      <LogoutProConnectButtonCustom text="Se déconnecter de ProConnect" loginUrl="/api/logout" />
+      <LogoutProConnectButtonCustom text="Se déconnecter de ProConnect" />
     </SectionHero>
   )
 }

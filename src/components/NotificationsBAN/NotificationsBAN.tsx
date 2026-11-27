@@ -368,10 +368,7 @@ function NotificationsBAN({ embedded = false, onSubscriptionsCountChange }: Noti
       {authenticated && (
         <div className="fr-grid-row fr-grid-row--right fr-mb-2w">
           <div className="fr-col-auto">
-            <LogoutProConnectButtonCustom
-              text="Se déconnecter"
-              loginUrl="/api/logout"
-            />
+            <LogoutProConnectButtonCustom text="Se déconnecter" />
           </div>
         </div>
       )}

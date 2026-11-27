@@ -2,19 +2,17 @@
 import React from 'react'
 import { Button } from '@codegouvfr/react-dsfr/Button'
 import { usePathname } from 'next/navigation'
+import { logout } from '@/utils/logout'
 
 interface LogoutProConnectButtonCustomProps {
   text: string
-  loginUrl: string
 }
 
-const LogoutProConnectButtonCustom: React.FC<LogoutProConnectButtonCustomProps> = ({ text, loginUrl }) => {
+const LogoutProConnectButtonCustom: React.FC<LogoutProConnectButtonCustomProps> = ({ text }) => {
   const pathname = usePathname()
 
   const handleLogout = () => {
-    const currentPath = pathname || '/'
-    const logoutUrl = `${loginUrl}?returnUrl=${encodeURIComponent(currentPath)}`
-    window.location.href = logoutUrl
+    void logout({ returnUrl: pathname || '/' })
   }
 
   return (

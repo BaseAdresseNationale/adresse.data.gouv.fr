@@ -290,7 +290,7 @@ export default function Header(
           userEmail={userInfo.email}
           organization={userInfo.organization?.name || (userInfo.siret ? `SIRET : ${userInfo.siret}` : undefined)}
           accountUrl="/admin#mon_compte"
-          logoutUrl={`/api/logout?returnUrl=${encodeURIComponent(pathname || '/')}`}
+          logoutReturnUrl={pathname || '/'}
         />
       )}
       {notices && notices.data.length > 0 && <Notices className="dsfr-notice" {...notices} />}

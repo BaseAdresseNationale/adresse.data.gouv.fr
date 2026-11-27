@@ -57,14 +57,16 @@ export function useDistrictConfigSave({
   }, [])
 
   const handleSaveError = useCallback((error: unknown) => {
-    if (error && typeof error === 'object' && 'status' in error && (error as { status: number }).status === 401) {
-      redirectToLogoutOnSessionExpired()
-      return
-    }
     clearTimers()
     setSaveProgress(100)
     setIsSaving(false)
     setTimeout(() => setSaveProgress(0), 600)
+
+    // La déconnexion peut échouer et laisser l'agent sur la page : la barre d'enregistrement est déjà remise à zéro.
+    if (error && typeof error === 'object' && 'status' in error && (error as { status: number }).status === 401) {
+      redirectToLogoutOnSessionExpired()
+      return
+    }
 
     if (error && typeof error === 'object' && 'status' in error) {
       const status = (error as { status: number }).status
